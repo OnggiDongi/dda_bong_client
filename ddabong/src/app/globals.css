@@ -1,8 +1,63 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* 기본 하얀색 */
+  --code-theme1: #ffffff;
+  --code-theme2: #f5f5f5;
+  --code-theme3: #ebedf1;
+
+  /* 베이직 */
+  --code-theme4: #8d8e99;
+  --code-theme5: #79889c;
+  --code-theme6: #3e3a39;
+  --code-theme7: #d7d8dd;
+  --code-theme9: #000000;
+
+  /* 포인트 컬러 */
+  --code-theme10: #009178;
+  --code-theme11: #00b2a7;
+  --code-theme12: #ef4667;
+  --code-theme13: #fae100;
+
+  /* 파스텔 컬러 */
+  --code-theme14: #e6f5f2;
+  --code-theme15: #d8eae8;
+  --code-theme16: #e0f4e3;
+  --code-theme17: #def0df;
+  --code-theme18: #e1eff5;
+  --code-theme19: #f1e7f6;
+  --code-theme20: #ede0f3;
+  --code-theme21: #f4edde;
+  --code-theme22: #ede4d1;
+  --code-theme23: #f8bed6;
+
+  /* 위 색상 재정의 */
+  --white: var(--code-theme1);
+  --Page-Background: var(--code-theme2);
+  --Background: var(--code-theme3);
+
+  --Icon-Detail: var(--code-theme4);
+  --Modal-font: var(--code-theme5);
+  --Hana-Black: var(--code-theme6);
+  --Box-Line: var(--code-theme7);
+  --black: var(--code-theme9);
+
+  --Hana-Green: var(--code-theme10);
+  --Logo-Mint: var(--code-theme11);
+  --Logo-Pink: var(--code-theme12);
+  --kakao: var(--code-theme13);
+
+  --1Q-Mint: var(--code-theme14);
+  --1Q-Mint-Line: var(--code-theme15);
+  --1Q-Green: var(--code-theme16);
+  --1Q-Green-Line: var(--code-theme17);
+  --1Q-Blue: var(--code-theme18);
+  --1Q-Purple: var(--code-theme19);
+  --1Q-Purple-Line: var(--code-theme20);
+  --Hana-Beige: var(--code-theme21);
+  --Hana-Beige-Line: var(--code-theme22);
+  --pink: var(--code-theme23);
 }
 
 @theme inline {
@@ -12,15 +67,61 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@font-face {
+  font-family: 'AppleSDGothicNeoSB';
+  src: url('/fonts/AppleSDGothicNeoSB.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'AppleSDGothicNeoM';
+  src: url('/fonts/AppleSDGothicNeoM.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'AppleSDGothicNeoB';
+  src: url('/fonts/AppleSDGothicNeoB.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'AppleSDGothicNeoEB';
+  src: url('/fonts/AppleSDGothicNeoEB.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'AppleSDGothicNeoH';
+  src: url('/fonts/AppleSDGothicNeoH.ttf') format('truetype');
+}
+
+button {
+  @apply cursor-pointer;
+}
+
+textarea::-webkit-scrollbar {
+  width: 6px;
+}
+
+textarea::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+textarea::-webkit-scrollbar-thumb {
+  background: #aaaaaa;
+  border-radius: 3px;
+}
+
+textarea::-webkit-scrollbar-thumb:hover {
+  cursor: pointer;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  @apply flex items-center justify-center h-screen overflow-hidden antialiased;
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    scrollbar-width: none;
+  }
 }
