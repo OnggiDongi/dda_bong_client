@@ -42,7 +42,7 @@ export default function Button({
       type={type}
       disabled={disabled}
       className={cn(
-        'inline-flex items-center justify-center transition-colors w-[355px] h-[45px] px-29 py-[9px] rounded-xl font-[AppleSDGothicNeoSB] text-xl text-white',
+        'inline-flex items-center justify-center transition-colors w-[355px] h-[45px] rounded-xl font-[AppleSDGothicNeoSB] text-xl text-white',
         BgColor[color],
         borderColor ? ['border', BorderColor[borderColor]] : null,
         disabled && 'opacity-50 cursor-not-allowed',
