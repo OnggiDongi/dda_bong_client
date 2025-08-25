@@ -33,31 +33,31 @@
   --code-theme23: #f8bed6;
 
   /* 위 색상 재정의 */
-  --white: var(--code-theme1);
-  --Page-Background: var(--code-theme2);
-  --Background: var(--code-theme3);
+  --color-white: var(--code-theme1);
+  --color-Page-Background: var(--code-theme2);
+  --color-Background: var(--code-theme3);
 
-  --Icon-Detail: var(--code-theme4);
-  --Modal-font: var(--code-theme5);
-  --Hana-Black: var(--code-theme6);
-  --Box-Line: var(--code-theme7);
-  --black: var(--code-theme9);
+  --color-Icon-Detail: var(--code-theme4);
+  --color-Modal-font: var(--code-theme5);
+  --color-Hana-Black: var(--code-theme6);
+  --color-Box-Line: var(--code-theme7);
+  --color-black: var(--code-theme9);
 
-  --Hana-Green: var(--code-theme10);
-  --Logo-Mint: var(--code-theme11);
-  --Logo-Pink: var(--code-theme12);
-  --kakao: var(--code-theme13);
+  --color-Hana-Green: var(--code-theme10);
+  --color-Logo-Mint: var(--code-theme11);
+  --color-Logo-Pink: var(--code-theme12);
+  --color-kakao: var(--code-theme13);
 
-  --1Q-Mint: var(--code-theme14);
-  --1Q-Mint-Line: var(--code-theme15);
-  --1Q-Green: var(--code-theme16);
-  --1Q-Green-Line: var(--code-theme17);
-  --1Q-Blue: var(--code-theme18);
-  --1Q-Purple: var(--code-theme19);
-  --1Q-Purple-Line: var(--code-theme20);
-  --Hana-Beige: var(--code-theme21);
-  --Hana-Beige-Line: var(--code-theme22);
-  --pink: var(--code-theme23);
+  --color-1Q-Mint: var(--code-theme14);
+  --color-1Q-Mint-Line: var(--code-theme15);
+  --color-1Q-Green: var(--code-theme16);
+  --color-1Q-Green-Line: var(--code-theme17);
+  --color-1Q-Blue: var(--code-theme18);
+  --color-1Q-Purple: var(--code-theme19);
+  --color-1Q-Purple-Line: var(--code-theme20);
+  --color-Hana-Beige: var(--code-theme21);
+  --color-Hana-Beige-Line: var(--code-theme22);
+  --color-pink: var(--code-theme23);
 }
 
 @theme inline {
