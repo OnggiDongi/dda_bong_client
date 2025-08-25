@@ -41,10 +41,10 @@ export default function Button({
       type={type}
       disabled={disabled}
       className={cn(
-        'inline-flex items-center justify-center transition-colors w-[355px] h-[45px] rounded-xl font-[AppleSDGothicNeoSB] text-xl text-white',
+        'inline-flex h-[45px] w-[355px] items-center justify-center rounded-xl font-[AppleSDGothicNeoSB] text-xl text-white transition-colors',
         BgColor[color],
         borderColor ? ['border', BorderColor[borderColor]] : null,
-        disabled && 'opacity-50 cursor-not-allowed',
+        disabled && 'cursor-not-allowed opacity-50',
         className
       )}
       {...props}
