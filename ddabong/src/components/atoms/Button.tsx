@@ -1,19 +1,18 @@
-import { cn } from '@/lib/utils';
 import { ButtonHTMLAttributes, PropsWithChildren } from 'react';
+import { cn } from '@/lib/utils';
 
 const BgColor = {
   green: 'bg-Logo-Mint',
   mint: 'bg-1Q-Mint-Line',
   pink: 'bg-Logo-Pink',
   gray: 'bg-Background',
-  white: 'bg-white'
+  white: 'bg-white',
 } as const;
 
 const BorderColor = {
-  pink:  'border-Logo-Pink',
-  mint:  'border-Logo-Mint',
+  pink: 'border-Logo-Pink',
+  mint: 'border-Logo-Mint',
 } as const;
-
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   color?: keyof typeof BgColor;
@@ -46,7 +45,7 @@ export default function Button({
         BgColor[color],
         borderColor ? ['border', BorderColor[borderColor]] : null,
         disabled && 'opacity-50 cursor-not-allowed',
-        className,
+        className
       )}
       {...props}
     >
