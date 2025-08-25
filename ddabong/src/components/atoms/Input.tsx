@@ -1,5 +1,13 @@
-import { InputHTMLAttributes, Ref, forwardRef } from 'react';
+import { InputHTMLAttributes } from 'react';
 import { cn } from '@/lib/utils';
+
+const baseClasses = `
+    bg-white
+    border border-Box-Line rounded-[10px]
+    text-Hana-Black
+    placeholder:text-Icon-Detail
+    focus:ring-0 focus:outline-none
+ `;
 
 type Props = {
   placeholder?: string;
@@ -10,32 +18,17 @@ type Props = {
   size?: number;
 } & Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>;
 
-const Input = forwardRef(function Input(
-  {
-    placeholder,
-    width = 300,
-    height = 50,
-    fullWidth = false,
-    className,
-    ...props
-  }: Props,
-  ref: Ref<HTMLInputElement>
-) {
-  const baseClasses = `
-    bg-white border border-Box-Line rounded-[10px]
-    text-Hana-Black
-    placeholder:text-Icon-Detail
-    focus:focus:ring-0 focus:outline-none
-  `;
-
+export default function Input({
+  placeholder,
+  fullWidth = false,
+  className,
+  ...props
+}: Props) {
   return (
     <input
-      ref={ref}
       placeholder={placeholder}
       className={cn(baseClasses, className)}
       {...props}
     />
   );
-});
-
-export default Input;
+}
