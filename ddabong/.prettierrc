@@ -5,7 +5,10 @@
   "tabWidth": 2,
   "useTabs": false,
   "trailingComma": "es5",
-  "plugins": ["@trivago/prettier-plugin-sort-imports"],
+  "plugins": [
+    "@trivago/prettier-plugin-sort-imports",
+    "prettier-plugin-tailwindcss"
+  ],
   "importOrder": [
     "^next$",
     "^next/\\w*$",
