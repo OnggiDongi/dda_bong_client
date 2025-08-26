@@ -5,7 +5,7 @@ import Txt from '@/components/atoms/Text';
 
 type BannerCardProps = {
   titleTop: string;
-  titleBottom: string;
+  titleBottom?: string;
 
   iconSrc: string;
   iconAlt?: string;
