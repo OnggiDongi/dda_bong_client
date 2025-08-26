@@ -42,6 +42,7 @@ export default function BannerCard({
     <div
       className={cn(
         bgClass,
+        'border',
         borderClass,
         'flex flex-col justify-between',
         roundedClass,
