@@ -13,17 +13,11 @@ type Props = {
   placeholder?: string;
   width?: number;
   height?: number;
-  fullWidth?: boolean;
   className?: string;
   size?: number;
 } & Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>;
 
-export default function Input({
-  placeholder,
-  fullWidth = false,
-  className,
-  ...props
-}: Props) {
+export default function Input({ placeholder, className, ...props }: Props) {
   return (
     <input
       placeholder={placeholder}
