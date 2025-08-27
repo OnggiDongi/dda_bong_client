@@ -13,12 +13,12 @@ export default function SeniorSignInPage() {
         alt='따봉 로고'
         width={150}
         height={90}
-        className='mt-[18px] object-contain'
+        className='object-contain pt-[18px]'
         priority
       />
 
       {/* 폼 컨테이너 */}
-      <div className='mt-[44px] w-[300px]'>
+      <div className='w-[300px] pt-11'>
         <form className='flex flex-col'>
           {/* 이메일 */}
           <label className='block'>
@@ -72,17 +72,14 @@ export default function SeniorSignInPage() {
           </Button>
 
           {/* 회원가입으로 이동 */}
-          <div className='mt-[25px] flex items-center justify-center'>
-            <Txt
-              weight='medium'
-              className='text-Icon-Detail text-xl leading-none'
-            >
+          <div className='flex items-center justify-center pt-[25px]'>
+            <Txt weight='medium' className='text-Icon-Detail text-xl'>
               가입한 계정이 없으신가요?
             </Txt>
-            <Link href='/signUp/senior' className='mb-1 ml-[14px]'>
+            <Link href='/signUp/senior' className='pb-1 pl-[14px]'>
               <Txt
                 weight='medium'
-                className='text-Icon-Detail align-middle text-xl leading-none underline underline-offset-2'
+                className='text-Icon-Detail align-middle text-xl underline underline-offset-2'
               >
                 회원가입
               </Txt>
