@@ -6,7 +6,7 @@ import ProfileCard from '@/components/home/ProfileCard';
 
 export default function HomePage() {
   return (
-    <main className='bg-Page-Background mx-auto flex flex-col items-center gap-4 px-5 pt-5 pb-20'>
+    <main className='flex flex-col items-center gap-4 px-5 pt-5'>
       <Header />
 
       <ProfileCard

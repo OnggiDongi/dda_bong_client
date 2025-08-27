@@ -1,5 +1,5 @@
 @import 'tailwindcss';
-@import "tw-animate-css";
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -149,7 +149,7 @@ textarea::-webkit-scrollbar-thumb:hover {
 }
 
 body {
-  @apply flex items-center justify-center h-screen overflow-hidden antialiased;
+  @apply flex h-screen items-center justify-center overflow-hidden antialiased;
 }
 
 @layer utilities {
@@ -236,5 +236,13 @@ body {
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .bg-page-gradient {
+    background:
+      linear-gradient(to bottom, transparent 0%, #e6f5f2 60%, transparent 100%),
+      var(--color-Page-Background);
   }
 }
