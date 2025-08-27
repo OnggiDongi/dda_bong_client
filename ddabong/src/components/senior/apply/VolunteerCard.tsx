@@ -38,7 +38,7 @@ export default function VolunteerCard({
             textColor='text-Logo-Mint'
           />
         </div>
-        <Txt weight='bold' className='text-Hana-Black text-lg'>
+        <Txt weight='semibold' className='text-Hana-Black text-lg'>
           {title}
         </Txt>
         <Txt className='text-Icon-Detail text-base'>{date}</Txt>
