@@ -23,7 +23,7 @@ export default function VolunteerCard({
   image,
 }: Props) {
   return (
-    <Link href={`/senior/apply/${id}`}>
+    <Link href={`/apply/${id}`}>
       <div className='flex gap-3 rounded-2xl bg-white p-4'>
         <Image
           src={image}
