@@ -6,7 +6,7 @@ import Txt from '@/components/atoms/Text';
 
 export default function SeniorSignInPage() {
   return (
-    <main className='bg-Page-Background flex min-h-screen flex-col items-center pt-25'>
+    <main className='flex flex-col items-center pt-25'>
       {/* 로고 */}
       <Image
         src='/icons/ic_logo.svg'

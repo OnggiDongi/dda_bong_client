@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang='ko'>
       <body className='flex h-screen items-center justify-center overflow-hidden antialiased'>
-        <main className='bg-Background h-full w-full overflow-y-auto pb-25 shadow-[0_0_10px_rgba(0,0,0,0.3)] sm:max-w-sm [&::-webkit-scrollbar]:hidden'>
+        <main className='bg-Page-Background h-full w-full overflow-y-auto pb-25 shadow-[0_0_10px_rgba(0,0,0,0.3)] sm:max-w-sm [&::-webkit-scrollbar]:hidden'>
           {children}
         </main>
       </body>
