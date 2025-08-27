@@ -38,7 +38,10 @@ export default function VolunteerCard({
             textColor='text-Logo-Mint'
           />
         </div>
-        <Txt weight='semibold' className='text-Hana-Black text-lg'>
+        <Txt
+          weight='semibold'
+          className='text-Hana-Black w-[200px] truncate text-lg'
+        >
           {title}
         </Txt>
         <Txt className='text-Icon-Detail text-base'>{date}</Txt>
