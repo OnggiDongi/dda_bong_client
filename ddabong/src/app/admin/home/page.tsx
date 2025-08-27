@@ -7,10 +7,10 @@ import Header from '@/components/home/Header';
 
 export default function AdminHomePage() {
   return (
-    <main className='bg-Page-Background mx-auto flex flex-col items-center gap-4 px-5 pt-5 pb-6'>
+    <main className='flex flex-col items-center gap-4 px-5 pt-5'>
       <Header />
       <AdminProfile username={'마포구청'}></AdminProfile>
-      <div className='flex w-full flex-row items-center justify-center gap-2.5'>
+      <div className='flex flex-row items-center justify-center gap-2.5'>
         <RecruitVolunteer />
         <ManageVolunteer />
       </div>
