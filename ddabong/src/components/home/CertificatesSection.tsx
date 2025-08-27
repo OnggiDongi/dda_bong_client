@@ -31,8 +31,8 @@ export default function CertificatesSection() {
   return (
     <section className='border-Background h-[280px] w-[350px] rounded-[20px] border bg-white'>
       <Txt
-        weight='bold'
-        className='block px-[31px] pt-[25px] pb-[18px] text-left text-xl'
+        weight='heavy'
+        className='block px-[31px] pt-[25px] pb-[18px] text-left text-[22px]'
       >
         나의 인증서
       </Txt>
