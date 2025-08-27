@@ -18,7 +18,7 @@ export default function SeniorSignUpPage() {
         alt='따봉 로고'
         width={100}
         height={60}
-        className='mt-[18px] object-contain'
+        className='object-contain pt-[18px]'
         priority
       />
 
@@ -29,7 +29,7 @@ export default function SeniorSignUpPage() {
           <label className='block'>
             <Txt
               weight='semibold'
-              className='text-Hana-Black mb-2 block text-2xl'
+              className='text-Hana-Black block pb-2 text-2xl'
             >
               이름
             </Txt>
@@ -47,7 +47,7 @@ export default function SeniorSignUpPage() {
           <label className='block'>
             <Txt
               weight='semibold'
-              className='text-Hana-Black mb-2 block text-2xl'
+              className='text-Hana-Black block pb-2 text-2xl'
             >
               생년월일
             </Txt>
@@ -58,7 +58,7 @@ export default function SeniorSignUpPage() {
           <label className='block'>
             <Txt
               weight='semibold'
-              className='text-Hana-Black mb-2 block text-2xl'
+              className='text-Hana-Black block pb-2 text-2xl'
             >
               이메일
             </Txt>
@@ -77,7 +77,7 @@ export default function SeniorSignUpPage() {
           <label className='block'>
             <Txt
               weight='semibold'
-              className='text-Hana-Black mb-2 block text-2xl'
+              className='text-Hana-Black block pb-2 text-2xl'
             >
               비밀번호
             </Txt>
@@ -109,7 +109,7 @@ export default function SeniorSignUpPage() {
           <label className='block'>
             <Txt
               weight='semibold'
-              className='text-Hana-Black mb-2 block text-2xl'
+              className='text-Hana-Black block pb-2 text-2xl'
             >
               전화번호
             </Txt>
@@ -132,17 +132,14 @@ export default function SeniorSignUpPage() {
           </Button>
 
           {/* 로그인으로 이동 */}
-          <div className='mt-4 flex items-center justify-center'>
-            <Txt
-              weight='medium'
-              className='text-Icon-Detail text-xl leading-none'
-            >
+          <div className='flex items-center justify-center gap-2 pt-4'>
+            <Txt weight='medium' className='text-Icon-Detail text-xl'>
               계정이 이미 있으신가요?
             </Txt>
             <Link href='/signIn/senior'>
               <Txt
                 weight='medium'
-                className='text-Icon-Detail align-middle text-xl leading-none underline underline-offset-2'
+                className='text-Icon-Detail align-middle text-xl underline underline-offset-2'
               >
                 로그인
               </Txt>

@@ -8,14 +8,14 @@ import Txt from '@/components/atoms/Text';
 
 export default function AdminSignUpPage() {
   return (
-    <main className='flex flex-col items-center pt-[54px]'>
+    <main className='flex flex-col items-center pt-14'>
       {/* 로고 */}
       <Image
         src='/icons/ic_logo.svg'
         alt='따봉 로고'
         width={100}
         height={60}
-        className='mt-[18px] object-contain'
+        className='object-contain pt-[18px]'
         priority
       />
 
@@ -26,7 +26,7 @@ export default function AdminSignUpPage() {
           <label className='block'>
             <Txt
               weight='semibold'
-              className='text-Hana-Black mb-2 block text-xl'
+              className='text-Hana-Black block pb-2 text-xl'
             >
               기관명
             </Txt>
@@ -44,7 +44,7 @@ export default function AdminSignUpPage() {
           <label className='block'>
             <Txt
               weight='semibold'
-              className='text-Hana-Black mb-2 block text-xl'
+              className='text-Hana-Black block pb-2 text-xl'
             >
               이메일
             </Txt>
@@ -63,7 +63,7 @@ export default function AdminSignUpPage() {
           <label className='block'>
             <Txt
               weight='semibold'
-              className='text-Hana-Black mb-2 block text-xl'
+              className='text-Hana-Black block pb-2 text-xl'
             >
               비밀번호
             </Txt>
@@ -95,7 +95,7 @@ export default function AdminSignUpPage() {
           <label className='block'>
             <Txt
               weight='semibold'
-              className='text-Hana-Black mb-2 block text-xl'
+              className='text-Hana-Black block pb-2 text-xl'
             >
               전화번호
             </Txt>
@@ -118,17 +118,14 @@ export default function AdminSignUpPage() {
           </Button>
 
           {/* 로그인으로 이동 */}
-          <div className='mt-4 flex items-center justify-center'>
-            <Txt
-              weight='medium'
-              className='text-Icon-Detail text-base leading-none'
-            >
+          <div className='flex items-center justify-center pt-4'>
+            <Txt weight='medium' className='text-Icon-Detail text-base'>
               계정이 이미 있으신가요?
             </Txt>
-            <Link href='/signIn/admin' className='mb-1 ml-[14px]'>
+            <Link href='/signIn/admin' className='pb-1 pl-[14px]'>
               <Txt
                 weight='medium'
-                className='text-Icon-Detail align-middle text-base leading-none underline underline-offset-2'
+                className='text-Icon-Detail align-middle text-base underline underline-offset-2'
               >
                 로그인
               </Txt>

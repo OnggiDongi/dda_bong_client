@@ -60,14 +60,14 @@ export default function AdminSignInPage() {
           </Link>
 
           {/* 회원가입으로 이동 */}
-          <div className='mt-[30px] flex items-center justify-center'>
+          <div className='flex items-center justify-center pt-[30px]'>
             <Txt
               weight='medium'
               className='text-Icon-Detail text-base leading-none'
             >
               가입한 계정이 없으신가요?
             </Txt>
-            <Link href='/signUp/admin' className='mb-1 ml-[14px]'>
+            <Link href='/signUp/admin' className='ml-[14px] pb-1'>
               <Txt
                 weight='medium'
                 className='text-Icon-Detail align-middle text-base leading-none underline underline-offset-2'
