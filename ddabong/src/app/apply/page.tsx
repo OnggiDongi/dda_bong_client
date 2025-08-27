@@ -1,4 +1,5 @@
 import CategoryController from '@/components/senior/apply/CategoryController';
+import LocationSelect from '@/components/senior/apply/LocationSelect';
 import VolunteerCard from '@/components/senior/apply/VolunteerCard';
 import VolunteerHeader from '@/components/senior/apply/VolunteerHeader';
 
@@ -37,6 +38,7 @@ export default function ApplyPage() {
   return (
     <main className='bg-page-gradient flex flex-col gap-5 px-4'>
       <VolunteerHeader />
+      <LocationSelect />
       <CategoryController />
       <section className='flex flex-col gap-4'>
         {testData.map((item) => (
