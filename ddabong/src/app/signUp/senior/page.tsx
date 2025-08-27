@@ -64,7 +64,7 @@ export default function SeniorSignUpPage() {
             </Txt>
             <Input
               type='email'
-              placeholder='이메일'
+              placeholder='이메일을 입력해주세요'
               autoComplete='email'
               required
               maxLength={50}
@@ -83,7 +83,7 @@ export default function SeniorSignUpPage() {
             </Txt>
             <Input
               type='password'
-              placeholder='비밀번호'
+              placeholder='비밀번호를 입력해주세요'
               autoComplete='new-password'
               required
               maxLength={50}
@@ -94,15 +94,9 @@ export default function SeniorSignUpPage() {
 
           {/* 비밀번호 확인 */}
           <label className='block'>
-            <Txt
-              weight='semibold'
-              className='text-Hana-Black mb-2 block text-2xl'
-            >
-              비밀번호 확인
-            </Txt>
             <Input
               type='password'
-              placeholder='비밀번호 확인'
+              placeholder='비밀번호를 확인해주세요'
               autoComplete='new-password'
               required
               maxLength={50}
@@ -121,7 +115,7 @@ export default function SeniorSignUpPage() {
             </Txt>
             <Input
               type='tel'
-              placeholder='전화번호'
+              placeholder='전화번호를 입력해주세요'
               required
               maxLength={13}
               className='text-Hana-Black placeholder:text-Icon-Detail h-[50px] w-full pl-5 font-[AppleSDGothicNeoM] text-[26px] placeholder:font-[AppleSDGothicNeoM] placeholder:text-[26px]'
