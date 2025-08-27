@@ -11,7 +11,7 @@ export default function RegisterVolunteer() {
       height={129}
       iconSrc='/icons/ic_task.svg'
       iconSize={75}
-      href='/register'
+      href='/admin/register'
       paddingClass='pt-6 pr-4 pb-4 pl-6'
       titleTopClassName='text-[22px]'
       titleBottomClassName='text-[22px]'
