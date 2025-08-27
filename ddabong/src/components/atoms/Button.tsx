@@ -55,7 +55,6 @@ export default function Button({
       )}
       {...props}
     >
-      {/* TODO:전에 사용한 버튼 TXT로 변경 */}
       <Txt
         weight={textWeight}
         className={cn('text-xl text-white', textClassName)}

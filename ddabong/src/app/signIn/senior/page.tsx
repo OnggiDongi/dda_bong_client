@@ -54,7 +54,11 @@ export default function SeniorSignInPage() {
 
           {/* 로그인 버튼 */}
           <Link href='/home' className='mb-[25px] h-[50px] w-full'>
-            <Button className='h-[50px] w-full font-[AppleSDGothicNeoSB] text-[26px]'>
+            <Button
+              type='submit'
+              className='mt-[30px] h-[50px] w-full'
+              textClassName='text-[26px]'
+            >
               로그인
             </Button>
           </Link>
