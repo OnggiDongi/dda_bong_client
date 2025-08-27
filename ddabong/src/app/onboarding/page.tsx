@@ -17,6 +17,7 @@ export default function OnboardingPage() {
       <Txt weight='bold' className='text-Modal-font -mt-6 pb-9 text-xl'>
         당신의 따봉 하나, 세상에 온기 하나
       </Txt>
+
       <AdminCard />
       <SeniorCard />
     </main>
