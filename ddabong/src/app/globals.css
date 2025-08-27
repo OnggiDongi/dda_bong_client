@@ -1,5 +1,5 @@
 @import 'tailwindcss';
-@import "tw-animate-css";
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -149,7 +149,7 @@ textarea::-webkit-scrollbar-thumb:hover {
 }
 
 body {
-  @apply flex items-center justify-center h-screen overflow-hidden antialiased;
+  @apply flex h-screen items-center justify-center overflow-hidden antialiased;
 }
 
 @layer utilities {
@@ -236,5 +236,16 @@ body {
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* ✅ utilities 층에 커스텀 클래스 등록 */
+@layer utilities {
+  /* 기본 페이지 배경 + 가운데 퍼지는 민트 그라데이션 */
+  .bg-page-gradient {
+    /* 맨 뒤에 기본 배경색을 같이 넣어주면 원래 배경색과 합쳐짐 */
+    background:
+      linear-gradient(to bottom, transparent 0%, #e6f5f2 60%, transparent 100%),
+      var(--color-Page-Background);
   }
 }
