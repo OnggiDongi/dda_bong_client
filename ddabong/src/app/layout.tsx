@@ -4,7 +4,7 @@ import './globals.css';
 export const metadata: Metadata = {
   title: 'DDABONG 따봉',
   description: '당신의 따봉 하나, 세상에 온기 하나',
-  icons: { icon: '/icons/ic_logo.svg' },
+  icons: { icon: '/icons/ic_senior_bigface.svg' },
 };
 
 export default function RootLayout({

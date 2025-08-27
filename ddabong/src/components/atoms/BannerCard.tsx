@@ -5,7 +5,7 @@ import Txt from '@/components/atoms/Text';
 
 type BannerCardProps = {
   titleTop: string;
-  titleBottom: string;
+  titleBottom?: string;
 
   iconSrc: string;
   iconAlt?: string;
@@ -18,9 +18,14 @@ type BannerCardProps = {
   borderClass?: string; // ex) 'border-1Q-Purple-Line'
   roundedClass?: string; // ex) 'rounded-[20px]'
   paddingClass?: string; // ex) 'pt-[25px] pr-2 pb-2 pl-[25px]'
-
+  iconClassName?: string;
   href?: string; // 링크 주소
   className?: string;
+  titleTopClassName?: string;
+  titleBottomClassName?: string;
+  titleTopWeight?: keyof typeof import('@/components/atoms/Text').fontMap;
+  titleBottomWeight?: keyof typeof import('@/components/atoms/Text').fontMap;
+  titleGapClassName?: string;
 };
 
 export default function BannerCard({
@@ -37,6 +42,12 @@ export default function BannerCard({
   paddingClass = 'pt-[25px] pr-2 pb-2 pl-[25px]',
   href,
   className,
+  iconClassName,
+  titleTopClassName,
+  titleBottomClassName,
+  titleTopWeight = 'semibold', // 기본값
+  titleBottomWeight = 'extrabold',
+  titleGapClassName = 'pt-2',
 }: BannerCardProps) {
   const content = (
     <div
@@ -54,14 +65,21 @@ export default function BannerCard({
       <div className='flex justify-between'>
         <div className='flex flex-col items-start'>
           <Txt
-            weight='semibold'
-            className='text-Hana-Black text-[26px] leading-[1.2]'
+            weight={titleTopWeight}
+            className={cn(
+              'text-Hana-Black text-[26px] leading-[1.2]',
+              titleTopClassName
+            )}
           >
             {titleTop}
           </Txt>
           <Txt
-            weight='extrabold'
-            className='text-Hana-Black text-[30px] leading-[1.2]'
+            weight={titleBottomWeight}
+            className={cn(
+              'text-Hana-Black pt-2 text-[30px] leading-[1.2]',
+              titleBottomClassName,
+              titleGapClassName
+            )}
           >
             {titleBottom}
           </Txt>
@@ -72,7 +90,7 @@ export default function BannerCard({
           alt={iconAlt}
           width={iconSize}
           height={iconSize}
-          className='mt-[18px] self-end object-contain'
+          className={cn('mt-[18px] self-end object-contain', iconClassName)}
           priority
         />
       </div>
