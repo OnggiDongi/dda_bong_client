@@ -6,14 +6,13 @@ import Txt from '@/components/atoms/Text';
 export default function VolunteerHeader() {
   return (
     <section className='relative flex items-center justify-between'>
-      <div className='flex flex-col'>
+      <div className='flex flex-col pt-18'>
         <Txt weight='extrabold' className='text-2xl'>
           이번엔 무슨 봉사하지?
         </Txt>
-        <br></br>
         <Txt
           weight='semibold'
-          className='text-Hana-Black text-xl whitespace-nowrap'
+          className='text-Hana-Black pt-4 text-xl whitespace-nowrap'
         >
           관심있는 위치와 카테고리를 선택해 보세요!
         </Txt>
