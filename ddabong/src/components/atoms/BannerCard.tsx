@@ -18,9 +18,11 @@ type BannerCardProps = {
   borderClass?: string; // ex) 'border-1Q-Purple-Line'
   roundedClass?: string; // ex) 'rounded-[20px]'
   paddingClass?: string; // ex) 'pt-[25px] pr-2 pb-2 pl-[25px]'
-
+  iconClassName?: string;
   href?: string; // 링크 주소
   className?: string;
+  titleTopClassName?: string;
+  titleBottomClassName?: string;
 };
 
 export default function BannerCard({
@@ -37,6 +39,9 @@ export default function BannerCard({
   paddingClass = 'pt-[25px] pr-2 pb-2 pl-[25px]',
   href,
   className,
+  iconClassName,
+  titleTopClassName,
+  titleBottomClassName,
 }: BannerCardProps) {
   const content = (
     <div
@@ -55,13 +60,19 @@ export default function BannerCard({
         <div className='flex flex-col items-start'>
           <Txt
             weight='semibold'
-            className='text-Hana-Black text-[26px] leading-[1.2]'
+            className={cn(
+              'text-Hana-Black text-[26px] leading-[1.2]',
+              titleTopClassName
+            )}
           >
             {titleTop}
           </Txt>
           <Txt
             weight='extrabold'
-            className='text-Hana-Black text-[30px] leading-[1.2]'
+            className={cn(
+              'text-Hana-Black pt-2 text-[30px] leading-[1.2]',
+              titleBottomClassName
+            )}
           >
             {titleBottom}
           </Txt>
@@ -72,7 +83,7 @@ export default function BannerCard({
           alt={iconAlt}
           width={iconSize}
           height={iconSize}
-          className='mt-[18px] self-end object-contain'
+          className={cn('mt-[18px] self-end object-contain', iconClassName)}
           priority
         />
       </div>
