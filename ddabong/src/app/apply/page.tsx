@@ -1,7 +1,7 @@
-import CategoryController from '@/components/senior/apply/CategoryController';
-import LocationSelect from '@/components/senior/apply/LocationSelect';
-import VolunteerCard from '@/components/senior/apply/VolunteerCard';
-import VolunteerHeader from '@/components/senior/apply/VolunteerHeader';
+import CategoryController from '@/components/apply/CategoryController';
+import LocationSelect from '@/components/apply/LocationSelect';
+import VolunteerCard from '@/components/apply/VolunteerCard';
+import VolunteerHeader from '@/components/apply/VolunteerHeader';
 
 //테스트 데이터
 const testData = [
