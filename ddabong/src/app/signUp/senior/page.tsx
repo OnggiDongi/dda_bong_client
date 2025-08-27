@@ -11,7 +11,7 @@ import DatePicker from '@/components/common/DatePicker';
 export default function SeniorSignUpPage() {
   const [joinDate, setJoinDate] = useState<Date>(new Date());
   return (
-    <main className='bg-Page-Background flex min-h-screen flex-col items-center pt-[54px]'>
+    <main className='flex flex-col items-center pt-[54px]'>
       {/* 로고 */}
       <Image
         src='/icons/ic_logo.svg'
@@ -139,7 +139,7 @@ export default function SeniorSignUpPage() {
             >
               계정이 이미 있으신가요?
             </Txt>
-            <Link href='/signIn/senior' className='mb-1 ml-[14px]'>
+            <Link href='/signIn/senior'>
               <Txt
                 weight='medium'
                 className='text-Icon-Detail align-middle text-xl leading-none underline underline-offset-2'

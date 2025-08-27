@@ -8,7 +8,7 @@ import Txt from '@/components/atoms/Text';
 
 export default function AdminSignUpPage() {
   return (
-    <main className='bg-Page-Background flex min-h-screen flex-col items-center pt-[54px]'>
+    <main className='flex flex-col items-center pt-[54px]'>
       {/* 로고 */}
       <Image
         src='/icons/ic_logo.svg'
