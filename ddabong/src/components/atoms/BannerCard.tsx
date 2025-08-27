@@ -5,7 +5,7 @@ import Txt from '@/components/atoms/Text';
 
 type BannerCardProps = {
   titleTop: string;
-  titleBottom: string;
+  titleBottom?: string;
 
   iconSrc: string;
   iconAlt?: string;
@@ -23,6 +23,9 @@ type BannerCardProps = {
   className?: string;
   titleTopClassName?: string;
   titleBottomClassName?: string;
+  titleTopWeight?: keyof typeof import('@/components/atoms/Text').fontMap;
+  titleBottomWeight?: keyof typeof import('@/components/atoms/Text').fontMap;
+  titleGapClassName?: string;
 };
 
 export default function BannerCard({
@@ -42,6 +45,9 @@ export default function BannerCard({
   iconClassName,
   titleTopClassName,
   titleBottomClassName,
+  titleTopWeight = 'semibold', // 기본값
+  titleBottomWeight = 'extrabold',
+  titleGapClassName = 'pt-2',
 }: BannerCardProps) {
   const content = (
     <div
@@ -59,7 +65,7 @@ export default function BannerCard({
       <div className='flex justify-between'>
         <div className='flex flex-col items-start'>
           <Txt
-            weight='semibold'
+            weight={titleTopWeight}
             className={cn(
               'text-Hana-Black text-[26px] leading-[1.2]',
               titleTopClassName
@@ -68,10 +74,11 @@ export default function BannerCard({
             {titleTop}
           </Txt>
           <Txt
-            weight='extrabold'
+            weight={titleBottomWeight}
             className={cn(
               'text-Hana-Black pt-2 text-[30px] leading-[1.2]',
-              titleBottomClassName
+              titleBottomClassName,
+              titleGapClassName
             )}
           >
             {titleBottom}
