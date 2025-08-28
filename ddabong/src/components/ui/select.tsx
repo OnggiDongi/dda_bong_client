@@ -21,7 +21,17 @@ function SelectValue({
   className,
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Value>) {
-  return <SelectPrimitive.Value data-slot='select-value' {...props} />;
+  return (
+    <SelectPrimitive.Value
+      data-slot='select-value'
+      {...props}
+      placeholder={
+        <span className={cn('text-Icon-Detail text-base', className)}>
+          {props.placeholder}
+        </span>
+      }
+    />
+  );
 }
 
 function SelectTrigger({
