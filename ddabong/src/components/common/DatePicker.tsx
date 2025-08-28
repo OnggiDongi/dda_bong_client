@@ -14,6 +14,7 @@ type DatePickerProps = {
   disableFuture?: boolean; //미래 날짜 선택 불가 옵션
   placeholder?: string;
   textClassName?: string; //글씨 크기, 두께
+  placeholderClassName?: string;
 };
 
 function isSameDate(a: Date, b: Date) {
@@ -37,6 +38,7 @@ export default function DatePicker({
   disableFuture,
   placeholder,
   textClassName,
+  placeholderClassName,
 }: DatePickerProps) {
   const [selected, setSelected] = useState<Date | null>(value);
   const [view, setView] = useState<Date>(value ?? new Date());
@@ -109,7 +111,15 @@ export default function DatePicker({
           className
         )}
       >
-        <Txt weight='medium' className={cn('text-[26px]', textClassName)}>
+        <Txt
+          weight='medium'
+          className={cn(
+            'text-[26px]',
+            selected
+              ? cn('text-Hana-Black', textClassName)
+              : cn('text-Icon-Detail', textClassName, placeholderClassName)
+          )}
+        >
           {selected ? fmt(selected) : (placeholder ?? '날짜를 선택하세요')}
         </Txt>
         <svg

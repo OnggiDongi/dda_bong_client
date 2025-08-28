@@ -17,10 +17,10 @@ export default function TimePicker() {
   return (
     <div className='flex gap-2'>
       <Select value={ampm} onValueChange={setAmpm}>
-        <SelectTrigger className='border-Box-Line text-Hana-Black !h-[43px] flex-1 rounded-xl border bg-white text-lg'>
+        <SelectTrigger className='border-Box-Linedata-[placeholder]:text-Logo-mint text-Hana-Black !h-[43px] flex-1 rounded-xl border bg-white text-lg'>
           <SelectValue
             placeholder='오전/오후'
-            className='text-Icon-Detail p-2 font-[AppleSDGothicNeoM00] text-lg'
+            className='p-2 font-[AppleSDGothicNeoM00] text-lg'
           />
         </SelectTrigger>
         <SelectContent className='rounded-xl'>

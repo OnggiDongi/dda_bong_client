@@ -18,17 +18,9 @@ function SelectGroup({
 }
 
 function SelectValue({
-  className,
-
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Value>) {
-  return (
-    <SelectPrimitive.Value
-      data-slot='select-value'
-      {...props}
-      placeholder={<span className={className}>{props.placeholder}</span>}
-    />
-  );
+  return <SelectPrimitive.Value data-slot='select-value' {...props} />;
 }
 
 function SelectTrigger({

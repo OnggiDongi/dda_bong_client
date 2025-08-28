@@ -31,7 +31,6 @@ export default function RecruitForm({
         />
       </div>
 
-      {/* 장소 */}
       <div>
         <Txt className='block pb-2 text-xl'>장소</Txt>
         <Input
@@ -43,7 +42,6 @@ export default function RecruitForm({
         />
       </div>
 
-      {/* 봉사 날짜 */}
       <div>
         <Txt className='block pb-2 text-xl'>봉사 날짜</Txt>
         <DatePicker
@@ -56,13 +54,11 @@ export default function RecruitForm({
         />
       </div>
 
-      {/* 시작 시간 */}
       <div>
         <Txt className='block pb-2 text-xl'>시작 시간</Txt>
         <TimePicker />
       </div>
 
-      {/* 총 봉사 시간 */}
       <div>
         <Txt className='block pb-2 text-xl'>총 봉사 시간</Txt>
         <Input
@@ -73,7 +69,6 @@ export default function RecruitForm({
         />
       </div>
 
-      {/* 정원 */}
       <div>
         <Txt className='block pb-2 text-xl'>정원</Txt>
         <Input
@@ -85,7 +80,6 @@ export default function RecruitForm({
         />
       </div>
 
-      {/* 모집 마감일 */}
       <div>
         <Txt className='block pb-2 text-xl'>모집 마감일</Txt>
         <DatePicker

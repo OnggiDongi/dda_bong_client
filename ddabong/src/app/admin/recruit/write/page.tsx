@@ -72,7 +72,7 @@ export default function RecruitWritePage() {
       <textarea
         placeholder='게시글을 작성해주세요'
         required
-        className='border-Box-Line placeholder:text-Icon-Detail h-[150px] w-full rounded-xl border bg-white px-5 py-3 text-lg focus:outline-none'
+        className='placeholder:text-Icon-Detail border-Box-Line h-[150px] w-full resize-none overflow-y-auto rounded-xl border bg-white p-3 text-lg focus:outline-none'
       />
 
       <Button type='submit' className='h-[45px] w-full'>
