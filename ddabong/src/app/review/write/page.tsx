@@ -3,7 +3,7 @@ import Badge from '@/components/atoms/Badge';
 import Txt from '@/components/atoms/Text';
 import Header from '@/components/atoms/TopBar';
 
-export default async function Page() {
+export default async function SeniorReviewWritePage() {
   const data = {
     category: '농어촌',
     title: '감자 농장에서 감자 캐기',

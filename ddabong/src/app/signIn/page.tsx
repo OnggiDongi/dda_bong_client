@@ -106,17 +106,19 @@ export default function SeniorSignInPage() {
 
           {/* 카카오 버튼 */}
           <Button
-            className='bg-kakao text-Hana-Black h-[50px] w-full gap-2 font-[AppleSDGothicNeoSB] text-xl'
-            onClick={kakaoLogin}
+            className='bg-kakao h-[50px] w-full text-xl'
+            textClassName='text-Hana-Black'
           >
-            <Image
-              src='/icons/ic_kakao.svg'
-              alt='카카오 아이콘'
-              width={22}
-              height={22}
-              className='object-contain'
-            />
-            카카오톡으로 로그인하기
+            <div className='flex items-center gap-2'>
+              <Image
+                src='/icons/ic_kakao.svg'
+                alt='카카오 아이콘'
+                width={38}
+                height={38}
+                className='object-contain'
+              />
+              <span>카카오톡으로 로그인하기</span>
+            </div>
           </Button>
 
           {/* 회원가입으로 이동 */}
