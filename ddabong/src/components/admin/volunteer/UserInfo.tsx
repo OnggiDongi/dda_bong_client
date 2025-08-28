@@ -19,7 +19,6 @@ export default function UserInfo({
   preferredCategory,
   aiReviw,
 }: Props) {
-  console.log(userName);
   return (
     <>
       <div className='mt-1 flex flex-col items-center bg-white px-8 py-8'>
