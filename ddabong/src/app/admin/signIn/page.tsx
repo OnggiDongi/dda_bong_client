@@ -69,7 +69,8 @@ export default function AdminSignInPage() {
             >
               가입한 계정이 없으신가요?
             </Txt>
-            <Link href='/signUp/admin' className='ml-[14px] pb-1'>
+            
+            <Link href='/admin/signUp' className='ml-[14px] pb-1'>
               <Txt
                 weight='medium'
                 className='text-Icon-Detail align-middle text-base leading-none underline underline-offset-2'

@@ -143,7 +143,8 @@ export default function SeniorSignUpPage() {
             <Txt weight='medium' className='text-Icon-Detail text-xl'>
               계정이 이미 있으신가요?
             </Txt>
-            <Link href='/signIn/senior'>
+
+            <Link href='/signIn'>
               <Txt
                 weight='medium'
                 className='text-Icon-Detail align-middle text-xl underline underline-offset-2'
