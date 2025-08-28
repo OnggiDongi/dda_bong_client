@@ -50,7 +50,6 @@ export default function RecruitWritePage() {
 
   return (
     <form
-      noValidate
       className='bg-page-gradient flex flex-col gap-4 px-6 py-5'
       onSubmit={handleSubmit}
     >
