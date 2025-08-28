@@ -1,5 +1,6 @@
 'use client';
 
+import * as React from 'react';
 import Txt from '@/components/atoms/Text';
 import {
   Select,
@@ -8,6 +9,16 @@ import {
   SelectContent,
   SelectItem,
 } from '@/components/ui/select';
+
+const CATEGORIES = [
+  '생활',
+  '교육',
+  '보건',
+  '문화',
+  '환경',
+  '행정',
+  '농어촌',
+] as const;
 
 export default function Category() {
   return (
@@ -23,27 +34,11 @@ export default function Category() {
           </SelectTrigger>
 
           <SelectContent className='text-Hana-Black rounded-xl text-base'>
-            <SelectItem className='py-3' value='생활'>
-              생활
-            </SelectItem>
-            <SelectItem className='py-3' value='교육'>
-              교육
-            </SelectItem>
-            <SelectItem className='py-3' value='보건'>
-              보건
-            </SelectItem>
-            <SelectItem className='py-3' value='문화'>
-              문화
-            </SelectItem>
-            <SelectItem className='py-3' value='환경'>
-              환경
-            </SelectItem>
-            <SelectItem className='py-3' value='행정'>
-              행정
-            </SelectItem>
-            <SelectItem className='py-3' value='농어촌'>
-              농어촌
-            </SelectItem>
+            {CATEGORIES.map((cate) => (
+              <SelectItem key={cate} className='py-3' value={cate}>
+                {cate}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>
