@@ -39,23 +39,26 @@ export default function SeniorSignUpPage() {
               type='text'
               placeholder='이름을 입력해주세요'
               required
-              maxLength={50}
+              maxLength={20}
               className='text-Hana-Black placeholder:text-Icon-Detail h-[50px] w-full pl-5 font-[AppleSDGothicNeoM] text-[26px] placeholder:font-[AppleSDGothicNeoM] placeholder:text-[26px]'
             />
           </div>
 
           {/* 생년월일 */}
-          <div>
-            <label className='block'>
-              <Txt
-                weight='semibold'
-                className='text-Hana-Black block pb-2 text-2xl'
-              >
-                생년월일
-              </Txt>
-            </label>
-            <DatePicker value={joinDate} onChange={setJoinDate} />
-          </div>
+          <label className='block'>
+            <Txt
+              weight='semibold'
+              className='text-Hana-Black block pb-2 text-2xl'
+            >
+              생년월일
+            </Txt>
+            <DatePicker
+              value={joinDate}
+              onChange={setJoinDate}
+              disableFuture
+              placeholder='생년월일을 선택하세요'
+            />
+          </label>
 
           {/* 이메일 */}
           <div>
@@ -72,7 +75,7 @@ export default function SeniorSignUpPage() {
               placeholder='이메일을 입력해주세요'
               autoComplete='email'
               required
-              maxLength={50}
+              maxLength={30}
               className='text-Hana-Black placeholder:text-Icon-Detail h-[50px] w-full pl-5 font-[AppleSDGothicNeoM] text-[26px] placeholder:font-[AppleSDGothicNeoM] placeholder:text-[26px]'
             />
           </div>
@@ -133,7 +136,9 @@ export default function SeniorSignUpPage() {
           {/* 회원가입 버튼 */}
           <Button
             type='submit'
-            className='mt-[30px] h-[50px] w-full font-[AppleSDGothicNeoSB] text-[26px]'
+            className='mt-[30px] h-[50px] w-full'
+            textWeight='semibold'
+            textClassName='text-[26px]'
           >
             회원가입
           </Button>

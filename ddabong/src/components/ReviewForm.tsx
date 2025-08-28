@@ -5,8 +5,8 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 import StarRating from '@/components/StarRating';
-import BottomButton from '@/components/atoms/BottomButton';
 import Txt from '@/components/atoms/Text';
+import Button from './atoms/Button';
 
 type Preview = { url: string; file: File };
 type Variant = 'user' | 'admin';
@@ -64,8 +64,8 @@ export default function ReviewForm({
   };
 
   return (
-    <form ref={formRef} onSubmit={onSubmit} className='flex flex-col'>
-      {/* ===== 헤더 타이틀 ===== */}
+    <form ref={formRef} onSubmit={onSubmit} className='flex flex-col pb-20'>
+      {/* 별점 */}
       <section className='text-center'>
         <div className='pt-9 pb-4'>
           <Txt
@@ -228,7 +228,11 @@ export default function ReviewForm({
         )}
       </section>
 
-      <BottomButton type='submit' label={'작성 완료'} />
+      <div className='fixed bottom-0 left-0 w-full bg-white px-6 py-3 shadow-[0_0_5px_0_rgba(0,0,0,0.15)]'>
+        <Button type='submit' form='recruit-form' className='h-[45px] w-full'>
+          작성 완료
+        </Button>
+      </div>
     </form>
   );
 }
