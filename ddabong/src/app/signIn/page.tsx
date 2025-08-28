@@ -4,7 +4,7 @@ import Button from '@/components/atoms/Button';
 import Input from '@/components/atoms/Input';
 import Txt from '@/components/atoms/Text';
 
-export default function AdminSignInPage() {
+export default function SeniorSignInPage() {
   return (
     <main className='flex flex-col items-center pt-25'>
       {/* 로고 */}
@@ -13,17 +13,17 @@ export default function AdminSignInPage() {
         alt='따봉 로고'
         width={150}
         height={90}
-        className='mt-[18px] object-contain'
+        className='object-contain pt-[18px]'
         priority
       />
 
       {/* 폼 컨테이너 */}
-      <div className='mt-[44px] w-[300px]'>
+      <div className='w-[300px] pt-11'>
         <form className='flex flex-col'>
           {/* 이메일 */}
           <div>
             <label className='block'>
-              <Txt weight='semibold' className='text-Hana-Black text-xl'>
+              <Txt weight='semibold' className='text-Hana-Black text-2xl'>
                 이메일
               </Txt>
             </label>
@@ -33,14 +33,14 @@ export default function AdminSignInPage() {
               autoComplete='email'
               required
               maxLength={50}
-              className='text-Hana-Black placeholder:text-Icon-Detail mt-[10px] mb-[25px] h-[50px] w-full pl-5 font-[AppleSDGothicNeoM] text-lg placeholder:font-[AppleSDGothicNeoM] placeholder:text-lg'
+              className='text-Hana-Black placeholder:text-Icon-Detail mt-[10px] mb-[25px] h-[50px] w-full pl-5 font-[AppleSDGothicNeoM] text-[26px] placeholder:font-[AppleSDGothicNeoM] placeholder:text-[26px]'
             />
           </div>
 
           {/* 비밀번호 */}
           <div>
             <label className='block'>
-              <Txt weight='semibold' className='text-Hana-Black text-xl'>
+              <Txt weight='semibold' className='text-Hana-Black text-2xl'>
                 비밀번호
               </Txt>
             </label>
@@ -50,29 +50,38 @@ export default function AdminSignInPage() {
               autoComplete='current-password'
               required
               maxLength={50}
-              className='text-Hana-Black placeholder:text-Icon-Detail mt-[10px] mb-[50px] h-[50px] w-full pl-5 font-[AppleSDGothicNeoM] text-lg placeholder:font-[AppleSDGothicNeoM] placeholder:text-lg'
+              className='text-Hana-Black placeholder:text-Icon-Detail mt-[10px] mb-[45px] h-[50px] w-full pl-5 font-[AppleSDGothicNeoM] text-[26px] placeholder:font-[AppleSDGothicNeoM] placeholder:text-[26px]'
             />
           </div>
 
           {/* 로그인 버튼 */}
-          <Link href='/home'>
-            <Button className='h-[45px] w-full font-[AppleSDGothicNeoSB] text-xl'>
+          <Link href='/home' className='mb-[25px] h-[50px] w-full'>
+            <Button className='h-[50px] w-full font-[AppleSDGothicNeoSB] text-[26px]'>
               로그인
             </Button>
           </Link>
 
+          {/* 카카오 버튼 */}
+          <Button className='bg-kakao text-Hana-Black h-[50px] w-full gap-2 font-[AppleSDGothicNeoSB] text-xl'>
+            <Image
+              src='/icons/ic_kakao.svg'
+              alt='카카오 아이콘'
+              width={22}
+              height={22}
+              className='object-contain'
+            />
+            카카오톡으로 로그인하기
+          </Button>
+
           {/* 회원가입으로 이동 */}
-          <div className='flex items-center justify-center pt-[30px]'>
-            <Txt
-              weight='medium'
-              className='text-Icon-Detail text-base leading-none'
-            >
+          <div className='flex items-center justify-center pt-[25px]'>
+            <Txt weight='medium' className='text-Icon-Detail text-xl'>
               가입한 계정이 없으신가요?
             </Txt>
-            <Link href='/signUp/admin' className='ml-[14px] pb-1'>
+            <Link href='/signUp' className='pb-1 pl-[14px]'>
               <Txt
                 weight='medium'
-                className='text-Icon-Detail align-middle text-base leading-none underline underline-offset-2'
+                className='text-Icon-Detail align-middle text-xl underline underline-offset-2'
               >
                 회원가입
               </Txt>
