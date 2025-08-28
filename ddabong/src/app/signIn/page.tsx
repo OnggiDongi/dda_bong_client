@@ -21,10 +21,12 @@ export default function SeniorSignInPage() {
       <div className='w-[300px] pt-11'>
         <form className='flex flex-col'>
           {/* 이메일 */}
-          <label className='block'>
-            <Txt weight='semibold' className='text-Hana-Black text-2xl'>
-              이메일
-            </Txt>
+          <div>
+            <label className='block'>
+              <Txt weight='semibold' className='text-Hana-Black text-2xl'>
+                이메일
+              </Txt>
+            </label>
             <Input
               type='email'
               placeholder='이메일'
@@ -32,15 +34,16 @@ export default function SeniorSignInPage() {
               required
               maxLength={50}
               className='text-Hana-Black placeholder:text-Icon-Detail mt-[10px] mb-[25px] h-[50px] w-full pl-5 font-[AppleSDGothicNeoM] text-[26px] placeholder:font-[AppleSDGothicNeoM] placeholder:text-[26px]'
-              aria-label='이메일 입력'
             />
-          </label>
+          </div>
 
           {/* 비밀번호 */}
-          <label className='block'>
-            <Txt weight='semibold' className='text-Hana-Black text-2xl'>
-              비밀번호
-            </Txt>
+          <div>
+            <label className='block'>
+              <Txt weight='semibold' className='text-Hana-Black text-2xl'>
+                비밀번호
+              </Txt>
+            </label>
             <Input
               type='password'
               placeholder='비밀번호'
@@ -48,9 +51,8 @@ export default function SeniorSignInPage() {
               required
               maxLength={50}
               className='text-Hana-Black placeholder:text-Icon-Detail mt-[10px] mb-[45px] h-[50px] w-full pl-5 font-[AppleSDGothicNeoM] text-[26px] placeholder:font-[AppleSDGothicNeoM] placeholder:text-[26px]'
-              aria-label='비밀번호 입력'
             />
-          </label>
+          </div>
 
           {/* 로그인 버튼 */}
           <Link href='/home' className='mb-[25px] h-[50px] w-full'>

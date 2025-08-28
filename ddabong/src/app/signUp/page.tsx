@@ -26,42 +26,47 @@ export default function SeniorSignUpPage() {
       <div className='w-[300px]'>
         <form className='flex flex-col gap-2'>
           {/* 이름 */}
-          <label className='block'>
-            <Txt
-              weight='semibold'
-              className='text-Hana-Black block pb-2 text-2xl'
-            >
-              이름
-            </Txt>
+          <div>
+            <label className='block'>
+              <Txt
+                weight='semibold'
+                className='text-Hana-Black block pb-2 text-2xl'
+              >
+                이름
+              </Txt>
+            </label>
             <Input
               type='text'
               placeholder='이름을 입력해주세요'
               required
               maxLength={50}
               className='text-Hana-Black placeholder:text-Icon-Detail h-[50px] w-full pl-5 font-[AppleSDGothicNeoM] text-[26px] placeholder:font-[AppleSDGothicNeoM] placeholder:text-[26px]'
-              aria-label='이름 입력'
             />
-          </label>
+          </div>
 
           {/* 생년월일 */}
-          <label className='block'>
-            <Txt
-              weight='semibold'
-              className='text-Hana-Black block pb-2 text-2xl'
-            >
-              생년월일
-            </Txt>
+          <div>
+            <label className='block'>
+              <Txt
+                weight='semibold'
+                className='text-Hana-Black block pb-2 text-2xl'
+              >
+                생년월일
+              </Txt>
+            </label>
             <DatePicker value={joinDate} onChange={setJoinDate} />
-          </label>
+          </div>
 
           {/* 이메일 */}
-          <label className='block'>
-            <Txt
-              weight='semibold'
-              className='text-Hana-Black block pb-2 text-2xl'
-            >
-              이메일
-            </Txt>
+          <div>
+            <label className='block'>
+              <Txt
+                weight='semibold'
+                className='text-Hana-Black block pb-2 text-2xl'
+              >
+                이메일
+              </Txt>
+            </label>
             <Input
               type='email'
               placeholder='이메일을 입력해주세요'
@@ -69,18 +74,19 @@ export default function SeniorSignUpPage() {
               required
               maxLength={50}
               className='text-Hana-Black placeholder:text-Icon-Detail h-[50px] w-full pl-5 font-[AppleSDGothicNeoM] text-[26px] placeholder:font-[AppleSDGothicNeoM] placeholder:text-[26px]'
-              aria-label='이메일 입력'
             />
-          </label>
+          </div>
 
           {/* 비밀번호 */}
-          <label className='block'>
-            <Txt
-              weight='semibold'
-              className='text-Hana-Black block pb-2 text-2xl'
-            >
-              비밀번호
-            </Txt>
+          <div>
+            <label className='block'>
+              <Txt
+                weight='semibold'
+                className='text-Hana-Black block pb-2 text-2xl'
+              >
+                비밀번호
+              </Txt>
+            </label>
             <Input
               type='password'
               placeholder='비밀번호를 입력해주세요'
@@ -88,40 +94,41 @@ export default function SeniorSignUpPage() {
               required
               maxLength={50}
               className='text-Hana-Black placeholder:text-Icon-Detail h-[50px] w-full pl-5 font-[AppleSDGothicNeoM] text-[26px] placeholder:font-[AppleSDGothicNeoM] placeholder:text-[26px]'
-              aria-label='비밀번호 입력'
             />
-          </label>
+          </div>
 
           {/* 비밀번호 확인 */}
-          <label className='block'>
-            <Input
-              type='password'
-              placeholder='비밀번호를 확인해주세요'
-              autoComplete='new-password'
-              required
-              maxLength={50}
-              className='text-Hana-Black placeholder:text-Icon-Detail h-[50px] w-full pl-5 font-[AppleSDGothicNeoM] text-[26px] placeholder:font-[AppleSDGothicNeoM] placeholder:text-[26px]'
-              aria-label='비밀번호 확인 입력'
-            />
-          </label>
+          <div>
+            <label className='block'>
+              <Input
+                type='password'
+                placeholder='비밀번호를 확인해주세요'
+                autoComplete='new-password'
+                required
+                maxLength={50}
+                className='text-Hana-Black placeholder:text-Icon-Detail h-[50px] w-full pl-5 font-[AppleSDGothicNeoM] text-[26px] placeholder:font-[AppleSDGothicNeoM] placeholder:text-[26px]'
+              />
+            </label>
+          </div>
 
           {/* 전화번호 */}
-          <label className='block'>
-            <Txt
-              weight='semibold'
-              className='text-Hana-Black block pb-2 text-2xl'
-            >
-              전화번호
-            </Txt>
+          <div>
+            <label className='block'>
+              <Txt
+                weight='semibold'
+                className='text-Hana-Black block pb-2 text-2xl'
+              >
+                전화번호
+              </Txt>
+            </label>
             <Input
               type='tel'
               placeholder='전화번호를 입력해주세요'
               required
               maxLength={13}
               className='text-Hana-Black placeholder:text-Icon-Detail h-[50px] w-full pl-5 font-[AppleSDGothicNeoM] text-[26px] placeholder:font-[AppleSDGothicNeoM] placeholder:text-[26px]'
-              aria-label='전화번호 입력'
             />
-          </label>
+          </div>
 
           {/* 회원가입 버튼 */}
           <Button
