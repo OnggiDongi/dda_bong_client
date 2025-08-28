@@ -23,7 +23,7 @@ const CATEGORIES = [
 export default function Category() {
   return (
     <div className='pt-[10px]'>
-      <Txt weight='bold' className='text-Hana-Black pt-6 pl-[30px] text-xl'>
+      <Txt weight='bold' className='pt-6 pl-[30px] text-xl'>
         봉사 카테고리
       </Txt>
 

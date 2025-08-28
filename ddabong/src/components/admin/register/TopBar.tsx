@@ -9,12 +9,9 @@ export default function TopBar() {
         alt='뒤로가기'
         width={10}
         height={20}
-        className='absolute start-0 pt-[25px] pb-[22px] ml-[19px]'
+        className='absolute start-0 ml-[19px] pt-[25px] pb-[22px]'
       />
-      <Txt
-        weight='bold'
-        className='pt-[23px] pb-[19px] text-xl text-Hana-Black'
-      >
+      <Txt weight='bold' className='pt-[23px] pb-[19px] text-xl'>
         봉사 등록하기
       </Txt>
     </header>

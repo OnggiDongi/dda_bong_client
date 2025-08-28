@@ -4,7 +4,7 @@ import Txt from '@/components/atoms/Text';
 export default function Title() {
   return (
     <div className='pt-6'>
-      <Txt weight='bold' className='text-Hana-Black pt-6 pl-[30px] text-xl'>
+      <Txt weight='bold' className='pt-6 pl-[30px] text-xl'>
         봉사명
       </Txt>
       <div className='px-[26px]'>
