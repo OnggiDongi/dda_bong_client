@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import StarRating from '@/components/StarRating';
 import BottomButton from '@/components/atoms/BottomButton';
 import Txt from '@/components/atoms/Text';
@@ -13,6 +13,7 @@ export default function ReviewForm() {
   const [rating, setRating] = useState(0);
   const [photo, setPhoto] = useState<Preview | null>(null);
   const router = useRouter();
+  const formRef = useRef<HTMLFormElement | null>(null);
 
   useEffect(() => {
     return () => {
@@ -33,8 +34,15 @@ export default function ReviewForm() {
     setPhoto(null);
   };
 
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    if (!form.reportValidity()) return;
+    router.push('/myreview');
+  };
+
   return (
-    <>
+    <form ref={formRef} onSubmit={onSubmit} className='flex flex-col'>
       {/* 별점 */}
       <section className='text-center'>
         <div className='pt-9 pb-4'>
@@ -48,6 +56,8 @@ export default function ReviewForm() {
           max={5}
           size={40}
           className='justify-center'
+          name='rating' // ← 폼 전송/검증용 이름
+          required // ← 필수로 지정(StarRating 내부 첫 라디오에만 required 반영)
         />
       </section>
 
@@ -58,8 +68,12 @@ export default function ReviewForm() {
             생생한 후기를 나눠봐요!
           </Txt>
         </div>
+
+        {/* ← name + required 가 있어야 네이티브 검증이 동작 */}
         <textarea
+          name='review'
           placeholder='후기를 입력해주세요.'
+          required
           className='placeholder:text-Icon-Detail border-Box-Line h-[150px] w-full resize-none overflow-y-auto rounded-[10px] border bg-white p-3 text-xl focus:outline-none'
         />
 
@@ -112,8 +126,8 @@ export default function ReviewForm() {
         </div>
       </section>
 
-      {/* 하단 버튼 */}
-      <BottomButton onClick={() => router.push('/myreview')} />
-    </>
+      {/* 하단 버튼: submit으로 사용 */}
+      <BottomButton type='submit' />
+    </form>
   );
 }

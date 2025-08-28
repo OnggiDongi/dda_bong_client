@@ -12,9 +12,9 @@ export default async function Page() {
   };
 
   return (
-    <main className='bg-Page-Background flex min-h-screen flex-col'>
+    <main className='flex min-h-screen flex-col'>
       <Header title='봉사 후기 작성' />
-      <section className='bg-white px-[26px] py-[6px]'>
+      <section className='bg-white px-[26px] py-[15px]'>
         <div className='border-Box-Line w-full border-b pb-2'>
           <Txt className='text-[22px]'>시별돌님</Txt>
         </div>
