@@ -4,8 +4,8 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect, useRef } from 'react';
 import StarRating from '@/components/StarRating';
-import BottomButton from '@/components/atoms/BottomButton';
 import Txt from '@/components/atoms/Text';
+import Button from './atoms/Button';
 
 type Preview = { url: string; file: File };
 
@@ -42,7 +42,7 @@ export default function ReviewForm() {
   };
 
   return (
-    <form ref={formRef} onSubmit={onSubmit} className='flex flex-col'>
+    <form ref={formRef} onSubmit={onSubmit} className='flex flex-col pb-20'>
       {/* 별점 */}
       <section className='text-center'>
         <div className='pt-9 pb-4'>
@@ -127,7 +127,12 @@ export default function ReviewForm() {
       </section>
 
       {/* 하단 버튼: submit으로 사용 */}
-      <BottomButton type='submit' />
+      {/* <BottomButton type='submit' /> */}
+      <div className='fixed bottom-0 left-0 w-full bg-white px-6 py-3 shadow-[0_0_5px_0_rgba(0,0,0,0.15)]'>
+        <Button type='submit' form='recruit-form' className='h-[45px] w-full'>
+          작성 완료
+        </Button>
+      </div>
     </form>
   );
 }

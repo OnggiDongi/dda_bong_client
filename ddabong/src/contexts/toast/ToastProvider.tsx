@@ -42,15 +42,15 @@ export function ToastProvider({
       {isVisible && (
         <div
           className={cn(
-            'fixed z-[1000] transition-all duration-150 top-1/2 left-1/2 transform -translate-x-1/2',
+            'fixed top-1/2 left-1/2 z-[1000] -translate-x-1/2 transform transition-all duration-150',
             position,
             isAnimating
-              ? 'opacity-100 translate-y-0'
-              : 'opacity-0 -translate-y-2'
+              ? 'translate-y-0 opacity-100'
+              : '-translate-y-2 opacity-0'
           )}
         >
           {/* Toast UI */}
-          <div className='flex items-center gap-3 min-w-fit bg-Hana-Black shadow-[0px_0px_5px_0px_rgba(0,0,0,0.15)] px-5 py-2 rounded-[6px]'>
+          <div className='bg-Hana-Black flex min-w-fit items-center gap-3 rounded-[6px] px-5 py-2 shadow-[0px_0px_5px_0px_rgba(0,0,0,0.15)]'>
             <Image
               src='/icons/ic_check.svg'
               alt='success'
@@ -61,7 +61,7 @@ export function ToastProvider({
             <Txt
               size={18}
               weight='semibold'
-              className='text-white whitespace-nowrap'
+              className='whitespace-nowrap text-white'
             >
               {message}
             </Txt>
