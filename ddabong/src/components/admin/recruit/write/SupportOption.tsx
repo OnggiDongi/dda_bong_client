@@ -1,7 +1,6 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import Txt from '@/components/atoms/Text';
 
@@ -38,65 +37,63 @@ function OptionCircle({
   );
 }
 
-export default function SupportOption() {
-  const [selected, setSelected] = useState<Set<string>>(new Set());
-  const [open, setOpen] = useState(false);
+export type SupportKey = 'bus' | 'plancard' | 'snack';
 
-  const toggle = (key: string) => {
-    setSelected((prev) => {
-      const next = new Set(prev);
-      if (next.has(key)) {
-        next.delete(key);
-      } else {
-        next.add(key);
-      }
-      return next;
-    });
+type Props = {
+  value: Set<SupportKey>;
+  onChange: (next: Set<SupportKey>) => void;
+};
+
+export default function SupportOption({ value, onChange }: Props) {
+  const toggle = (key: SupportKey) => {
+    const next = new Set(value);
+    if (next.has(key)) {
+      next.delete(key);
+    } else {
+      next.add(key);
+    }
+    onChange(next);
   };
 
   return (
-    <section className='pt-5'>
+    <section className='pt-5 pb-20'>
       <Txt className='text-xl'>하나은행이 함께 준비해 드릴게요!</Txt>
-      <br></br>
+      <br />
       <Txt className='text-Modal-font pt-1 text-xs'>※ 중복선택 가능</Txt>
 
       <div className='flex items-center justify-between gap-3 pt-2'>
         <OptionCircle
           label='버스 대절'
           img='/icons/ic_bus.svg'
-          selected={selected.has('bus')}
+          selected={value.has('bus')}
           onClick={() => toggle('bus')}
         />
         <OptionCircle
           label='플랜카드'
           img='/icons/ic_banner.svg'
-          selected={selected.has('plancard')}
+          selected={value.has('plancard')}
           onClick={() => toggle('plancard')}
         />
         <OptionCircle
           label='다과'
           img='/icons/ic_snacks.svg'
-          selected={selected.has('snack')}
+          selected={value.has('snack')}
           onClick={() => toggle('snack')}
         />
       </div>
 
-      <button
-        type='button'
-        onClick={() => setOpen((v) => !v)}
-        className='text-Modal-font group mt-4 inline-flex items-center gap-1'
-      >
-        지원 카테고리 설명
-        <Image
-          src='/icons/ic_detail.svg'
-          alt='자세히보기'
-          width={15}
-          height={10}
-          className='pl-1'
-        />
-      </button>
+      <details className='mt-4'>
+        <summary className='text-Modal-font inline-flex cursor-pointer items-center gap-1'>
+          지원 카테고리 설명
+          <Image
+            src='/icons/ic_detail.svg'
+            alt='자세히보기'
+            width={15}
+            height={10}
+            className='pl-1'
+          />
+        </summary>
 
-      {open && (
         <div className='mt-2 p-2'>
           <ul className='text-Icon-Detail list-inside list-disc space-y-4'>
             <li>
@@ -131,7 +128,7 @@ export default function SupportOption() {
             </li>
           </ul>
         </div>
-      )}
+      </details>
     </section>
   );
 }

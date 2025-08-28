@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import {
   Select,
   SelectContent,
@@ -9,15 +8,34 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
-export default function TimePicker() {
-  const [ampm, setAmpm] = useState<string>();
-  const [hour, setHour] = useState<string>();
-  const [minute, setMinute] = useState<string>();
+export type TimeValue = {
+  ampm?: string;
+  hour?: string;
+  minute?: string;
+};
+
+interface TimePickerProps {
+  value: TimeValue;
+  onChange: (value: TimeValue) => void;
+}
+
+export default function TimePicker({ value, onChange }: TimePickerProps) {
+  const handleAmpmChange = (newAmpm: string) => {
+    onChange({ ...value, ampm: newAmpm });
+  };
+
+  const handleHourChange = (newHour: string) => {
+    onChange({ ...value, hour: newHour });
+  };
+
+  const handleMinuteChange = (newMinute: string) => {
+    onChange({ ...value, minute: newMinute });
+  };
 
   return (
     <div className='flex gap-2'>
-      <Select value={ampm} onValueChange={setAmpm}>
-        <SelectTrigger className='border-Box-Linedata-[placeholder]:text-Logo-mint text-Hana-Black !h-[43px] flex-1 rounded-xl border bg-white text-lg'>
+      <Select value={value.ampm} onValueChange={handleAmpmChange}>
+        <SelectTrigger className='border-Box-Line text-Hana-Black !h-[43px] flex-1 rounded-xl border bg-white text-lg'>
           <SelectValue
             placeholder='오전/오후'
             className='p-2 font-[AppleSDGothicNeoM00] text-lg'
@@ -29,7 +47,7 @@ export default function TimePicker() {
         </SelectContent>
       </Select>
 
-      <Select value={hour} onValueChange={setHour}>
+      <Select value={value.hour} onValueChange={handleHourChange}>
         <SelectTrigger className='border-Box-Line text-Hana-Black !h-[43px] flex-1 rounded-xl border bg-white text-lg'>
           <SelectValue
             placeholder='시'
@@ -45,7 +63,7 @@ export default function TimePicker() {
         </SelectContent>
       </Select>
 
-      <Select value={minute} onValueChange={setMinute}>
+      <Select value={value.minute} onValueChange={handleMinuteChange}>
         <SelectTrigger className='border-Box-Line text-Hana-Black !h-[43px] flex-1 rounded-xl border bg-white text-lg'>
           <SelectValue
             placeholder='분'
