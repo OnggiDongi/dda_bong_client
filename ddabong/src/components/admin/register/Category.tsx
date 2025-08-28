@@ -22,21 +22,27 @@ export default function Category() {
             <SelectValue placeholder='카테고리' />
           </SelectTrigger>
 
-          <SelectContent className='rounded-xl text-base text-Hana-Black'>
-            <SelectItem className='py-3' value='환경'>
-              환경
+          <SelectContent className='text-Hana-Black rounded-xl text-base'>
+            <SelectItem className='py-3' value='생활'>
+              생활
             </SelectItem>
             <SelectItem className='py-3' value='교육'>
               교육
             </SelectItem>
-            <SelectItem className='py-3' value='돌봄'>
-              돌봄
+            <SelectItem className='py-3' value='보건'>
+              보건
             </SelectItem>
-            <SelectItem className='py-3' value='행정지원'>
-              행정지원
+            <SelectItem className='py-3' value='문화'>
+              문화
             </SelectItem>
-            <SelectItem className='py-3' value='기타'>
-              기타
+            <SelectItem className='py-3' value='환경'>
+              환경
+            </SelectItem>
+            <SelectItem className='py-3' value='행정'>
+              행정
+            </SelectItem>
+            <SelectItem className='py-3' value='농어촌'>
+              농어촌
             </SelectItem>
           </SelectContent>
         </Select>
