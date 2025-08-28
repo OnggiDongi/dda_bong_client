@@ -1,10 +1,44 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import Button from '@/components/atoms/Button';
 import Input from '@/components/atoms/Input';
 import Txt from '@/components/atoms/Text';
 
 export default function SeniorSignInPage() {
+  const [username, setUserName] = useState('');
+  const [password, setPassword] = useState('');
+  const router = useRouter();
+  const baseUrl = 'http://localhost:8080';
+
+  async function formLogin() {
+    const body = new URLSearchParams();
+    body.append('username', username);
+    body.append('password', password);
+
+    const response = await fetch(baseUrl + '/users/signin', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: body.toString(), // 문자열로 변환해서 전달
+    });
+
+    const data = await response.json();
+
+    const { accessToken, refreshToken, name } = data;
+    localStorage.setItem('accessToken', accessToken);
+    localStorage.setItem('refreshToken', refreshToken);
+    localStorage.setItem('name', name);
+  }
+
+  async function kakaoLogin() {
+    window.open(`${baseUrl}/oauth2/authorization/kakao`, '_self');
+  }
+
   return (
     <main className='flex flex-col items-center pt-25'>
       {/* 로고 */}
@@ -33,6 +67,8 @@ export default function SeniorSignInPage() {
               autoComplete='email'
               required
               maxLength={50}
+              value={username}
+              onChange={(e) => setUserName(e.target.value)}
               className='text-Hana-Black placeholder:text-Icon-Detail mt-[10px] mb-[25px] h-[50px] w-full pl-5 font-[AppleSDGothicNeoM] text-[26px] placeholder:font-[AppleSDGothicNeoM] placeholder:text-[26px]'
             />
           </div>
@@ -50,6 +86,8 @@ export default function SeniorSignInPage() {
               autoComplete='current-password'
               required
               maxLength={50}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className='text-Hana-Black placeholder:text-Icon-Detail mt-[10px] mb-[45px] h-[50px] w-full pl-5 font-[AppleSDGothicNeoM] text-[26px] placeholder:font-[AppleSDGothicNeoM] placeholder:text-[26px]'
             />
           </div>
@@ -57,8 +95,9 @@ export default function SeniorSignInPage() {
           {/* 로그인 버튼 */}
           <Link href='/home' className='mb-[25px] h-[50px] w-full'>
             <Button
-              type='submit'
               className='mt-[30px] h-[50px] w-full'
+              onClick={formLogin}
+              type='submit'
               textClassName='text-[26px]'
             >
               로그인
@@ -66,7 +105,10 @@ export default function SeniorSignInPage() {
           </Link>
 
           {/* 카카오 버튼 */}
-          <Button className='bg-kakao text-Hana-Black h-[50px] w-full gap-2 font-[AppleSDGothicNeoSB] text-xl'>
+          <Button
+            className='bg-kakao text-Hana-Black h-[50px] w-full gap-2 font-[AppleSDGothicNeoSB] text-xl'
+            onClick={kakaoLogin}
+          >
             <Image
               src='/icons/ic_kakao.svg'
               alt='카카오 아이콘'
