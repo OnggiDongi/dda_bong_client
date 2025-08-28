@@ -28,7 +28,11 @@ export default function SeniorSignInPage() {
     });
 
     const data = await response.json();
-    console.log(data);
+
+    const { accessToken, refreshToken, name } = data;
+    localStorage.setItem('accessToken', accessToken);
+    localStorage.setItem('refreshToken', refreshToken);
+    localStorage.setItem('name', name);
   }
 
   async function kakaoLogin() {

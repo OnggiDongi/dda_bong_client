@@ -34,7 +34,10 @@ export default function AuthSuccessPage() {
           withCredentials: true,
         }
       );
-      console.log(response.data);
+      const { accessToken, refreshToken, name } = response.data;
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('refreshToken', refreshToken);
+      localStorage.setItem('name', name);
     } catch (error) {
       console.error(error);
     }
