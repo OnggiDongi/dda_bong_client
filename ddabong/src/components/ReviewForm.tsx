@@ -36,7 +36,7 @@ export default function ReviewForm() {
   return (
     <>
       {/* 별점 */}
-      <section className='rounded-[12px] text-center'>
+      <section className='text-center'>
         <div className='pt-9 pb-4'>
           <Txt weight='bold' className='text-[22px]'>
             이번 봉사가 어떠셨나요?
