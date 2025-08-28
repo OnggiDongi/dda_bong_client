@@ -20,7 +20,12 @@ const CATEGORIES = [
   '농어촌',
 ] as const;
 
-export default function Category() {
+interface CategoryProps {
+  value: string;
+  onValueChange: (value: string) => void;
+}
+
+export default function Category({ value, onValueChange }: CategoryProps) {
   return (
     <div className='pt-[10px]'>
       <Txt weight='bold' className='pt-6 pl-[30px] text-xl'>
@@ -28,7 +33,7 @@ export default function Category() {
       </Txt>
 
       <div className='mt-3 px-[26px]'>
-        <Select onValueChange={(v) => console.log('selected:', v)}>
+        <Select onValueChange={onValueChange} value={value}>
           <SelectTrigger>
             <SelectValue placeholder='카테고리' />
           </SelectTrigger>
