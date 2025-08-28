@@ -6,7 +6,7 @@ export default function SeniorCard() {
       titleTop='봉사를 찾고있는'
       titleBottom='개인인가요?'
       iconSrc='/icons/ic_senior.svg'
-      href='/signIn/senior'
+      href='/signIn'
       bgClass='bg-Hana-Beige'
       borderClass='border-Hana-Beige-Line'
     />
