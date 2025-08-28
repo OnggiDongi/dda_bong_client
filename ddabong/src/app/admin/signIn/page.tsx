@@ -21,10 +21,12 @@ export default function AdminSignInPage() {
       <div className='mt-[44px] w-[300px]'>
         <form className='flex flex-col'>
           {/* 이메일 */}
-          <label className='block'>
-            <Txt weight='semibold' className='text-Hana-Black text-xl'>
-              이메일
-            </Txt>
+          <div>
+            <label className='block'>
+              <Txt weight='semibold' className='text-Hana-Black text-xl'>
+                이메일
+              </Txt>
+            </label>
             <Input
               type='email'
               placeholder='이메일'
@@ -32,15 +34,16 @@ export default function AdminSignInPage() {
               required
               maxLength={50}
               className='text-Hana-Black placeholder:text-Icon-Detail mt-[10px] mb-[25px] h-[50px] w-full pl-5 font-[AppleSDGothicNeoM] text-lg placeholder:font-[AppleSDGothicNeoM] placeholder:text-lg'
-              aria-label='이메일 입력'
             />
-          </label>
+          </div>
 
           {/* 비밀번호 */}
-          <label className='block'>
-            <Txt weight='semibold' className='text-Hana-Black text-xl'>
-              비밀번호
-            </Txt>
+          <div>
+            <label className='block'>
+              <Txt weight='semibold' className='text-Hana-Black text-xl'>
+                비밀번호
+              </Txt>
+            </label>
             <Input
               type='password'
               placeholder='비밀번호'
@@ -48,9 +51,8 @@ export default function AdminSignInPage() {
               required
               maxLength={50}
               className='text-Hana-Black placeholder:text-Icon-Detail mt-[10px] mb-[50px] h-[50px] w-full pl-5 font-[AppleSDGothicNeoM] text-lg placeholder:font-[AppleSDGothicNeoM] placeholder:text-lg'
-              aria-label='비밀번호 입력'
             />
-          </label>
+          </div>
 
           {/* 로그인 버튼 */}
           <Link href='/home'>
@@ -67,7 +69,8 @@ export default function AdminSignInPage() {
             >
               가입한 계정이 없으신가요?
             </Txt>
-            <Link href='/signUp/admin' className='ml-[14px] pb-1'>
+            
+            <Link href='/admin/signUp' className='ml-[14px] pb-1'>
               <Txt
                 weight='medium'
                 className='text-Icon-Detail align-middle text-base leading-none underline underline-offset-2'

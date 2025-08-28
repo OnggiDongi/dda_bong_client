@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { cn } from '@/lib/utils';
+import Txt from '../atoms/Text';
 
 type DatePickerProps = {
   value?: Date | null;
@@ -9,6 +10,11 @@ type DatePickerProps = {
   minYear?: number; // 기본 1930
   maxYear?: number; // 기본: 올해
   className?: string; // 트리거 박스 커스텀
+  disablePast?: boolean; // 과거 날짜 선택 불가 옵션
+  disableFuture?: boolean; //미래 날짜 선택 불가 옵션
+  placeholder?: string;
+  textClassName?: string; //글씨 크기, 두께
+  placeholderClassName?: string;
 };
 
 function isSameDate(a: Date, b: Date) {
@@ -28,6 +34,11 @@ export default function DatePicker({
   minYear = 1930,
   maxYear = new Date().getFullYear(),
   className,
+  disablePast,
+  disableFuture,
+  placeholder,
+  textClassName,
+  placeholderClassName,
 }: DatePickerProps) {
   const [selected, setSelected] = useState<Date | null>(value);
   const [view, setView] = useState<Date>(value ?? new Date());
@@ -76,9 +87,17 @@ export default function DatePicker({
   const months = Array.from({ length: 12 }, (_, i) => i);
 
   const today = new Date();
-  const isFuture = (d: Date) => d > today;
-  const disabledDay = (d: Date) =>
-    isFuture(d) || d.getFullYear() < minYear || d.getFullYear() > maxYear;
+  today.setHours(0, 0, 0, 0);
+
+  // 변경: 과거/미래 차단 로직을 prop 기반으로 분기
+  const disabledDay = (d: Date) => {
+    const dd = new Date(d);
+    dd.setHours(0, 0, 0, 0); // (시분초 제거)
+    if (disablePast && dd < today) return true;
+    if (disableFuture && dd > today) return true;
+    if (dd.getFullYear() < minYear || dd.getFullYear() > maxYear) return true;
+    return false;
+  };
 
   return (
     <div ref={wrapRef} className='w-full'>
@@ -92,9 +111,17 @@ export default function DatePicker({
           className
         )}
       >
-        <span className='text-Hana-Black font-[AppleSDGothicNeoM] text-[20px]'>
-          {selected ? fmt(selected) : '생년월일을 선택하세요'}
-        </span>
+        <Txt
+          weight='medium'
+          className={cn(
+            'text-[26px]',
+            selected
+              ? cn('text-Hana-Black', textClassName)
+              : cn('text-Icon-Detail', textClassName, placeholderClassName)
+          )}
+        >
+          {selected ? fmt(selected) : (placeholder ?? '날짜를 선택하세요')}
+        </Txt>
         <svg
           className={cn(
             'ml-2 h-4 w-4 transition-transform',
