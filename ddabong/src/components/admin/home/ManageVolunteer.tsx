@@ -9,7 +9,7 @@ export default function ManageVolunteer() {
       height={160}
       iconSrc='/icons/ic_menu.svg'
       iconSize={75}
-      href='/manage'
+      href='/admin/review'
       paddingClass='pt-4 pb-4 pl-5 pr-4 relative'
       iconClassName='absolute bottom-3 right-1.5'
       titleTopClassName='text-xl whitespace-nowrap'

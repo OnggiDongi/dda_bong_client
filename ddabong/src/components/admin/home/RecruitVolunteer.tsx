@@ -11,7 +11,7 @@ export default function RecruitVolunteer() {
       height={160}
       iconSrc='/icons/ic_book.svg'
       iconSize={90}
-      href='/recruit'
+      href='/admin/recruit'
       paddingClass='pt-4 pb-4 pl-5 pr-4 relative'
       iconClassName='absolute bottom-0.5 right-1'
       titleTopClassName='text-xl whitespace-nowrap'
