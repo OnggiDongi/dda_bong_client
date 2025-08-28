@@ -8,6 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import Txt from '../atoms/Text';
 import { REGION_MAP } from './data/region';
 
 export default function LocationFilter() {
@@ -17,8 +18,12 @@ export default function LocationFilter() {
   return (
     <div className='flex gap-2'>
       <Select value={region} onValueChange={setRegion}>
-        <SelectTrigger className='text-Icon-Detail border-Box-Line data-[placeholder]:text-Icon-Detail !h-[43px] w-[170px] rounded-xl border bg-white py-[11px] font-[AppleSDGothicNeoM00] text-xl'>
-          <SelectValue placeholder='시/도 선택' />
+        <SelectTrigger className='text-Icon-Detail text-xl'>
+          <SelectValue
+            placeholder={
+              <Txt className='text-Icon-Detail text-xl'>시/도 선택</Txt>
+            }
+          />
         </SelectTrigger>
         <SelectContent className='text-Icon-Detail rounded-xl text-xl [&_[data-radix-select-viewport]]:max-h-60 [&_[data-radix-select-viewport]]:overflow-y-auto'>
           {Object.keys(REGION_MAP).map((r) => (
@@ -30,10 +35,11 @@ export default function LocationFilter() {
       </Select>
 
       <Select value={district} onValueChange={setDistrict}>
-        <SelectTrigger className='text-Icon-Detail border-Box-Line data-[placeholder]:text-Icon-Detail !h-[43px] w-[170px] rounded-xl border bg-white py-[11px] font-[AppleSDGothicNeoM00] text-xl'>
+        <SelectTrigger className='text-Icon-Detail text-xl'>
           <SelectValue
-            placeholder='구/군 선택'
-            className='text-Icon-Detail font-[AppleSDGothicNeoM00]'
+            placeholder={
+              <Txt className='text-Icon-Detail text-xl'>구/군 선택</Txt>
+            }
           />
         </SelectTrigger>
         <SelectContent className='text-Icon-Detail rounded-xl text-xl'>
