@@ -7,11 +7,14 @@ const BgColor = {
   pink: 'bg-Logo-Pink',
   gray: 'bg-Background',
   white: 'bg-white',
+  purple: 'bg-IQ-Purple',
 } as const;
 
 const BorderColor = {
   pink: 'border-Logo-Pink',
   mint: 'border-Logo-Mint',
+  mint2: 'border-1Q-Mint-Line',
+  purple: 'border-IQ-Purple-Line',
 } as const;
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -23,7 +26,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 /**
  * Button 컴포넌트
  * - color: 토큰 기반 배경색 (green/mint/pink/gray/white)
- * - borderColor: 토큰 기반 테두리 색상 (pink/mint)
+ * - borderColor: 토큰 기반 테두리 색상 (pink/mint/mint2/purple)
  * - 글씨 크기/버튼 크기: 호출부에서 className으로 자유롭게 조정
  */
 
