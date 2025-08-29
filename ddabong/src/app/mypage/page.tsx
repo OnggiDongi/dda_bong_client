@@ -11,27 +11,29 @@ export default function MyPage() {
     birth: '1968.09.08',
     grade: 'SILVER',
     profile: '/icons/beeber.svg',
+    region: '파주시',
+    category: '농어촌',
   };
 
   return (
     <main className='mx-auto flex w-full max-w-[430px] flex-col'>
       <section className='relative flex items-center justify-between px-[47px] pt-[67px] pb-10'>
         <div>
-          <Txt className='text-Hana-Black text-3xl leading-[40px] font-extrabold'>
+          <Txt className='text-3xl leading-[40px] font-extrabold'>
             {user.name}
             <span className='ml-1'>님의</span>
             <br /> 따봉
           </Txt>
           <div className='flex gap-2 pt-[10px]'>
             <Badge
-              text='농어촌'
+              text={user.category}
               weight='bold'
               className='h-[30px] w-18 py-1'
               textClassName='text-xl'
             />
             <Badge
               bgColor='bg-Logo-Pink'
-              text='파주시'
+              text={user.region}
               weight='bold'
               className='h-[30px] w-18 py-1'
               textClassName='text-xl'
@@ -59,7 +61,7 @@ export default function MyPage() {
             href='/mypage/edit'
             className='flex items-center justify-between'
           >
-            <Txt weight='heavy' className='text-Hana-Black pr-10 text-2xl'>
+            <Txt weight='heavy' className='pr-10 text-2xl'>
               내 정보
             </Txt>
             <Image
@@ -88,7 +90,7 @@ export default function MyPage() {
             href='/review'
             className='flex items-center justify-between pr-35'
           >
-            <Txt weight='heavy' className='text-Hana-Black text-2xl'>
+            <Txt weight='heavy' className='text-2xl'>
               나의 봉사 활동
             </Txt>
             <Image
@@ -104,7 +106,7 @@ export default function MyPage() {
             href='/wish'
             className='flex items-center justify-between pr-25'
           >
-            <Txt weight='heavy' className='text-Hana-Black text-2xl'>
+            <Txt weight='heavy' className='text-2xl'>
               나의 찜한 봉사활동
             </Txt>
             <Image
@@ -120,7 +122,7 @@ export default function MyPage() {
             href='/myreview'
             className='flex items-center justify-between pr-30'
           >
-            <Txt weight='heavy' className='text-Hana-Black text-2xl'>
+            <Txt weight='heavy' className='text-2xl'>
               나의 작성한 후기
             </Txt>
             <Image
