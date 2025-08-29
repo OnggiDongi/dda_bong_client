@@ -102,12 +102,12 @@ export default function SeniorReviewListPage() {
   };
 
   return (
-    <main className='bg-page-gradient flex flex-col items-center gap-4 px-6 pb-10'>
+    <main className='bg-page-gradient flex flex-col items-center gap-4 pb-10'>
       <TopBar title='봉사 후기 작성' bgColor='bg-page-background' />
 
       <TabButton activeTab={activeTab} onChange={setActiveTab} />
 
-      {activeTab === 'history' && <VolunProfile></VolunProfile>}
+      {activeTab === 'history' && <VolunProfile volunHour={35}></VolunProfile>}
 
       <section className='items-center justify-center space-y-4'>
         {list.map((item) => {
