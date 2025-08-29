@@ -28,11 +28,7 @@ interface CategoryProps {
 export default function Category({ value, onValueChange }: CategoryProps) {
   return (
     <div className='pt-[10px]'>
-      <Txt weight='bold' className='pt-6 pl-[30px] text-xl'>
-        봉사 카테고리
-      </Txt>
-
-      <div className='mt-3 px-[26px]'>
+      <div>
         <Select onValueChange={onValueChange} value={value}>
           <SelectTrigger>
             <SelectValue placeholder='카테고리' />

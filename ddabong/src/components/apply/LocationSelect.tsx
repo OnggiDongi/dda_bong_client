@@ -18,10 +18,12 @@ export default function LocationFilter() {
   return (
     <div className='flex gap-2'>
       <Select value={region} onValueChange={setRegion}>
-        <SelectTrigger className='text-Icon-Detail text-xl'>
+        <SelectTrigger className='text-Hana-Black text-xl'>
           <SelectValue
             placeholder={
-              <Txt className='text-Icon-Detail text-xl'>시/도 선택</Txt>
+              <Txt weight='medium' className='text-Icon-Detail text-xl'>
+                시/도 선택
+              </Txt>
             }
           />
         </SelectTrigger>
@@ -35,10 +37,12 @@ export default function LocationFilter() {
       </Select>
 
       <Select value={district} onValueChange={setDistrict}>
-        <SelectTrigger className='text-Icon-Detail text-xl'>
+        <SelectTrigger className='text-Hana-Black text-xl'>
           <SelectValue
             placeholder={
-              <Txt className='text-Icon-Detail text-xl'>구/군 선택</Txt>
+              <Txt weight='medium' className='text-Icon-Detail text-xl'>
+                구/군 선택
+              </Txt>
             }
           />
         </SelectTrigger>
