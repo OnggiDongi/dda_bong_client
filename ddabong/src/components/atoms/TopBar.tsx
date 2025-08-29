@@ -2,19 +2,30 @@
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { cn } from '@/lib/utils';
 import Txt from '@/components/atoms/Text';
 
 type Props = {
   title?: string;
   onBack?: () => void; // 외부 핸들러가 있으면 우선 사용
+  bgColor?: string;
 };
 
-export default function TopBar({ title = '봉사 등록하기', onBack }: Props) {
+export default function TopBar({
+  title = '봉사 등록하기',
+  onBack,
+  bgColor,
+}: Props) {
   const router = useRouter();
   const handleBack = () => (onBack ? onBack() : router.back());
 
   return (
-    <header className='relative flex items-center justify-center bg-white'>
+    <header
+      className={cn(
+        'relative flex w-full items-center justify-center',
+        bgColor ? bgColor : 'bg-white'
+      )}
+    >
       <button
         type='button'
         onClick={handleBack}
