@@ -30,7 +30,7 @@ const MyReviewCard = ({
       <div className='flex items-start justify-between'>
         <div>
           <Badge text={category} />
-          <Txt className='text-Hana-Black block pt-[2px] text-xl'>{title}</Txt>
+          <Txt className='block pt-[2px] text-[22px]'>{title}</Txt>
 
           <Txt className='text-Icon-Detail pt-[2px] text-lg' weight='medium'>
             {date}
@@ -46,7 +46,7 @@ const MyReviewCard = ({
         </div>
       </div>
 
-      <Txt weight='medium' className='text-lg leading-relaxed'>
+      <Txt weight='medium' className='text-xl'>
         {content}
       </Txt>
 
