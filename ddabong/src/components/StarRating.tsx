@@ -37,6 +37,20 @@ export default function StarRating({
         const n = i + 1;
         const checked = value === n;
         const id = `${name}-${n}`;
+
+        const getStarSrc = (starIndex: number) => {
+          if (value >= starIndex + 1) {
+            return '/icons/ic_star_filled.svg';
+          }
+
+          const fraction = value - starIndex;
+          if (fraction > 0.75) return '/icons/ic_star_almost.svg';
+          if (fraction > 0.35) return '/icons/ic_star_half.svg';
+          if (fraction > 0) return '/icons/ic_star_quarter.svg';
+
+          return '/icons/ic_star_outline.svg';
+        };
+
         return (
           <div key={id} className='inline-block'>
             <input
@@ -46,17 +60,12 @@ export default function StarRating({
               value={n}
               checked={checked}
               onChange={() => onChange?.(n)}
-              // 그룹에 하나만 required를 건다(첫 번째에만)
               required={required && i === 0}
               className='sr-only'
             />
             <label htmlFor={id} className='cursor-pointer select-none'>
               <Image
-                src={
-                  n <= value
-                    ? '/icons/ic_star_filled.svg'
-                    : '/icons/ic_star_outline.svg'
-                }
+                src={getStarSrc(i)}
                 alt={`${n}점`}
                 width={size}
                 height={size}
