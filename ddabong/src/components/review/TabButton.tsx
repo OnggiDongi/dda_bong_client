@@ -20,7 +20,7 @@ export default function TabButton({ activeTab, onChange }: Props) {
           activeTab === 'apply' ? '' : 'bg-1Q-Mint-Line'
         )}
         textClassName={cn(
-          activeTab === 'apply' ? 'text-1Q-Mint-Line' : 'text-Logo-Mint'
+          activeTab === 'apply' ? 'text-white' : 'text-Logo-Mint'
         )}
       >
         신청내역
@@ -33,7 +33,7 @@ export default function TabButton({ activeTab, onChange }: Props) {
           activeTab === 'history' ? '' : 'bg-1Q-Mint-Line'
         )}
         textClassName={cn(
-          activeTab === 'history' ? 'text-1Q-Mint-Line' : 'text-Logo-Mint'
+          activeTab === 'history' ? 'text-white' : 'text-Logo-Mint'
         )}
       >
         지난내역
