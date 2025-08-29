@@ -1,4 +1,4 @@
-export default async function VolunteerDetailPage({
+export default function VolunteerDetailPage({
   params,
 }: {
   params: { id: string };
