@@ -18,7 +18,7 @@ export default function ApplyBody() {
             text='마감 31일 남음'
             bgColor='bg-white'
             textColor='text-Logo-Mint'
-            borderColor='border-Logo_Mint'
+            borderColor='border-Logo-Mint'
           />
         </div>
         <Txt className='text-[21px]' weight='bold'>
@@ -46,7 +46,7 @@ export default function ApplyBody() {
             lines={['2025.09.16', '13:00 - 21:00']}
           />
         </div>
-        <div className='bg-Hana-Beige-Line my-5 h-[1px] w-full'></div>
+        <div className='my-5 h-[1px] w-full bg-gray-200'></div>
         <Txt className='text-[19px]' weight='medium'>
           깨끗한 동해 바다를 만들기 위해 함께할 봉사자를 모집합니다.
           <br />

@@ -15,7 +15,7 @@ export default function ApplyGridBox({
   return (
     <div className='flex gap-2'>
       {/* 아이콘 박스 */}
-      <div className='bg-Background h-[55px] w-[55px] rounded-[10px] p-[13px]'>
+      <div className='bg-Background h-[55px] w-[55px] rounded-xl p-[13px]'>
         <Image
           src={iconSrc}
           alt={iconAlt}
