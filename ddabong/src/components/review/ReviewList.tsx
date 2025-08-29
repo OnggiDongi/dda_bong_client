@@ -47,8 +47,8 @@ export default function ReviewListCard({
   cta,
   className,
 }: Props) {
-  const link =
-    href ?? (mode === 'apply' ? `/apply/${id}` : `/reviews/write/${id}`);
+  const link: string | undefined =
+    href ?? (mode === 'apply' ? `/apply/${id}` : undefined);
 
   const approveBadge =
     mode === 'apply' && approve
@@ -66,56 +66,54 @@ export default function ReviewListCard({
         }
       : null;
 
-  return (
-    <Link href={link} className={cn('block', className)}>
-      <div className='flex w-[350px] flex-col gap-3 rounded-2xl bg-white p-4'>
-        <div className='flex gap-3'>
-          <Image
-            src={image}
-            alt={title}
-            width={120}
-            height={120}
-            className='h-[120px] w-[120px] rounded-xl object-cover'
-          />
+  const Body = (
+    <div className='flex gap-3'>
+      <Image
+        src={image}
+        alt={title}
+        width={120}
+        height={120}
+        className='h-[120px] w-[120px] rounded-xl object-cover'
+      />
 
-          <div className='flex flex-col justify-between pl-1'>
-            {/* 배지 */}
-            <div className='flex gap-1'>
-              <Badge text={category} />
-              {approveBadge && (
-                <Badge
-                  text={approveBadge.text}
-                  bgColor={approveBadge.bgColor}
-                  textColor={approveBadge.textColor}
-                  borderColor={approveBadge.borderColor}
-                />
-              )}
-            </div>
-
-            {/* 제목 */}
-            <Txt weight='semibold' className='w-[190px] truncate text-lg'>
-              {title}
-            </Txt>
-
-            {/* 날짜/장소 */}
-            <Txt className='text-Icon-Detail text-base'>{date}</Txt>
-            <Txt className='text-Icon-Detail -mt-1.5 text-base'>{location}</Txt>
-          </div>
+      <div className='flex flex-col justify-between pl-1'>
+        <div className='flex gap-1'>
+          <Badge text={category} />
+          {approveBadge && (
+            <Badge
+              text={approveBadge.text}
+              bgColor={approveBadge.bgColor}
+              textColor={approveBadge.textColor}
+              borderColor={approveBadge.borderColor}
+            />
+          )}
         </div>
 
-        {/* 하단 CTA 버튼 */}
+        <Txt weight='semibold' className='w-[190px] truncate text-lg'>
+          {title}
+        </Txt>
+
+        <Txt className='text-Icon-Detail -mt-1 text-base'>{date}</Txt>
+        <Txt className='text-Icon-Detail -mt-2 text-base'>{location}</Txt>
+      </div>
+    </div>
+  );
+
+  return (
+    <div className={cn('block', className)}>
+      <div className='flex w-[350px] flex-col gap-3 rounded-2xl bg-white p-4'>
+        {link ? <Link href={link}>{Body}</Link> : Body}
+
         {cta && (
           <>
-            <hr className='border-t border-[#DDE7E5]' />
+            <hr className='border-icon-detail' />
             <button
               type='button'
               className={cn(
-                'w-full text-center text-[18px] font-semibold',
-                toneToClass[cta.color ?? 'green'] // 기본값 초록
+                'w-full text-center text-xl font-semibold',
+                toneToClass[cta.color ?? 'green']
               )}
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
+              onClick={() => {
                 cta.onClick(id);
               }}
             >
@@ -124,6 +122,6 @@ export default function ReviewListCard({
           </>
         )}
       </div>
-    </Link>
+    </div>
   );
 }
