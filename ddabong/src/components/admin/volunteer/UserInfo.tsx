@@ -9,7 +9,7 @@ type Props = {
   phoneNumber: string;
   profileImage: string;
   preferredCategory: string;
-  aiReviw: string;
+  aiReview: string;
 };
 export default function UserInfo({
   userName,
@@ -17,7 +17,7 @@ export default function UserInfo({
   phoneNumber,
   profileImage,
   preferredCategory,
-  aiReviw,
+  aiReview,
 }: Props) {
   return (
     <>
@@ -39,7 +39,7 @@ export default function UserInfo({
             <Txt>{phoneNumber}</Txt>
           </div>
         </div>
-        <AiComment text={aiReviw} />
+        <AiComment text={aiReview} />
       </div>
     </>
   );
