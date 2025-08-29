@@ -11,7 +11,7 @@ type Props = {
   onConfirm: () => void;
   cancelText?: string;
   confirmText?: string;
-  confirmColor?: 'green' | 'mint' | 'pink' | 'gray' | 'white' | 'purple';
+  confirmColor?: 'green' | 'pink';
 };
 
 export default function Modal({
