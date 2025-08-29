@@ -41,15 +41,16 @@ export default function Modal({
         <div className='flex justify-center gap-5 pt-11'>
           <Button
             color='gray'
-            className='bg-Page-Background text-Icon-Detail h-[45px] w-[155px] rounded-xl py-2.5 text-center font-[AppleSDGothicNeoSB] text-[18px]'
+            className='bg-Page-Background h-[45px] w-[155px] rounded-xl py-2.5'
             onClick={onCancel}
+            textClassName='text-Icon-Detail'
           >
             취소
           </Button>
 
           <Button
             color='green'
-            className='h-[45px] w-[155px] rounded-xl py-2.5 font-[AppleSDGothicNeoSB] text-xl text-white'
+            className='h-[45px] w-[155px] rounded-xl py-2.5'
             onClick={onConfirm}
           >
             신청
