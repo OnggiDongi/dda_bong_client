@@ -32,10 +32,10 @@ export default function InfoCard({ items, href, className }: InfoCardProps) {
 function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className='flex items-center justify-between py-1'>
-      <Txt weight='extrabold' className='text-Hana-Black text-[22px]'>
+      <Txt weight='extrabold' className='text-[22px]'>
         {label}
       </Txt>
-      <Txt weight='semibold' className='text-Hana-Black text-[22px]'>
+      <Txt weight='semibold' className='text-[22px]'>
         {value}
       </Txt>
     </div>
