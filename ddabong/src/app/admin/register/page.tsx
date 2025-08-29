@@ -23,7 +23,7 @@ export default function RegisterPage() {
   return (
     <div className='flex h-screen w-full flex-col'>
       <div className='bg-page-gradient flex-1 overflow-y-auto'>
-        Bar /><Top
+        <TopBar />
         <Title value={title} onChange={(e) => setTitle(e.target.value)} />
         <Txt weight='bold' className='mt-3 block pl-[30px] text-xl'>
           봉사 카테고리
