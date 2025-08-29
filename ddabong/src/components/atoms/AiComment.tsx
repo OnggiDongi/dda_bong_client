@@ -20,6 +20,7 @@ export default function AiComment({
   text,
   rounded = 'rounded-full',
   className,
+  textClassName,
 }: Props) {
   return (
     <>
@@ -36,7 +37,7 @@ export default function AiComment({
           width={16}
           height={15}
         />
-        <Txt className='text-Logo-Mint pl-1'>{text}</Txt>
+        <Txt className={cn('text-Logo-Mint pl-1', textClassName)}>{text}</Txt>
       </div>
     </>
   );
