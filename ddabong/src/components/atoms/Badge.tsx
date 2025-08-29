@@ -40,7 +40,7 @@ export default function Badge({
   return (
     <span
       className={cn(
-        'h-[25px] items-center justify-center px-3',
+        'inline-flex h-[25px] items-center justify-center px-3',
         bgColor,
         rounded,
         hasBorder && 'border-[0.5px]',
