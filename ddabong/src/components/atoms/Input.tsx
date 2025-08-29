@@ -7,7 +7,9 @@ const baseClasses = `
     text-Hana-Black
     placeholder:text-Icon-Detail
     focus:ring-0 focus:outline-none
- `;
+    font-[AppleSDGothicNeoM]
+
+] `;
 
 type Props = {
   placeholder?: string;
