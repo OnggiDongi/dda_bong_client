@@ -7,7 +7,8 @@ const userProfileImage =
 const reviews = [
   {
     userName: '초수비',
-    imageUrl: userProfileImage,
+    imageUrl:
+      'https://ddabong-upload.s3.ap-northeast-2.amazonaws.com/uploads/초수비.jpg',
     totalRate: 4.0,
     diligenceLevel: 4.0,
     attitude: 4.0,
@@ -17,7 +18,8 @@ const reviews = [
   },
   {
     userName: '김보개미',
-    imageUrl: userProfileImage,
+    imageUrl:
+      'https://ddabong-upload.s3.ap-northeast-2.amazonaws.com/uploads/김보개미.png',
     totalRate: 1.2,
     diligenceLevel: 1.0,
     attitude: 1.0,
@@ -37,13 +39,25 @@ const reviews = [
   },
   {
     userName: '기여니피그',
-    imageUrl: userProfileImage,
+    imageUrl:
+      'https://ddabong-upload.s3.ap-northeast-2.amazonaws.com/uploads/김태희.png',
     totalRate: 5.0,
     diligenceLevel: 5.0,
     attitude: 5.0,
     healthStatus: 5.0,
     status: 'PENDING',
     aiReview: '외계어를 해요. 4차원이에요.',
+  },
+  {
+    userName: '비버',
+    imageUrl:
+      'https://ddabong-upload.s3.ap-northeast-2.amazonaws.com/uploads/비버.png',
+    totalRate: 4.9,
+    diligenceLevel: 5.0,
+    attitude: 5.0,
+    healthStatus: 4.7,
+    status: 'PENDING',
+    aiReview: '밥을 많이 안주면 물어요. 소리를 질러..',
   },
 ];
 
