@@ -7,6 +7,7 @@ import AiComment from './atoms/AiComment';
 import Badge from './atoms/Badge';
 import Button from './atoms/Button';
 import Txt from './atoms/Text';
+import Modal from './atoms/modal';
 
 type Props = {
   userName: string;
@@ -29,7 +30,29 @@ export default function ActivityReview({
   attitude,
   aiReview,
 }: Props) {
-  const [toggle, setToggle] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false); // ✅ 모달 상태 추가
+  const [modalType, setModalType] = useState<'APPROVE' | 'REJECT' | null>(null); // 어떤 버튼 눌렀는지
+
+  const openModal = (type: 'APPROVE' | 'REJECT') => {
+    setModalType(type);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setModalType(null);
+  };
+
+  const handleConfirm = () => {
+    if (modalType === 'APPROVE') {
+      // ✅ 수락 처리
+      console.log('수락!');
+    } else {
+      // ✅ 거절 처리
+      console.log('거절!');
+    }
+    closeModal();
+  };
   return (
     <>
       <div className='mt-1 flex flex-col items-center bg-white'>
@@ -50,6 +73,7 @@ export default function ActivityReview({
                     color='white'
                     className='ml-2 h-auto w-auto'
                     textClassName='leading-none flex items-center'
+                    onClick={() => openModal('REJECT')}
                   >
                     <Badge
                       text='거절'
@@ -63,6 +87,7 @@ export default function ActivityReview({
                     color='white'
                     className='ml-2 h-auto w-auto'
                     textClassName='leading-none flex items-center'
+                    onClick={() => openModal('APPROVE')}
                   >
                     <Badge
                       text='수락'
@@ -116,6 +141,21 @@ export default function ActivityReview({
           </div>
         </div>
       </div>
+      {isModalOpen && (
+        <Modal
+          title={userName}
+          description={
+            modalType === 'APPROVE'
+              ? '해당 봉사자를 수락하시겠습니까?'
+              : '해당 봉사자를 거절하시겠습니까?'
+          }
+          onCancel={closeModal}
+          onConfirm={handleConfirm}
+          cancelText='취소'
+          confirmText={modalType === 'APPROVE' ? '수락' : '거절'}
+          confirmColor={modalType === 'APPROVE' ? 'green' : 'pink'}
+        />
+      )}
     </>
   );
 }
