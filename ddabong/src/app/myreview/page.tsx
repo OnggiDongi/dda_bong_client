@@ -78,7 +78,7 @@ export default function MyReviewPage() {
           </div>
         ) : (
           <div className='flex flex-1 items-center justify-center'>
-            <Txt className='text-Modal-font font-AppleSDGothicNeoM00 text-[22px]'>
+            <Txt className='text-Modal-font text-[22px]' weight='medium'>
               작성한 후기가 없습니다
             </Txt>
           </div>

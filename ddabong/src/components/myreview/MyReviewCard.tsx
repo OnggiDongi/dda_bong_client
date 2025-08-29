@@ -28,11 +28,11 @@ const MyReviewCard = ({
   return (
     <div className='py-5 pr-[22px] pl-6'>
       <div className='flex items-start justify-between'>
-        <div className='min-w-0'>
+        <div>
           <Badge text={category} />
           <Txt className='text-Hana-Black block pt-[2px] text-xl'>{title}</Txt>
 
-          <Txt className='text-Icon-Detail pt-[2px] font-[AppleSDGothicNeoM] text-lg'>
+          <Txt className='text-Icon-Detail pt-[2px] text-lg' weight='medium'>
             {date}
           </Txt>
 
