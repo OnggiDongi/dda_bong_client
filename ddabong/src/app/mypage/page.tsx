@@ -10,7 +10,6 @@ export default function MyPage() {
     email: 'sibd@naver.com',
     birth: '1968.09.08',
     grade: 'SILVER',
-    titleSuffix: '의 따봉',
     profile: '/icons/beeber.svg',
   };
 
@@ -21,8 +20,7 @@ export default function MyPage() {
           <Txt className='text-Hana-Black text-3xl leading-[40px] font-extrabold'>
             {user.name}
             <span className='ml-1'>님의</span>
-            <br />
-            {user.titleSuffix}
+            <br /> 따봉
           </Txt>
           <div className='flex gap-2 pt-[10px]'>
             <Badge
