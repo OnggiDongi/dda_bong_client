@@ -15,7 +15,7 @@ export default function ApplyGridBox({
   return (
     <div className='flex gap-2'>
       {/* 아이콘 박스 */}
-      <div className='bg-Background h-[55px] w-[55px] rounded-xl p-[13px]'>
+      <div className='bg-Background h-[48px] w-[48px] rounded-xl p-[12px]'>
         <Image
           src={iconSrc}
           alt={iconAlt}
@@ -28,7 +28,7 @@ export default function ApplyGridBox({
       {/* 텍스트 영역 */}
       <div className='flex flex-col justify-center'>
         {lines.map((line, idx) => (
-          <Txt key={idx} className='text-Hana-Black/60 text-[15px]'>
+          <Txt key={idx} className='text-Hana-Black/60 text-[17px]'>
             {line}
           </Txt>
         ))}

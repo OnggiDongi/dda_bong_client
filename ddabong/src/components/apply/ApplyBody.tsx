@@ -21,7 +21,7 @@ export default function ApplyBody() {
             borderColor='border-Logo-Mint'
           />
         </div>
-        <Txt className='text-[21px]' weight='bold'>
+        <Txt className='text-[22px]' weight='bold'>
           동해 바다 쓰레기 줍기
         </Txt>
         <div className='mt-[21px] grid grid-cols-2 gap-x-1 gap-y-7'>
@@ -47,7 +47,7 @@ export default function ApplyBody() {
           />
         </div>
         <div className='my-5 h-[1px] w-full bg-gray-200'></div>
-        <Txt className='text-[19px]' weight='medium'>
+        <Txt className='text-[20px]' weight='medium'>
           깨끗한 동해 바다를 만들기 위해 함께할 봉사자를 모집합니다.
           <br />
           <br />
