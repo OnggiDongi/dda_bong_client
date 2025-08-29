@@ -9,6 +9,9 @@ type Props = {
   description?: string;
   onCancel: () => void;
   onConfirm: () => void;
+  cancelText?: string;
+  confirmText?: string;
+  confirmColor?: 'green' | 'mint' | 'pink' | 'gray' | 'white' | 'purple';
 };
 
 export default function Modal({
@@ -16,6 +19,9 @@ export default function Modal({
   description,
   onCancel,
   onConfirm,
+  cancelText = '취소',
+  confirmText = '신청',
+  confirmColor = 'green',
 }: Props) {
   const overlayRef = useRef<HTMLDivElement>(null);
 
@@ -45,15 +51,15 @@ export default function Modal({
             onClick={onCancel}
             textClassName='text-Icon-Detail'
           >
-            취소
+            {cancelText}
           </Button>
 
           <Button
-            color='green'
+            color={confirmColor}
             className='h-[45px] w-[155px] rounded-xl py-2.5'
             onClick={onConfirm}
           >
-            신청
+            {confirmText}
           </Button>
         </div>
       </div>
