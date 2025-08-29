@@ -16,7 +16,7 @@ export default function ActivityInfo({
 }: Props) {
   return (
     <>
-      <div className='flex pb-4'>
+      <div className='flex'>
         <Image
           src={imageUrl}
           alt='acivity_image_url'

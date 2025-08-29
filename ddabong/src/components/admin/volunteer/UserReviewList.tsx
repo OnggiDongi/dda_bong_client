@@ -10,6 +10,11 @@ type Props = {
     category: string;
     endDate: string;
     imageUrl: string;
+    totalRate: number;
+    diligenceLevel: number;
+    healthStatus: number;
+    attitude: number;
+    content: string;
   }[];
 };
 
@@ -30,6 +35,11 @@ export default function UserReviewList({ count, userName, reviews }: Props) {
             category={review.category}
             endDate={review.endDate}
             imageUrl={review.imageUrl}
+            totalRate={review.totalRate}
+            diligenceLevel={review.diligenceLevel}
+            attitude={review.attitude}
+            healthStatus={review.healthStatus}
+            content={review.content}
           />
         ))}
       </div>

@@ -11,6 +11,12 @@ const reviews = [
     endDate: '2025.09.01',
     imageUrl:
       'https://ddabong-upload.s3.ap-northeast-2.amazonaws.com/uploads/미녀들.jpg',
+    totalRate: 4.0,
+    diligenceLevel: 4.0,
+    attitude: 4.0,
+    healthStatus: 3.3,
+    content:
+      '열정적으로 참여해 주셔서 현장 분위기가 활기찼습니다. 뿡뽕빵다리빵삥',
   },
   {
     id: 2,
@@ -19,6 +25,12 @@ const reviews = [
     endDate: '2025.09.08',
     imageUrl:
       'https://ddabong-upload.s3.ap-northeast-2.amazonaws.com/uploads/자마니깨우기.jpg',
+    totalRate: 5.0,
+    diligenceLevel: 5.0,
+    attitude: 5.0,
+    healthStatus: 5.0,
+    content:
+      '짧은 시간이었지만 함께해주셔서 큰 힘이 됐습니다. 감사합니다람쥐쥐쥐지엘지우승축하요',
   },
 ];
 export default function VolunteerListDetailPage() {
