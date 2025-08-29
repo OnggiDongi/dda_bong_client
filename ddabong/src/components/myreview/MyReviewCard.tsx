@@ -46,7 +46,7 @@ const MyReviewCard = ({
         </div>
       </div>
 
-      <Txt className='text-Hana-Black text-[15px] leading-relaxed'>
+      <Txt weight='medium' className='text-lg leading-relaxed'>
         {content}
       </Txt>
 
