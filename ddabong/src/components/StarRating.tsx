@@ -39,13 +39,16 @@ export default function StarRating({
         const id = `${name}-${n}`;
 
         const getStarSrc = (starIndex: number) => {
+          const THRESHOLD_ALMOST = 0.75;
+          const THRESHOLD_HALF = 0.35;
+
           if (value >= starIndex + 1) {
             return '/icons/ic_star_filled.svg';
           }
 
           const fraction = value - starIndex;
-          if (fraction > 0.75) return '/icons/ic_star_almost.svg';
-          if (fraction > 0.35) return '/icons/ic_star_half.svg';
+          if (fraction > THRESHOLD_ALMOST) return '/icons/ic_star_almost.svg';
+          if (fraction > THRESHOLD_HALF) return '/icons/ic_star_half.svg';
           if (fraction > 0) return '/icons/ic_star_quarter.svg';
 
           return '/icons/ic_star_outline.svg';
