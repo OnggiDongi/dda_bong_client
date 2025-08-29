@@ -22,7 +22,7 @@ export default function TopBar({
   return (
     <header
       className={cn(
-        'relative flex items-center justify-center',
+        'relative flex w-full items-center justify-center',
         bgColor ? bgColor : 'bg-white'
       )}
     >
