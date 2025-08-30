@@ -2,6 +2,7 @@ import CategoryController from '@/components/apply/CategoryController';
 import LocationSelect from '@/components/apply/LocationSelect';
 import VolunteerCard from '@/components/apply/VolunteerCard';
 import VolunteerHeader from '@/components/apply/VolunteerHeader';
+import TopBar from '@/components/atoms/TopBar';
 
 //테스트 데이터
 const testData = [
@@ -36,15 +37,18 @@ const testData = [
 
 export default function ApplyPage() {
   return (
-    <main className='bg-page-gradient flex flex-col gap-5 px-4'>
-      <VolunteerHeader />
-      <LocationSelect />
-      <CategoryController />
-      <section className='flex flex-col gap-4'>
-        {testData.map((item) => (
-          <VolunteerCard key={item.id} {...item} />
-        ))}
-      </section>
+    <main className='bg-page-gradient'>
+      <TopBar title='' bgColor='bg-page-background'></TopBar>
+      <div className='flex flex-col gap-5 px-4'>
+        <VolunteerHeader />
+        <LocationSelect />
+        <CategoryController />
+        <section className='flex flex-col gap-4'>
+          {testData.map((item) => (
+            <VolunteerCard key={item.id} {...item} />
+          ))}
+        </section>
+      </div>
     </main>
   );
 }

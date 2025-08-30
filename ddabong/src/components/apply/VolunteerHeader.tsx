@@ -6,7 +6,7 @@ import Txt from '@/components/atoms/Text';
 export default function VolunteerHeader() {
   return (
     <section className='relative flex items-center justify-between'>
-      <div className='flex flex-col pt-18'>
+      <div className='flex flex-col pt-7'>
         <Txt weight='extrabold' className='text-2xl'>
           이번엔 무슨 봉사하지?
         </Txt>
@@ -18,7 +18,7 @@ export default function VolunteerHeader() {
         </Txt>
       </div>
       <Image
-        className='absolute right-1'
+        className='absolute right-1 bottom-9'
         src='/icons/ic_senior.svg'
         alt='별돌이'
         width={80}
