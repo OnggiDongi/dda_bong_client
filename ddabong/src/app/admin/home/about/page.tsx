@@ -47,9 +47,9 @@ export default function AboutPage() {
           textWeight='bold'
           textClassName='text-hana-black'
           className='h-[40px] w-[170px] rounded-full'
-          onClick={() => router.push('/apply')}
+          onClick={() => router.push('/admin/register')}
         >
-          봉사 신청하기
+          봉사 등록하기
         </Button>
       </section>
     </main>
