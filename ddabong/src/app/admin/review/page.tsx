@@ -51,6 +51,8 @@ export default function ReviewListPage() {
     },
   ];
 
+  const list = activeTab === 'apply' ? recruiting : history;
+
   return (
     <main className='flex flex-col items-center gap-5'>
       <TopBar title='모집 봉사 이력' />
@@ -61,39 +63,28 @@ export default function ReviewListPage() {
         labels={{ apply: '모집중인 공고', history: '지난내역' }}
       />
 
-      {activeTab === 'apply' ? (
-        <section className='w-full space-y-0.5'>
-          {recruiting.map((r) => (
-            <VolunList
-              mode={activeTab}
-              key={r.id}
-              id={r.id}
-              title={r.title}
-              date={r.date}
-              category={r.category}
-              imageUrl={r.imageUrl}
-              recruitNum={r.recruitNum}
-              applicantsNum={r.applicantsNum}
-              rating={r.rating}
-            />
-          ))}
-        </section>
-      ) : (
-        <section className='w-full space-y-0.5'>
-          {history.map((h) => (
-            <VolunList
-              mode={activeTab}
-              key={h.id}
-              id={h.id}
-              title={h.title}
-              date={h.date}
-              category={h.category}
-              imageUrl={h.imageUrl}
-              rating={h.rating}
-            />
-          ))}
-        </section>
-      )}
+      <section className='w-full space-y-0.5'>
+        {list.map((item) => (
+          <VolunList
+            key={item.id}
+            mode={activeTab}
+            id={item.id}
+            title={item.title}
+            date={item.date}
+            category={item.category}
+            imageUrl={item.imageUrl}
+            recruitNum={
+              activeTab === 'apply' && 'recruitNum' in item
+                ? item.recruitNum
+                : undefined
+            }
+            applicantsNum={
+              'applicantsNum' in item ? item.applicantsNum : undefined
+            }
+            rating={'rating' in item ? item.rating : undefined}
+          />
+        ))}
+      </section>
     </main>
   );
 }
