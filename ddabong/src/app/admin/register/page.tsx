@@ -4,10 +4,10 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Button from '@/components/atoms/Button';
 import Txt from '@/components/atoms/Text';
+import TopBar from '@/components/atoms/TopBar';
 import Category from '../../../components/admin/register/Category';
 import Detail from '../../../components/admin/register/Detail';
 import Title from '../../../components/admin/register/Title';
-import TopBar from '../../../components/admin/register/TopBar';
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -23,7 +23,7 @@ export default function RegisterPage() {
   return (
     <div className='flex h-screen w-full flex-col'>
       <div className='bg-page-gradient flex-1 overflow-y-auto'>
-        <TopBar />
+        <TopBar bgColor='bg-page-background' />
         <Title value={title} onChange={(e) => setTitle(e.target.value)} />
         <Txt weight='bold' className='mt-3 block pl-[30px] text-xl'>
           봉사 카테고리
