@@ -29,8 +29,9 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
  * Button 컴포넌트
  * - color: 토큰 기반 배경색 (green/mint/pink/gray/white)
  * - borderColor: 토큰 기반 테두리 색상 (pink/mint/mint2/purple)
- * - 글씨 크기/버튼 크기: 호출부에서 className으로 자유롭게 조정
+ * - 버튼 크기: 호출부에서 className으로 자유롭게 조정
  * - textWeight: 글씨 Bold
+ * - textClassName: 글씨 색상/크기
  */
 export default function Button({
   color = 'green',
