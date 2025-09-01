@@ -21,7 +21,7 @@ export default function MyEditPage() {
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
   const [phone, setPhone] = useState('010-4113-0361');
-  const [birth, setBirth] = useState('2000.09.05');
+
 
   const user = {
     name: '시별돌',

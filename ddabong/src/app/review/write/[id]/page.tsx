@@ -22,7 +22,7 @@ const mock = {
   },
 } as const;
 
-type PageProps = { params: { id: string } };
+type PageProps = { params: Promise<{ id: string }> };
 
 export default async function SeniorReviewWritePage({ params }: PageProps) {
   const { id } = await params;
@@ -34,27 +34,28 @@ export default async function SeniorReviewWritePage({ params }: PageProps) {
   }
 
   return (
-    <main className='flex min-h-screen flex-col'>
-      <TopBar title='봉사 후기 작성' />
+    // <main className='flex min-h-screen flex-col'>
+    //   <TopBar title='봉사 후기 작성' />
 
-      <section className='bg-white px-[26px] py-[15px]'>
-        <div className='border-Box-Line w-full border-b pb-2'>
-          <Txt className='text-[22px]'>{data.userName}</Txt>
-        </div>
+    //   <section className='bg-white px-[26px] py-[15px]'>
+    //     <div className='border-Box-Line w-full border-b pb-2'>
+    //       <Txt className='text-[22px]'>{data.userName}</Txt>
+    //     </div>
 
-        <div className='flex items-center justify-between pt-[11px] pb-[7px]'>
-          <Txt className='text-xl'>{data.title}</Txt>
-          <Badge text={data.category} />
-        </div>
+    //     <div className='flex items-center justify-between pt-[11px] pb-[7px]'>
+    //       <Txt className='text-xl'>{data.title}</Txt>
+    //       <Badge text={data.category} />
+    //     </div>
 
-        <Txt className='text-Icon-Detail text-lg'>
-          {data.date}
-          <br />
-        </Txt>
-        <Txt className='text-Icon-Detail text-lg'>{data.location}</Txt>
-      </section>
+    //     <Txt className='text-Icon-Detail text-lg'>
+    //       {data.date}
+    //       <br />
+    //     </Txt>
+    //     <Txt className='text-Icon-Detail text-lg'>{data.location}</Txt>
+    //   </section>
 
-      <ReviewForm />
-    </main>
+    //   <ReviewForm />
+    // </main>
+    <></>
   );
 }
