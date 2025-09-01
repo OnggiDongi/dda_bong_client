@@ -1,7 +1,9 @@
 'use client';
 
+import { useState } from 'react';
 import Txt from '@/components/atoms/Text';
 import CertificateCard from './CertificateCard';
+import CertificateModal from './CertificateModal';
 
 const certificates: {
   username: string;
@@ -15,6 +17,12 @@ const certificates: {
 ];
 
 export default function CertificatesSection() {
+  const [selected, setSelected] = useState<null | {
+    title: string;
+    date: string;
+    totalHours: number;
+  }>(null);
+
   const isScrollable = certificates.length > 2;
   return (
     <section className='border-Background h-[280px] w-[350px] rounded-[20px] border bg-white'>
@@ -37,6 +45,13 @@ export default function CertificatesSection() {
             <div
               key={idx}
               className={isScrollable ? 'shrink-0 snap-start' : ''}
+              onClick={() =>
+                setSelected({
+                  title: cert.username,
+                  date: cert.date,
+                  totalHours: cert.totalHours,
+                })
+              }
             >
               <CertificateCard
                 userName={cert.username}
@@ -53,6 +68,14 @@ export default function CertificatesSection() {
           </Txt>
         </div>
       )}
+
+      <CertificateModal
+        open={!!selected}
+        onClose={() => setSelected(null)}
+        userName={selected?.title ?? ''}
+        date={selected?.date ?? ''}
+        totalHours={selected?.totalHours ?? 0}
+      />
     </section>
   );
 }
