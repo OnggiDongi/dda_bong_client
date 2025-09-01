@@ -120,7 +120,7 @@ export default function WishList() {
           imageUrl={item.imageUrl}
           category={item.category}
           title={item.title}
-          date={item.endAt}
+          endAt={item.endAt}
           location={item.location}
           isWished={true}
         />
