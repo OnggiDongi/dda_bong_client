@@ -2,12 +2,12 @@
 
 import axios from 'axios';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 
-export default function AuthSuccessPage() {
+function AuthSuccessContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const [token, setToken] = useState('');
+  const [, setToken] = useState('');
 
   useEffect(() => {
     const accessToken = searchParams.get('accessToken');
@@ -17,7 +17,6 @@ export default function AuthSuccessPage() {
 
       fetchData(accessToken);
 
-      // router.replace('/home');
       router.push('/home');
     }
   }, [searchParams, router]);
@@ -45,5 +44,13 @@ export default function AuthSuccessPage() {
 
   return (
     <div className='mt-20 text-center text-lg'>로그인 처리 중입니다...</div>
+  );
+}
+
+export default function AuthSuccessPage() {
+  return (
+    <Suspense fallback={<div className='mt-20 text-center text-lg'>로딩 중...</div>}>
+      <AuthSuccessContent />
+    </Suspense>
   );
 }

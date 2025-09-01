@@ -38,7 +38,7 @@ const testData = [
 export default function ApplyPage() {
   return (
     <main className='bg-page-gradient'>
-      <TopBar title='' bgColor='bg-page-background'></TopBar>
+      <TopBar title='' bgColor='bg-page-background' />
       <div className='flex flex-col gap-5 px-4'>
         <VolunteerHeader />
         <LocationSelect />

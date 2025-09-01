@@ -2,12 +2,12 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import Category from '@/components/admin/register/Category';
+import Detail from '@/components/admin/register/Detail';
+import Title from '@/components/admin/register/Title';
 import Button from '@/components/atoms/Button';
 import Txt from '@/components/atoms/Text';
 import TopBar from '@/components/atoms/TopBar';
-import Category from '../../../components/admin/register/Category';
-import Detail from '../../../components/admin/register/Detail';
-import Title from '../../../components/admin/register/Title';
 
 export default function RegisterPage() {
   const router = useRouter();
