@@ -11,7 +11,7 @@ export default function EmptyRecruitment() {
         등록된 봉사 활동이 없습니다.
       </Txt>
       <div className='mt-4 flex flex-col items-center'>
-        <Link href='/admin/recruit/write' passHref>
+        <Link href='/admin/register' passHref>
           <Button
             className='h-[42px] w-[350px] rounded-[20px] bg-white'
             textClassName='text-Hana-Black text-lg'
