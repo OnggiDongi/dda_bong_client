@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 import StarRating from '@/components/StarRating';
 import Txt from '@/components/atoms/Text';
+import { useToast } from '../contexts/toast/ToastContext';
 import Button from './atoms/Button';
 
 type Preview = { url: string; file: File };
@@ -18,6 +19,7 @@ export default function ReviewForm({
 }) {
   const router = useRouter();
   const formRef = useRef<HTMLFormElement | null>(null);
+  const { showToast } = useToast();
 
   // 공통: 후기 텍스트
   const [review, setReview] = useState('');
@@ -62,8 +64,10 @@ export default function ReviewForm({
 
     // variant에 따라 라우팅
     if (variant === 'admin') {
+      showToast('작성이 완료되었습니다.');
       router.push(' /admin/review');
     } else {
+      showToast('작성이 완료되었습니다.');
       router.push('/review');
     }
   };
