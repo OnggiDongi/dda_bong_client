@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
+import { useToast } from '../contexts/toast/ToastContext';
 import ReviewRating from './ReviewRating';
 import AiComment from './atoms/AiComment';
 import Badge from './atoms/Badge';
@@ -32,7 +33,7 @@ export default function ActivityReview({
 }: Props) {
   const [isModalOpen, setIsModalOpen] = useState(false); // ✅ 모달 상태 추가
   const [modalType, setModalType] = useState<'APPROVE' | 'REJECT' | null>(null); // 어떤 버튼 눌렀는지
-
+  const { showToast } = useToast();
   const openModal = (type: 'APPROVE' | 'REJECT') => {
     setModalType(type);
     setIsModalOpen(true);
@@ -45,9 +46,11 @@ export default function ActivityReview({
 
   const handleConfirm = () => {
     if (modalType === 'APPROVE') {
+      showToast('수락되었습니다.');
       // ✅ 수락 처리
       console.log('수락!');
     } else {
+      showToast('거절하였습니다.');
       // ✅ 거절 처리
       console.log('거절!');
     }
