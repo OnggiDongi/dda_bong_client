@@ -45,7 +45,7 @@ export default function AboutPage() {
           color='white'
           borderColor='green'
           textWeight='bold'
-          textClassName='text-hana-black'
+          textClassName='text-Hana-Black'
           className='h-[40px] w-[170px] rounded-full'
           onClick={() => router.push('/admin/register')}
         >
