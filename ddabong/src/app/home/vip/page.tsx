@@ -5,9 +5,9 @@ import VipLevelCard from '@/components/home/vip/VipLevelCard';
 
 export default function VipPage() {
   return (
-    <div className='bg-page-gradient flex h-screen w-full flex-col'>
+    <div className='bg-page-gradient flex w-full flex-col'>
       <TopBar title='나의 등급' bgColor='bg-page-background' />
-      <div className='flex-1 overflow-y-auto px-[26px] pt-[23px]'>
+      <div className='flex-1 px-[26px] pt-[23px]'>
         <VipLevelCard userName='시별돌' totalHours={69} />
         <div className='border-Box-Line border-b pb-[269px]'>
           <VipBenefitCard
