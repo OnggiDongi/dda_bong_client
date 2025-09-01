@@ -1,9 +1,9 @@
 'use client';
 
+import axios from 'axios';
 import { useState, useEffect } from 'react';
 import WishCard from '@/components/wish/WishCard';
 import Txt from '../atoms/Text';
-import axios from 'axios';
 
 // 찜 목록 아이템의 타입 정의 (실제 API 응답에 맞춰 수정 필요)
 interface WishItem {
@@ -11,7 +11,7 @@ interface WishItem {
   imageUrl: string;
   category: string;
   title: string;
-  date: string;
+  endAt: string;
   location: string;
 }
 
@@ -22,7 +22,7 @@ const mockWishData: WishItem[] = [
     imageUrl: '/images/test1.png',
     category: '환경',
     title: '어르신과 함께하는 즐거운 시간',
-    date: '2025.10.05',
+    endAt: '2025.10.05',
     location: '알파코.',
   },
   {
@@ -30,7 +30,7 @@ const mockWishData: WishItem[] = [
     imageUrl: '/images/test2.png',
     category: '농어촌',
     title: '우리 동네 깨끗하게 만들기',
-    date: '2025.10.12',
+    endAt: '2025.10.12',
     location: '주말 아침, ',
   },
   {
@@ -38,7 +38,7 @@ const mockWishData: WishItem[] = [
     imageUrl: '/images/test3.png',
     category: '교육',
     title: '초등학생 방과 후 학습 지도',
-    date: '2025.10.15',
+    endAt: '2025.10.15',
     location: '서울시 마포구',
   },
 ];
@@ -54,11 +54,14 @@ const fetchWishes = async (token: string | null): Promise<WishItem[]> => {
   }
 
   try {
-    const response = await axios.get<WishItem[]>('http://localhost:8080/users/likes', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await axios.get<WishItem[]>(
+      'http://localhost:8080/users/likes',
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     const data = response.data;
     return data;
@@ -90,11 +93,13 @@ export default function WishList() {
     // TODO: API 호출로 서버에 찜 해제 상태를 업데이트해야 합니다.
     const accessToken = localStorage.getItem('accessToken');
     if (accessToken) {
-      axios.delete(`http://localhost:8080/users/likes/${id}`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }).catch(error => console.error('Failed to delete wish:', error));
+      axios
+        .delete(`http://localhost:8080/users/likes/${id}`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        })
+        .catch((error) => console.error('Failed to delete wish:', error));
     }
     console.log(`Item ${id} removed from wishlist.`);
   };
@@ -115,7 +120,7 @@ export default function WishList() {
           imageUrl={item.imageUrl}
           category={item.category}
           title={item.title}
-          date={item.date}
+          date={item.endAt}
           location={item.location}
           isWished={true}
         />

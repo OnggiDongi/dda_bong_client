@@ -11,7 +11,7 @@ interface WishCardProps {
   imageUrl: string;
   category: string;
   title: string;
-  date: string;
+  endAt: string;
   location: string;
   isWished: boolean;
 }
@@ -21,7 +21,7 @@ export default function WishCard({
   imageUrl,
   category,
   title,
-  date,
+  endAt,
   location,
   isWished: initialIsWished,
 }: WishCardProps) {
@@ -75,7 +75,7 @@ export default function WishCard({
             </button>
           </div>
           <Txt className='w-[190px] truncate text-lg'>{title}</Txt>
-          <Txt className='text-Icon-Detail -mt-1 text-base'>{date}</Txt>
+          <Txt className='text-Icon-Detail -mt-1 text-base'>{endAt}</Txt>
           <Txt className='text-Icon-Detail -mt-2 truncate text-base'>
             {location}
           </Txt>
