@@ -15,44 +15,8 @@ interface WishItem {
   location: string;
 }
 
-// 디자인 확인용 목업 데이터
-const mockWishData: WishItem[] = [
-  {
-    id: 1,
-    imageUrl: '/images/test1.png',
-    category: '환경',
-    title: '어르신과 함께하는 즐거운 시간',
-    endAt: '2025.10.05',
-    location: '알파코.',
-  },
-  {
-    id: 2,
-    imageUrl: '/images/test2.png',
-    category: '농어촌',
-    title: '우리 동네 깨끗하게 만들기',
-    endAt: '2025.10.12',
-    location: '주말 아침, ',
-  },
-  {
-    id: 3,
-    imageUrl: '/images/test3.png',
-    category: '교육',
-    title: '초등학생 방과 후 학습 지도',
-    endAt: '2025.10.15',
-    location: '서울시 마포구',
-  },
-];
-
 // API호출
 const fetchWishes = async (token: string | null): Promise<WishItem[]> => {
-  if (!token) {
-    // 로그인하지 않은 경우, 개발 환경 전용 목업데이타 !!
-    if (process.env.NODE_ENV === 'development') {
-      return mockWishData;
-    }
-    return [];
-  }
-
   try {
     const response = await axios.get<WishItem[]>(
       'http://localhost:8080/users/likes',
@@ -67,11 +31,7 @@ const fetchWishes = async (token: string | null): Promise<WishItem[]> => {
     return data;
   } catch (error) {
     console.error('Failed to fetch wishes:', error);
-    // API 호출 실패 시, 개발 환경일 때만 목업 데이터를 보여줌
-    if (process.env.NODE_ENV === 'development') {
-      return mockWishData;
-    }
-    return []; // 프로덕션 환경에서는 빈 배열 반환
+    return [];
   }
 };
 
@@ -108,9 +68,6 @@ export default function WishList() {
       })
       .catch((error) => {
         console.error('Failed to toggle wish status:', error);
-        // If the API call fails, we should probably add the item back to the list
-        // This part is complex as we would need to store the removed item temporarily
-        // For now, we will just log the error and the item will remain removed from the UI (optimistic update)
       });
   };
 
