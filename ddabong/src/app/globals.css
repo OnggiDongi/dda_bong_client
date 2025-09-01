@@ -230,6 +230,13 @@ body {
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+.clamp-3 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3; /* 3줄까지만 표시 */
+  overflow: hidden;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
