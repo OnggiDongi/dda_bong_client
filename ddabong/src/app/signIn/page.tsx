@@ -18,32 +18,32 @@ export default function SeniorSignInPage() {
   async function formLogin(e: React.FormEvent) {
     e.preventDefault();
     const body = new URLSearchParams();
-    console.log(username, password);
     body.append('username', username);
     body.append('password', password);
 
     try {
-      console.log('로그인 중');
-      const response = await axios.post(
+      const { data } = await axios.post(
         baseUrl + '/users/signin',
         body.toString(),
         {
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         }
       );
-      console.log(response.data);
 
-      const { accessToken, refreshToken, name } = response.data;
+      const { accessToken, refreshToken, name, firstLogin } = data ?? {};
 
-      localStorage.setItem('accessToken', accessToken);
-      localStorage.setItem('refreshToken', refreshToken);
-      localStorage.setItem('name', name);
+      localStorage.setItem('accessToken', accessToken ?? '');
+      localStorage.setItem('refreshToken', refreshToken ?? '');
+      localStorage.setItem('name', name ?? '');
 
-      router.push('/home');
-    } catch (error) {
-      console.error('로그인 실패:', error);
+      // 모달 오픈 여부 결정 → 쿼리로 전달
+      const shouldOpenOnboarding =
+        firstLogin === true || !localStorage.getItem('seen_onboarding');
+
+      router.push(shouldOpenOnboarding ? '/home?onboarding=1' : '/home');
+    } catch (err) {
+      console.error('로그인 실패:', err);
+      alert('로그인에 실패했습니다. 이메일/비밀번호를 확인해 주세요.');
     }
   }
 
