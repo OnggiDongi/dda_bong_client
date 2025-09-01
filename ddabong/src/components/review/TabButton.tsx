@@ -8,9 +8,14 @@ type Tab = 'apply' | 'history';
 interface Props {
   activeTab: Tab;
   onChange: (tab: Tab) => void;
+  labels?: { apply: string; history: string };
 }
 
-export default function TabButton({ activeTab, onChange }: Props) {
+export default function TabButton({
+  activeTab,
+  onChange,
+  labels = { apply: '신청내역', history: '지난내역' },
+}: Props) {
   return (
     <div className='flex items-center justify-center gap-5'>
       <Button
@@ -23,7 +28,7 @@ export default function TabButton({ activeTab, onChange }: Props) {
           activeTab === 'apply' ? 'text-white' : 'text-Logo-Mint'
         )}
       >
-        신청내역
+        {labels.apply}
       </Button>
 
       <Button
@@ -36,7 +41,7 @@ export default function TabButton({ activeTab, onChange }: Props) {
           activeTab === 'history' ? 'text-white' : 'text-Logo-Mint'
         )}
       >
-        지난내역
+        {labels.history}
       </Button>
     </div>
   );

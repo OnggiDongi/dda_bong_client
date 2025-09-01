@@ -89,7 +89,7 @@ export default function ReviewListCard({
           )}
         </div>
 
-        <Txt weight='semibold' className='w-[190px] truncate text-lg'>
+        <Txt weight='semibold' className='w-[190px] truncate text-xl'>
           {title}
         </Txt>
 
