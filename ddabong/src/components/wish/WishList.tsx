@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import WishCard from '@/components/wish/WishCard';
 import Txt from '../atoms/Text';
+import axios from 'axios';
 
 // 찜 목록 아이템의 타입 정의 (실제 API 응답에 맞춰 수정 필요)
 interface WishItem {
@@ -53,17 +54,13 @@ const fetchWishes = async (token: string | null): Promise<WishItem[]> => {
   }
 
   try {
-    const response = await fetch('http://localhost:8080/users/likes', {
+    const response = await axios.get<WishItem[]>('http://localhost:8080/users/likes', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const data: WishItem[] = await response.json();
+    const data = response.data;
     return data;
   } catch (error) {
     console.error('Failed to fetch wishes:', error);
@@ -91,8 +88,14 @@ export default function WishList() {
   const handleToggleWish = (id: number) => {
     setWishlist((prev) => prev.filter((item) => item.id !== id));
     // TODO: API 호출로 서버에 찜 해제 상태를 업데이트해야 합니다.
-    // const accessToken = localStorage.getItem('accessToken');
-    // fetch(`http://localhost:8080/users/likes/${id}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${accessToken}` } });
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken) {
+      axios.delete(`http://localhost:8080/users/likes/${id}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }).catch(error => console.error('Failed to delete wish:', error));
+    }
     console.log(`Item ${id} removed from wishlist.`);
   };
 
