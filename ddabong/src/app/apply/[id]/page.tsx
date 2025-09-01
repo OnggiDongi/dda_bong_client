@@ -32,7 +32,7 @@ const reviews: Review[] = [
     id: 3,
     userName: '이짐',
     imageUrl:
-      'https://ddabong-upload.s3.ap-northeast-2.amazonaws.com/uploads/이짐.png',
+      'https://ddabong-upload.s3.ap-northeast-2.amazonaws.com/uploads/김보개미.png',
     rate: 4.5,
     content: '짐이 많아요. 우산 키링을 좋아해요.',
   },
