@@ -94,7 +94,7 @@ export default function WishList() {
     const accessToken = localStorage.getItem('accessToken');
     if (accessToken) {
       axios
-        .delete(`http://localhost:8080/users/likes/${id}`, {
+        .post(`http://localhost:8080/posts/${id}/like`, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
