@@ -60,11 +60,21 @@ export default function ReviewForm({
     // TODO: 서버 전송(FormData) 필요 시 여기서 처리
     // const data = new FormData(form);
 
-    router.push('/myreview');
+    // variant에 따라 라우팅
+    if (variant === 'admin') {
+      router.push(' /admin/review');
+    } else {
+      router.push('/review');
+    }
   };
 
   return (
-    <form ref={formRef} onSubmit={onSubmit} className='flex flex-col pb-20'>
+    <form
+      ref={formRef}
+      onSubmit={onSubmit}
+      className='flex flex-col pb-20'
+      id='review-form'
+    >
       {/* 별점 */}
       <section className='text-center'>
         <div className='pt-9 pb-4'>
@@ -80,15 +90,23 @@ export default function ReviewForm({
 
         {/* 별점 영역 */}
         {variant === 'user' ? (
-          <StarRating
-            value={userRating}
-            onChange={setUserRating}
-            max={5}
-            size={40}
-            className='justify-center'
-            name='user_rating'
-            required
-          />
+          <>
+            <StarRating
+              value={userRating}
+              onChange={setUserRating}
+              max={5}
+              size={40}
+              className='justify-center'
+              name='user_rating'
+              required
+            />
+            <input
+              type='hidden'
+              name='user_rating'
+              value={userRating || ''}
+              required
+            />
+          </>
         ) : (
           // 관리자: 3개 항목 카드 형태
           <div className='border-Box-Line mx-[26px] rounded-[16px] border bg-white p-4'>
@@ -141,6 +159,24 @@ export default function ReviewForm({
                 <Txt className='text-sm'>{health.toFixed(1)}</Txt>
               </div>
             </div>
+            <input
+              type='hidden'
+              name='rating_diligence'
+              value={diligence || ''}
+              required
+            />
+            <input
+              type='hidden'
+              name='rating_friendliness'
+              value={friendliness || ''}
+              required
+            />
+            <input
+              type='hidden'
+              name='rating_health'
+              value={health || ''}
+              required
+            />
           </div>
         )}
       </section>
@@ -229,7 +265,7 @@ export default function ReviewForm({
       </section>
 
       <div className='fixed bottom-0 left-0 w-full bg-white px-6 py-3 shadow-[0_0_5px_0_rgba(0,0,0,0.15)]'>
-        <Button type='submit' form='recruit-form' className='h-[45px] w-full'>
+        <Button type='submit' form='review-form' className='h-[45px] w-full'>
           작성 완료
         </Button>
       </div>
