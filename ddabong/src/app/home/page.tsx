@@ -8,15 +8,9 @@ export default function HomePage() {
   return (
     <main className='flex flex-col items-center gap-4 px-5 pt-5'>
       <Header />
-
-      <ProfileCard
-        username={'별돌이군'}
-        tier={'Silver'}
-        totalHours={72}
-      ></ProfileCard>
-
+      <ProfileCard username={'별돌이군'} tier={'Silver'} totalHours={72} />
       <ApplyBanner />
-      <CarouselBanner></CarouselBanner>
+      <CarouselBanner />
       <CertificatesSection />
     </main>
   );
