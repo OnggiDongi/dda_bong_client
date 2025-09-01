@@ -1,3 +1,5 @@
+import TopBar from '@/components/atoms/TopBar';
+
 export default function ReviewListPage() {
-  return <div>관리자 지원 어저구</div>;
+  return <TopBar title='관리자 지원 어저구' />;
 }

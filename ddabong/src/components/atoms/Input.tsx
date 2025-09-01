@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils';
 
 const baseClasses = `
     bg-white
-    border border-Box-Line rounded-[10px]
+    border border-Box-Line rounded-xl
     text-Hana-Black
     placeholder:text-Icon-Detail
     focus:ring-0 focus:outline-none

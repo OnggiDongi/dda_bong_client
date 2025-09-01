@@ -107,7 +107,7 @@ export default function DatePicker({
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         className={cn(
-          'border-Box-Line flex h-[50px] w-full items-center justify-between rounded-[10px] border bg-white pr-3 pl-5',
+          'border-Box-Line flex h-[50px] w-full items-center justify-between rounded-xl border bg-white pr-3 pl-5',
           className
         )}
       >
@@ -124,7 +124,7 @@ export default function DatePicker({
         </Txt>
         <svg
           className={cn(
-            'ml-2 h-4 w-4 transition-transform',
+            'text-Icon-Detail/70 ml-2 h-4 w-4 transition-transform',
             open && 'rotate-90'
           )}
           viewBox='0 0 24 24'
