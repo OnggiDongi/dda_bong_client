@@ -1,5 +1,3 @@
-'use client';
-
 import Badge from '../atoms/Badge';
 import Txt from '../atoms/Text';
 import ApplyGridBox from './ApplyGridBox';
@@ -57,6 +55,7 @@ export default function ApplyBody() {
           <br />
           바다를 지키는 손길에 많은 참여 부탁드립니다!
         </Txt>
+        <div className='my-5 h-[1px] w-full bg-gray-200'></div>
       </div>
     </section>
   );

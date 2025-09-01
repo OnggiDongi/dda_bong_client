@@ -11,7 +11,7 @@ export default async function RecruitDetailPage({
   return (
     <main className='flex h-dvh flex-col bg-white'>
       <ApplyHeader />
-      <div className='flex-1 overflow-y-auto'>
+      <div className='flex-1 overflow-y-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'>
         <ApplyBody />
       </div>
       <ApplyFooter isApply={false} />
