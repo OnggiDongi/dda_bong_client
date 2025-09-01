@@ -1,6 +1,4 @@
-import Image from 'next/image';
 import ActivityInfo from '@/components/ActivityInfo';
-import Badge from '@/components/atoms/Badge';
 import Txt from '@/components/atoms/Text';
 
 type Props = {

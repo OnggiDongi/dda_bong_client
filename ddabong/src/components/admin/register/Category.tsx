@@ -1,7 +1,6 @@
 'use client';
 
 import * as React from 'react';
-import Txt from '@/components/atoms/Text';
 import {
   Select,
   SelectTrigger,
