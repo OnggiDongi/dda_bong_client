@@ -13,11 +13,11 @@ type Props = {
   userName: string;
   imageUrl: string;
   status: string;
-  totalRate: number;
-  diligenceLevel: number;
-  healthStatus: number;
-  attitude: number;
-  aiReview: string;
+  totalRate: number | null;
+  diligenceLevel: number | null;
+  healthStatus: number | null;
+  attitude: number | null;
+  aiReview: string | null;
 };
 
 export default function ActivityReview({
@@ -68,7 +68,7 @@ export default function ActivityReview({
             <div className='flex justify-between'>
               <Txt className='text-lg'>{userName}</Txt>
               {status == 'PENDING' ? (
-                <div>
+                <div className='flex gap-0'>
                   <Button
                     color='white'
                     className='ml-2 h-auto w-auto'
@@ -86,7 +86,7 @@ export default function ActivityReview({
                   <Button
                     color='white'
                     className='ml-2 h-auto w-auto'
-                    textClassName='leading-none flex items-center'
+                    textClassName='leading-none flex items-center ml-0'
                     onClick={() => openModal('APPROVE')}
                   >
                     <Badge
@@ -137,7 +137,11 @@ export default function ActivityReview({
               attitude={attitude}
               healthStatus={healthStatus}
             />
-            <AiComment text={aiReview} className='mb-3 w-80' />
+            {aiReview ? (
+              <AiComment text={aiReview} className='mb-3 w-80' />
+            ) : (
+              <div className='mb-3 w-80'></div>
+            )}
           </div>
         </div>
       </div>
