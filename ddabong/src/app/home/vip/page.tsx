@@ -11,7 +11,7 @@ export default function VipPage() {
         <VipLevelCard userName='시별돌' totalHours={69} />
         <div className='border-Box-Line border-b pb-[269px]'>
           <VipBenefitCard
-            benefitText='봉사 50시간마다 새로운 인증서를 발급해드립니다 !'
+            benefitText='봉사 50시간마다 새로운 인증서를 발급해 드립니다 !'
             imageSrc='/icons/ic_flyingStar.svg'
           />
         </div>
