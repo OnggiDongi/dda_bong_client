@@ -1,7 +1,9 @@
 'use client';
 
+import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Button from '@/components/atoms/Button';
 import Input from '@/components/atoms/Input';
@@ -11,26 +13,38 @@ export default function SeniorSignInPage() {
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const baseUrl = 'http://localhost:8080';
+  const router = useRouter();
 
-  async function formLogin() {
+  async function formLogin(e: React.FormEvent) {
+    e.preventDefault();
     const body = new URLSearchParams();
+    console.log(username, password);
     body.append('username', username);
     body.append('password', password);
 
-    const response = await fetch(baseUrl + '/users/signin', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: body.toString(), // 문자열로 변환해서 전달
-    });
+    try {
+      console.log('로그인 중');
+      const response = await axios.post(
+        baseUrl + '/users/signin',
+        body.toString(),
+        {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+        }
+      );
+      console.log(response.data);
 
-    const data = await response.json();
+      const { accessToken, refreshToken, name } = response.data;
 
-    const { accessToken, refreshToken, name } = data;
-    localStorage.setItem('accessToken', accessToken);
-    localStorage.setItem('refreshToken', refreshToken);
-    localStorage.setItem('name', name);
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('refreshToken', refreshToken);
+      localStorage.setItem('name', name);
+
+      router.push('/home');
+    } catch (error) {
+      console.error('로그인 실패:', error);
+    }
   }
 
   async function kakaoLogin() {
@@ -92,16 +106,14 @@ export default function SeniorSignInPage() {
 
           {/* 로그인 버튼 */}
           <div className=''>
-            <Link href='/home' className='mb-[25px] h-[50px] w-full'>
-              <Button
-                className='mt-[30px] h-[50px] w-full'
-                onClick={formLogin}
-                type='submit'
-                textClassName='text-[26px]'
-              >
-                로그인
-              </Button>
-            </Link>
+            <Button
+              className='mt-[30px] h-[50px] w-full'
+              onClick={formLogin}
+              type='submit'
+              textClassName='text-[26px]'
+            >
+              로그인
+            </Button>
             <div className='py-2' />
             {/* 카카오 버튼 */}
             <Button
