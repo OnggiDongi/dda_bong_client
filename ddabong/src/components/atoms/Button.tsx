@@ -15,7 +15,8 @@ const BorderColor = {
   pink: 'border-Logo-Pink',
   mint: 'border-Logo-Mint',
   mint2: 'border-1Q-Mint-Line',
-  purple: 'border-IQ-Purple-Line',
+  purple: 'border-1Q-Purple-Line',
+  green: 'border-1Q-Green-Line',
 } as const;
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
