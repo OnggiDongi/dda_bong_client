@@ -12,7 +12,6 @@ import Txt from '@/components/atoms/Text';
 export default function SeniorSignInPage() {
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
-  const router = useRouter();
   const baseUrl = 'http://localhost:8080';
   const router = useRouter();
 
@@ -106,11 +105,7 @@ export default function SeniorSignInPage() {
           </div>
 
           {/* 로그인 버튼 */}
-<<<<<<< Updated upstream
-          <Link href='/home' className='mb-[25px] h-[50px] w-full'>
-=======
           <div className=''>
-            {/* <Link href='/home' className='mb-[25px] h-[50px] w-full'> */}
             <Button
               className='mt-[30px] h-[50px] w-full'
               onClick={formLogin}
@@ -119,37 +114,25 @@ export default function SeniorSignInPage() {
             >
               로그인
             </Button>
-            {/* </Link> */}
             <div className='py-2' />
             {/* 카카오 버튼 */}
->>>>>>> Stashed changes
             <Button
-              className='mt-[30px] h-[50px] w-full'
-              onClick={formLogin}
-              type='submit'
-              textClassName='text-[26px]'
+              className='bg-kakao h-[50px] w-full text-xl'
+              textClassName='text-Hana-Black'
+              onClick={kakaoLogin}
             >
-              로그인
+              <div className='flex items-center gap-2'>
+                <Image
+                  src='/icons/ic_kakao.svg'
+                  alt='카카오 아이콘'
+                  width={38}
+                  height={38}
+                  className='object-contain'
+                />
+                <span>카카오톡으로 로그인하기</span>
+              </div>
             </Button>
-          </Link>
-
-          {/* 카카오 버튼 */}
-          <Button
-            className='bg-kakao h-[50px] w-full text-xl'
-            textClassName='text-Hana-Black'
-          >
-            <div className='flex items-center gap-2'>
-              <Image
-                src='/icons/ic_kakao.svg'
-                alt='카카오 아이콘'
-                width={38}
-                height={38}
-                className='object-contain'
-              />
-              <span>카카오톡으로 로그인하기</span>
-            </div>
-          </Button>
-
+          </div>
           {/* 회원가입으로 이동 */}
           <div className='flex items-center justify-center pt-[25px]'>
             <Txt weight='medium' className='text-Icon-Detail text-xl'>

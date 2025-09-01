@@ -34,12 +34,12 @@ export default function TopBar({
         <Image
           src='/icons/ic_arrow_back.svg'
           alt='뒤로가기'
-          width={10}
-          height={20}
+          width={12}
+          height={25}
           priority
         />
       </button>
-      <Txt weight='semibold' className='pt-[23px] pb-[19px] text-xl'>
+      <Txt weight='semibold' className='pt-[23px] pb-[19px] text-[23px]'>
         {title}
       </Txt>
     </header>

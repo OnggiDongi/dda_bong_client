@@ -18,7 +18,11 @@ interface RecruitmentListProps {
   onSelectRecruitment: (id: number) => void;
 }
 
-export default function RecruitmentList({ recruitments, selectedId, onSelectRecruitment }: RecruitmentListProps) {
+export default function RecruitmentList({
+  recruitments,
+  selectedId,
+  onSelectRecruitment,
+}: RecruitmentListProps) {
   return (
     <>
       <div className='mt-[54px] mb-[52px] flex justify-center'>
@@ -56,7 +60,7 @@ export default function RecruitmentList({ recruitments, selectedId, onSelectRecr
         ))}
       </div>
       <div className='mt-4 flex flex-col items-center'>
-        <Link href='/admin/recruit/write' passHref>
+        <Link href='/admin/register' passHref>
           <Button
             className='h-[42px] w-[350px] rounded-[20px] bg-white'
             textClassName='text-Hana-Black text-lg'
