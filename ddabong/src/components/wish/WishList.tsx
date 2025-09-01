@@ -90,18 +90,28 @@ export default function WishList() {
 
   const handleToggleWish = (id: number) => {
     setWishlist((prev) => prev.filter((item) => item.id !== id));
-    // TODO: API 호출로 서버에 찜 해제 상태를 업데이트해야 합니다.
+
     const accessToken = localStorage.getItem('accessToken');
-    if (accessToken) {
-      axios
-        .post(`http://localhost:8080/posts/${id}/like`, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        })
-        .catch((error) => console.error('Failed to delete wish:', error));
+    if (!accessToken) {
+      console.log('Not logged in. Mock item removed from UI.');
+      return;
     }
-    console.log(`Item ${id} removed from wishlist.`);
+
+    axios
+      .post(`http://localhost:8080/posts/${id}/like`, null, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then(() => {
+        console.log(`Item ${id} like status toggled on server.`);
+      })
+      .catch((error) => {
+        console.error('Failed to toggle wish status:', error);
+        // If the API call fails, we should probably add the item back to the list
+        // This part is complex as we would need to store the removed item temporarily
+        // For now, we will just log the error and the item will remain removed from the UI (optimistic update)
+      });
   };
 
   return wishlist.length === 0 ? (
@@ -123,6 +133,7 @@ export default function WishList() {
           endAt={item.endAt}
           location={item.location}
           isWished={true}
+          onToggleWish={handleToggleWish}
         />
       ))}
     </section>
