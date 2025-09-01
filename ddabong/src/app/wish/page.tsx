@@ -1,3 +1,11 @@
-export default function MyWishPage() {
-  return <div>내가 찜한 봉사활동입니다.</div>;
+import TopBar from '@/components/atoms/TopBar';
+import WishList from '@/components/wish/WishList';
+
+export default function WishPage() {
+  return (
+    <main className='bg-page-gradient flex flex-col'>
+      <TopBar title='내가 찜한 봉사' bgColor='bg-page-background pb-5' />
+      <WishList />
+    </main>
+  );
 }
