@@ -306,6 +306,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/users/summary": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** 유저의 이메일로 유저 정보(이름, 등급, 누적 봉사시간) 조회 */
+        get: operations["getUserSummaryByEmail"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/users/login/kakao": {
         parameters: {
             query?: never;
@@ -1583,6 +1600,44 @@ export interface operations {
                 };
                 content: {
                     "*/*": components["schemas"]["UserResponseDTO"];
+                };
+            };
+        };
+    };
+    getUserSummaryByEmail: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 유저 정보 요약을 성공적으로 조회했습니다. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description 잘못된 요청입니다. */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BadRequestException"];
+                };
+            };
+            /** @description 해당하는 유저가 존재하지 않습니다. */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["NotFoundException"];
                 };
             };
         };
