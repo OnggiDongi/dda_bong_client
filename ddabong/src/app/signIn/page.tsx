@@ -35,13 +35,14 @@ export default function SeniorSignInPage() {
       );
       console.log(response.data);
 
-      const { accessToken, refreshToken, name } = response.data;
+      const { accessToken, refreshToken, name, role } = response.data;
 
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('refreshToken', refreshToken);
       localStorage.setItem('name', name);
+      localStorage.setItem('role', role);
 
-      router.push('/home');
+      // router.push('/home');
     } catch (error) {
       console.error('로그인 실패:', error);
     }

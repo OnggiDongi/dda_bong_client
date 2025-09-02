@@ -23,22 +23,30 @@ export default function AiComment({
   textClassName,
 }: Props) {
   return (
-    <>
-      <div
+    <div
+      className={cn(
+        // 내용 길이에 맞게 (chip) + 부모 콘텐츠 영역을 넘지 않도록
+        'bg-1Q-Mint-Line inline-flex w-auto max-w-full items-center justify-center',
+        'min-w-0 gap-1.5 px-5 py-1.5', // 줄바꿈 허용(min-w-0)
+        rounded,
+        className
+      )}
+    >
+      <Image
+        src='/icons/ic_gemini.svg'
+        alt='gemini'
+        width={16}
+        height={15}
+        className='shrink-0'
+      />
+      <Txt
         className={cn(
-          'bg-1Q-Mint-Line inline-flex h-fit w-fit items-center justify-center px-5 py-1.5',
-          className,
-          rounded
+          'text-Logo-Mint pl-1 break-words whitespace-normal',
+          textClassName
         )}
       >
-        <Image
-          src={'/icons/ic_gemini.svg'}
-          alt={'gemini'}
-          width={16}
-          height={15}
-        />
-        <Txt className={cn('text-Logo-Mint pl-1', textClassName)}>{text}</Txt>
-      </div>
-    </>
+        {text}
+      </Txt>
+    </div>
   );
 }
