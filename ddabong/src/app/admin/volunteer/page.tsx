@@ -1,10 +1,21 @@
 import ActivityReview from '@/components/ActivityReview';
 import ActivityApplyInfo from '@/components/admin/volunteer/ActivityApplyInfo';
+import Txt from '@/components/atoms/Text';
 import TopBar from '@/components/atoms/TopBar';
 
-const userProfileImage =
-  'https://ddabong-upload.s3.ap-northeast-2.amazonaws.com/uploads/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA+2025-08-29+%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB+9.58.48.png';
-const reviews = [
+type Review = {
+  id: number;
+  userName: string;
+  imageUrl: string;
+  totalRate: number | null;
+  diligenceLevel: number | null;
+  attitude: number | null;
+  healthStatus: number | null;
+  status: string;
+  aiReview: string | null;
+};
+
+const reviews: Review[] = [
   {
     id: 1,
     userName: '초수비',
@@ -15,7 +26,7 @@ const reviews = [
     attitude: 4.0,
     healthStatus: 4.0,
     status: 'PENDING',
-    aiReview: '피그마를 잘해요. 마라샹궈를 좋아해요.',
+    aiReview: '피그마를 잘해요. 마라샹궈를 좋아해요. 야미야미 맛있거등여 냠',
   },
   {
     id: 2,
@@ -27,18 +38,19 @@ const reviews = [
     attitude: 1.0,
     healthStatus: 1.0,
     status: 'REJECTED',
-    aiReview: '다리가 불편해보여요. 정신 사나워요.',
+    aiReview: '다리가 불편해보여요. 정신 사나워요. 물릴 수 있으니 조심!',
   },
   {
     id: 3,
     userName: '이짐',
-    imageUrl: userProfileImage,
+    imageUrl:
+      'https://ddabong-upload.s3.ap-northeast-2.amazonaws.com/uploads/초수비.jpg',
     totalRate: 4.5,
     diligenceLevel: 4.0,
     attitude: 5.0,
     healthStatus: 5.0,
     status: 'APPROVED',
-    aiReview: '짐이 많아요. 우산 키링을 좋아해요.',
+    aiReview: '짐이 많아요. 우산 키링을 좋아해요. 볼링을 잘쳐요 스트라이크~!',
   },
   {
     id: 4,
@@ -50,19 +62,20 @@ const reviews = [
     attitude: 5.0,
     healthStatus: 5.0,
     status: 'PENDING',
-    aiReview: '외계어를 해요. 4차원이에요.',
+    aiReview:
+      '외계어를 해요. 4차원이에요. 꾸잉꾸잉삐요 소리를 내고 안경을 써요.',
   },
   {
     id: 5,
     userName: '비버',
     imageUrl:
       'https://ddabong-upload.s3.ap-northeast-2.amazonaws.com/uploads/비버.png',
-    totalRate: 4.9,
-    diligenceLevel: 5.0,
-    attitude: 5.0,
-    healthStatus: 4.7,
+    totalRate: null,
+    diligenceLevel: null,
+    attitude: null,
+    healthStatus: null,
     status: 'PENDING',
-    aiReview: '밥을 많이 안주면 물어요. 소리를 질러..',
+    aiReview: null,
   },
 ];
 
@@ -80,19 +93,27 @@ export default function VolunteerListPage() {
           applicantsNum={8}
         />
         <div>
-          {reviews.map((user) => (
-            <ActivityReview
-              key={user.id}
-              userName={user.userName}
-              imageUrl={user.imageUrl}
-              totalRate={user.totalRate}
-              diligenceLevel={user.diligenceLevel}
-              attitude={user.attitude}
-              healthStatus={user.healthStatus}
-              status={user.status}
-              aiReview={user.aiReview}
-            />
-          ))}
+          {reviews.length != 0 ? (
+            reviews.map((user) => (
+              <ActivityReview
+                key={user.id}
+                userName={user.userName}
+                imageUrl={user.imageUrl}
+                totalRate={user.totalRate}
+                diligenceLevel={user.diligenceLevel}
+                attitude={user.attitude}
+                healthStatus={user.healthStatus}
+                status={user.status}
+                aiReview={user.aiReview}
+              />
+            ))
+          ) : (
+            <div className='mt-1 flex min-h-[64vh] flex-col items-center justify-center bg-white'>
+              <Txt weight='medium' className='text-Modal-font'>
+                글이 없습니다.
+              </Txt>
+            </div>
+          )}
         </div>
       </div>
     </>

@@ -6,10 +6,10 @@ import Button from './atoms/Button';
 import Txt from './atoms/Text';
 
 type Props = {
-  totalRate: number;
-  diligenceLevel: number;
-  healthStatus: number;
-  attitude: number;
+  totalRate: number | null;
+  diligenceLevel: number | null;
+  healthStatus: number | null;
+  attitude: number | null;
 };
 export default function ReviewRating({
   totalRate,
@@ -18,9 +18,10 @@ export default function ReviewRating({
   attitude,
 }: Props) {
   const [toggle, setToggle] = useState(false);
+  const showDetail = totalRate !== null;
 
   return (
-    <>
+    <div className='min-h-[52px]'>
       <div className='flex items-center'>
         <Image
           src='/icons/ic_ddabong.svg'
@@ -29,69 +30,54 @@ export default function ReviewRating({
           height={20}
           className='mr-1'
         />
-        <Txt className='text-base'>{totalRate.toFixed(1)}</Txt>
+        <Txt className='text-base'>
+          {totalRate ? totalRate.toFixed(1) : '-'}
+        </Txt>
 
-        <Button
-          color='white'
-          className='ml-2 w-auto'
-          onClick={() => setToggle(!toggle)}
-        >
-          <Image
-            src='/icons/ic_arrow_back.svg'
-            alt='arrow'
-            width={8}
-            height={8}
-            className={toggle ? 'rotate-90' : 'rotate-[270deg]'}
-          />
-        </Button>
+        {totalRate ? (
+          <Button
+            color='white'
+            className='ml-2 w-auto'
+            onClick={() => setToggle(!toggle)}
+          >
+            <Image
+              src='/icons/ic_arrow_back.svg'
+              alt='arrow'
+              width={8}
+              height={8}
+              className={toggle ? 'rotate-90' : 'rotate-[270deg]'}
+            />
+          </Button>
+        ) : (
+          <></>
+        )}
       </div>
-      {toggle ? (
-        <div className='flex items-center gap-3 pb-2.5'>
-          {/* 성실도 */}
-          <div className='flex items-center gap-1'>
-            <Txt weight='medium' className='text-Modal-font text-sm'>
-              성실도
-            </Txt>
-            <Image
-              src='/icons/ic_star_filled.svg'
-              alt='별'
-              width={18}
-              height={18}
-            />
-            <Txt className='text-Modal-font'>{diligenceLevel.toFixed(1)}</Txt>
-          </div>
-
-          {/* 친화력 */}
-          <div className='flex items-center gap-1'>
-            <Txt weight='medium' className='text-Modal-font text-sm'>
-              친화력
-            </Txt>
-            <Image
-              src='/icons/ic_star_filled.svg'
-              alt='별'
-              width={18}
-              height={18}
-            />
-            <Txt className='text-Modal-font'>{attitude.toFixed(1)}</Txt>
-          </div>
-
-          {/* 건강 상태 */}
-          <div className='flex items-center gap-1'>
-            <Txt weight='medium' className='text-Modal-font text-sm'>
-              건강 상태
-            </Txt>
-            <Image
-              src='/icons/ic_star_filled.svg'
-              alt='별'
-              width={18}
-              height={18}
-            />
-            <Txt className='text-Modal-font'>{healthStatus.toFixed(1)}</Txt>
-          </div>
+      {toggle && showDetail ? (
+        <div className='flex items-center gap-3 pt-2 pb-2.5'>
+          {[
+            { label: '성실도', value: diligenceLevel },
+            { label: '친화력', value: attitude },
+            { label: '건강 상태', value: healthStatus },
+          ].map(({ label, value }) =>
+            value !== null ? (
+              <div className='flex items-center gap-1' key={label}>
+                <Txt weight='medium' className='text-Modal-font text-sm'>
+                  {label}
+                </Txt>
+                <Image
+                  src='/icons/ic_star_filled.svg'
+                  alt='별'
+                  width={18}
+                  height={18}
+                />
+                <Txt className='text-Modal-font'>{value.toFixed(1)}</Txt>
+              </div>
+            ) : (
+              <div className='flex items-center gap-1' key={label}></div>
+            )
+          )}
         </div>
-      ) : (
-        <div className='pt-2.5'></div>
-      )}
-    </>
+      ) : null}
+    </div>
   );
 }
