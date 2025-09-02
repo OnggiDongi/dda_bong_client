@@ -1,6 +1,8 @@
 'use client';
 
 import { useToast } from '@/contexts/toast/ToastContext';
+import { fetchUserSummary } from '@/hooks/home/user';
+import { useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -11,6 +13,8 @@ import Input from '@/components/atoms/Input';
 import Txt from '@/components/atoms/Text';
 
 export default function SeniorSignInPage() {
+  const qc = useQueryClient();
+
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const baseUrl = 'http://localhost:8080';
@@ -38,6 +42,13 @@ export default function SeniorSignInPage() {
       localStorage.setItem('accessToken', accessToken ?? '');
       localStorage.setItem('refreshToken', refreshToken ?? '');
       localStorage.setItem('name', name ?? '');
+
+      // 홈에서 쓸 데이터 미리 받아 캐시에 넣기
+      qc.prefetchQuery({
+        queryKey: ['userSummary'],
+        queryFn: fetchUserSummary,
+      });
+
       showToast('로그인되었습니다.');
       router.push('/home');
 

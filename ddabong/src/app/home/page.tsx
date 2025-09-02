@@ -1,5 +1,6 @@
 'use client';
 
+import { useUserSummary } from '@/hooks/home/user';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 import OnboardingModal from '@/components/atoms/OnboardingModal';
@@ -40,14 +41,19 @@ export default function HomePage() {
     }
   };
 
+  const { data: user } = useUserSummary();
+
   return (
     <main className='flex flex-col items-center gap-4 px-5 pt-5 pb-10'>
       <Header />
-      <ProfileCard username={'별돌이군'} tier={'Silver'} totalHours={72} />
+      <ProfileCard
+        username={user?.name ?? ''}
+        tier={user?.grade ?? ''}
+        totalHours={Number(user?.totalHour ?? 0)}
+      />
       <ApplyBanner />
       <CarouselBanner />
       <CertificatesSection />
-
       {/* 온보딩 모달 */}
       <OnboardingModal
         open={open}

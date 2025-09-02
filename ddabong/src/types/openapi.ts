@@ -821,6 +821,12 @@ export interface components {
             /** Format: date-time */
             createdAt?: string;
         };
+        UserSummaryResponseDTO: {
+            name?: string;
+            grade?: string;
+            /** Format: int32 */
+            totalHour?: number;
+        };
         ActivityPostResponseDTO: {
             /** Format: int64 */
             id?: number;
@@ -1619,7 +1625,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": unknown;
+                    "application/json": components["schemas"]["UserSummaryResponseDTO"];
                 };
             };
             /** @description 잘못된 요청입니다. */
