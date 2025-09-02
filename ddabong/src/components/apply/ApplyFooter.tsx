@@ -1,5 +1,6 @@
 'use client';
 
+import { useToast } from '@/contexts/toast/ToastContext';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -11,6 +12,7 @@ type ApplyFooterProps = {
 };
 
 export default function ApplyFooter({ isApply = true }: ApplyFooterProps) {
+  const { showToast } = useToast();
   const router = useRouter();
   const [liked, setLiked] = useState(false);
   const [isModalOpened, setModalOpened] = useState<boolean>(false);
@@ -24,7 +26,8 @@ export default function ApplyFooter({ isApply = true }: ApplyFooterProps) {
     try {
       if (isApply) {
         // 신청로직
-        alert('신청되었습니다.');
+        showToast('신청되었습니다');
+        // alert('신청되었습니다.');
       } else {
         // 삭제로직
         alert('삭제되었습니다.');
