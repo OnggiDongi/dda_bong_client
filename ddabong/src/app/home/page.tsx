@@ -55,11 +55,11 @@ export default function HomePage() {
       <CarouselBanner />
       <CertificatesSection />
       {/* 온보딩 모달 */}
-      <OnboardingModal
+      {/* <OnboardingModal
         open={open}
         onClose={handleClose}
         onSubmit={handleSubmit}
-      />
+      /> */}
     </main>
   );
 }

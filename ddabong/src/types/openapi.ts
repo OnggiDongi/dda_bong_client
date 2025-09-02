@@ -843,6 +843,7 @@ export interface components {
         CertificationResponseDTO: {
             /** Format: int64 */
             id?: number;
+            username?: string;
             /** Format: int32 */
             hour?: number;
             /** Format: date-time */

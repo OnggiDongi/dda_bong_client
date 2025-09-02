@@ -33,13 +33,13 @@ export default function CertificateModal({
   const handleShare = () => {
     //TODO: 공유 기능 구현
     showToast('링크가 복사되었습니다.');
-    alert('공유하기!');
+    // alert('공유하기!');
   };
 
   const handleSave = () => {
     //TODO: 이미지 저장 기능 구현
     showToast('저장이 완료되었습니다.');
-    alert('이미지 저장!');
+    // alert('이미지 저장!');
   };
 
   return (
