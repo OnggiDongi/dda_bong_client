@@ -36,6 +36,8 @@ export default function SeniorSignInPage() {
       localStorage.setItem('accessToken', accessToken ?? '');
       localStorage.setItem('refreshToken', refreshToken ?? '');
       localStorage.setItem('name', name ?? '');
+      showToast('로그인되었습니다.');
+      router.push('/home');
 
       // 모달 오픈 여부 결정 → 쿼리로 전달
       const shouldOpenOnboarding =
