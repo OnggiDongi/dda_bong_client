@@ -1,5 +1,6 @@
 'use client';
 
+import { useToast } from '@/contexts/toast/ToastContext';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import TopBar from '@/components/atoms/TopBar';
@@ -24,7 +25,7 @@ type BaseItem = {
 export default function SeniorReviewListPage() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<Tab>('apply');
-
+  const { showToast } = useToast();
   // 데이터
   const [applyList, setApplyList] = useState<BaseItem[]>([
     {
@@ -96,6 +97,7 @@ export default function SeniorReviewListPage() {
   };
 
   const handleConfirmCancel = () => {
+    showToast('취소가 완료되었습니다.');
     if (!cancelTarget) return;
     setApplyList((prev) => prev.filter((x) => x.id !== cancelTarget.id));
     setCancelTarget(null);
