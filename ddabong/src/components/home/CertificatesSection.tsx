@@ -1,33 +1,29 @@
 'use client';
 
+import { useState } from 'react';
 import Txt from '@/components/atoms/Text';
 import CertificateCard from './CertificateCard';
+import CertificateModal from './CertificateModal';
 
 const certificates: {
-  title: string;
+  username: string;
   date: string;
-  totalHours: string;
-  bgColor: string;
-  borderColor?: string;
+  totalHours: number;
 }[] = [
-  // 테스트 데이터
-  {
-    title: '시별돌',
-    date: '2026.09.05',
-    totalHours: '50',
-    bgColor: 'bg-1Q-Mint',
-    borderColor: 'border-1Q-Mint-Line',
-  },
-  {
-    title: '시별돌',
-    date: '2026.09.08',
-    totalHours: '100',
-    bgColor: 'bg-1Q-Purple',
-    borderColor: 'border-1Q-Purple-Line',
-  },
+  { username: '시별돌', date: '2026.09.05', totalHours: 50 },
+  { username: '시별돌', date: '2026.09.08', totalHours: 100 },
+  { username: '시별돌', date: '2026.09.10', totalHours: 150 },
+  // { username: '시별돌', date: '2026.09.15', totalHours: 200 },
 ];
 
 export default function CertificatesSection() {
+  const [selected, setSelected] = useState<null | {
+    title: string;
+    date: string;
+    totalHours: number;
+  }>(null);
+
+  const isScrollable = certificates.length > 2;
   return (
     <section className='border-Background h-[280px] w-[350px] rounded-[20px] border bg-white'>
       <Txt
@@ -38,18 +34,48 @@ export default function CertificatesSection() {
       </Txt>
 
       {certificates.length > 0 ? (
-        <div className='flex justify-center gap-12'>
+        <div
+          className={
+            isScrollable
+              ? 'hide-scrollbar flex snap-x snap-mandatory [scroll-padding-left:31px] gap-4 overflow-x-auto px-[31px]'
+              : 'flex justify-center gap-10'
+          }
+        >
           {certificates.map((cert, idx) => (
-            <CertificateCard key={idx} {...cert} />
+            <div
+              key={idx}
+              className={isScrollable ? 'shrink-0 snap-start' : ''}
+              onClick={() =>
+                setSelected({
+                  title: cert.username,
+                  date: cert.date,
+                  totalHours: cert.totalHours,
+                })
+              }
+            >
+              <CertificateCard
+                userName={cert.username}
+                date={cert.date}
+                totalHours={cert.totalHours}
+              />
+            </div>
           ))}
         </div>
       ) : (
         <div className='flex h-40 items-center justify-center text-center'>
-          <Txt weight='semibold' className='text-Hana-Black text-xl'>
+          <Txt className='text-xl'>
             봉사 시간을 채워 <br /> 인증서를 받아보세요!
           </Txt>
         </div>
       )}
+
+      <CertificateModal
+        open={!!selected}
+        onClose={() => setSelected(null)}
+        userName={selected?.title ?? ''}
+        date={selected?.date ?? ''}
+        totalHours={selected?.totalHours ?? 0}
+      />
     </section>
   );
 }

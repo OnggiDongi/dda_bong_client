@@ -32,7 +32,8 @@
   --code-theme20: #ede0f3;
   --code-theme21: #f4edde;
   --code-theme22: #ede4d1;
-  --code-theme23: #f8bed6;
+  --code-theme23: #ffe4ef;
+  --code-theme24: #f8bed6;
 
   /* 위 색상 재정의 */
   --color-white: var(--code-theme1);
@@ -59,7 +60,8 @@
   --color-1Q-Purple-Line: var(--code-theme20);
   --color-Hana-Beige: var(--code-theme21);
   --color-Hana-Beige-Line: var(--code-theme22);
-  --color-pink: var(--code-theme23);
+  --color-Hana-Pink: var(--code-theme23);
+  --color-Hana-Pink-border: var(--code-theme24);
 }
 
 @theme inline {
@@ -230,6 +232,13 @@ body {
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+.clamp-3 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3; /* 3줄까지만 표시 */
+  overflow: hidden;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -245,4 +254,9 @@ body {
       linear-gradient(to bottom, transparent 0%, #e6f5f2 60%, transparent 100%),
       var(--color-Page-Background);
   }
+}
+
+/* 크롬, 사파리, 엣지 */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
 }
