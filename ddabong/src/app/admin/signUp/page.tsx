@@ -1,12 +1,43 @@
 'use client';
 
+import { useInstitutionSignUp, SignUpBody } from '@/types/useInstitutionSignUp';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import Button from '@/components/atoms/Button';
 import Input from '@/components/atoms/Input';
 import Txt from '@/components/atoms/Text';
 
 export default function AdminSignUpPage() {
+  const signUp = useInstitutionSignUp();
+  const router = useRouter();
+
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [secondPassword, setSecondPassword] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+
+  const onSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (password !== secondPassword) {
+      alert('비밀번호가 일치하지 않습니다.');
+      return; // 서버로 요청 보내지 않음
+    }
+
+    signUp.mutate({
+      name,
+      email,
+      password,
+      secondPassword,
+      phoneNumber,
+    } as SignUpBody); // 먼저 any로 맞춰보고, openapi.ts의 정확한 키로 교체
+
+    router.push('/admin/signIn');
+  };
+
   return (
     <main className='flex flex-col items-center pt-14'>
       {/* 로고 */}
@@ -21,7 +52,7 @@ export default function AdminSignUpPage() {
 
       {/* 폼 컨테이너 */}
       <div className='w-[300px]'>
-        <form className='flex flex-col gap-2'>
+        <form className='flex flex-col gap-2' onSubmit={onSubmit}>
           {/* 이름 */}
           <div>
             <label className='block'>
@@ -37,6 +68,8 @@ export default function AdminSignUpPage() {
               placeholder='기관명을 입력해주세요'
               required
               maxLength={50}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               className='text-Hana-Black placeholder:text-Icon-Detail mb-5 h-[50px] w-full pl-5 font-[AppleSDGothicNeoM] text-lg placeholder:font-[AppleSDGothicNeoM] placeholder:text-lg'
             />
           </div>
@@ -57,6 +90,8 @@ export default function AdminSignUpPage() {
               autoComplete='email'
               required
               maxLength={50}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className='text-Hana-Black placeholder:text-Icon-Detail tex-lg mb-5 h-[50px] w-full pl-5 font-[AppleSDGothicNeoM] placeholder:font-[AppleSDGothicNeoM] placeholder:text-lg'
             />
           </div>
@@ -77,6 +112,8 @@ export default function AdminSignUpPage() {
               autoComplete='new-password'
               required
               maxLength={50}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className='text-Hana-Black placeholder:text-Icon-Detail h-[50px] w-full pl-5 font-[AppleSDGothicNeoM] text-lg placeholder:font-[AppleSDGothicNeoM] placeholder:text-lg'
             />
           </div>
@@ -90,6 +127,8 @@ export default function AdminSignUpPage() {
                 autoComplete='new-password'
                 required
                 maxLength={50}
+                value={secondPassword}
+                onChange={(e) => setSecondPassword(e.target.value)}
                 className='text-Hana-Black placeholder:text-Icon-Detail mb-5 h-[50px] w-full pl-5 font-[AppleSDGothicNeoM] text-lg placeholder:font-[AppleSDGothicNeoM] placeholder:text-lg'
               />
             </label>
@@ -110,6 +149,8 @@ export default function AdminSignUpPage() {
               placeholder='전화번호를 입력해주세요'
               required
               maxLength={13}
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
               className='text-Hana-Black placeholder:text-Icon-Detail mb-5 h-[50px] w-full pl-5 font-[AppleSDGothicNeoM] text-lg placeholder:font-[AppleSDGothicNeoM] placeholder:text-lg'
             />
           </div>
@@ -119,7 +160,7 @@ export default function AdminSignUpPage() {
             type='submit'
             className='mt-[30px] h-[50px] w-full font-[AppleSDGothicNeoSB] text-xl'
           >
-            회원가입
+            {signUp.isPending ? '가입 중…' : '회원가입'}
           </Button>
 
           {/* 로그인으로 이동 */}
