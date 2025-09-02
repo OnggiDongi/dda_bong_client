@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
+import { useToast } from '../contexts/toast/ToastContext';
 import ReviewRating from './ReviewRating';
 import AiComment from './atoms/AiComment';
 import Badge from './atoms/Badge';
@@ -32,7 +33,7 @@ export default function ActivityReview({
 }: Props) {
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 추가
   const [modalType, setModalType] = useState<'APPROVE' | 'REJECT' | null>(null); // 어떤 버튼 눌렀는지
-
+  const { showToast } = useToast();
   const openModal = (type: 'APPROVE' | 'REJECT') => {
     setModalType(type);
     setIsModalOpen(true);
@@ -45,10 +46,12 @@ export default function ActivityReview({
 
   const handleConfirm = () => {
     if (modalType === 'APPROVE') {
-      // 수락 처리
+      showToast('수락이 완료되었습니다.');
+      // ✅ 수락 처리
       console.log('수락!');
     } else {
-      // 거절 처리
+      showToast('거절이 완료되었습니다.');
+      // ✅ 거절 처리
       console.log('거절!');
     }
     closeModal();
@@ -56,7 +59,7 @@ export default function ActivityReview({
   return (
     <>
       <div className='mt-1 flex flex-col items-center bg-white'>
-        {/* ✅ w-full 로 폭 고정 + padding 적용이 보이도록 */}
+        {/* w-full 로 폭 고정 + padding 적용이 보이도록 */}
         <div className='mt-5 mb-2 flex w-full px-6'>
           <Image
             src={imageUrl}
@@ -66,7 +69,7 @@ export default function ActivityReview({
             className='h-[48px] w-[48px] flex-shrink-0 rounded-3xl object-cover'
           />
 
-          {/* ✅ 오른쪽 컬럼이 줄어들 수 있게 min-w-0 + 필요시 overflow-hidden */}
+          {/* 오른쪽 컬럼이 줄어들 수 있게 min-w-0 + 필요시 overflow-hidden */}
           <div className='min-w-0 flex-1 pl-3'>
             {/* 이 줄이 좌우로 벌어지며 넘칠 수 있으니 */}
             <div className='flex items-start justify-between gap-2'>

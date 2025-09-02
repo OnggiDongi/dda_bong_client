@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Providers from '../../Providers';
 import './globals.css';
+import { ToastProvider } from '@/contexts/toast/ToastProvider';
 
 export const metadata: Metadata = {
   title: 'DDABONG 따봉',
@@ -17,7 +18,7 @@ export default function RootLayout({
     <html lang='ko'>
       <body className='flex h-screen items-center justify-center overflow-hidden antialiased'>
         <main className='bg-Page-Background h-full w-full overflow-y-auto shadow-[0_0_10px_rgba(0,0,0,0.3)] sm:max-w-sm [&::-webkit-scrollbar]:hidden'>
-          <Providers>{children}</Providers>
+          <ToastProvider>{children}</ToastProvider>
         </main>
       </body>
     </html>

@@ -1,5 +1,6 @@
 'use client';
 
+import { useToast } from '@/contexts/toast/ToastContext';
 import { useState } from 'react';
 import PhotoUpload from '@/components/admin/recruit/write/PhotoUpload';
 import RecruitForm from '@/components/admin/recruit/write/RecruitForm';
@@ -31,7 +32,7 @@ export default function RecruitWritePage() {
   const [description, setDescription] = useState('');
   const [support, setSupport] = useState<Set<SupportKey>>(new Set());
   const [photoUrl, setPhotoUrl] = useState<string | null>(null);
-
+  const { showToast } = useToast();
   const isDeadlineValid =
     !!deadline && !!volunDate && startOfDay(deadline) < startOfDay(volunDate);
 
@@ -102,7 +103,7 @@ export default function RecruitWritePage() {
       support: Array.from(support),
       photoUrl,
     };
-
+    showToast('작성이 완료되었습니다.');
     console.log('제출 데이터:', result);
     alert('작성 완료꾸잉');
   };
