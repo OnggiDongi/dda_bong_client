@@ -28,7 +28,7 @@ export default function ProfileCard({ username, tier, totalHours }: Props) {
             <Txt weight='extrabold' className='text-Hana-Black text-xl'>
               {username}
             </Txt>
-            <Txt weight='heavy' className='text-Modal-font text-base'>
+            <Txt weight='heavy' className='text-Modal-font text-xl'>
               {tier}
             </Txt>
           </div>
@@ -40,7 +40,7 @@ export default function ProfileCard({ username, tier, totalHours }: Props) {
           <Txt weight='semibold' className='text-Hana-Black text-xl'>
             누적 봉사 시간
           </Txt>
-          <Txt weight='heavy' className='text-Hana-Green text-base'>
+          <Txt weight='heavy' className='text-Hana-Green text-xl'>
             {totalHours}시간
           </Txt>
         </div>
