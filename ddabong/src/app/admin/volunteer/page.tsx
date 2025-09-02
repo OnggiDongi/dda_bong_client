@@ -26,7 +26,7 @@ const reviews: Review[] = [
     attitude: 4.0,
     healthStatus: 4.0,
     status: 'PENDING',
-    aiReview: '피그마를 잘해요. 마라샹궈를 좋아해요.',
+    aiReview: '피그마를 잘해요. 마라샹궈를 좋아해요. 야미야미 맛있거등여 냠',
   },
   {
     id: 2,
@@ -38,7 +38,7 @@ const reviews: Review[] = [
     attitude: 1.0,
     healthStatus: 1.0,
     status: 'REJECTED',
-    aiReview: '다리가 불편해보여요. 정신 사나워요.',
+    aiReview: '다리가 불편해보여요. 정신 사나워요. 물릴 수 있으니 조심!',
   },
   {
     id: 3,
@@ -50,7 +50,7 @@ const reviews: Review[] = [
     attitude: 5.0,
     healthStatus: 5.0,
     status: 'APPROVED',
-    aiReview: '짐이 많아요. 우산 키링을 좋아해요.',
+    aiReview: '짐이 많아요. 우산 키링을 좋아해요. 볼링을 잘쳐요 스트라이크~!',
   },
   {
     id: 4,
@@ -62,7 +62,8 @@ const reviews: Review[] = [
     attitude: 5.0,
     healthStatus: 5.0,
     status: 'PENDING',
-    aiReview: '외계어를 해요. 4차원이에요.',
+    aiReview:
+      '외계어를 해요. 4차원이에요. 꾸잉꾸잉삐요 소리를 내고 안경을 써요.',
   },
   {
     id: 5,
