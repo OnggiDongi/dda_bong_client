@@ -36,9 +36,11 @@ const fetchActivities = async (region?: string, categories?: string) => {
   // Handle different possible response structures robustly
   if (!data) return [];
   if (Array.isArray(data)) return data as Activity[];
-  if (Array.isArray((data as any).content)) return (data as any).content as Activity[];
-  if (Array.isArray((data as any).data)) return (data as any).data as Activity[];
-  
+  if (Array.isArray((data as any).content))
+    return (data as any).content as Activity[];
+  if (Array.isArray((data as any).data))
+    return (data as any).data as Activity[];
+
   console.warn('Unexpected API response structure:', data);
   return []; // Return empty array if structure is unknown
 };
@@ -47,7 +49,7 @@ export default function ApplyPage() {
   const [region, setRegion] = useState<string | undefined>(undefined);
   const [district, setDistrict] = useState<string | undefined>(undefined);
   const [selectedCategories, setSelectedCategories] = useState<Set<string>>(
-    new Set(),
+    new Set()
   );
 
   const handleCategoryToggle = (label: string) => {
@@ -65,27 +67,29 @@ export default function ApplyPage() {
   const searchRegion = district ? `${region} ${district}` : region;
   const categories = Array.from(selectedCategories).join(',');
 
-  const { data: activities = [], isLoading, isError } = useQuery<Activity[]>(
-    {
-      queryKey: ['activities', searchRegion, categories],
-      queryFn: () => fetchActivities(searchRegion, categories),
-      // Keep previous data while refetching for a smoother UX
-      placeholderData: (previousData) => previousData,
-    },
-  );
+  const {
+    data: activities = [],
+    isLoading,
+    isError,
+  } = useQuery<Activity[]>({
+    queryKey: ['activities', searchRegion, categories],
+    queryFn: () => fetchActivities(searchRegion, categories),
+    // Keep previous data while refetching for a smoother UX
+    placeholderData: (previousData) => previousData,
+  });
 
   return (
-    <main className='bg-page-gradient min-h-screen'>
+    <main className='bg-page-gradient'>
       <TopBar title='' bgColor='bg-page-background' />
       <div className='flex flex-col gap-5 px-4'>
         <VolunteerHeader />
-        <LocationSelect 
+        <LocationSelect
           region={region}
           district={district}
           onRegionChange={setRegion}
           onDistrictChange={setDistrict}
         />
-        <CategoryController 
+        <CategoryController
           selected={selectedCategories}
           onToggle={handleCategoryToggle}
         />
@@ -94,13 +98,14 @@ export default function ApplyPage() {
             <Txt className='text-center'>로딩 중...</Txt>
           ) : isError ? (
             <Txt className='text-center text-red-500'>
-              봉사활동 목록을 불러오는 데 실패했습니다. 로그인 정보를 확인해주세요.
+              봉사활동 목록을 불러오는 데 실패했습니다. 로그인 정보를
+              확인해주세요.
             </Txt>
           ) : activities.length === 0 ? (
             <Txt className='text-center'>해당 조건의 봉사활동이 없습니다.</Txt>
           ) : (
             activities.map((item) => (
-              <VolunteerCard 
+              <VolunteerCard
                 key={item.id}
                 id={item.id!}
                 category={item.category!}
