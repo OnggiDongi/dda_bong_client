@@ -26,7 +26,7 @@ export default function ActivityInfo({
         />
         <div className='flex flex-1 flex-col items-start pl-4'>
           <Badge text={category} className='inline-block leading-tight'></Badge>
-          <Txt className='flex-2 pt-3 text-lg'>{title}</Txt>
+          <Txt className='flex-2 text-lg'>{title}</Txt>
           <Txt className='text-Icon-Detail flex-3'>{endDate}</Txt>
         </div>
       </div>

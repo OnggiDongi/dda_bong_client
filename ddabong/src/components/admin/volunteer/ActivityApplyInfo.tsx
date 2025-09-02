@@ -27,7 +27,7 @@ export default function ActivityApplyInfo({
           endDate={endDate}
           imageUrl={imageUrl}
         />
-        <div className='bg-Box-Line border-Box-Line mt-4 border'></div>
+        <div className='bg-Box-Line border-Box-Line mt-4 border-[0.5px]'></div>
         <div className='flex justify-end pt-1.5'>
           <Txt className='text-Logo-Mint'>
             지원 인원 {applicantsNum}/{recruitNum}
