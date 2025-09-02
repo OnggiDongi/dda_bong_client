@@ -33,11 +33,13 @@ export default function SeniorSignInPage() {
 
       console.log(data);
 
-      const { accessToken, refreshToken, name, firstLogin } = data ?? {};
+      const { accessToken, refreshToken, name, firstLogin, role } = data ?? {};
 
       localStorage.setItem('accessToken', accessToken ?? '');
       localStorage.setItem('refreshToken', refreshToken ?? '');
       localStorage.setItem('name', name ?? '');
+      localStorage.setItem('role', role ?? '');
+      localStorage.setItem('firstLogin', firstLogin ?? '');
       showToast('로그인되었습니다.');
       router.push('/home');
 
