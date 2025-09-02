@@ -248,3 +248,8 @@ body {
       var(--color-Page-Background);
   }
 }
+
+/* 크롬, 사파리, 엣지 */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}

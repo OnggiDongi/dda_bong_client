@@ -37,7 +37,7 @@ export default function CertificatesSection() {
         <div
           className={
             isScrollable
-              ? 'flex snap-x snap-mandatory gap-4 overflow-x-auto px-[31px]'
+              ? 'hide-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto px-[31px]'
               : 'flex justify-center gap-10'
           }
         >
