@@ -55,7 +55,7 @@ export default function AdminSignInPage() {
           </div>
 
           {/* 로그인 버튼 */}
-          <Link href='/home'>
+          <Link href='/admin/home'>
             <Button className='h-[45px] w-full font-[AppleSDGothicNeoSB] text-xl'>
               로그인
             </Button>
@@ -69,7 +69,7 @@ export default function AdminSignInPage() {
             >
               가입한 계정이 없으신가요?
             </Txt>
-            
+
             <Link href='/admin/signUp' className='ml-[14px] pb-1'>
               <Txt
                 weight='medium'
