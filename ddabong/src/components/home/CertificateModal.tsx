@@ -26,10 +26,10 @@ export default function CertificateModal({
   date,
   totalHours,
 }: ModalProps) {
+  const { showToast } = useToast();
   if (!open) return null;
 
   const { bgColor, borderColor } = getCertificateStyle(totalHours);
-  const { showToast } = useToast();
   const handleShare = () => {
     //TODO: 공유 기능 구현
     showToast('링크가 복사되었습니다.');

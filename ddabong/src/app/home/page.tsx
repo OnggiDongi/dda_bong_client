@@ -33,6 +33,7 @@ export default function HomePage() {
 
   const handleSubmit = async (v: { region: string; interest: string }) => {
     try {
+      console.log(v.region, v.interest);
       localStorage.setItem('seen_onboarding', '1');
     } finally {
       setOpen(false);

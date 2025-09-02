@@ -22,6 +22,8 @@ export default function MyEditPage() {
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
   const [phone, setPhone] = useState('010-4113-0361');
+  const [region, setRegion] = useState<string | undefined>(undefined);
+  const [district, setDistrict] = useState<string | undefined>(undefined);
 
   const user = {
     name: '시별돌',
@@ -166,7 +168,12 @@ export default function MyEditPage() {
           {/* 봉사 선호 지역 */}
           <Field label='봉사 선호 지역'>
             <div className='[&_*]:text-2xl'>
-              <LocationSelect />
+              <LocationSelect
+                region={region}
+                district={district}
+                onRegionChange={setRegion}
+                onDistrictChange={setDistrict}
+              />
             </div>
           </Field>
         </section>
