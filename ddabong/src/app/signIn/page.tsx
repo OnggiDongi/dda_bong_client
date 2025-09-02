@@ -1,5 +1,6 @@
 'use client';
 
+import { useToast } from '@/contexts/toast/ToastContext';
 import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -14,7 +15,7 @@ export default function SeniorSignInPage() {
   const [password, setPassword] = useState('');
   const baseUrl = 'http://localhost:8080';
   const router = useRouter();
-
+  const { showToast } = useToast();
   async function formLogin(e: React.FormEvent) {
     e.preventDefault();
     const body = new URLSearchParams();
@@ -37,14 +38,17 @@ export default function SeniorSignInPage() {
       localStorage.setItem('accessToken', accessToken ?? '');
       localStorage.setItem('refreshToken', refreshToken ?? '');
       localStorage.setItem('name', name ?? '');
+      showToast('로그인되었습니다.');
+      router.push('/home');
 
       // 모달 오픈 여부 결정 → 쿼리로 전달
       const shouldOpenOnboarding =
         firstLogin === true || !localStorage.getItem('seen_onboarding');
-
+      showToast('로그인되었습니다.');
       router.push(shouldOpenOnboarding ? '/home?onboarding=1' : '/home');
     } catch (err) {
       console.error('로그인 실패:', err);
+      showToast('로그인에 실패하였습니다.');
       alert('로그인에 실패했습니다. 이메일/비밀번호를 확인해 주세요.');
     }
   }
