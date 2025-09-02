@@ -39,9 +39,9 @@ export default function HomePage() {
     <main className='flex flex-col items-center gap-4 px-5 pt-5 pb-10'>
       <Header />
       <ProfileCard
-        username={user?.name ?? ''}
-        tier={user?.grade ?? ''}
-        totalHours={Number(user?.totalHour ?? 0)}
+        username={user?.name ?? '시별돌'}
+        tier={user?.grade ?? 'Silver'}
+        totalHours={Number(user?.totalHour ?? 50)}
       />
       <ApplyBanner />
       <CarouselBanner />
