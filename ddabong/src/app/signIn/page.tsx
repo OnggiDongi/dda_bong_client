@@ -30,6 +30,8 @@ export default function SeniorSignInPage() {
         }
       );
 
+      console.log(data);
+
       const { accessToken, refreshToken, name, firstLogin } = data ?? {};
 
       localStorage.setItem('accessToken', accessToken ?? '');
