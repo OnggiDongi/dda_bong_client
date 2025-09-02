@@ -1,103 +1,90 @@
 'use client';
 
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Button from '../atoms/Button';
 import Modal from '../atoms/modal';
 
 type ApplyFooterProps = {
   isApply: boolean;
+  postTitle: string;
+  isLiked?: boolean;
+  hasApplied?: boolean;
+  isApplying?: boolean;
+  onLike: () => void;
+  onApply: () => void;
 };
 
-export default function ApplyFooter({ isApply = true }: ApplyFooterProps) {
-  const router = useRouter();
-  const [liked, setLiked] = useState(false);
+export default function ApplyFooter({
+  isApply,
+  postTitle,
+  isLiked = false,
+  hasApplied = false,
+  isApplying = false,
+  onLike,
+  onApply,
+}: ApplyFooterProps) {
   const [isModalOpened, setModalOpened] = useState<boolean>(false);
 
-  const openModal = () => {
-    setModalOpened(true);
-  };
+  const openModal = () => setModalOpened(true);
   const closeModal = () => setModalOpened(false);
 
-  const applyDelete = async () => {
-    try {
-      if (isApply) {
-        // 신청로직
-        alert('신청되었습니다.');
-      } else {
-        // 삭제로직
-        alert('삭제되었습니다.');
-      }
-    } catch (error) {
-      console.error('Error during apply/delete:', error);
-    }
+  const handleConfirmApply = () => {
+    onApply();
+    closeModal();
   };
 
-  useEffect(() => {
-    // 좋아요에 따른 api 전송
-  }, [liked]);
+  if (!isApply) {
+    return null;
+  }
+
+  const getButtonText = () => {
+    if (hasApplied) return '신청 완료';
+    if (isApplying) return '신청 중...';
+    return '신청하기';
+  };
 
   return (
     <>
       <section
-        className={`relative flex h-[68px] items-center justify-center shadow-[0_0_5px_0_rgba(0,0,0,0.15)] ${isApply ? 'gap-32' : 'gap-10'}`}
+        className={`relative flex h-[68px] items-center justify-center gap-32`}
       >
-        {isApply ? (
-          <button
-            type='button'
-            onClick={() => setLiked((v) => !v)}
-            aria-pressed={liked}
-            aria-label={liked ? '좋아요 취소' : '좋아요'}
-            className=''
-          >
-            <span className='relative inline-block h-[30px] w-[30px]'>
-              <Image
-                src={
-                  liked
-                    ? '/icons/ic_heart_filled.svg'
-                    : '/icons/ic_heart_outline.svg'
-                }
-                alt=''
-                fill
-                className='object-contain'
-              />
-            </span>
-          </button>
-        ) : (
-          <Button
-            className='bg-Background h-[45px] w-[145px]'
-            textClassName='text-Hana-Black/60'
-            onClick={() => router.push('/admin/recruit/write/1')}
-          >
-            수정하기
-          </Button>
-        )}
+        <button
+          type='button'
+          onClick={onLike}
+          aria-pressed={isLiked}
+          aria-label={isLiked ? '좋아요 취소' : '좋아요'}
+        >
+          <span className='relative inline-block h-[30px] w-[30px]'>
+            <Image
+              src={
+                isLiked
+                  ? '/icons/ic_heart_filled.svg'
+                  : '/icons/ic_heart_outline.svg'
+              }
+              alt='Heart Icon'
+              fill
+              className='object-contain'
+            />
+          </span>
+        </button>
 
         <Button
-          className={`h-[45px] w-[145px] ${
-            isApply ? 'bg-Logo-Mint' : 'bg-Logo-Pink'
-          }`}
+          className={`bg-Logo-Mint h-[45px] w-[145px]`}
           onClick={openModal}
+          disabled={hasApplied || isApplying}
         >
-          {isApply ? '신청하기' : '삭제하기'}
+          {getButtonText()}
         </Button>
       </section>
       {isModalOpened && (
         <Modal
-          title='동해 바다 쓰레기 줍기'
-          description={
-            isApply
-              ? '해당 봉사활동을 신청하시겠습니까?'
-              : '해당 봉사활동을 삭제하시겠습니까?'
-          }
+          title={postTitle}
+          description={'해당 봉사활동을 신청하시겠습니까?'}
           onCancel={closeModal}
-          onConfirm={() => {
-            applyDelete();
-            closeModal();
-          }}
-          confirmText={isApply ? '신청' : '삭제'}
-          confirmColor={isApply ? 'green' : 'pink'}
+          onConfirm={handleConfirmApply}
+          confirmText={'신청'}
+          confirmColor={'green'}
         />
       )}
     </>

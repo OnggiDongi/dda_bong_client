@@ -7,7 +7,7 @@ import Txt from '@/components/atoms/Text';
 
 type Props = {
   userName: string;
-  imageUrl: string;
+  imageUrl: string | null;
   rate: number;
   content: string;
 };
