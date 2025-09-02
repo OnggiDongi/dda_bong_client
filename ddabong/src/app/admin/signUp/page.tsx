@@ -21,6 +21,12 @@ export default function AdminSignUpPage() {
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (password !== secondPassword) {
+      alert('비밀번호가 일치하지 않습니다.');
+      return; // 서버로 요청 보내지 않음
+    }
+
     signUp.mutate({
       name,
       email,
