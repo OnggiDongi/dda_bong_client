@@ -1,6 +1,9 @@
 'use client';
 
-import { useInstitutionSignUp, SignUpBody } from '@/types/useInstitutionSignUp';
+import {
+  useInstitutionSignUp,
+  SignUpBody,
+} from '@/hooks/mutations/useInstitutionSignUp';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';

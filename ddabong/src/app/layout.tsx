@@ -1,7 +1,7 @@
+import { ToastProvider } from '@/contexts/toast/ToastProvider';
 import type { Metadata } from 'next';
 import Providers from '../../Providers';
 import './globals.css';
-import { ToastProvider } from '@/contexts/toast/ToastProvider';
 
 export const metadata: Metadata = {
   title: 'DDABONG 따봉',

@@ -33,10 +33,11 @@ function AuthSuccessContent() {
           withCredentials: true,
         }
       );
-      const { accessToken, refreshToken, name } = response.data;
+      const { accessToken, refreshToken, name, firstLogin } = response.data;
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('refreshToken', refreshToken);
       localStorage.setItem('name', name);
+      localStorage.setItem('firstLogin', firstLogin);
     } catch (error) {
       console.error(error);
     }
@@ -49,7 +50,9 @@ function AuthSuccessContent() {
 
 export default function AuthSuccessPage() {
   return (
-    <Suspense fallback={<div className='mt-20 text-center text-lg'>로딩 중...</div>}>
+    <Suspense
+      fallback={<div className='mt-20 text-center text-lg'>로딩 중...</div>}
+    >
       <AuthSuccessContent />
     </Suspense>
   );
