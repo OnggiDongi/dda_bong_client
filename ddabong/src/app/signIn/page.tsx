@@ -42,15 +42,13 @@ export default function SeniorSignInPage() {
       localStorage.setItem('accessToken', accessToken ?? '');
       localStorage.setItem('refreshToken', refreshToken ?? '');
       localStorage.setItem('name', name ?? '');
-
+      localStorage.setItem('role', role ?? '');
+      localStorage.setItem('firstLogin', firstLogin ?? '');
       // 홈에서 쓸 데이터 미리 받아 캐시에 넣기
       qc.prefetchQuery({
         queryKey: ['userSummary'],
         queryFn: fetchUserSummary,
       });
-
-      localStorage.setItem('role', role ?? '');
-      localStorage.setItem('firstLogin', firstLogin ?? '');
       showToast('로그인되었습니다.');
       router.push('/home');
 
