@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import {
   Select,
   SelectContent,
@@ -11,13 +10,28 @@ import {
 import Txt from '../atoms/Text';
 import { REGION_MAP } from './data/region';
 
-export default function LocationFilter() {
-  const [region, setRegion] = useState<string | undefined>(undefined);
-  const [district, setDistrict] = useState<string | undefined>(undefined);
+interface LocationSelectProps {
+  region: string | undefined;
+  district: string | undefined;
+  onRegionChange: (value: string) => void;
+  onDistrictChange: (value: string) => void;
+}
+
+export default function LocationSelect({ 
+  region, 
+  district, 
+  onRegionChange, 
+  onDistrictChange 
+}: LocationSelectProps) {
+
+  const handleRegionChange = (value: string) => {
+    onRegionChange(value);
+    onDistrictChange(undefined as any); // Reset district when region changes
+  }
 
   return (
     <div className='flex gap-2'>
-      <Select value={region} onValueChange={setRegion}>
+      <Select value={region} onValueChange={handleRegionChange}>
         <SelectTrigger className='text-Hana-Black text-xl'>
           <SelectValue
             placeholder={
@@ -36,8 +50,8 @@ export default function LocationFilter() {
         </SelectContent>
       </Select>
 
-      <Select value={district} onValueChange={setDistrict}>
-        <SelectTrigger className='text-Hana-Black text-xl'>
+      <Select value={district} onValueChange={onDistrictChange}>
+        <SelectTrigger className='text-Hana-Black text-xl' disabled={!region}>
           <SelectValue
             placeholder={
               <Txt weight='medium' className='text-Icon-Detail text-xl'>

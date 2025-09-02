@@ -1,35 +1,34 @@
 'use client';
 
-import { useState } from 'react';
 import CategoryButton from './CategoryButton';
 
-const categories = ['생활', '교육', '보건', '문화', '환경', '행정', '농어촌'];
+const CATEGORY_MAP = {
+  '생활': 'LIVING',
+  '교육': 'EDUCATION',
+  '보건': 'SAFETY',
+  '문화': 'CULTURE',
+  '환경': 'ENVIRONMENT',
+  '행정': 'PUBLIC',
+  '농어촌': 'GLOBAL',
+} as const;
 
-export default function CategoryController() {
-  const [selected, setSelected] = useState<Set<string>>(new Set());
+interface CategoryControllerProps {
+  selected: Set<string>;
+  onToggle: (value: string) => void;
+}
 
-  const toggle = (label: string) => {
-    setSelected((prev) => {
-      const next = new Set(prev);
-
-      if (next.has(label)) {
-        next.delete(label);
-      } else {
-        next.add(label);
-      }
-
-      return next;
-    });
-  };
-
+export default function CategoryController({
+  selected,
+  onToggle,
+}: CategoryControllerProps) {
   return (
     <section className='flex flex-wrap justify-center gap-2'>
-      {categories.map((c) => (
+      {Object.entries(CATEGORY_MAP).map(([key, value]) => (
         <CategoryButton
-          key={c}
-          label={c}
-          active={selected.has(c)}
-          onClick={() => toggle(c)}
+          key={key}
+          label={key}
+          active={selected.has(value)}
+          onClick={() => onToggle(value)}
         />
       ))}
     </section>
