@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import WishCard from '@/components/wish/WishCard';
 import Txt from '../atoms/Text';
 import { privateClient } from '@/lib/openapi-client';
@@ -8,50 +8,66 @@ import { components } from '@/types/openapi';
 
 type WishItem = components['schemas']['ActivityPostResponseDTO'];
 
-export default function WishList() {
-  const [wishlist, setWishlist] = useState<WishItem[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+// API 호출 함수들을 분리하여 정의
+const fetchWishes = async () => {
+  const { data, error } = await privateClient.GET('/users/likes');
+  if (error) {
+    throw new Error('Failed to fetch wishes');
+  }
+  return data as WishItem[];
+};
 
-  useEffect(() => {
-    const getWishes = async () => {
-      setIsLoading(true);
-      const { data, error } = await privateClient.GET('/users/likes');
-      if (error) {
-        console.error('Failed to fetch wishes:', error);
-        setWishlist([]);
-      } else {
-        setWishlist(data as WishItem[]);
-      }
-      setIsLoading(false);
-    };
-
-    getWishes();
-  }, []);
-
-  const handleToggleWish = async (id: number) => {
-    const originalWishlist = [...wishlist];
-    const itemToToggle = wishlist.find((item) => item.id === id);
-
-    // Optimistic UI update
-    setWishlist((prev) => prev.filter((item) => item.id !== id));
-
-    const { error } = await privateClient.POST('/posts/{activityPostId}/like', {
-      params: {
-        path: {
-          activityPostId: id,
-        },
+const toggleWish = async (id: number) => {
+  const { error } = await privateClient.POST('/posts/{activityPostId}/like', {
+    params: {
+      path: {
+        activityPostId: id,
       },
-    });
+    },
+  });
+  if (error) {
+    throw new Error('Failed to toggle wish status');
+  }
+};
 
-    if (error) {
-      console.error('Failed to toggle wish status:', error);
-      // Revert UI on error
-      setWishlist(originalWishlist);
-      // Optionally, show a toast or notification to the user
-    } else {
-      console.log(`Item ${id} like status toggled on server.`);
-    }
-  };
+export default function WishList() {
+  const queryClient = useQueryClient();
+
+  const { data: wishlist = [], isLoading } = useQuery<WishItem[]>({
+    queryKey: ['wishlist'],
+    queryFn: fetchWishes,
+  });
+
+  const { mutate: toggleWishMutation } = useMutation({
+    mutationFn: toggleWish,
+    onMutate: async (id: number) => {
+      // 쿼리 취소 (덮어쓰기 방지)
+      await queryClient.cancelQueries({ queryKey: ['wishlist'] });
+
+      // 이전 데이터 스냅샷
+      const previousWishlist = queryClient.getQueryData<WishItem[]>(['wishlist']);
+
+      // 낙관적 업데이트
+      queryClient.setQueryData<WishItem[]>(
+        ['wishlist'],
+        (old) => old?.filter((item) => item.id !== id) ?? [],
+      );
+
+      // 컨텍스트에 이전 데이터 반환
+      return { previousWishlist };
+    },
+    onError: (err, id, context) => {
+      console.error('Failed to toggle wish status:', err);
+      // 에러 발생 시 이전 데이터로 롤백
+      if (context?.previousWishlist) {
+        queryClient.setQueryData(['wishlist'], context.previousWishlist);
+      }
+    },
+    onSettled: () => {
+      // 성공/실패 여부와 관계없이 쿼리 무효화하여 서버와 상태 동기화
+      queryClient.invalidateQueries({ queryKey: ['wishlist'] });
+    },
+  });
 
   if (isLoading) {
     return (
@@ -80,7 +96,7 @@ export default function WishList() {
           endAt={item.endAt!}
           location={item.location!}
           isWished={true}
-          onToggleWish={() => handleToggleWish(item.id!)}
+          onToggleWish={() => toggleWishMutation(item.id!)}
         />
       ))}
     </section>
