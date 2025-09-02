@@ -1,75 +1,81 @@
 'use client';
 
-import axios from 'axios';
-import { useState, useEffect } from 'react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import WishCard from '@/components/wish/WishCard';
 import Txt from '../atoms/Text';
+import { privateClient } from '@/lib/openapi-client';
+import { components } from '@/types/openapi';
 
-// 찜 목록 아이템의 타입 정의 (실제 API 응답에 맞춰 수정 필요)
-interface WishItem {
-  id: number;
-  imageUrl: string;
-  category: string;
-  title: string;
-  endAt: string;
-  location: string;
-}
+type WishItem = components['schemas']['ActivityPostResponseDTO'];
 
-// API호출
-const fetchWishes = async (token: string | null): Promise<WishItem[]> => {
-  try {
-    const response = await axios.get<WishItem[]>(
-      'http://localhost:8080/users/likes',
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+// API 호출 함수들을 분리하여 정의
+const fetchWishes = async () => {
+  const { data, error } = await privateClient.GET('/users/likes');
+  if (error) {
+    throw new Error('Failed to fetch wishes');
+  }
+  return data as WishItem[];
+};
 
-    const data = response.data;
-    return data;
-  } catch (error) {
-    console.error('Failed to fetch wishes:', error);
-    return [];
+const toggleWish = async (id: number) => {
+  const { error } = await privateClient.POST('/posts/{activityPostId}/like', {
+    params: {
+      path: {
+        activityPostId: id,
+      },
+    },
+  });
+  if (error) {
+    throw new Error('Failed to toggle wish status');
   }
 };
 
 export default function WishList() {
-  const [wishlist, setWishlist] = useState<WishItem[]>([]);
+  const queryClient = useQueryClient();
 
-  useEffect(() => {
-    const getWishes = async () => {
-      const accessToken = localStorage.getItem('accessToken');
-      const data = await fetchWishes(accessToken);
-      setWishlist(data);
-    };
+  const { data: wishlist = [], isLoading } = useQuery<WishItem[]>({
+    queryKey: ['wishlist'],
+    queryFn: fetchWishes,
+  });
 
-    getWishes();
-  }, []);
+  const { mutate: toggleWishMutation } = useMutation({
+    mutationFn: toggleWish,
+    onMutate: async (id: number) => {
+      // 쿼리 취소 (덮어쓰기 방지)
+      await queryClient.cancelQueries({ queryKey: ['wishlist'] });
 
-  const handleToggleWish = (id: number) => {
-    setWishlist((prev) => prev.filter((item) => item.id !== id));
+      // 이전 데이터 스냅샷
+      const previousWishlist = queryClient.getQueryData<WishItem[]>(['wishlist']);
 
-    const accessToken = localStorage.getItem('accessToken');
-    if (!accessToken) {
-      console.log('Not logged in. Mock item removed from UI.');
-      return;
-    }
+      // 낙관적 업데이트
+      queryClient.setQueryData<WishItem[]>(
+        ['wishlist'],
+        (old) => old?.filter((item) => item.id !== id) ?? [],
+      );
 
-    axios
-      .post(`http://localhost:8080/posts/${id}/like`, null, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
-      .then(() => {
-        console.log(`Item ${id} like status toggled on server.`);
-      })
-      .catch((error) => {
-        console.error('Failed to toggle wish status:', error);
-      });
-  };
+      // 컨텍스트에 이전 데이터 반환
+      return { previousWishlist };
+    },
+    onError: (err, id, context) => {
+      console.error('Failed to toggle wish status:', err);
+      // 에러 발생 시 이전 데이터로 롤백
+      if (context?.previousWishlist) {
+        queryClient.setQueryData(['wishlist'], context.previousWishlist);
+      }
+    },
+    onSettled: () => {
+      // 성공/실패 여부와 관계없이 쿼리 무효화하여 서버와 상태 동기화
+      queryClient.invalidateQueries({ queryKey: ['wishlist'] });
+    },
+  });
+
+  if (isLoading) {
+    return (
+      <div className='flex h-[calc(100vh-120px)] flex-col items-center justify-center text-center'>
+        <Txt className='text-2xl'>찜한 봉사활동을 불러오는 중...</Txt>
+      </div>
+    );
+  }
 
   return wishlist.length === 0 ? (
     <div className='flex h-[calc(100vh-120px)] flex-col items-center justify-center text-center'>
@@ -79,18 +85,18 @@ export default function WishList() {
       </Txt>
     </div>
   ) : (
-    <section className='flex flex-col gap-4 px-[26px]'>
+    <section className='flex flex-col gap-4 px-[26px] pt-5'>
       {wishlist.map((item) => (
         <WishCard
           key={item.id}
-          id={item.id}
-          imageUrl={item.imageUrl}
-          category={item.category}
-          title={item.title}
-          endAt={item.endAt}
-          location={item.location}
+          id={item.id!}
+          imageUrl={item.imageUrl!}
+          category={item.category!}
+          title={item.title!}
+          endAt={item.endAt!}
+          location={item.location!}
           isWished={true}
-          onToggleWish={handleToggleWish}
+          onToggleWish={() => toggleWishMutation(item.id!)}
         />
       ))}
     </section>
