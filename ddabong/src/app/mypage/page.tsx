@@ -38,14 +38,14 @@ export default function MyPage() {
             <Badge
               text={category}
               weight='bold'
-              className='h-[30px] w-18 py-1'
+              className='h-[30px] pt-1 pb-1.5'
               textClassName='text-xl'
             />
             <Badge
               bgColor='bg-Logo-Pink'
               text={region}
               weight='bold'
-              className='h-[30px] w-18 py-1'
+              className='h-[30px] pt-1 pb-1.5'
               textClassName='text-xl'
             />
           </div>
