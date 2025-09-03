@@ -4,1959 +4,2202 @@
  */
 
 export interface paths {
-    "/users/{userId}/reviews": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["getUserReviews"];
-        put?: never;
-        post: operations["createUserReview"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+  '/users/{userId}/reviews': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/users/signup": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** 모든 사용자는 아이디, 비밀번호, 이름, 전화번호, 생년월일을 통해 회원가입을 할 수 있다. */
-        post: operations["signUser"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get: operations['getUserReviews'];
+    put?: never;
+    post: operations['createUserReview'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/users/signup': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/users/onboarding": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: operations["updateUserOnboardingInfo"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /** 모든 사용자는 아이디, 비밀번호, 이름, 전화번호, 생년월일을 통해 회원가입을 할 수 있다. */
+    post: operations['signUser'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/users/onboarding': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/upload": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: operations["upload"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    post: operations['updateUserOnboardingInfo'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/upload': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/posts": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** 게시물 조회(리스트) */
-        get: operations["readActivityPostList"];
-        put?: never;
-        /** 게시물 등록 */
-        post: operations["createActivityPost"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    post: operations['upload'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/posts': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/posts/{id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** 봉사 모집 마감하기 */
-        post: operations["closeActivityPost"];
-        /** 게시물 삭제 */
-        delete: operations["deleteActivityPost"];
-        options?: never;
-        head?: never;
-        /** 게시물 수정 */
-        patch: operations["updateActivityPost"];
-        trace?: never;
+    /** 게시물 조회(리스트) */
+    get: operations['readActivityPostList'];
+    put?: never;
+    /** 게시물 등록 */
+    post: operations['createActivityPost'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/posts/{id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/posts/{activityPostId}/reject": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** 일반 유저는 봉사 모집글 지원을 취소할 수 있다. */
-        post: operations["rejectActivityPost"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /** 봉사 모집 마감하기 */
+    post: operations['closeActivityPost'];
+    /** 게시물 삭제 */
+    delete: operations['deleteActivityPost'];
+    options?: never;
+    head?: never;
+    /** 게시물 수정 */
+    patch: operations['updateActivityPost'];
+    trace?: never;
+  };
+  '/posts/{activityPostId}/reject': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/posts/{activityPostId}/like": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** 회원은 봉사 모집글을 찜하거나 찜한 것을 취소할 수 있다. */
-        post: operations["likeActivityPost"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /** 일반 유저는 봉사 모집글 지원을 취소할 수 있다. */
+    post: operations['rejectActivityPost'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/posts/{activityPostId}/like': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/posts/{activityPostId}/apply": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** 일반 유저는 봉사 모집글에 지원할 수 있다. */
-        post: operations["applyActivityPost"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /** 회원은 봉사 모집글을 찜하거나 찜한 것을 취소할 수 있다. */
+    post: operations['likeActivityPost'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/posts/{activityPostId}/apply': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/institutions/signup": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** 모든 기관 아이디, 비밀번호, 기관명, 전화번호를 통해 회원가입을 할 수 있다. */
-        post: operations["signUser_1"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /** 일반 유저는 봉사 모집글에 지원할 수 있다. */
+    post: operations['applyActivityPost'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/institutions/signup': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/auth/refresh": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: operations["refreshToken"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /** 모든 기관 아이디, 비밀번호, 기관명, 전화번호를 통해 회원가입을 할 수 있다. */
+    post: operations['signUser_1'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/auth/refresh': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/apply/{applicantId}/reject": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** 기관은 자신이 등록한 봉사 모집글에 봉사 신청한 지원자를 거절할 수 있다. */
-        post: operations["rejectApplicant"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    post: operations['refreshToken'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/apply/{applicantId}/reject': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/apply/{applicantId}/accept": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** 기관은 자신이 등록한 봉사 모집글에 봉사 신청한 지원자를 승인할 수 있다. */
-        post: operations["approveApplicant"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /** 기관은 자신이 등록한 봉사 모집글에 봉사 신청한 지원자를 거절할 수 있다. */
+    post: operations['rejectApplicant'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/apply/{applicantId}/accept': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/activity": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["readActivityList"];
-        put?: never;
-        post: operations["createActivity"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch: operations["updateActivity"];
-        trace?: never;
+    get?: never;
+    put?: never;
+    /** 기관은 자신이 등록한 봉사 모집글에 봉사 신청한 지원자를 승인할 수 있다. */
+    post: operations['approveApplicant'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/activity': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/activity/{activityPostId}/review": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["getActivityPostReviews"];
-        put?: never;
-        post: operations["createActivityReview"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get: operations['readActivityList'];
+    put?: never;
+    post: operations['createActivity'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch: operations['updateActivity'];
+    trace?: never;
+  };
+  '/activity/{activityPostId}/review': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/users/update": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch: operations["updateUser"];
-        trace?: never;
+    get: operations['getActivityPostReviews'];
+    put?: never;
+    post: operations['createActivityReview'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/users/update': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/institutions": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post?: never;
-        /** 기관이 탈퇴할 수 있다. */
-        delete: operations["getInstitutionInfo"];
-        options?: never;
-        head?: never;
-        /** 기관이 자신의 정보를 수정할 수 있다. */
-        patch: operations["getInstitutionInfo_1"];
-        trace?: never;
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch: operations['updateUser'];
+    trace?: never;
+  };
+  '/institutions': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/users/{id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["getUserById"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    post?: never;
+    /** 기관이 탈퇴할 수 있다. */
+    delete: operations['getInstitutionInfo'];
+    options?: never;
+    head?: never;
+    /** 기관이 자신의 정보를 수정할 수 있다. */
+    patch: operations['getInstitutionInfo_1'];
+    trace?: never;
+  };
+  '/users/{id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/users/login/kakao": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["loginKakao"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get: operations['getUserById'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/users/login/kakao': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/users/likes": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["getLikedActivities"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get: operations['loginKakao'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/users/likes': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/users/history": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["getActivityHistory"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get: operations['getLikedActivities'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/users/history': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/posts/{activityPostId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** 기관이 작성한 봉사 모집글에 대한 상세정보를 확인할 수 있다. */
-        get: operations["getActivityPost"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get: operations['getActivityHistory'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/posts/{activityPostId}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/posts/myposts": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** 기관은 자신이 작성한 봉사 모집글을 조회할 수 있다. */
-        get: operations["getActivityPost_1"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** 기관이 작성한 봉사 모집글에 대한 상세정보를 확인할 수 있다. */
+    get: operations['getActivityPost'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/posts/myposts': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/posts/apply/{activityPostId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** 기관은 자신이 등록한 봉사 모집글에 봉사 신청한 지원자 목록을 확인할 수 있다. */
-        get: operations["getApplicantList"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** 기관은 자신이 작성한 봉사 모집글을 조회할 수 있다. */
+    get: operations['getActivityPost_1'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/posts/apply/{activityPostId}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/institutions/{id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** 기관의 정보를 확인할 수 있다. */
-        get: operations["getInstitutionInfo_2"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** 기관은 자신이 등록한 봉사 모집글에 봉사 신청한 지원자 목록을 확인할 수 있다. */
+    get: operations['getApplicantList'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/institutions/{id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/certifications/{certificationId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * 내 인증서 상세 조회
-         * @description 특정 인증서의 상세 정보를 조회합니다. (본인 소유 인증서만 가능)
-         */
-        get: operations["getMyCertificationById"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** 기관의 정보를 확인할 수 있다. */
+    get: operations['getInstitutionInfo_2'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/certifications/{certificationId}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/certifications/": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * 내 인증서 목록 조회
-         * @description 현재 로그인한 사용자가 보유한 모든 인증서 목록을 조회합니다.
-         */
-        get: operations["getMyCertifications"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /**
+     * 내 인증서 상세 조회
+     * @description 특정 인증서의 상세 정보를 조회합니다. (본인 소유 인증서만 가능)
+     */
+    get: operations['getMyCertificationById'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/certifications/': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/apply/{userId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["getApplicantInfo"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /**
+     * 내 인증서 목록 조회
+     * @description 현재 로그인한 사용자가 보유한 모든 인증서 목록을 조회합니다.
+     */
+    get: operations['getMyCertifications'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/apply/{userId}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/activity/{id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["readActivity"];
-        put?: never;
-        post?: never;
-        delete: operations["deleteActivity"];
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get: operations['getApplicantInfo'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/activity/{id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/activity/myreview": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["getMyActivityReviews"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get: operations['readActivity'];
+    put?: never;
+    post?: never;
+    delete: operations['deleteActivity'];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/activity/myreview': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/users/{reviewId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post?: never;
-        delete: operations["deleteUserReview"];
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get: operations['getMyActivityReviews'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/users/{reviewId}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/activity/myreview/{reviewId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post?: never;
-        /** 회원은 자신이 작성한 활동 리뷰를 삭제할 수 있다. */
-        delete: operations["deleteActivityReview"];
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    post?: never;
+    delete: operations['deleteUserReview'];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/activity/myreview/{reviewId}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
+    get?: never;
+    put?: never;
+    post?: never;
+    /** 회원은 자신이 작성한 활동 리뷰를 삭제할 수 있다. */
+    delete: operations['deleteActivityReview'];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
 }
 export type webhooks = Record<string, never>;
 export interface components {
-    schemas: {
-        UserReviewRequestDTO: {
-            /** Format: int64 */
-            activityPostId?: number;
-            /** Format: int32 */
-            healthStatus?: number;
-            /** Format: int32 */
-            diligenceLevel?: number;
-            /** Format: int32 */
-            attitude?: number;
-            memo?: string;
-        };
-        UserRequestDTO: {
-            name: string;
-            email: string;
-            password: string;
-            phoneNumber?: string;
-            birthDate?: string;
-        };
-        BadRequestException: {
-            cause?: {
-                stackTrace?: {
-                    classLoaderName?: string;
-                    moduleName?: string;
-                    moduleVersion?: string;
-                    methodName?: string;
-                    fileName?: string;
-                    /** Format: int32 */
-                    lineNumber?: number;
-                    className?: string;
-                    nativeMethod?: boolean;
-                }[];
-                message?: string;
-                localizedMessage?: string;
-            };
-            stackTrace?: {
-                classLoaderName?: string;
-                moduleName?: string;
-                moduleVersion?: string;
-                methodName?: string;
-                fileName?: string;
-                /** Format: int32 */
-                lineNumber?: number;
-                className?: string;
-                nativeMethod?: boolean;
-            }[];
-            /** @enum {string} */
-            httpStatus?: "100 CONTINUE" | "101 SWITCHING_PROTOCOLS" | "102 PROCESSING" | "103 EARLY_HINTS" | "103 CHECKPOINT" | "200 OK" | "201 CREATED" | "202 ACCEPTED" | "203 NON_AUTHORITATIVE_INFORMATION" | "204 NO_CONTENT" | "205 RESET_CONTENT" | "206 PARTIAL_CONTENT" | "207 MULTI_STATUS" | "208 ALREADY_REPORTED" | "226 IM_USED" | "300 MULTIPLE_CHOICES" | "301 MOVED_PERMANENTLY" | "302 FOUND" | "302 MOVED_TEMPORARILY" | "303 SEE_OTHER" | "304 NOT_MODIFIED" | "305 USE_PROXY" | "307 TEMPORARY_REDIRECT" | "308 PERMANENT_REDIRECT" | "400 BAD_REQUEST" | "401 UNAUTHORIZED" | "402 PAYMENT_REQUIRED" | "403 FORBIDDEN" | "404 NOT_FOUND" | "405 METHOD_NOT_ALLOWED" | "406 NOT_ACCEPTABLE" | "407 PROXY_AUTHENTICATION_REQUIRED" | "408 REQUEST_TIMEOUT" | "409 CONFLICT" | "410 GONE" | "411 LENGTH_REQUIRED" | "412 PRECONDITION_FAILED" | "413 PAYLOAD_TOO_LARGE" | "413 REQUEST_ENTITY_TOO_LARGE" | "414 URI_TOO_LONG" | "414 REQUEST_URI_TOO_LONG" | "415 UNSUPPORTED_MEDIA_TYPE" | "416 REQUESTED_RANGE_NOT_SATISFIABLE" | "417 EXPECTATION_FAILED" | "418 I_AM_A_TEAPOT" | "419 INSUFFICIENT_SPACE_ON_RESOURCE" | "420 METHOD_FAILURE" | "421 DESTINATION_LOCKED" | "422 UNPROCESSABLE_ENTITY" | "423 LOCKED" | "424 FAILED_DEPENDENCY" | "425 TOO_EARLY" | "426 UPGRADE_REQUIRED" | "428 PRECONDITION_REQUIRED" | "429 TOO_MANY_REQUESTS" | "431 REQUEST_HEADER_FIELDS_TOO_LARGE" | "451 UNAVAILABLE_FOR_LEGAL_REASONS" | "500 INTERNAL_SERVER_ERROR" | "501 NOT_IMPLEMENTED" | "502 BAD_GATEWAY" | "503 SERVICE_UNAVAILABLE" | "504 GATEWAY_TIMEOUT" | "505 HTTP_VERSION_NOT_SUPPORTED" | "506 VARIANT_ALSO_NEGOTIATES" | "507 INSUFFICIENT_STORAGE" | "508 LOOP_DETECTED" | "509 BANDWIDTH_LIMIT_EXCEEDED" | "510 NOT_EXTENDED" | "511 NETWORK_AUTHENTICATION_REQUIRED";
-            message?: string;
-            /** Format: int32 */
-            errorCode?: number;
-            suppressed?: {
-                stackTrace?: {
-                    classLoaderName?: string;
-                    moduleName?: string;
-                    moduleVersion?: string;
-                    methodName?: string;
-                    fileName?: string;
-                    /** Format: int32 */
-                    lineNumber?: number;
-                    className?: string;
-                    nativeMethod?: boolean;
-                }[];
-                message?: string;
-                localizedMessage?: string;
-            }[];
-            localizedMessage?: string;
-        };
-        ConflictException: {
-            cause?: {
-                stackTrace?: {
-                    classLoaderName?: string;
-                    moduleName?: string;
-                    moduleVersion?: string;
-                    methodName?: string;
-                    fileName?: string;
-                    /** Format: int32 */
-                    lineNumber?: number;
-                    className?: string;
-                    nativeMethod?: boolean;
-                }[];
-                message?: string;
-                localizedMessage?: string;
-            };
-            stackTrace?: {
-                classLoaderName?: string;
-                moduleName?: string;
-                moduleVersion?: string;
-                methodName?: string;
-                fileName?: string;
-                /** Format: int32 */
-                lineNumber?: number;
-                className?: string;
-                nativeMethod?: boolean;
-            }[];
-            /** @enum {string} */
-            httpStatus?: "100 CONTINUE" | "101 SWITCHING_PROTOCOLS" | "102 PROCESSING" | "103 EARLY_HINTS" | "103 CHECKPOINT" | "200 OK" | "201 CREATED" | "202 ACCEPTED" | "203 NON_AUTHORITATIVE_INFORMATION" | "204 NO_CONTENT" | "205 RESET_CONTENT" | "206 PARTIAL_CONTENT" | "207 MULTI_STATUS" | "208 ALREADY_REPORTED" | "226 IM_USED" | "300 MULTIPLE_CHOICES" | "301 MOVED_PERMANENTLY" | "302 FOUND" | "302 MOVED_TEMPORARILY" | "303 SEE_OTHER" | "304 NOT_MODIFIED" | "305 USE_PROXY" | "307 TEMPORARY_REDIRECT" | "308 PERMANENT_REDIRECT" | "400 BAD_REQUEST" | "401 UNAUTHORIZED" | "402 PAYMENT_REQUIRED" | "403 FORBIDDEN" | "404 NOT_FOUND" | "405 METHOD_NOT_ALLOWED" | "406 NOT_ACCEPTABLE" | "407 PROXY_AUTHENTICATION_REQUIRED" | "408 REQUEST_TIMEOUT" | "409 CONFLICT" | "410 GONE" | "411 LENGTH_REQUIRED" | "412 PRECONDITION_FAILED" | "413 PAYLOAD_TOO_LARGE" | "413 REQUEST_ENTITY_TOO_LARGE" | "414 URI_TOO_LONG" | "414 REQUEST_URI_TOO_LONG" | "415 UNSUPPORTED_MEDIA_TYPE" | "416 REQUESTED_RANGE_NOT_SATISFIABLE" | "417 EXPECTATION_FAILED" | "418 I_AM_A_TEAPOT" | "419 INSUFFICIENT_SPACE_ON_RESOURCE" | "420 METHOD_FAILURE" | "421 DESTINATION_LOCKED" | "422 UNPROCESSABLE_ENTITY" | "423 LOCKED" | "424 FAILED_DEPENDENCY" | "425 TOO_EARLY" | "426 UPGRADE_REQUIRED" | "428 PRECONDITION_REQUIRED" | "429 TOO_MANY_REQUESTS" | "431 REQUEST_HEADER_FIELDS_TOO_LARGE" | "451 UNAVAILABLE_FOR_LEGAL_REASONS" | "500 INTERNAL_SERVER_ERROR" | "501 NOT_IMPLEMENTED" | "502 BAD_GATEWAY" | "503 SERVICE_UNAVAILABLE" | "504 GATEWAY_TIMEOUT" | "505 HTTP_VERSION_NOT_SUPPORTED" | "506 VARIANT_ALSO_NEGOTIATES" | "507 INSUFFICIENT_STORAGE" | "508 LOOP_DETECTED" | "509 BANDWIDTH_LIMIT_EXCEEDED" | "510 NOT_EXTENDED" | "511 NETWORK_AUTHENTICATION_REQUIRED";
-            message?: string;
-            /** Format: int32 */
-            errorCode?: number;
-            suppressed?: {
-                stackTrace?: {
-                    classLoaderName?: string;
-                    moduleName?: string;
-                    moduleVersion?: string;
-                    methodName?: string;
-                    fileName?: string;
-                    /** Format: int32 */
-                    lineNumber?: number;
-                    className?: string;
-                    nativeMethod?: boolean;
-                }[];
-                message?: string;
-                localizedMessage?: string;
-            }[];
-            localizedMessage?: string;
-        };
-        UserOnboardingRequestDTO: {
-            preferredRegion: string;
-            preferredCategory: ("LIVING" | "EDUCATION" | "SAFETY" | "CULTURE" | "ENVIRONMENT" | "PUBLIC" | "GLOBAL")[];
-        };
-        UserResponseDTO: {
-            /** Format: int64 */
-            id?: number;
-            name?: string;
-            email?: string;
-            phoneNumber?: string;
-            /** Format: int32 */
-            totalHour?: number;
-            /** Format: date */
-            birthdate?: string;
-            preferredRegion?: string;
-            profileImage?: string;
-            preferredCategory?: string[];
-            grade?: string;
-        };
-        ActivityPostRequestDTO: {
-            title: string;
-            content: string;
-            /** Format: int64 */
-            activityId: number;
-            startAt: string;
-            activityTime: string;
-            recruitmentEnd: string;
-            location: string;
-            /** Format: int32 */
-            capacity: number;
-            /** Format: binary */
-            image?: string;
-        };
-        NotFoundException: {
-            cause?: {
-                stackTrace?: {
-                    classLoaderName?: string;
-                    moduleName?: string;
-                    moduleVersion?: string;
-                    methodName?: string;
-                    fileName?: string;
-                    /** Format: int32 */
-                    lineNumber?: number;
-                    className?: string;
-                    nativeMethod?: boolean;
-                }[];
-                message?: string;
-                localizedMessage?: string;
-            };
-            stackTrace?: {
-                classLoaderName?: string;
-                moduleName?: string;
-                moduleVersion?: string;
-                methodName?: string;
-                fileName?: string;
-                /** Format: int32 */
-                lineNumber?: number;
-                className?: string;
-                nativeMethod?: boolean;
-            }[];
-            /** @enum {string} */
-            httpStatus?: "100 CONTINUE" | "101 SWITCHING_PROTOCOLS" | "102 PROCESSING" | "103 EARLY_HINTS" | "103 CHECKPOINT" | "200 OK" | "201 CREATED" | "202 ACCEPTED" | "203 NON_AUTHORITATIVE_INFORMATION" | "204 NO_CONTENT" | "205 RESET_CONTENT" | "206 PARTIAL_CONTENT" | "207 MULTI_STATUS" | "208 ALREADY_REPORTED" | "226 IM_USED" | "300 MULTIPLE_CHOICES" | "301 MOVED_PERMANENTLY" | "302 FOUND" | "302 MOVED_TEMPORARILY" | "303 SEE_OTHER" | "304 NOT_MODIFIED" | "305 USE_PROXY" | "307 TEMPORARY_REDIRECT" | "308 PERMANENT_REDIRECT" | "400 BAD_REQUEST" | "401 UNAUTHORIZED" | "402 PAYMENT_REQUIRED" | "403 FORBIDDEN" | "404 NOT_FOUND" | "405 METHOD_NOT_ALLOWED" | "406 NOT_ACCEPTABLE" | "407 PROXY_AUTHENTICATION_REQUIRED" | "408 REQUEST_TIMEOUT" | "409 CONFLICT" | "410 GONE" | "411 LENGTH_REQUIRED" | "412 PRECONDITION_FAILED" | "413 PAYLOAD_TOO_LARGE" | "413 REQUEST_ENTITY_TOO_LARGE" | "414 URI_TOO_LONG" | "414 REQUEST_URI_TOO_LONG" | "415 UNSUPPORTED_MEDIA_TYPE" | "416 REQUESTED_RANGE_NOT_SATISFIABLE" | "417 EXPECTATION_FAILED" | "418 I_AM_A_TEAPOT" | "419 INSUFFICIENT_SPACE_ON_RESOURCE" | "420 METHOD_FAILURE" | "421 DESTINATION_LOCKED" | "422 UNPROCESSABLE_ENTITY" | "423 LOCKED" | "424 FAILED_DEPENDENCY" | "425 TOO_EARLY" | "426 UPGRADE_REQUIRED" | "428 PRECONDITION_REQUIRED" | "429 TOO_MANY_REQUESTS" | "431 REQUEST_HEADER_FIELDS_TOO_LARGE" | "451 UNAVAILABLE_FOR_LEGAL_REASONS" | "500 INTERNAL_SERVER_ERROR" | "501 NOT_IMPLEMENTED" | "502 BAD_GATEWAY" | "503 SERVICE_UNAVAILABLE" | "504 GATEWAY_TIMEOUT" | "505 HTTP_VERSION_NOT_SUPPORTED" | "506 VARIANT_ALSO_NEGOTIATES" | "507 INSUFFICIENT_STORAGE" | "508 LOOP_DETECTED" | "509 BANDWIDTH_LIMIT_EXCEEDED" | "510 NOT_EXTENDED" | "511 NETWORK_AUTHENTICATION_REQUIRED";
-            message?: string;
-            /** Format: int32 */
-            errorCode?: number;
-            suppressed?: {
-                stackTrace?: {
-                    classLoaderName?: string;
-                    moduleName?: string;
-                    moduleVersion?: string;
-                    methodName?: string;
-                    fileName?: string;
-                    /** Format: int32 */
-                    lineNumber?: number;
-                    className?: string;
-                    nativeMethod?: boolean;
-                }[];
-                message?: string;
-                localizedMessage?: string;
-            }[];
-            localizedMessage?: string;
-        };
-        InstitutionRequestDTO: {
-            name: string;
-            email: string;
-            password: string;
-            phoneNumber: string;
-        };
-        RefreshTokenRequestDTO: {
-            email?: string;
-            refreshToken?: string;
-        };
-        AccessTokenResponseDTO: {
-            accessToken?: string;
-        };
-        ActivityRequestDTO: {
-            title: string;
-            content: string;
-            /** @enum {string} */
-            category: "LIVING" | "EDUCATION" | "SAFETY" | "CULTURE" | "ENVIRONMENT" | "PUBLIC" | "GLOBAL";
-        };
-        ActivityReviewRequestDTO: {
-            /** Format: int32 */
-            rate: number;
-            content: string;
-            imageUrl?: string;
-        };
-        UserUpdateRequestDTO: {
-            name: string;
-            phoneNumber: string;
-            password: string;
-        };
-        ActivityUpdateDTO: {
-            /** Format: int64 */
-            id?: number;
-            title?: string;
-            content?: string;
-            /** @enum {string} */
-            category?: "LIVING" | "EDUCATION" | "SAFETY" | "CULTURE" | "ENVIRONMENT" | "PUBLIC" | "GLOBAL";
-        };
-        UserReviewResponseDTO: {
-            /** Format: int64 */
-            id?: number;
-            activityTitle?: string;
-            activityEndAt?: string;
-            activityCategory?: string;
-            activityImage?: string;
-            /** Format: double */
-            totalRate?: number;
-            /** Format: int32 */
-            healthStatus?: number;
-            /** Format: int32 */
-            diligenceLevel?: number;
-            /** Format: int32 */
-            attitude?: number;
-            memo?: string;
-            /** Format: int64 */
-            writeInst?: number;
-            /** Format: date-time */
-            createdAt?: string;
-        };
-        ActivityPostResponseDTO: {
-            /** Format: int64 */
-            id?: number;
-            title?: string;
-            endAt?: string;
-            location?: string;
-            imageUrl?: string;
-            /** @enum {string} */
-            category?: "LIVING" | "EDUCATION" | "SAFETY" | "CULTURE" | "ENVIRONMENT" | "PUBLIC" | "GLOBAL";
-            /** Format: int32 */
-            applicantNum?: number;
-            dday?: string;
-        };
-        CertificationResponseDTO: {
-            /** Format: int64 */
-            id?: number;
-            /** Format: int32 */
-            hour?: number;
-            /** Format: date-time */
-            issuedAt?: string;
-        };
-        ActivityResponseDTO: {
-            /** Format: int64 */
-            id?: number;
-            title?: string;
-            content?: string;
-            /** @enum {string} */
-            category?: "LIVING" | "EDUCATION" | "SAFETY" | "CULTURE" | "ENVIRONMENT" | "PUBLIC" | "GLOBAL";
-        };
-        ActivityMyReviewResponseDTO: {
-            /** Format: int64 */
-            id?: number;
-            /** Format: int32 */
-            rate?: number;
-            content?: string;
-            imageUrl?: string;
-            /** Format: int64 */
-            activityId?: number;
-            activityTitle?: string;
-            createdAt?: string;
-            category?: string;
-        };
+  schemas: {
+    UserReviewRequestDTO: {
+      /** Format: int64 */
+      activityPostId?: number;
+      /** Format: int32 */
+      healthStatus?: number;
+      /** Format: int32 */
+      diligenceLevel?: number;
+      /** Format: int32 */
+      attitude?: number;
+      memo?: string;
     };
-    responses: never;
-    parameters: never;
-    requestBodies: never;
-    headers: never;
-    pathItems: never;
+    UserRequestDTO: {
+      name: string;
+      email: string;
+      password: string;
+      phoneNumber?: string;
+      birthDate?: string;
+    };
+    BadRequestException: {
+      cause?: {
+        stackTrace?: {
+          classLoaderName?: string;
+          moduleName?: string;
+          moduleVersion?: string;
+          methodName?: string;
+          fileName?: string;
+          /** Format: int32 */
+          lineNumber?: number;
+          className?: string;
+          nativeMethod?: boolean;
+        }[];
+        message?: string;
+        localizedMessage?: string;
+      };
+      stackTrace?: {
+        classLoaderName?: string;
+        moduleName?: string;
+        moduleVersion?: string;
+        methodName?: string;
+        fileName?: string;
+        /** Format: int32 */
+        lineNumber?: number;
+        className?: string;
+        nativeMethod?: boolean;
+      }[];
+      /** @enum {string} */
+      httpStatus?:
+        | '100 CONTINUE'
+        | '101 SWITCHING_PROTOCOLS'
+        | '102 PROCESSING'
+        | '103 EARLY_HINTS'
+        | '103 CHECKPOINT'
+        | '200 OK'
+        | '201 CREATED'
+        | '202 ACCEPTED'
+        | '203 NON_AUTHORITATIVE_INFORMATION'
+        | '204 NO_CONTENT'
+        | '205 RESET_CONTENT'
+        | '206 PARTIAL_CONTENT'
+        | '207 MULTI_STATUS'
+        | '208 ALREADY_REPORTED'
+        | '226 IM_USED'
+        | '300 MULTIPLE_CHOICES'
+        | '301 MOVED_PERMANENTLY'
+        | '302 FOUND'
+        | '302 MOVED_TEMPORARILY'
+        | '303 SEE_OTHER'
+        | '304 NOT_MODIFIED'
+        | '305 USE_PROXY'
+        | '307 TEMPORARY_REDIRECT'
+        | '308 PERMANENT_REDIRECT'
+        | '400 BAD_REQUEST'
+        | '401 UNAUTHORIZED'
+        | '402 PAYMENT_REQUIRED'
+        | '403 FORBIDDEN'
+        | '404 NOT_FOUND'
+        | '405 METHOD_NOT_ALLOWED'
+        | '406 NOT_ACCEPTABLE'
+        | '407 PROXY_AUTHENTICATION_REQUIRED'
+        | '408 REQUEST_TIMEOUT'
+        | '409 CONFLICT'
+        | '410 GONE'
+        | '411 LENGTH_REQUIRED'
+        | '412 PRECONDITION_FAILED'
+        | '413 PAYLOAD_TOO_LARGE'
+        | '413 REQUEST_ENTITY_TOO_LARGE'
+        | '414 URI_TOO_LONG'
+        | '414 REQUEST_URI_TOO_LONG'
+        | '415 UNSUPPORTED_MEDIA_TYPE'
+        | '416 REQUESTED_RANGE_NOT_SATISFIABLE'
+        | '417 EXPECTATION_FAILED'
+        | '418 I_AM_A_TEAPOT'
+        | '419 INSUFFICIENT_SPACE_ON_RESOURCE'
+        | '420 METHOD_FAILURE'
+        | '421 DESTINATION_LOCKED'
+        | '422 UNPROCESSABLE_ENTITY'
+        | '423 LOCKED'
+        | '424 FAILED_DEPENDENCY'
+        | '425 TOO_EARLY'
+        | '426 UPGRADE_REQUIRED'
+        | '428 PRECONDITION_REQUIRED'
+        | '429 TOO_MANY_REQUESTS'
+        | '431 REQUEST_HEADER_FIELDS_TOO_LARGE'
+        | '451 UNAVAILABLE_FOR_LEGAL_REASONS'
+        | '500 INTERNAL_SERVER_ERROR'
+        | '501 NOT_IMPLEMENTED'
+        | '502 BAD_GATEWAY'
+        | '503 SERVICE_UNAVAILABLE'
+        | '504 GATEWAY_TIMEOUT'
+        | '505 HTTP_VERSION_NOT_SUPPORTED'
+        | '506 VARIANT_ALSO_NEGOTIATES'
+        | '507 INSUFFICIENT_STORAGE'
+        | '508 LOOP_DETECTED'
+        | '509 BANDWIDTH_LIMIT_EXCEEDED'
+        | '510 NOT_EXTENDED'
+        | '511 NETWORK_AUTHENTICATION_REQUIRED';
+      message?: string;
+      /** Format: int32 */
+      errorCode?: number;
+      suppressed?: {
+        stackTrace?: {
+          classLoaderName?: string;
+          moduleName?: string;
+          moduleVersion?: string;
+          methodName?: string;
+          fileName?: string;
+          /** Format: int32 */
+          lineNumber?: number;
+          className?: string;
+          nativeMethod?: boolean;
+        }[];
+        message?: string;
+        localizedMessage?: string;
+      }[];
+      localizedMessage?: string;
+    };
+    ConflictException: {
+      cause?: {
+        stackTrace?: {
+          classLoaderName?: string;
+          moduleName?: string;
+          moduleVersion?: string;
+          methodName?: string;
+          fileName?: string;
+          /** Format: int32 */
+          lineNumber?: number;
+          className?: string;
+          nativeMethod?: boolean;
+        }[];
+        message?: string;
+        localizedMessage?: string;
+      };
+      stackTrace?: {
+        classLoaderName?: string;
+        moduleName?: string;
+        moduleVersion?: string;
+        methodName?: string;
+        fileName?: string;
+        /** Format: int32 */
+        lineNumber?: number;
+        className?: string;
+        nativeMethod?: boolean;
+      }[];
+      /** @enum {string} */
+      httpStatus?:
+        | '100 CONTINUE'
+        | '101 SWITCHING_PROTOCOLS'
+        | '102 PROCESSING'
+        | '103 EARLY_HINTS'
+        | '103 CHECKPOINT'
+        | '200 OK'
+        | '201 CREATED'
+        | '202 ACCEPTED'
+        | '203 NON_AUTHORITATIVE_INFORMATION'
+        | '204 NO_CONTENT'
+        | '205 RESET_CONTENT'
+        | '206 PARTIAL_CONTENT'
+        | '207 MULTI_STATUS'
+        | '208 ALREADY_REPORTED'
+        | '226 IM_USED'
+        | '300 MULTIPLE_CHOICES'
+        | '301 MOVED_PERMANENTLY'
+        | '302 FOUND'
+        | '302 MOVED_TEMPORARILY'
+        | '303 SEE_OTHER'
+        | '304 NOT_MODIFIED'
+        | '305 USE_PROXY'
+        | '307 TEMPORARY_REDIRECT'
+        | '308 PERMANENT_REDIRECT'
+        | '400 BAD_REQUEST'
+        | '401 UNAUTHORIZED'
+        | '402 PAYMENT_REQUIRED'
+        | '403 FORBIDDEN'
+        | '404 NOT_FOUND'
+        | '405 METHOD_NOT_ALLOWED'
+        | '406 NOT_ACCEPTABLE'
+        | '407 PROXY_AUTHENTICATION_REQUIRED'
+        | '408 REQUEST_TIMEOUT'
+        | '409 CONFLICT'
+        | '410 GONE'
+        | '411 LENGTH_REQUIRED'
+        | '412 PRECONDITION_FAILED'
+        | '413 PAYLOAD_TOO_LARGE'
+        | '413 REQUEST_ENTITY_TOO_LARGE'
+        | '414 URI_TOO_LONG'
+        | '414 REQUEST_URI_TOO_LONG'
+        | '415 UNSUPPORTED_MEDIA_TYPE'
+        | '416 REQUESTED_RANGE_NOT_SATISFIABLE'
+        | '417 EXPECTATION_FAILED'
+        | '418 I_AM_A_TEAPOT'
+        | '419 INSUFFICIENT_SPACE_ON_RESOURCE'
+        | '420 METHOD_FAILURE'
+        | '421 DESTINATION_LOCKED'
+        | '422 UNPROCESSABLE_ENTITY'
+        | '423 LOCKED'
+        | '424 FAILED_DEPENDENCY'
+        | '425 TOO_EARLY'
+        | '426 UPGRADE_REQUIRED'
+        | '428 PRECONDITION_REQUIRED'
+        | '429 TOO_MANY_REQUESTS'
+        | '431 REQUEST_HEADER_FIELDS_TOO_LARGE'
+        | '451 UNAVAILABLE_FOR_LEGAL_REASONS'
+        | '500 INTERNAL_SERVER_ERROR'
+        | '501 NOT_IMPLEMENTED'
+        | '502 BAD_GATEWAY'
+        | '503 SERVICE_UNAVAILABLE'
+        | '504 GATEWAY_TIMEOUT'
+        | '505 HTTP_VERSION_NOT_SUPPORTED'
+        | '506 VARIANT_ALSO_NEGOTIATES'
+        | '507 INSUFFICIENT_STORAGE'
+        | '508 LOOP_DETECTED'
+        | '509 BANDWIDTH_LIMIT_EXCEEDED'
+        | '510 NOT_EXTENDED'
+        | '511 NETWORK_AUTHENTICATION_REQUIRED';
+      message?: string;
+      /** Format: int32 */
+      errorCode?: number;
+      suppressed?: {
+        stackTrace?: {
+          classLoaderName?: string;
+          moduleName?: string;
+          moduleVersion?: string;
+          methodName?: string;
+          fileName?: string;
+          /** Format: int32 */
+          lineNumber?: number;
+          className?: string;
+          nativeMethod?: boolean;
+        }[];
+        message?: string;
+        localizedMessage?: string;
+      }[];
+      localizedMessage?: string;
+    };
+    UserOnboardingRequestDTO: {
+      preferredRegion: string;
+      preferredCategory: (
+        | 'LIVING'
+        | 'EDUCATION'
+        | 'SAFETY'
+        | 'CULTURE'
+        | 'ENVIRONMENT'
+        | 'PUBLIC'
+        | 'RURALAREA'
+      )[];
+    };
+    UserResponseDTO: {
+      /** Format: int64 */
+      id?: number;
+      name?: string;
+      email?: string;
+      phoneNumber?: string;
+      /** Format: int32 */
+      totalHour?: number;
+      /** Format: date */
+      birthdate?: string;
+      preferredRegion?: string;
+      profileImage?: string;
+      preferredCategory?: string[];
+      grade?: string;
+    };
+    ActivityPostRequestDTO: {
+      title: string;
+      content: string;
+      /** Format: int64 */
+      activityId: number;
+      startAt: string;
+      activityTime: string;
+      recruitmentEnd: string;
+      location: string;
+      /** Format: int32 */
+      capacity: number;
+      /** Format: binary */
+      image?: string;
+    };
+    NotFoundException: {
+      cause?: {
+        stackTrace?: {
+          classLoaderName?: string;
+          moduleName?: string;
+          moduleVersion?: string;
+          methodName?: string;
+          fileName?: string;
+          /** Format: int32 */
+          lineNumber?: number;
+          className?: string;
+          nativeMethod?: boolean;
+        }[];
+        message?: string;
+        localizedMessage?: string;
+      };
+      stackTrace?: {
+        classLoaderName?: string;
+        moduleName?: string;
+        moduleVersion?: string;
+        methodName?: string;
+        fileName?: string;
+        /** Format: int32 */
+        lineNumber?: number;
+        className?: string;
+        nativeMethod?: boolean;
+      }[];
+      /** @enum {string} */
+      httpStatus?:
+        | '100 CONTINUE'
+        | '101 SWITCHING_PROTOCOLS'
+        | '102 PROCESSING'
+        | '103 EARLY_HINTS'
+        | '103 CHECKPOINT'
+        | '200 OK'
+        | '201 CREATED'
+        | '202 ACCEPTED'
+        | '203 NON_AUTHORITATIVE_INFORMATION'
+        | '204 NO_CONTENT'
+        | '205 RESET_CONTENT'
+        | '206 PARTIAL_CONTENT'
+        | '207 MULTI_STATUS'
+        | '208 ALREADY_REPORTED'
+        | '226 IM_USED'
+        | '300 MULTIPLE_CHOICES'
+        | '301 MOVED_PERMANENTLY'
+        | '302 FOUND'
+        | '302 MOVED_TEMPORARILY'
+        | '303 SEE_OTHER'
+        | '304 NOT_MODIFIED'
+        | '305 USE_PROXY'
+        | '307 TEMPORARY_REDIRECT'
+        | '308 PERMANENT_REDIRECT'
+        | '400 BAD_REQUEST'
+        | '401 UNAUTHORIZED'
+        | '402 PAYMENT_REQUIRED'
+        | '403 FORBIDDEN'
+        | '404 NOT_FOUND'
+        | '405 METHOD_NOT_ALLOWED'
+        | '406 NOT_ACCEPTABLE'
+        | '407 PROXY_AUTHENTICATION_REQUIRED'
+        | '408 REQUEST_TIMEOUT'
+        | '409 CONFLICT'
+        | '410 GONE'
+        | '411 LENGTH_REQUIRED'
+        | '412 PRECONDITION_FAILED'
+        | '413 PAYLOAD_TOO_LARGE'
+        | '413 REQUEST_ENTITY_TOO_LARGE'
+        | '414 URI_TOO_LONG'
+        | '414 REQUEST_URI_TOO_LONG'
+        | '415 UNSUPPORTED_MEDIA_TYPE'
+        | '416 REQUESTED_RANGE_NOT_SATISFIABLE'
+        | '417 EXPECTATION_FAILED'
+        | '418 I_AM_A_TEAPOT'
+        | '419 INSUFFICIENT_SPACE_ON_RESOURCE'
+        | '420 METHOD_FAILURE'
+        | '421 DESTINATION_LOCKED'
+        | '422 UNPROCESSABLE_ENTITY'
+        | '423 LOCKED'
+        | '424 FAILED_DEPENDENCY'
+        | '425 TOO_EARLY'
+        | '426 UPGRADE_REQUIRED'
+        | '428 PRECONDITION_REQUIRED'
+        | '429 TOO_MANY_REQUESTS'
+        | '431 REQUEST_HEADER_FIELDS_TOO_LARGE'
+        | '451 UNAVAILABLE_FOR_LEGAL_REASONS'
+        | '500 INTERNAL_SERVER_ERROR'
+        | '501 NOT_IMPLEMENTED'
+        | '502 BAD_GATEWAY'
+        | '503 SERVICE_UNAVAILABLE'
+        | '504 GATEWAY_TIMEOUT'
+        | '505 HTTP_VERSION_NOT_SUPPORTED'
+        | '506 VARIANT_ALSO_NEGOTIATES'
+        | '507 INSUFFICIENT_STORAGE'
+        | '508 LOOP_DETECTED'
+        | '509 BANDWIDTH_LIMIT_EXCEEDED'
+        | '510 NOT_EXTENDED'
+        | '511 NETWORK_AUTHENTICATION_REQUIRED';
+      message?: string;
+      /** Format: int32 */
+      errorCode?: number;
+      suppressed?: {
+        stackTrace?: {
+          classLoaderName?: string;
+          moduleName?: string;
+          moduleVersion?: string;
+          methodName?: string;
+          fileName?: string;
+          /** Format: int32 */
+          lineNumber?: number;
+          className?: string;
+          nativeMethod?: boolean;
+        }[];
+        message?: string;
+        localizedMessage?: string;
+      }[];
+      localizedMessage?: string;
+    };
+    InstitutionRequestDTO: {
+      name: string;
+      email: string;
+      password: string;
+      phoneNumber: string;
+    };
+    RefreshTokenRequestDTO: {
+      email?: string;
+      refreshToken?: string;
+    };
+    AccessTokenResponseDTO: {
+      accessToken?: string;
+    };
+    ActivityRequestDTO: {
+      title: string;
+      content: string;
+      /** @enum {string} */
+      category:
+        | 'LIVING'
+        | 'EDUCATION'
+        | 'SAFETY'
+        | 'CULTURE'
+        | 'ENVIRONMENT'
+        | 'PUBLIC'
+        | 'RURALAREA';
+    };
+    ActivityReviewRequestDTO: {
+      /** Format: int32 */
+      rate: number;
+      content: string;
+      imageUrl?: string;
+    };
+    UserUpdateRequestDTO: {
+      name: string;
+      phoneNumber: string;
+      password: string;
+    };
+    ActivityUpdateDTO: {
+      /** Format: int64 */
+      id?: number;
+      title?: string;
+      content?: string;
+      /** @enum {string} */
+      category?:
+        | 'LIVING'
+        | 'EDUCATION'
+        | 'SAFETY'
+        | 'CULTURE'
+        | 'ENVIRONMENT'
+        | 'PUBLIC'
+        | 'RURALAREA';
+    };
+    UserReviewResponseDTO: {
+      /** Format: int64 */
+      id?: number;
+      activityTitle?: string;
+      activityEndAt?: string;
+      activityCategory?: string;
+      activityImage?: string;
+      /** Format: double */
+      totalRate?: number;
+      /** Format: int32 */
+      healthStatus?: number;
+      /** Format: int32 */
+      diligenceLevel?: number;
+      /** Format: int32 */
+      attitude?: number;
+      memo?: string;
+      /** Format: int64 */
+      writeInst?: number;
+      /** Format: date-time */
+      createdAt?: string;
+    };
+    ActivityPostResponseDTO: {
+      /** Format: int64 */
+      id?: number;
+      title?: string;
+      endAt?: string;
+      location?: string;
+      imageUrl?: string;
+      /** @enum {string} */
+      category?:
+        | 'LIVING'
+        | 'EDUCATION'
+        | 'SAFETY'
+        | 'CULTURE'
+        | 'ENVIRONMENT'
+        | 'PUBLIC'
+        | 'RURALAREA';
+      /** Format: int32 */
+      applicantNum?: number;
+      dday?: string;
+    };
+    CertificationResponseDTO: {
+      /** Format: int64 */
+      id?: number;
+      /** Format: int32 */
+      hour?: number;
+      /** Format: date-time */
+      issuedAt?: string;
+    };
+    ActivityResponseDTO: {
+      /** Format: int64 */
+      id?: number;
+      title?: string;
+      content?: string;
+      /** @enum {string} */
+      category?:
+        | 'LIVING'
+        | 'EDUCATION'
+        | 'SAFETY'
+        | 'CULTURE'
+        | 'ENVIRONMENT'
+        | 'PUBLIC'
+        | 'RURALAREA';
+    };
+    ActivityMyReviewResponseDTO: {
+      /** Format: int64 */
+      id?: number;
+      /** Format: int32 */
+      rate?: number;
+      content?: string;
+      imageUrl?: string;
+      /** Format: int64 */
+      activityId?: number;
+      activityTitle?: string;
+      createdAt?: string;
+      category?: string;
+    };
+  };
+  responses: never;
+  parameters: never;
+  requestBodies: never;
+  headers: never;
+  pathItems: never;
 }
 export type $defs = Record<string, never>;
 export interface operations {
-    getUserReviews: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                userId: number;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "*/*": components["schemas"]["UserReviewResponseDTO"][];
-                };
-            };
-        };
+  getUserReviews: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        userId: number;
+      };
+      cookie?: never;
     };
-    createUserReview: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                userId: number;
-            };
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UserReviewRequestDTO"];
-            };
+        content: {
+          '*/*': components['schemas']['UserReviewResponseDTO'][];
         };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
+      };
     };
-    signUser: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UserRequestDTO"];
-            };
-        };
-        responses: {
-            /** @description 회원가입에 성공했습니다. */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description 생년월일이 현재보다 미래일 수 없습니다. */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["BadRequestException"];
-                };
-            };
-            /** @description 이미 존재하는 회원입니다. */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ConflictException"];
-                };
-            };
-        };
+  };
+  createUserReview: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        userId: number;
+      };
+      cookie?: never;
     };
-    updateUserOnboardingInfo: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UserOnboardingRequestDTO"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "*/*": components["schemas"]["UserResponseDTO"];
-                };
-            };
-        };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UserReviewRequestDTO'];
+      };
     };
-    upload: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody: {
-            content: {
-                "multipart/form-data": {
-                    /** Format: binary */
-                    file?: string;
-                };
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "*/*": string;
-                };
-            };
-        };
+        content?: never;
+      };
     };
-    readActivityPostList: {
-        parameters: {
-            query?: {
-                page?: number;
-                pageSize?: number;
-                searchRegion?: string;
-                categories?: string;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "*/*": components["schemas"]["ActivityPostResponseDTO"][];
-                };
-            };
-        };
+  };
+  signUser: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    createActivityPost: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: {
-            content: {
-                "multipart/form-data": components["schemas"]["ActivityPostRequestDTO"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "*/*": Record<string, never>;
-                };
-            };
-        };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UserRequestDTO'];
+      };
     };
-    closeActivityPost: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: number;
-            };
-            cookie?: never;
+    responses: {
+      /** @description 회원가입에 성공했습니다. */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "*/*": Record<string, never>;
-                };
-            };
+        content: {
+          'application/json': unknown;
         };
+      };
+      /** @description 생년월일이 현재보다 미래일 수 없습니다. */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['BadRequestException'];
+        };
+      };
+      /** @description 이미 존재하는 회원입니다. */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ConflictException'];
+        };
+      };
     };
-    deleteActivityPost: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: number;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "*/*": Record<string, never>;
-                };
-            };
-        };
+  };
+  updateUserOnboardingInfo: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    updateActivityPost: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: number;
-            };
-            cookie?: never;
-        };
-        requestBody?: {
-            content: {
-                "multipart/form-data": components["schemas"]["ActivityPostRequestDTO"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "*/*": Record<string, never>;
-                };
-            };
-        };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UserOnboardingRequestDTO'];
+      };
     };
-    rejectActivityPost: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                activityPostId: number;
-            };
-            cookie?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description 봉사 모집글 조회에 성공했습니다. */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description 해당하는 회원 또는 봉사 모집글이 존재하지 않습니다. || 회원은 해당 모집글에 지원한 이력이 없습니다. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["NotFoundException"];
-                };
-            };
-            /** @description 해당 지원 상태가 대기중일 경우에만 지원 취소가 가능합니다. */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["BadRequestException"];
-                };
-            };
+        content: {
+          '*/*': components['schemas']['UserResponseDTO'];
         };
+      };
     };
-    likeActivityPost: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                activityPostId: number;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description 봉사 모집글 찜하기에 성공했습니다. */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description 해당하는 기관 | 회원이 존재하지 않습니다. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["NotFoundException"];
-                };
-            };
-        };
+  };
+  upload: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    applyActivityPost: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                activityPostId: number;
-            };
-            cookie?: never;
+    requestBody: {
+      content: {
+        'multipart/form-data': {
+          /** Format: binary */
+          file?: string;
         };
-        requestBody?: never;
-        responses: {
-            /** @description 봉사 모집글 조회에 성공했습니다. */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description 해당하는 봉사 모집글이 존재하지 않습니다. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["NotFoundException"];
-                };
-            };
-            /** @description 해당하는 봉사 모집글이 존재하지 않습니다. */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["BadRequestException"];
-                };
-            };
-        };
+      };
     };
-    signUser_1: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["InstitutionRequestDTO"];
-            };
+        content: {
+          '*/*': string;
         };
-        responses: {
-            /** @description 회원가입에 성공했습니다. */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description 이미 존재하는 기관입니다. */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ConflictException"];
-                };
-            };
-        };
+      };
     };
-    refreshToken: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["RefreshTokenRequestDTO"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "*/*": components["schemas"]["AccessTokenResponseDTO"];
-                };
-            };
-        };
+  };
+  readActivityPostList: {
+    parameters: {
+      query?: {
+        page?: number;
+        pageSize?: number;
+        searchRegion?: string;
+        categories?: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    rejectApplicant: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                applicantId: number;
-            };
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description 해당 지원자를 거절했습니다. */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description 해당하는 기관 | 지원자가 존재하지 않습니다. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["NotFoundException"];
-                };
-            };
-            /** @description 해당 지원자를 이미 승인 또는 거절했습니다. */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["BadRequestException"];
-                };
-            };
+        content: {
+          '*/*': components['schemas']['ActivityPostResponseDTO'][];
         };
+      };
     };
-    approveApplicant: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                applicantId: number;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description 해당 지원자를 승인했습니다. */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description 해당하는 기관 | 지원자가 존재하지 않습니다. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["NotFoundException"];
-                };
-            };
-            /** @description 해당 지원자를 이미 승인 또는 거절했습니다. */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["BadRequestException"];
-                };
-            };
-        };
+  };
+  createActivityPost: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    readActivityList: {
-        parameters: {
-            query?: {
-                page?: number;
-                pageSize?: number;
-                keyWord?: string;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "*/*": components["schemas"]["ActivityResponseDTO"][];
-                };
-            };
-        };
+    requestBody?: {
+      content: {
+        'multipart/form-data': components['schemas']['ActivityPostRequestDTO'];
+      };
     };
-    createActivity: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["ActivityRequestDTO"];
-            };
+        content: {
+          '*/*': Record<string, never>;
         };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "*/*": Record<string, never>;
-                };
-            };
-        };
+      };
     };
-    updateActivity: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["ActivityUpdateDTO"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "*/*": Record<string, never>;
-                };
-            };
-        };
+  };
+  closeActivityPost: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: number;
+      };
+      cookie?: never;
     };
-    getActivityPostReviews: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                activityPostId: number;
-            };
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "*/*": components["schemas"]["ActivityMyReviewResponseDTO"][];
-                };
-            };
+        content: {
+          '*/*': Record<string, never>;
         };
+      };
     };
-    createActivityReview: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                activityPostId: number;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["ActivityReviewRequestDTO"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
+  };
+  deleteActivityPost: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: number;
+      };
+      cookie?: never;
     };
-    updateUser: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UserUpdateRequestDTO"];
-            };
+        content: {
+          '*/*': Record<string, never>;
         };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "*/*": components["schemas"]["UserResponseDTO"];
-                };
-            };
-        };
+      };
     };
-    getInstitutionInfo: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description 기관 탈퇴에 성공했습니다. */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description 존재하지 않는 기관입니다. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["NotFoundException"];
-                };
-            };
-        };
+  };
+  updateActivityPost: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: number;
+      };
+      cookie?: never;
     };
-    getInstitutionInfo_1: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["InstitutionRequestDTO"];
-            };
-        };
-        responses: {
-            /** @description 기관 정보 수정을 성공했습니다. */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description 존재하지 않는 기관입니다. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["NotFoundException"];
-                };
-            };
-        };
+    requestBody?: {
+      content: {
+        'multipart/form-data': components['schemas']['ActivityPostRequestDTO'];
+      };
     };
-    getUserById: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: number;
-            };
-            cookie?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "*/*": components["schemas"]["UserResponseDTO"];
-                };
-            };
+        content: {
+          '*/*': Record<string, never>;
         };
+      };
     };
-    loginKakao: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "*/*": {
-                        [key: string]: unknown;
-                    };
-                };
-            };
-        };
+  };
+  rejectActivityPost: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        activityPostId: number;
+      };
+      cookie?: never;
     };
-    getLikedActivities: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      /** @description 봉사 모집글 조회에 성공했습니다. */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "*/*": components["schemas"]["ActivityPostResponseDTO"][];
-                };
-            };
+        content: {
+          'application/json': unknown;
         };
+      };
+      /** @description 해당하는 회원 또는 봉사 모집글이 존재하지 않습니다. || 회원은 해당 모집글에 지원한 이력이 없습니다. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['NotFoundException'];
+        };
+      };
+      /** @description 해당 지원 상태가 대기중일 경우에만 지원 취소가 가능합니다. */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['BadRequestException'];
+        };
+      };
     };
-    getActivityHistory: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "*/*": components["schemas"]["ActivityPostResponseDTO"][];
-                };
-            };
-        };
+  };
+  likeActivityPost: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        activityPostId: number;
+      };
+      cookie?: never;
     };
-    getActivityPost: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                activityPostId: number;
-            };
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      /** @description 봉사 모집글 찜하기에 성공했습니다. */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description 봉사 모집글 조회에 성공했습니다. */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description 해당하는 봉사 모집글이 존재하지 않습니다. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["NotFoundException"];
-                };
-            };
+        content: {
+          'application/json': unknown;
         };
+      };
+      /** @description 해당하는 기관 | 회원이 존재하지 않습니다. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['NotFoundException'];
+        };
+      };
     };
-    getActivityPost_1: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description 봉사 모집글 조회에 성공했습니다. */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description 해당하는 기관이 존재하지 않습니다. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["NotFoundException"];
-                };
-            };
-        };
+  };
+  applyActivityPost: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        activityPostId: number;
+      };
+      cookie?: never;
     };
-    getApplicantList: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                activityPostId: number;
-            };
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      /** @description 봉사 모집글 조회에 성공했습니다. */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description 해당 봉사 모집글에 지원한 지원자 목록입니다. */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description 해당하는 기관 | 봉사 모집글이 존재하지 않습니다. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["NotFoundException"];
-                };
-            };
+        content: {
+          'application/json': unknown;
         };
+      };
+      /** @description 해당하는 봉사 모집글이 존재하지 않습니다. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['NotFoundException'];
+        };
+      };
+      /** @description 해당하는 봉사 모집글이 존재하지 않습니다. */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['BadRequestException'];
+        };
+      };
     };
-    getInstitutionInfo_2: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: number;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description 기관 조회를 성공했습니다. */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description 존재하지 않는 기관입니다. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["NotFoundException"];
-                };
-            };
-        };
+  };
+  signUser_1: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    getMyCertificationById: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                certificationId: number;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "*/*": components["schemas"]["CertificationResponseDTO"];
-                };
-            };
-        };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['InstitutionRequestDTO'];
+      };
     };
-    getMyCertifications: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
+    responses: {
+      /** @description 회원가입에 성공했습니다. */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "*/*": components["schemas"]["CertificationResponseDTO"][];
-                };
-            };
+        content: {
+          'application/json': unknown;
         };
+      };
+      /** @description 이미 존재하는 기관입니다. */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ConflictException'];
+        };
+      };
     };
-    getApplicantInfo: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                userId: number;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "*/*": Record<string, never>;
-                };
-            };
-        };
+  };
+  refreshToken: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    readActivity: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: number;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "*/*": components["schemas"]["ActivityResponseDTO"];
-                };
-            };
-        };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['RefreshTokenRequestDTO'];
+      };
     };
-    deleteActivity: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: number;
-            };
-            cookie?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "*/*": Record<string, never>;
-                };
-            };
+        content: {
+          '*/*': components['schemas']['AccessTokenResponseDTO'];
         };
+      };
     };
-    getMyActivityReviews: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "*/*": components["schemas"]["ActivityMyReviewResponseDTO"][];
-                };
-            };
-        };
+  };
+  rejectApplicant: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        applicantId: number;
+      };
+      cookie?: never;
     };
-    deleteUserReview: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                reviewId: number;
-            };
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      /** @description 해당 지원자를 거절했습니다. */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
+        content: {
+          'application/json': unknown;
         };
+      };
+      /** @description 해당하는 기관 | 지원자가 존재하지 않습니다. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['NotFoundException'];
+        };
+      };
+      /** @description 해당 지원자를 이미 승인 또는 거절했습니다. */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['BadRequestException'];
+        };
+      };
     };
-    deleteActivityReview: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                reviewId: number;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description 활동 리뷰를 삭제했습니다. */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description 해당하는 회원 | 리뷰가 존재하지 않습니다. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["NotFoundException"];
-                };
-            };
-            /** @description 해당 작업을 수행할 권한이 없습니다. | 이미 삭제되었습니다. */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["BadRequestException"];
-                };
-            };
-        };
+  };
+  approveApplicant: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        applicantId: number;
+      };
+      cookie?: never;
     };
+    requestBody?: never;
+    responses: {
+      /** @description 해당 지원자를 승인했습니다. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description 해당하는 기관 | 지원자가 존재하지 않습니다. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['NotFoundException'];
+        };
+      };
+      /** @description 해당 지원자를 이미 승인 또는 거절했습니다. */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['BadRequestException'];
+        };
+      };
+    };
+  };
+  readActivityList: {
+    parameters: {
+      query?: {
+        page?: number;
+        pageSize?: number;
+        keyWord?: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ActivityResponseDTO'][];
+        };
+      };
+    };
+  };
+  createActivity: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['ActivityRequestDTO'];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': Record<string, never>;
+        };
+      };
+    };
+  };
+  updateActivity: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['ActivityUpdateDTO'];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': Record<string, never>;
+        };
+      };
+    };
+  };
+  getActivityPostReviews: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        activityPostId: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ActivityMyReviewResponseDTO'][];
+        };
+      };
+    };
+  };
+  createActivityReview: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        activityPostId: number;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['ActivityReviewRequestDTO'];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  updateUser: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UserUpdateRequestDTO'];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['UserResponseDTO'];
+        };
+      };
+    };
+  };
+  getInstitutionInfo: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description 기관 탈퇴에 성공했습니다. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description 존재하지 않는 기관입니다. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['NotFoundException'];
+        };
+      };
+    };
+  };
+  getInstitutionInfo_1: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['InstitutionRequestDTO'];
+      };
+    };
+    responses: {
+      /** @description 기관 정보 수정을 성공했습니다. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description 존재하지 않는 기관입니다. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['NotFoundException'];
+        };
+      };
+    };
+  };
+  getUserById: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['UserResponseDTO'];
+        };
+      };
+    };
+  };
+  loginKakao: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': {
+            [key: string]: unknown;
+          };
+        };
+      };
+    };
+  };
+  getLikedActivities: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ActivityPostResponseDTO'][];
+        };
+      };
+    };
+  };
+  getActivityHistory: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ActivityPostResponseDTO'][];
+        };
+      };
+    };
+  };
+  getActivityPost: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        activityPostId: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description 봉사 모집글 조회에 성공했습니다. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description 해당하는 봉사 모집글이 존재하지 않습니다. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['NotFoundException'];
+        };
+      };
+    };
+  };
+  getActivityPost_1: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description 봉사 모집글 조회에 성공했습니다. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description 해당하는 기관이 존재하지 않습니다. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['NotFoundException'];
+        };
+      };
+    };
+  };
+  getApplicantList: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        activityPostId: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description 해당 봉사 모집글에 지원한 지원자 목록입니다. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description 해당하는 기관 | 봉사 모집글이 존재하지 않습니다. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['NotFoundException'];
+        };
+      };
+    };
+  };
+  getInstitutionInfo_2: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description 기관 조회를 성공했습니다. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description 존재하지 않는 기관입니다. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['NotFoundException'];
+        };
+      };
+    };
+  };
+  getMyCertificationById: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        certificationId: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['CertificationResponseDTO'];
+        };
+      };
+    };
+  };
+  getMyCertifications: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['CertificationResponseDTO'][];
+        };
+      };
+    };
+  };
+  getApplicantInfo: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        userId: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': Record<string, never>;
+        };
+      };
+    };
+  };
+  readActivity: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ActivityResponseDTO'];
+        };
+      };
+    };
+  };
+  deleteActivity: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': Record<string, never>;
+        };
+      };
+    };
+  };
+  getMyActivityReviews: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          '*/*': components['schemas']['ActivityMyReviewResponseDTO'][];
+        };
+      };
+    };
+  };
+  deleteUserReview: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        reviewId: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  deleteActivityReview: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        reviewId: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description 활동 리뷰를 삭제했습니다. */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': unknown;
+        };
+      };
+      /** @description 해당하는 회원 | 리뷰가 존재하지 않습니다. */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['NotFoundException'];
+        };
+      };
+      /** @description 해당 작업을 수행할 권한이 없습니다. | 이미 삭제되었습니다. */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['BadRequestException'];
+        };
+      };
+    };
+  };
 }

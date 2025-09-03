@@ -17,7 +17,7 @@ const CATEGORY_REVERSE_MAP: { [key: string]: string } = {
   CULTURE: '문화',
   ENVIRONMENT: '환경',
   PUBLIC: '행정',
-  GLOBAL: '농어촌',
+  RURALAREA: '농어촌',
 };
 
 type ActivityPost = components['schemas']['ActivityResponseDTO'];
@@ -47,13 +47,14 @@ export default function RecruitPage() {
     console.log('Selected recruitment ID:', id);
   };
 
-  const recruitments = pageData;
+  const recruitments = pageData || [];
   const hasRecruitment = recruitments && recruitments.length > 0;
 
   const formattedRecruitments =
     recruitments
       ?.map((r) => ({
         id: r.id!,
+
         title: r.title!,
         category: CATEGORY_REVERSE_MAP[r.category!] || r.category!,
         content: r.content!,
