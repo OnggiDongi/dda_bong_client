@@ -8,6 +8,26 @@ type ApplyBodyProps = {
 };
 
 export default function ApplyBody({ post }: ApplyBodyProps) {
+  const formatDeadline = (dday: string) => {
+    if (dday && dday.toUpperCase().startsWith('D-')) {
+      const daysLeft = dday.substring(2);
+      return `마감 ${daysLeft}일 남음`;
+    }
+    return dday; // Fallback to original string if format is unexpected
+  };
+
+  const isRecruitmentClosed = () => {
+    if (post.dday === 'D-DAY' || post.dday === 'D-0') {
+      return false;
+    }
+    if (post.dday.startsWith('D-')) {
+      return false;
+    }
+    return true;
+  };
+
+  const recruitmentClosed = isRecruitmentClosed();
+
   return (
     <section className='relative flex w-full flex-col'>
       {post.imageUrl && (
@@ -18,10 +38,10 @@ export default function ApplyBody({ post }: ApplyBodyProps) {
           {post.category && <Badge text={post.category} />}
           {post.dday && (
             <Badge
-              text={post.dday}
+              text={recruitmentClosed ? "모집 마감" : formatDeadline(post.dday)}
               bgColor='bg-white'
-              textColor='text-Logo-Mint'
-              borderColor='border-Logo-Mint'
+              textColor={recruitmentClosed ? 'text-red-500' : 'text-Logo-Mint'}
+              borderColor={recruitmentClosed ? 'border-red-500' : 'border-Logo-Mint'}
             />
           )}
         </div>

@@ -3,11 +3,13 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import Button from '../atoms/Button';
+import Txt from '../atoms/Text';
 import Modal from '../atoms/modal';
 
 type ApplyFooterProps = {
   isApply: boolean;
   postTitle: string;
+  dday: string;
   isLiked?: boolean;
   hasApplied?: boolean;
   isApplying?: boolean;
@@ -18,6 +20,7 @@ type ApplyFooterProps = {
 export default function ApplyFooter({
   isApply,
   postTitle,
+  dday,
   isLiked = false,
   hasApplied = false,
   isApplying = false,
@@ -33,6 +36,18 @@ export default function ApplyFooter({
     closeModal();
   };
 
+  const isRecruitmentClosed = () => {
+    if (dday === 'D-DAY' || dday === 'D-0') {
+      return false;
+    }
+    if (dday.startsWith('D-')) {
+      return false;
+    }
+    return true;
+  };
+
+  const recruitmentClosed = isRecruitmentClosed();
+
   // This component is only for the user-facing apply page now.
   // The admin-related logic (edit/delete) is removed for clarity.
   if (!isApply) {
@@ -40,6 +55,7 @@ export default function ApplyFooter({
   }
 
   const getButtonText = () => {
+    if (recruitmentClosed) return '모집 마감';
     if (hasApplied) return '신청 완료';
     if (isApplying) return '신청 중...';
     return '신청하기';
@@ -48,35 +64,41 @@ export default function ApplyFooter({
   return (
     <>
       <section
-        className={`relative flex h-[68px] items-center justify-center gap-32`}
+        className={`relative flex h-[68px] items-center justify-center ${recruitmentClosed ? '' : 'gap-32'}`}
       >
-        <button
-          type='button'
-          onClick={onLike}
-          aria-pressed={isLiked}
-          aria-label={isLiked ? '좋아요 취소' : '좋아요'}
-        >
-          <span className='relative inline-block h-[30px] w-[30px]'>
-            <Image
-              src={
-                isLiked
-                  ? '/icons/ic_heart_filled.svg'
-                  : '/icons/ic_heart_outline.svg'
-              }
-              alt='Heart Icon'
-              fill
-              className='object-contain'
-            />
-          </span>
-        </button>
+        {!recruitmentClosed && (
+          <button
+            type='button'
+            onClick={onLike}
+            aria-pressed={isLiked}
+            aria-label={isLiked ? '좋아요 취소' : '좋아요'}
+          >
+            <span className='relative inline-block h-[30px] w-[30px]'>
+              <Image
+                src={
+                  isLiked
+                    ? '/icons/ic_heart_filled.svg'
+                    : '/icons/ic_heart_outline.svg'
+                }
+                alt='Heart Icon'
+                fill
+                className='object-contain'
+              />
+            </span>
+          </button>
+        )}
 
-        <Button
-          className={`bg-Logo-Mint h-[45px] w-[145px]`}
-          onClick={openModal}
-          disabled={hasApplied || isApplying}
-        >
-          {getButtonText()}
-        </Button>
+        {recruitmentClosed ? (
+          <Txt className='text-2xl'>모집이 마감되었습니다.</Txt>
+        ) : (
+          <Button
+            className={`h-[45px] w-[145px] ${hasApplied ? 'bg-Modal-font' : 'bg-Logo-Mint'}`}
+            onClick={openModal}
+            disabled={hasApplied || isApplying || recruitmentClosed}
+          >
+            {getButtonText()}
+          </Button>
+        )}
       </section>
       {isModalOpened && (
         <Modal

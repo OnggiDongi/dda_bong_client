@@ -99,6 +99,7 @@ export default function VolunteerDetailPage() {
       <ApplyFooter
         isApply={true}
         postTitle={post.title}
+        dday={post.dday}
         onLike={likeMutation.mutate}
         onApply={applyMutation.mutate}
         isLiked={post.isLiked}
