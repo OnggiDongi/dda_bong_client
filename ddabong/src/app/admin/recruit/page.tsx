@@ -2,10 +2,10 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import TopBar from '../../../components/admin/recruit/TopBar';
-import BottomButton from '@/components/atoms/BottomButton';
-import RecruitmentList from '@/components/admin/recruit/RecruitmentList';
 import EmptyRecruitment from '@/components/admin/recruit/EmptyRecruitment';
+import RecruitmentList from '@/components/admin/recruit/RecruitmentList';
+import BottomButton from '@/components/atoms/BottomButton';
+import TopBar from '@/components/atoms/TopBar';
 
 // 더미더미더미더미더미더미데이터
 const mockRecruitments = [
@@ -46,13 +46,13 @@ export default function RecruitPage() {
 
   return (
     <div className='relative flex h-screen w-full flex-col'>
-      <TopBar />
+      <TopBar bgColor='bg-page-background' />
       <div className='bg-page-gradient flex-1 overflow-y-auto px-4 pb-24'>
         {hasRecruitment ? (
-          <RecruitmentList 
-            recruitments={mockRecruitments} 
-            selectedId={selectedId} 
-            onSelectRecruitment={handleSelectRecruitment} 
+          <RecruitmentList
+            recruitments={mockRecruitments}
+            selectedId={selectedId}
+            onSelectRecruitment={handleSelectRecruitment}
           />
         ) : (
           <EmptyRecruitment />
