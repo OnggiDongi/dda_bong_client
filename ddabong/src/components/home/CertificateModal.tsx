@@ -27,7 +27,6 @@ export default function CertificateModal({
   totalHours,
 }: ModalProps) {
   const { showToast } = useToast();
-
   if (!open) return null;
 
   const { bgColor, borderColor } = getCertificateStyle(totalHours);

@@ -1,17 +1,20 @@
 'use client';
 
-import { useState } from 'react';
+import { components } from '@/types/openapi';
 import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
+import { privateClient } from '@/lib/openapi-client';
 import CategoryController from '@/components/apply/CategoryController';
 import LocationSelect from '@/components/apply/LocationSelect';
 import VolunteerCard from '@/components/apply/VolunteerCard';
 import VolunteerHeader from '@/components/apply/VolunteerHeader';
-import TopBar from '@/components/atoms/TopBar';
 import Txt from '@/components/atoms/Text';
-import { privateClient } from '@/lib/openapi-client';
-import { components } from '@/types/openapi';
+import TopBar from '@/components/atoms/TopBar';
 
 type Activity = components['schemas']['ActivityPostResponseDTO'];
+type CustomError = {
+  error: string;
+};
 
 const fetchActivities = async (region?: string, categories?: string) => {
   const { data, error } = await privateClient.GET('/posts', {
@@ -25,7 +28,7 @@ const fetchActivities = async (region?: string, categories?: string) => {
 
   if (error) {
     // The error now includes the response body, so we can inspect it
-    const errorBody = (error as any).body;
+    const errorBody = error as CustomError;
     if (errorBody?.error === 'ERROR_ACCESS_TOKEN') {
       // Specific handling for auth error if needed, e.g., redirect to login
       console.error('Authentication error: Please log in.');
@@ -36,10 +39,6 @@ const fetchActivities = async (region?: string, categories?: string) => {
   // Handle different possible response structures robustly
   if (!data) return [];
   if (Array.isArray(data)) return data as Activity[];
-  if (Array.isArray((data as any).content))
-    return (data as any).content as Activity[];
-  if (Array.isArray((data as any).data))
-    return (data as any).data as Activity[];
 
   console.warn('Unexpected API response structure:', data);
   return []; // Return empty array if structure is unknown
