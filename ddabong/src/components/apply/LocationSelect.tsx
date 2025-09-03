@@ -24,6 +24,7 @@ export default function LocationSelect({
   onDistrictChange,
 }: LocationSelectProps) {
   const handleRegionChange = (value: string) => {
+    console.log('Region value -> ', value);
     onRegionChange(value);
     onDistrictChange(''); // Reset district when region changes
   };
