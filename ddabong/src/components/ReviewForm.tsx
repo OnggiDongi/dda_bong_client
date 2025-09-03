@@ -1,5 +1,6 @@
 'use client';
 
+import { UseAxiosWithAuth } from '@/hooks/axios/useAxiosWithAuth';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
@@ -14,8 +15,10 @@ type Variant = 'user' | 'admin';
 
 export default function ReviewForm({
   variant = 'user',
+  activityPostId,
 }: {
   variant?: Variant;
+  activityPostId: number | null;
 }) {
   const router = useRouter();
   const formRef = useRef<HTMLFormElement | null>(null);
@@ -52,23 +55,47 @@ export default function ReviewForm({
     setPhoto(null);
   };
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const form = e.currentTarget;
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    try {
+      e.preventDefault();
+      const form = e.currentTarget;
 
-    // 네이티브 required 검증
-    if (!form.reportValidity()) return;
+      // 네이티브 required 검증
+      if (!form.reportValidity()) return;
 
-    // TODO: 서버 전송(FormData) 필요 시 여기서 처리
-    // const data = new FormData(form);
+      // TODO: 서버 전송(FormData) 필요 시 여기서 처리
+      const axiosAuth = UseAxiosWithAuth();
+      const formData = new FormData();
+      let imageUrl: string | undefined = undefined;
 
-    // variant에 따라 라우팅
-    if (variant === 'admin') {
-      showToast('작성이 완료되었습니다.');
-      router.push(' /admin/review');
-    } else {
-      showToast('작성이 완료되었습니다.');
-      router.push('/review');
+      if (photo) {
+        formData.append('file', photo.file);
+        const fileRes = await axiosAuth.post(
+          `${process.env.NEXT_PUBLIC_API_URL}/upload`,
+          formData
+        );
+        imageUrl = fileRes.data;
+      }
+
+      await axiosAuth.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/activity/${activityPostId}/review`,
+        {
+          rate1: userRating,
+          content: review,
+          imageUrl,
+        }
+      );
+
+      // variant에 따라 라우팅
+      if (variant === 'admin') {
+        showToast('작성이 완료되었습니다.');
+        router.push(' /admin/review');
+      } else {
+        showToast('작성이 완료되었습니다.');
+        router.push('/review');
+      }
+    } catch {
+      showToast('리뷰 작성에 실패하였습니다.');
     }
   };
 
