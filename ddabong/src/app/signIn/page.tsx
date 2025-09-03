@@ -61,7 +61,7 @@ export default function SeniorSignInPage() {
 
   return (
     <main className='flex flex-col items-center pt-25'>
-      {/* 로고 */}
+      {/* 로고 .*/}
       <Image
         src='/icons/ic_logo.svg'
         alt='따봉 로고'
