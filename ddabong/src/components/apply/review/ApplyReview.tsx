@@ -9,6 +9,9 @@ type ApplyReviewProps = {
   totalAvgScore: number;
 };
 
+const DEFAULT_PROFILE_IMAGE =
+  'https://ddabong-upload.s3.ap-northeast-2.amazonaws.com/uploads/7edb4d83-5813-4032-8292-e9f73c086474-(Frame 2087326976.png)';
+
 export default function ApplyReview({
   reviews,
   totalAvgScore,
@@ -41,9 +44,9 @@ export default function ApplyReview({
             <ReviewBox
               key={review.id}
               userName={review.userName}
-              imageUrl={review.profileImage} // API response uses profileImage
+              imageUrl={review.profileImage || DEFAULT_PROFILE_IMAGE}
               rate={review.rate}
-              content={review.comment} // API response uses comment
+              content={review.comment}
             />
           ))
         ) : (
