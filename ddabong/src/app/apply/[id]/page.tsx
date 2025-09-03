@@ -3,7 +3,7 @@
 import { useToast } from '@/contexts/toast/ToastContext';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
-import { useState, useReducer } from 'react';
+// Re-add useToast import
 import { privateClient as client } from '@/lib/openapi-client';
 import ApplyBody from '@/components/apply/ApplyBody';
 import ApplyFooter from '@/components/apply/ApplyFooter';
@@ -33,18 +33,17 @@ export type DetailedActivityPost = {
   totalAvgScore: number;
   reviews: Review[];
   dday: string;
-  isLiked?: boolean; // Used for optimistic update
+  isLiked?: boolean;
+  isApplied?: boolean;
 };
 
 export default function VolunteerDetailPage() {
   const params = useParams();
   const id = params.id as string;
+  const postId = Number(id);
   const queryClient = useQueryClient();
+  const { showToast } = useToast(); // Initialize useToast
   const queryKey = ['activityPost', id];
-  const { showToast } = useToast();
-
-  const [hasApplied, setHasApplied] = useState(false);
-  const [_, forceRerender] = useReducer((x) => x + 1, 0);
 
   const {
     data: post,
@@ -53,12 +52,22 @@ export default function VolunteerDetailPage() {
   } = useQuery<DetailedActivityPost>({
     queryKey,
     queryFn: async () => {
-      // All requests now use the private client, aliased as client
-      const { data, error } = await client.GET('/posts/{activityPostId}', {
-        params: { path: { activityPostId: Number(id) } },
-      });
-      if (error) throw error;
-      return data as DetailedActivityPost;
+      const [postRes, likedRes, historyRes] = await Promise.all([
+        client.GET('/posts/{activityPostId}', {
+          params: { path: { activityPostId: postId } },
+        }),
+        client.GET('/users/likes'),
+        client.GET('/users/history'),
+      ]);
+
+      if (postRes.error) throw postRes.error;
+
+      const postData = postRes.data as DetailedActivityPost;
+      const isLiked = likedRes.data?.some((p: any) => p.id === postId) || false;
+      const isApplied =
+        historyRes.data?.some((p: any) => p.id === postId) || false;
+
+      return { ...postData, isLiked, isApplied };
     },
     enabled: !!id,
   });
@@ -66,7 +75,7 @@ export default function VolunteerDetailPage() {
   const likeMutation = useMutation({
     mutationFn: () =>
       client.POST('/posts/{activityPostId}/like', {
-        params: { path: { activityPostId: Number(id) } },
+        params: { path: { activityPostId: postId } },
       }),
     onMutate: async () => {
       await queryClient.cancelQueries({ queryKey });
@@ -77,34 +86,41 @@ export default function VolunteerDetailPage() {
           ...previousPost,
           isLiked: !previousPost.isLiked,
         });
-        forceRerender();
       }
       return { previousPost };
     },
-    onError: (err: Error, variables, context) => {
+    onError: (err, variables, context) => {
       if (context?.previousPost) {
         queryClient.setQueryData(queryKey, context.previousPost);
-        forceRerender();
       }
-      showToast('찜 상태 변경에 실패했습니다. 로그인 상태를 확인해주세요.');
+      showToast(
+        '찜 상태 변경에 실패했습니다. 로그인 상태를 확인해주세요.',
+        'error'
+      );
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['/users/likes'] });
     },
   });
 
   const applyMutation = useMutation({
     mutationFn: () =>
       client.POST('/posts/{activityPostId}/apply', {
-        params: { path: { activityPostId: Number(id) } },
+        params: { path: { activityPostId: postId } },
       }),
     onSuccess: () => {
-      setHasApplied(true);
-      showToast('신청이 완료되었습니다.');
+      queryClient.setQueryData(queryKey, (oldData: any) => ({
+        ...oldData,
+        isApplied: true,
+      }));
+      showToast('봉사활동 신청이 완료되었습니다.', 'success');
     },
     onError: (err: Error) => {
-      const errorMessage =
+      showToast(
         err.message ||
-        '봉사활동 신청에 실패했습니다. 로그인 상태를 확인해주세요.';
-
-      showToast(errorMessage);
+          '봉사활동 신청에 실패했습니다. 로그인 상태를 확인해주세요.',
+        'error'
+      );
     },
   });
 
@@ -152,7 +168,7 @@ export default function VolunteerDetailPage() {
         onLike={likeMutation.mutate}
         onApply={applyMutation.mutate}
         isLiked={post.isLiked}
-        hasApplied={hasApplied}
+        hasApplied={post.isApplied}
         isApplying={applyMutation.isPending}
       />
     </main>
