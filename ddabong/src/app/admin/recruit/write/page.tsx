@@ -100,7 +100,7 @@ export default function RecruitWritePage() {
     mutate(body, {
       onSuccess: () => {
         showToast('작성이 완료되었습니다.');
-        router.push('/admin/recruit');
+        router.push('/admin/review');
       },
       onError: (error) => {
         console.error(error);
