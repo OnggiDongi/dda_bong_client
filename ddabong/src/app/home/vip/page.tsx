@@ -1,14 +1,27 @@
+'use client';
+
+import { useUserSummary } from '@/hooks/home/user';
 import TopBar from '@/components/atoms/TopBar';
 import VipBenefitCard from '@/components/home/vip/VipBenefitCard';
 import VipBenefitSection from '@/components/home/vip/VipBenefitSection';
 import VipLevelCard from '@/components/home/vip/VipLevelCard';
 
 export default function VipPage() {
+  const { data: user, isLoading, error } = useUserSummary();
+
+  if (isLoading) {
+    return <p>로딩 중...</p>;
+  }
+  if (error) {
+    return <p>오류가 발생했습니다.</p>;
+  }
+  const username = user?.name ?? '시별돌';
+  const totalHours = Number(user?.totalHour ?? 50);
   return (
     <div className='bg-page-gradient flex w-full flex-col'>
       <TopBar title='나의 등급' bgColor='bg-page-background' />
       <div className='flex-1 px-[26px] pt-[23px]'>
-        <VipLevelCard userName='시별돌' totalHours={69} />
+        <VipLevelCard userName={username} totalHours={totalHours} />
         <div className='border-Box-Line border-b pb-[269px]'>
           <VipBenefitCard
             benefitText='봉사 50시간마다 새로운 인증서를 발급해 드립니다 !'
