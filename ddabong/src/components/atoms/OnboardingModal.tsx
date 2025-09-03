@@ -22,13 +22,20 @@ export default function OnboardingModal({
   onSubmit,
 }: OnboardingModalProps) {
   const overlayRef = useRef<HTMLDivElement>(null);
-  const [region, setRegion] = useState(defaultRegion);
+  const [region, setRegion] = useState<string>(defaultRegion);
+  const [district, setDistrict] = useState<string>('');
   const [interest, setInterest] = useState(defaultInterest);
 
   const canSubmit = region !== '' && interest !== '';
 
   const onClickOverlay: MouseEventHandler<HTMLDivElement> = (e) => {
     if (e.target === overlayRef.current) onClose();
+  };
+
+  const printTmp = () => {
+    console.log(region);
+    console.log(district);
+    console.log(category);
   };
 
   useEffect(() => {
@@ -82,7 +89,12 @@ export default function OnboardingModal({
               봉사 선호 지역
             </Txt>
             <div className='[&_*]:text-2xl'>
-              <LocationSelect />
+              <LocationSelect
+                region={region}
+                district={district}
+                onRegionChange={setRegion}
+                onDistrictChange={setDistrict}
+              />
             </div>
           </div>
 
@@ -113,7 +125,9 @@ export default function OnboardingModal({
           <Button
             color='green'
             className='h-[45px] w-[155px] rounded-xl py-2.5 disabled:opacity-40'
-            onClick={() => onSubmit({ region, interest })}
+            onClick={() =>
+              onSubmit({ region: region + ' ' + district, interest: category })
+            }
           >
             완료
           </Button>
