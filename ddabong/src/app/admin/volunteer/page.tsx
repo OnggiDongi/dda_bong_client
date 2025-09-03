@@ -1,3 +1,4 @@
+import { useApplicants } from '@/hooks/volunteer/applicants';
 import ActivityReview from '@/components/ActivityReview';
 import ActivityApplyInfo from '@/components/admin/volunteer/ActivityApplyInfo';
 import Txt from '@/components/atoms/Text';

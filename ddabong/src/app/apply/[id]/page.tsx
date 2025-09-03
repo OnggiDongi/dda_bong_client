@@ -48,7 +48,7 @@ const reviews: Review[] = [
     id: 5,
     userName: '비버',
     imageUrl:
-      'https://ddabong-upload.s3.ap-northeast-2.amazonaws.com/uploads/비버.png',
+      'https://ddabong-upload.s3.ap-northeast-2.amazonaws.com/uploads/7edb4d83-5813-4032-8292-e9f73c086474-(Frame 2087326976.png)',
     rate: 4.9,
     content:
       '밥을 많이 안주면 물어요. 소리를 질러요. 밥을 많이 안주면 물어요. 소리를 질러요. 밥을 많이 안주면 물어요. 소리를 질러요. 밥을 많이 안주면 물어요. 소리를 질러요. 밥을 많이 안주면 물어요. 소리를 질러요.',
