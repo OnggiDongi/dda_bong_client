@@ -28,12 +28,13 @@ export default function ApplyFooter({
 
   const openModal = () => setModalOpened(true);
   const closeModal = () => setModalOpened(false);
-
   const handleConfirmApply = () => {
     onApply();
     closeModal();
   };
 
+  // This component is only for the user-facing apply page now.
+  // The admin-related logic (edit/delete) is removed for clarity.
   if (!isApply) {
     return null;
   }

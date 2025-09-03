@@ -17,17 +17,22 @@ interface LocationSelectProps {
   onDistrictChange: (value: string) => void;
 }
 
-export default function LocationSelect({ 
-  region, 
-  district, 
-  onRegionChange, 
-  onDistrictChange 
+export default function LocationSelect({
+  region,
+  district,
+  onRegionChange,
+  onDistrictChange,
 }: LocationSelectProps) {
-
   const handleRegionChange = (value: string) => {
+    console.log('Region value -> ', value);
     onRegionChange(value);
-    onDistrictChange(undefined as any); // Reset district when region changes
-  }
+    onDistrictChange(''); // Reset district when region changes
+  };
+
+  const handleDistictChange = (value: string) => {
+    console.log('District value -> ', value);
+    onDistrictChange(value);
+  };
 
   return (
     <div className='flex gap-2'>
@@ -50,7 +55,7 @@ export default function LocationSelect({
         </SelectContent>
       </Select>
 
-      <Select value={district} onValueChange={onDistrictChange}>
+      <Select value={district} onValueChange={handleDistictChange}>
         <SelectTrigger className='text-Hana-Black text-xl' disabled={!region}>
           <SelectValue
             placeholder={
