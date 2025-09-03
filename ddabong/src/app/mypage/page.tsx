@@ -15,7 +15,8 @@ export default function MyPage() {
   const email = user?.email ?? 'silver@naver.com';
   const profile = user?.profileImage;
   const category = user?.preferredCategory ?? '환경';
-  const region = user?.preferredRegion ?? '서울';
+  const rawRegion = user?.preferredRegion ?? '서울특별시 마포구';
+  const region = rawRegion.trim().split(/\s+/).slice(-1)[0] || '마포';
   const birth = user?.birthdate ?? '1970-09-08';
 
   if (isLoading) {
