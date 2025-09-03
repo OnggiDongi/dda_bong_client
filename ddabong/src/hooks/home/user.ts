@@ -7,12 +7,13 @@ type UserSummaryDTO = components['schemas']['UserSummaryResponseDTO'];
 export async function fetchUserSummary(): Promise<UserSummaryDTO> {
   const { data, error } = await privateClient.GET('/users/summary');
   if (error) throw error;
-  return data as UserSummaryDTO;
+  return data;
 }
 
 export function useUserSummary() {
-  return useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ['userSummary'],
     queryFn: fetchUserSummary,
   });
+  return { data, isLoading, error };
 }

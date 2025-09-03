@@ -9,7 +9,7 @@ async function fetchMyCertificates(): Promise<CertificationDTO[]> {
   const { data, error } = await privateClient.GET('/certifications/');
   if (error) throw error;
 
-  return data as CertificationDTO[];
+  return data;
 }
 
 export function useMyCertificates() {
