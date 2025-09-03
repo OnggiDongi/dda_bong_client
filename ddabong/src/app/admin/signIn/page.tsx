@@ -60,7 +60,7 @@ export default function AdminSignInPage() {
       {/* 폼 컨테이너 */}
       <div className='mt-[44px] w-[300px]'>
         <form className='flex flex-col'>
-          {/* 이메일 */}
+          {/* 이메일. */}
           <div>
             <label className='block'>
               <Txt weight='semibold' className='text-Hana-Black text-xl'>
