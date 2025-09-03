@@ -9,7 +9,7 @@ import LocationSelect from '../apply/LocationSelect';
 type OnboardingModalProps = {
   open: boolean;
   defaultRegion?: string;
-  defaultInterest?: string;
+  defaultCategory?: string;
   onClose: () => void;
   onSubmit: (payload: { region: string; interest: string }) => void;
 };
@@ -17,42 +17,23 @@ type OnboardingModalProps = {
 export default function OnboardingModal({
   open,
   defaultRegion = '',
-  defaultInterest = '',
+  defaultCategory = '',
   onClose,
   onSubmit,
 }: OnboardingModalProps) {
   const overlayRef = useRef<HTMLDivElement>(null);
   const [region, setRegion] = useState<string>(defaultRegion);
   const [district, setDistrict] = useState<string>('');
-  const [interest, setInterest] = useState(defaultInterest);
-
-  const canSubmit = region !== '' && interest !== '';
+  const [category, setCategory] = useState<string>(defaultCategory);
 
   const onClickOverlay: MouseEventHandler<HTMLDivElement> = (e) => {
     if (e.target === overlayRef.current) onClose();
   };
-
-  const printTmp = () => {
-    console.log(region);
-    console.log(district);
-    console.log(category);
-  };
+  const canSubmit = region !== '' && district !== '' && category !== '';
 
   useEffect(() => {
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-    };
-    const prevOverflow = document.body.style.overflow;
-    document.addEventListener('keydown', onKey);
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.removeEventListener('keydown', onKey);
-      document.body.style.overflow = prevOverflow;
-    };
   }, [open, onClose]);
-
-  const [category, setCategory] = useState('');
 
   if (!open) return null;
 
@@ -103,10 +84,7 @@ export default function OnboardingModal({
               관심 분야
             </Txt>
             <div className='[&_*]:text-2xl'>
-              <Category
-                value={category}
-                onValueChange={(value) => setCategory(value)}
-              />
+              <Category value={category} onValueChange={setCategory} />
             </div>
           </div>
         </div>
@@ -124,6 +102,7 @@ export default function OnboardingModal({
 
           <Button
             color='green'
+            disabled={!canSubmit}
             className='h-[45px] w-[155px] rounded-xl py-2.5 disabled:opacity-40'
             onClick={() =>
               onSubmit({ region: region + ' ' + district, interest: category })

@@ -1,5 +1,6 @@
 'use client';
 
+import { useUpdateUserOnboarding } from '@/hooks/home/onboarding';
 import { useUserSummary } from '@/hooks/home/user';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -26,6 +27,8 @@ export default function HomePageContents() {
     if (firstLogin === 'true') setOpen(true);
   }, []);
 
+  const { mutate } = useUpdateUserOnboarding();
+
   const handleClose = () => {
     // 모달 닫았으면 한 번만 뜨도록 false로 변경
     localStorage.setItem('firstLogin', 'false');
@@ -33,14 +36,19 @@ export default function HomePageContents() {
     router.replace('/home');
   };
 
-  const handleSubmit = async (v: { region: string; interest: string }) => {
-    try {
-      console.log(v.region, v.interest);
-      localStorage.setItem('firstLogin', 'false');
-    } finally {
-      setOpen(false);
-      router.replace('/home');
-    }
+  const handleSubmit = (v: { region: string; interest: string }) => {
+    mutate(
+      { preferredRegion: v.region, preferredCategory: v.interest },
+      {
+        onSuccess: () => {
+          setOpen(false);
+          router.replace('/home');
+        },
+        onError: () => {
+          alert('설정 저장에 실패했습니다. 잠시 후 다시 시도해주세요.');
+        },
+      }
+    );
   };
 
   return (
