@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import ReviewRating from './ReviewRating';
 import AiComment from './atoms/AiComment';
@@ -8,6 +9,8 @@ import Badge from './atoms/Badge';
 import Button from './atoms/Button';
 import Txt from './atoms/Text';
 import Modal from './atoms/modal';
+
+type Mode = 'moderation' | 'evaluation';
 
 type Props = {
   userName: string;
@@ -18,6 +21,8 @@ type Props = {
   healthStatus: number | null;
   attitude: number | null;
   aiReview: string | null;
+  mode?: Mode;
+  evaluateHref?: string;
 };
 
 export default function ActivityReview({
@@ -29,34 +34,147 @@ export default function ActivityReview({
   healthStatus,
   attitude,
   aiReview,
+  mode = 'evaluation',
+  evaluateHref,
 }: Props) {
-  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 추가
-  const [modalType, setModalType] = useState<'APPROVE' | 'REJECT' | null>(null); // 어떤 버튼 눌렀는지
+  const router = useRouter();
+
+  // 승인/거절 모드에서만 사용
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalType, setModalType] = useState<'APPROVE' | 'REJECT' | null>(null);
 
   const openModal = (type: 'APPROVE' | 'REJECT') => {
     setModalType(type);
     setIsModalOpen(true);
   };
-
   const closeModal = () => {
     setIsModalOpen(false);
     setModalType(null);
   };
-
   const handleConfirm = () => {
     if (modalType === 'APPROVE') {
-      // 수락 처리
       console.log('수락!');
     } else {
-      // 거절 처리
       console.log('거절!');
     }
     closeModal();
   };
+
+  // 평가 버튼 렌더링
+  const renderEvaluateButton = () => {
+    const isReviewed =
+      totalRate !== null ||
+      diligenceLevel !== null ||
+      attitude !== null ||
+      healthStatus !== null;
+
+    // 공통 클래스를 조건부로 조합
+    const btnClasses =
+      'h-auto w-auto' +
+      (isReviewed ? ' pointer-events-none cursor-default' : '');
+
+    const badgeClasses = 'px-4' + (isReviewed ? ' opacity-70' : '');
+
+    return (
+      <div className='flex flex-wrap gap-2'>
+        <Button
+          color='white'
+          className={btnClasses}
+          textClassName='leading-none flex items-center'
+          aria-disabled={isReviewed}
+          tabIndex={isReviewed ? -1 : 0} // 키보드 포커스 차단
+          onClick={() => {
+            if (!isReviewed && evaluateHref) router.push(evaluateHref);
+          }}
+        >
+          <Badge
+            text={isReviewed ? '평가완료' : '평가하기'}
+            bgColor={isReviewed ? 'bg-Box-Line' : 'bg-Logo-Pink'}
+            borderColor={isReviewed ? undefined : 'border-Logo-Pink'}
+            textClassName={isReviewed ? 'text-Hana-Black' : 'text-white'}
+            className={badgeClasses}
+          />
+        </Button>
+      </div>
+    );
+  };
+
+  // 승인/거절
+  const renderModerationButtons = () => {
+    if (status === 'PENDING') {
+      return (
+        <div className='flex flex-wrap gap-2'>
+          <Button
+            color='white'
+            className='h-auto w-auto'
+            textClassName='leading-none flex items-center'
+            onClick={() => openModal('REJECT')}
+          >
+            <Badge
+              text='거절'
+              bgColor='white'
+              borderColor='border-Logo-Pink'
+              textClassName='text-Logo-Pink'
+              className='px-4'
+            />
+          </Button>
+          <Button
+            color='white'
+            className='h-auto w-auto'
+            textClassName='leading-none flex items-center'
+            onClick={() => openModal('APPROVE')}
+          >
+            <Badge
+              text='수락'
+              bgColor='white'
+              borderColor='border-Logo-Mint'
+              textClassName='text-Logo-Mint'
+              className='px-4'
+            />
+          </Button>
+        </div>
+      );
+    }
+    if (status === 'APPROVED') {
+      return (
+        <div className='flex flex-wrap gap-2'>
+          <Badge
+            text='거절'
+            bgColor='white'
+            textClassName='text-white'
+            className='px-4 py-0.5'
+          />
+          <Badge
+            text='수락'
+            bgColor='bg-Logo-Mint'
+            borderColor='border-Logo-Mint'
+            textClassName='text-white'
+            className='px-4 py-0.5'
+          />
+        </div>
+      );
+    }
+    return (
+      <div className='flex flex-wrap gap-2'>
+        <Badge
+          text='거절'
+          bgColor='white'
+          textClassName='text-white'
+          className='px-4 py-0.5'
+        />
+        <Badge
+          text='거절'
+          bgColor='bg-Logo-Pink'
+          textClassName='text-white'
+          className='px-4 py-0.5'
+        />
+      </div>
+    );
+  };
+
   return (
     <>
       <div className='mt-1 flex flex-col items-center bg-white'>
-        {/* ✅ w-full 로 폭 고정 + padding 적용이 보이도록 */}
         <div className='mt-5 mb-2 flex w-full px-6'>
           <Image
             src={imageUrl}
@@ -66,79 +184,16 @@ export default function ActivityReview({
             className='h-[48px] w-[48px] flex-shrink-0 rounded-3xl object-cover'
           />
 
-          {/* ✅ 오른쪽 컬럼이 줄어들 수 있게 min-w-0 + 필요시 overflow-hidden */}
           <div className='min-w-0 flex-1 pl-3'>
-            {/* 이 줄이 좌우로 벌어지며 넘칠 수 있으니 */}
             <div className='flex items-start justify-between gap-2'>
-              {/* 이름은 길어질 수 있어 truncate 옵션 */}
               <Txt className='truncate text-lg'>{userName}</Txt>
 
-              {status === 'PENDING' ? (
-                <div className='flex flex-wrap gap-2'>
-                  <Button
-                    color='white'
-                    className='h-auto w-auto'
-                    textClassName='leading-none flex items-center'
-                    onClick={() => openModal('REJECT')}
-                  >
-                    <Badge
-                      text='거절'
-                      bgColor='white'
-                      borderColor='border-Logo-Pink'
-                      textClassName='text-Logo-Pink'
-                      className='px-4'
-                    />
-                  </Button>
-                  <Button
-                    color='white'
-                    className='h-auto w-auto'
-                    textClassName='leading-none flex items-center'
-                    onClick={() => openModal('APPROVE')}
-                  >
-                    <Badge
-                      text='수락'
-                      bgColor='white'
-                      borderColor='border-Logo-Mint'
-                      textClassName='text-Logo-Mint'
-                      className='px-4'
-                    />
-                  </Button>
-                </div>
-              ) : status === 'APPROVED' ? (
-                <div className='flex flex-wrap gap-2'>
-                  <Badge
-                    text='거절'
-                    bgColor='white'
-                    textClassName='text-white'
-                    className='px-4 py-0.5'
-                  />
-                  <Badge
-                    text='수락'
-                    bgColor='bg-Logo-Mint'
-                    borderColor='border-Logo-Mint'
-                    textClassName='text-white'
-                    className='px-4 py-0.5'
-                  />
-                </div>
-              ) : (
-                <div className='flex flex-wrap gap-2'>
-                  <Badge
-                    text='거절'
-                    bgColor='white'
-                    textClassName='text-white'
-                    className='px-4 py-0.5'
-                  />
-                  <Badge
-                    text='거절'
-                    bgColor='bg-Logo-Pink'
-                    textClassName='text-white'
-                    className='px-4 py-0.5'
-                  />
-                </div>
-              )}
+              {/* 모드에 따라 다른 액션 버튼 */}
+              {mode === 'evaluation'
+                ? renderEvaluateButton()
+                : renderModerationButtons()}
             </div>
 
-            {/* 내부 컴포넌트가 넓을 수 있으니 한 번 더 min-w-0/overflow-hidden 가드 */}
             <div className='min-w-0 overflow-hidden'>
               <ReviewRating
                 totalRate={totalRate}
@@ -147,7 +202,6 @@ export default function ActivityReview({
                 healthStatus={healthStatus}
               />
               {aiReview ? (
-                // 고정폭 w-80 대신 컨테이너 기준으로: w-full + max-w
                 <AiComment
                   text={aiReview}
                   className='mb-3 w-full break-words'
@@ -159,7 +213,9 @@ export default function ActivityReview({
           </div>
         </div>
       </div>
-      {isModalOpen && (
+
+      {/* 승인/거절 모달은 moderation 모드일 때만 의미 있음 */}
+      {mode === 'moderation' && isModalOpen && (
         <Modal
           title={userName}
           description={
