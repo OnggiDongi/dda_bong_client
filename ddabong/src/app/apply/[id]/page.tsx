@@ -1,10 +1,12 @@
 'use client';
 
 import { useToast } from '@/contexts/toast/ToastContext';
+import { components } from '@/types/openapi';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
-// Re-add useToast import
 import { privateClient as client } from '@/lib/openapi-client';
+// Import components for type usage
+
 import ApplyBody from '@/components/apply/ApplyBody';
 import ApplyFooter from '@/components/apply/ApplyFooter';
 import ApplyHeader from '@/components/apply/ApplyHeader';
@@ -37,12 +39,15 @@ export type DetailedActivityPost = {
   isApplied?: boolean;
 };
 
+// Define the type for the list items, which is used in likes and history
+type ActivityPostListItem = components['schemas']['ActivityPostResponseDTO'];
+
 export default function VolunteerDetailPage() {
   const params = useParams();
   const id = params.id as string;
   const postId = Number(id);
   const queryClient = useQueryClient();
-  const { showToast } = useToast(); // Initialize useToast
+  const { showToast } = useToast();
   const queryKey = ['activityPost', id];
 
   const {
@@ -63,9 +68,14 @@ export default function VolunteerDetailPage() {
       if (postRes.error) throw postRes.error;
 
       const postData = postRes.data as DetailedActivityPost;
-      const isLiked = likedRes.data?.some((p: any) => p.id === postId) || false;
+
+      // Use the correct type for the items in the list
+      const isLiked =
+        likedRes.data?.some((p: ActivityPostListItem) => p.id === postId) ||
+        false;
       const isApplied =
-        historyRes.data?.some((p: any) => p.id === postId) || false;
+        historyRes.data?.some((p: ActivityPostListItem) => p.id === postId) ||
+        false;
 
       return { ...postData, isLiked, isApplied };
     },
@@ -109,10 +119,11 @@ export default function VolunteerDetailPage() {
         params: { path: { activityPostId: postId } },
       }),
     onSuccess: () => {
-      queryClient.setQueryData(queryKey, (oldData: any) => ({
-        ...oldData,
-        isApplied: true,
-      }));
+      // Update the cache with the correct type
+      queryClient.setQueryData<DetailedActivityPost | undefined>(
+        queryKey,
+        (oldData) => (oldData ? { ...oldData, isApplied: true } : undefined)
+      );
       showToast('봉사활동 신청이 완료되었습니다.', 'success');
     },
     onError: (err: Error) => {
