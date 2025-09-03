@@ -12,15 +12,10 @@ import Header from '@/components/home/Header';
 import ProfileCard from '@/components/home/ProfileCard';
 
 export default function HomePageContents() {
-  const { data: user } = useUserSummary();
-
-  const username = user?.name ?? '시별돌';
-  const tier = user?.grade ?? 'Silver';
-  const totalHours = Number(user?.totalHour ?? 50);
+  const { data: user, isLoading, error } = useUserSummary();
 
   const router = useRouter();
   const [open, setOpen] = useState(false);
-
   // 첫 렌더에 localStorage.firstLogin === 'true'이면 모달 오픈
   useEffect(() => {
     const firstLogin = localStorage.getItem('firstLogin');
@@ -28,6 +23,17 @@ export default function HomePageContents() {
   }, []);
 
   const { mutate } = useUpdateUserOnboarding();
+
+  if (isLoading) {
+    return <p>로딩 중...</p>;
+  }
+  if (error) {
+    return <p>오류가 발생했습니다.</p>;
+  }
+
+  const username = user?.name ?? '시별돌';
+  const tier = user?.grade ?? 'Silver';
+  const totalHours = Number(user?.totalHour ?? 50);
 
   const handleClose = () => {
     // 모달 닫았으면 한 번만 뜨도록 false로 변경
