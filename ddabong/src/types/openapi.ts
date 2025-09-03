@@ -290,14 +290,15 @@ export interface paths {
         patch: operations["getInstitutionInfo_1"];
         trace?: never;
     };
-    "/users/{id}": {
+    "/users": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        get: operations["getUserById"];
+        /** 유저의 이메일로 유저 정보(이름, 전화번호, 생년월일, 프로필 사진, 선호지역/카테고리 , 등급) 조회 */
+        get: operations["getUserByEmail"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1637,24 +1638,31 @@ export interface operations {
             };
         };
     };
-    getUserById: {
+    getUserByEmail: {
         parameters: {
             query?: never;
             header?: never;
-            path: {
-                id: number;
-            };
+            path?: never;
             cookie?: never;
         };
         requestBody?: never;
         responses: {
-            /** @description OK */
+            /** @description 유저 정보를 성공적으로 조회했습니다. */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
-                    "*/*": components["schemas"]["UserResponseDTO"];
+                    "application/json": components["schemas"]["UserResponseDTO"];
+                };
+            };
+            /** @description 해당하는 유저가 존재하지 않습니다. */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["NotFoundException"];
                 };
             };
         };

@@ -1,3 +1,6 @@
+'use client';
+
+import { useUser } from '@/hooks/mypage/mypage';
 import Image from 'next/image';
 import Link from 'next/link';
 import InfoCard from '@/components/InfoCard';
@@ -5,35 +8,42 @@ import Badge from '@/components/atoms/Badge';
 import Txt from '@/components/atoms/Text';
 
 export default function MyPage() {
-  const user = {
-    name: '시별돌',
-    email: 'sibd@naver.com',
-    birth: '1968.09.08',
-    grade: 'SILVER',
-    profile: '/icons/beeber.svg',
-    region: '파주시',
-    category: '농어촌',
-  };
+  const { data: user, isLoading, error } = useUser();
+
+  const username = user?.name ?? '시별돌';
+  const grade = user?.grade ?? 'Silver';
+  const email = user?.email ?? 'silver@naver.com';
+  const profile = user?.profileImage;
+  const category = user?.preferredCategory ?? '환경';
+  const region = user?.preferredRegion ?? '서울';
+  const birth = user?.birthdate ?? '1970-09-08';
+
+  if (isLoading) {
+    return <p>로딩 중...</p>;
+  }
+  if (error) {
+    return <p>오류가 발생했습니다.</p>;
+  }
 
   return (
     <main className='mx-auto flex w-full max-w-[430px] flex-col'>
       <section className='relative flex items-center justify-between px-[47px] pt-[67px] pb-10'>
         <div>
           <Txt className='text-3xl leading-[40px] font-extrabold'>
-            {user.name}
+            {username}
             <span className='ml-1'>님의</span>
             <br /> 따봉
           </Txt>
           <div className='flex gap-2 pt-[10px]'>
             <Badge
-              text={user.category}
+              text={category}
               weight='bold'
               className='h-[30px] w-18 py-1'
               textClassName='text-xl'
             />
             <Badge
               bgColor='bg-Logo-Pink'
-              text={user.region}
+              text={region}
               weight='bold'
               className='h-[30px] w-18 py-1'
               textClassName='text-xl'
@@ -43,7 +53,10 @@ export default function MyPage() {
         <div className='shrink-0 pt-5'>
           <div className='relative h-[88px] w-[88px] overflow-hidden rounded-full ring-1 ring-black/5'>
             <Image
-              src={user.profile}
+              src={
+                profile ||
+                'https://ddabong-upload.s3.ap-northeast-2.amazonaws.com/uploads/7edb4d83-5813-4032-8292-e9f73c086474-(Frame 2087326976.png)'
+              }
               alt='프로필 이미지'
               fill
               sizes='88px'
@@ -76,10 +89,10 @@ export default function MyPage() {
         <div className='pt-3'>
           <InfoCard
             items={[
-              { label: '이름', value: user.name },
-              { label: '이메일', value: user.email },
-              { label: '생년월일', value: user.birth },
-              { label: '내 등급', value: user.grade },
+              { label: '이름', value: username },
+              { label: '이메일', value: email },
+              { label: '생년월일', value: birth },
+              { label: '내 등급', value: grade },
             ]}
             href={'/mypage/edit'}
           />
