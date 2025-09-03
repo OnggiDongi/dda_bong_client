@@ -1,5 +1,6 @@
 'use client';
 
+import { useToast } from '@/contexts/toast/ToastContext';
 import { useEffect, useRef, useState, type MouseEventHandler } from 'react';
 import Button from '@/components/atoms/Button';
 import Txt from '@/components/atoms/Text';
@@ -25,6 +26,7 @@ export default function OnboardingModal({
   const [region, setRegion] = useState<string>(defaultRegion);
   const [district, setDistrict] = useState<string>('');
   const [category, setCategory] = useState<string>(defaultCategory);
+  const { showToast } = useToast();
 
   const onClickOverlay: MouseEventHandler<HTMLDivElement> = (e) => {
     if (e.target === overlayRef.current) onClose();
@@ -104,9 +106,10 @@ export default function OnboardingModal({
             color='green'
             disabled={!canSubmit}
             className='h-[45px] w-[155px] rounded-xl py-2.5 disabled:opacity-40'
-            onClick={() =>
-              onSubmit({ region: region + ' ' + district, interest: category })
-            }
+            onClick={() => {
+              onSubmit({ region: region + ' ' + district, interest: category });
+              showToast('선호 지역과 관심 분야가 저장되었습니다');
+            }}
           >
             완료
           </Button>
