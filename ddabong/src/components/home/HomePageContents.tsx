@@ -1,8 +1,8 @@
 'use client';
 
 import { useUserSummary } from '@/hooks/home/user';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useMemo, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import OnboardingModal from '../atoms/OnboardingModal';
 import ApplyBanner from './ApplyBanner';
 import CarouselBanner from './CarouselBanner';
@@ -13,23 +13,25 @@ import ProfileCard from './ProfileCard';
 export default function HomePageContents() {
   const { data: user } = useUserSummary();
 
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
+  const username = mounted ? (user?.name ?? '시별돌') : '';
+  const tier = mounted ? (user?.grade ?? 'Silver') : '';
+  const totalHours = mounted ? Number(user?.totalHour ?? 50) : 0;
+
   const router = useRouter();
-  const searchParams = useSearchParams();
-
-  // /home?onboarding=1 이면 모달 오픈
-  const shouldOpenFromQuery = useMemo(
-    () => searchParams.get('onboarding') === '1',
-    [searchParams]
-  );
-
   const [open, setOpen] = useState(false);
 
+  // 첫 렌더에 localStorage.firstLogin === 'true'이면 모달 오픈
   useEffect(() => {
-    if (shouldOpenFromQuery) setOpen(true);
-  }, [shouldOpenFromQuery]);
+    const firstLogin = localStorage.getItem('firstLogin');
+    if (firstLogin === 'true') setOpen(true);
+  }, []);
 
   const handleClose = () => {
-    localStorage.setItem('seen_onboarding', '1');
+    // 모달 닫았으면 한 번만 뜨도록 false로 변경
+    localStorage.setItem('firstLogin', 'false');
     setOpen(false);
     router.replace('/home');
   };
@@ -37,7 +39,7 @@ export default function HomePageContents() {
   const handleSubmit = async (v: { region: string; interest: string }) => {
     try {
       console.log(v.region, v.interest);
-      localStorage.setItem('seen_onboarding', '1');
+      localStorage.setItem('firstLogin', 'false');
     } finally {
       setOpen(false);
       router.replace('/home');
@@ -47,11 +49,7 @@ export default function HomePageContents() {
   return (
     <main className='flex flex-col items-center gap-4 px-5 pt-5 pb-10'>
       <Header />
-      <ProfileCard
-        username={user?.name ?? '시별돌'}
-        tier={user?.grade ?? 'Silver'}
-        totalHours={Number(user?.totalHour ?? 50)}
-      />
+      <ProfileCard username={username} tier={tier} totalHours={totalHours} />
       <ApplyBanner />
       <CarouselBanner />
       <CertificatesSection />

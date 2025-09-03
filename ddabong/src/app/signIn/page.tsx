@@ -17,9 +17,11 @@ export default function SeniorSignInPage() {
 
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
-  const baseUrl = 'http://localhost:8080';
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+
   const router = useRouter();
   const { showToast } = useToast();
+
   async function formLogin(e: React.FormEvent) {
     e.preventDefault();
     const body = new URLSearchParams();
@@ -44,6 +46,7 @@ export default function SeniorSignInPage() {
       localStorage.setItem('name', name ?? '');
       localStorage.setItem('role', role ?? '');
       localStorage.setItem('firstLogin', firstLogin ?? '');
+
       // 홈에서 쓸 데이터 미리 받아 캐시에 넣기
       qc.prefetchQuery({
         queryKey: ['userSummary'],
@@ -51,12 +54,6 @@ export default function SeniorSignInPage() {
       });
       showToast('로그인되었습니다.');
       router.push('/home');
-
-      // 모달 오픈 여부 결정 → 쿼리로 전달
-      const shouldOpenOnboarding =
-        firstLogin === true || !localStorage.getItem('seen_onboarding');
-      showToast('로그인되었습니다.');
-      router.push(shouldOpenOnboarding ? '/home?onboarding=1' : '/home');
     } catch (err) {
       console.error('로그인 실패:', err);
       showToast('로그인에 실패하였습니다.');
