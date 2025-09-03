@@ -50,7 +50,7 @@ export default function VolunList({
   );
 
   const handleEvaluate = () => {
-    router.push(evaluateHref ?? `/admin/review/write`);
+    router.push(evaluateHref ?? `/admin/review/volunteer`);
     // 추후 id 포함된 경로로 변경
     // router.push(evaluateHref ?? `/admin/review/write/${id}`);
   };
