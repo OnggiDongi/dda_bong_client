@@ -105,6 +105,7 @@ export default function VolunteerListPage() {
                 healthStatus={user.healthStatus}
                 status={user.status}
                 aiReview={user.aiReview}
+                mode='moderation'
               />
             ))
           ) : (

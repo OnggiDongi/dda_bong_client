@@ -112,7 +112,7 @@ export default function RecruitVolunteerListPage() {
 
   return (
     <div className='flex flex-col'>
-      <TopBar title='지원자 목록' />
+      <TopBar title='봉사자 목록' />
       <ActivityApplyInfo
         title='미녀들이랑 노는 봉사'
         endDate='2025.09.01'
