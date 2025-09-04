@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useParams, useRouter } from 'next/navigation';
 import { fetchDetailedActivityPost } from '@/hooks/admin/activity';
-import { useUpdateActivityPostMutation } from '@/hooks/mutations/useActivityMutations';
+import { useUpdateActivityPostMutation, type UpdateVariables } from '@/hooks/mutations/useActivityMutations';
 import PhotoUpload from '@/components/admin/recruit/write/PhotoUpload';
 import RecruitForm from '@/components/admin/recruit/write/RecruitForm';
 import RecruitHeader from '@/components/admin/recruit/write/RecruitHeader';
@@ -14,7 +14,7 @@ import SupportOption, {
 } from '@/components/admin/recruit/write/SupportOption';
 import type { TimeValue } from '@/components/admin/recruit/write/TimePicker';
 import Button from '@/components/atoms/Button';
-import { DetailedActivityPost } from '@/app/apply/[id]/page';
+import type { DetailedActivityPost } from '@/types/activity';
 
 function startOfDay(d: Date) {
   const x = new Date(d);
@@ -41,7 +41,7 @@ export default function RecruitEditPage() {
   const [capacity, setCapacity] = useState<number | ''>('');
   const [description, setDescription] = useState('');
   const [support, setSupport] = useState<Set<SupportKey>>(new Set());
-  const [photoUrl, setPhotoUrl] = useState<string | null>(null);
+  const [photoUrl, setPhotoUrl] = useState<File | string | null>(null);
   const { showToast } = useToast();
 
   const { data: post } = useQuery<DetailedActivityPost>({
@@ -112,7 +112,7 @@ export default function RecruitEditPage() {
     ).padStart(2, '0');
     const mm = startTime.minute;
 
-    const result = {
+    const result: UpdateVariables = {
       id: activityPostId,
       title,
       location: place,
@@ -121,9 +121,13 @@ export default function RecruitEditPage() {
       activityTime: `${hh}:${mm}`,
       capacity: Number(capacity),
       content: description,
-      image: photoUrl || '',
       activityId: activityPostId,
+      supports: Array.from(support),
     };
+
+    if (photoUrl instanceof File) {
+      result.image = photoUrl;
+    }
 
     updateMutation.mutate(result, {
       onSuccess: () => {

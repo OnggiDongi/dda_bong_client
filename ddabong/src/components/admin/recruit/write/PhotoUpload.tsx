@@ -5,7 +5,7 @@ import Txt from '@/components/atoms/Text';
 import { useEffect, useState } from 'react';
 
 type Props = {
-  value: File | null;
+  value: File | string | null;
   onChange: (file: File | null) => void;
 };
 
@@ -13,16 +13,23 @@ export default function PhotoUpload({ value, onChange }: Props) {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   useEffect(() => {
-    if (value) {
-      const url = URL.createObjectURL(value);
-      setPreviewUrl(url);
-
-      return () => {
-        URL.revokeObjectURL(url);
-      };
-    } else {
+    if (!value) {
       setPreviewUrl(null);
+      return;
     }
+
+    if (typeof value === 'string') {
+      setPreviewUrl(value);
+      return;
+    }
+
+    // value is a File
+    const url = URL.createObjectURL(value);
+    setPreviewUrl(url);
+
+    return () => {
+      URL.revokeObjectURL(url);
+    };
   }, [value]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {

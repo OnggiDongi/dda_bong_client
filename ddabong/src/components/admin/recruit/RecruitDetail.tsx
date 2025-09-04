@@ -6,7 +6,7 @@ import { fetchDetailedActivityPost } from '@/hooks/admin/activity';
 import { useDeleteActivityMutation } from '@/hooks/mutations/useActivityMutations';
 import ApplyBody from '@/components/apply/ApplyBody';
 import ApplyFooter from '@/components/apply/ApplyFooter';
-import { DetailedActivityPost } from '@/app/apply/[id]/page';
+import type { DetailedActivityPost } from '@/types/activity';
 
 export default function RecruitDetail() {
   const router = useRouter();

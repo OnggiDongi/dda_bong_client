@@ -11,33 +11,7 @@ import ApplyBody from '@/components/apply/ApplyBody';
 import ApplyFooter from '@/components/apply/ApplyFooter';
 import ApplyHeader from '@/components/apply/ApplyHeader';
 import ApplyReview from '@/components/apply/review/ApplyReview';
-
-export type Review = {
-  id: number;
-  userName: string;
-  profileImage: string;
-  rate: number;
-  comment: string;
-};
-
-export type DetailedActivityPost = {
-  id: number;
-  title: string;
-  content: string;
-  date: string;
-  time: string;
-  category: string;
-  institutionName: string;
-  institutionPhoneNumber: string;
-  capacity: number;
-  location: string;
-  imageUrl: string;
-  totalAvgScore: number;
-  reviews: Review[];
-  dday: string;
-  isLiked?: boolean;
-  isApplied?: boolean;
-};
+import type { DetailedActivityPost } from '@/types/activity';
 
 export default function VolunteerDetailPage() {
   const params = useParams();
@@ -49,7 +23,7 @@ export default function VolunteerDetailPage() {
     data: post,
     isLoading,
     error,
-  } = useQuery<DetailedActivityPost>({
+  } = useQuery<DetailedActivityPost & { isLiked?: boolean; isApplied?: boolean }>({
     queryKey,
     queryFn: () => fetchDetailedActivityPost(postId),
     enabled: !!id,
@@ -92,8 +66,8 @@ export default function VolunteerDetailPage() {
       <div className='flex-1 overflow-y-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'>
         <ApplyBody post={post} />
         <ApplyReview
-          reviews={post.reviews}
-          totalAvgScore={post.totalAvgScore}
+          reviews={post.reviews || []}
+          totalAvgScore={post.totalAvgScore || 0}
         />
       </div>
       <ApplyFooter

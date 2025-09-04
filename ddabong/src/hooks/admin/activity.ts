@@ -1,7 +1,5 @@
-import { components } from '@/types/openapi';
+import type { DetailedActivityPost } from '@/types/activity';
 import { privateClient } from '@/lib/openapi-client';
-
-export type DetailedActivityPost = components['schemas']['ActivityPostDetailResponseDTO'];
 
 export const fetchDetailedActivityPost = async (
   activityPostId: number,
