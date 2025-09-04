@@ -144,6 +144,7 @@ export function useUserForm() {
     password,
     password2,
     avatar,
+    birth,
     nextBirthStr,
     nextRegion,
     category,
