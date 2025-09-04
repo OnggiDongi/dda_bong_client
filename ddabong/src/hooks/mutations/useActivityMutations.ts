@@ -71,3 +71,61 @@ export const useApplyActivityMutation = (
     },
   });
 };
+
+export const useDeleteActivityMutation = () => {
+  const queryClient = useQueryClient();
+  const { showToast } = useToast();
+
+  return useMutation({
+    mutationFn: (id: number) =>
+      client.DELETE('/activity/{id}', {
+        params: { path: { id } },
+      }),
+    onSuccess: () => {
+      showToast('게시물이 삭제되었습니다.', 'success');
+      queryClient.invalidateQueries({ queryKey: ['activityPost'] });
+    },
+    onError: (err: Error) => {
+      showToast(err.message || '삭제에 실패했습니다.', 'error');
+    },
+  });
+};
+
+export const useUpdateActivityMutation = () => {
+  const queryClient = useQueryClient();
+  const { showToast } = useToast();
+
+  return useMutation({
+    mutationFn: (updatedData: components["schemas"]["ActivityUpdateDTO"]) =>
+      client.PATCH('/activity', {
+        body: updatedData,
+      }),
+    onSuccess: (data, variables) => {
+      showToast('게시물이 수정되었습니다.', 'success');
+      queryClient.invalidateQueries({ queryKey: ['activityPost', variables.id] });
+    },
+    onError: (err: Error) => {
+      showToast(err.message || '수정에 실패했습니다.', 'error');
+    },
+  });
+};
+
+export const useUpdateActivityPostMutation = () => {
+  const queryClient = useQueryClient();
+  const { showToast } = useToast();
+
+  return useMutation({
+    mutationFn: ({ id, ...data }: { id: number } & components["schemas"]["ActivityPostRequestDTO"]) =>
+      client.PATCH('/posts/{id}', {
+        params: { path: { id } },
+        body: data,
+      }),
+    onSuccess: (data, variables) => {
+      showToast('게시물이 수정되었습니다.', 'success');
+      queryClient.invalidateQueries({ queryKey: ['activityPost', variables.id] });
+    },
+    onError: (err: Error) => {
+      showToast(err.message || '수정에 실패했습니다.', 'error');
+    },
+  });
+};
