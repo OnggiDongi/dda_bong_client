@@ -57,7 +57,7 @@ export default function SeniorReviewWritePage() {
 
         const data = res.data;
         const result: Data = {
-          userName: localStorage.getItem('name') + '님' || '알 수 없음 님',
+          userName: (localStorage.getItem('name') || '알 수 없음') + '님',
           category: data.category ?? '',
           title: data.title ?? '',
           date: data.date ?? '',

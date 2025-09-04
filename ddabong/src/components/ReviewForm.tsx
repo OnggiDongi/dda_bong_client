@@ -66,30 +66,33 @@ export default function ReviewForm({
       // TODO: 서버 전송(FormData) 필요 시 여기서 처리
       const axiosAuth = UseAxiosWithAuth();
       const formData = new FormData();
-      let imageUrl: string | undefined = undefined;
+      let imageUrl: string | undefined;
 
       if (photo) {
         formData.append('file', photo.file);
-        const fileRes = await axiosAuth.post(
-          `${process.env.NEXT_PUBLIC_API_URL}/upload`,
-          formData
-        );
+        const fileRes = await axiosAuth.post(`/upload`, formData);
+
+        if (fileRes.data?.error) {
+          showToast('사진 업로드에 실패했습니다.');
+          return;
+        }
         imageUrl = fileRes.data;
       }
 
-      await axiosAuth.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/activity/${activityPostId}/review`,
-        {
-          rate1: userRating,
-          content: review,
-          imageUrl,
-        }
-      );
+      const res = await axiosAuth.post(`/activity/${activityPostId}/review`, {
+        rate1: userRating,
+        content: review,
+        imageUrl,
+      });
+      if (res.data?.error) {
+        showToast('리뷰 작성에 실패하였습니다.');
+        return;
+      }
 
       // variant에 따라 라우팅
       if (variant === 'admin') {
         showToast('작성이 완료되었습니다.');
-        router.push(' /admin/review');
+        router.push('/admin/review');
       } else {
         showToast('작성이 완료되었습니다.');
         router.push('/review');
