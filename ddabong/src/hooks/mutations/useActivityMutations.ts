@@ -2,6 +2,7 @@ import { useToast } from '@/contexts/toast/ToastContext';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { privateClient as client } from '@/lib/openapi-client';
 import { DetailedActivityPost } from '@/app/apply/[id]/page';
+import { components } from '@/types/openapi';
 
 export const useLikeActivityMutation = (
   postId: number,
@@ -78,7 +79,7 @@ export const useDeleteActivityMutation = () => {
 
   return useMutation({
     mutationFn: (id: number) =>
-      client.DELETE('/activity/{id}', {
+      client.DELETE('/posts/{id}', {
         params: { path: { id } },
       }),
     onSuccess: () => {
