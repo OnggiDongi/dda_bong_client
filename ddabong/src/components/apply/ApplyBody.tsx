@@ -31,17 +31,23 @@ export default function ApplyBody({ post }: ApplyBodyProps) {
   return (
     <section className='relative flex w-full flex-col'>
       {post.imageUrl && (
-        <img className='h-[334px] w-full object-cover' src={post.imageUrl} alt={post.title} />
+        <img
+          className='h-[334px] w-full object-cover'
+          src={post.imageUrl}
+          alt={post.title}
+        />
       )}
       <div className='px-4'>
         <div className='mt-[21px] mb-[10px] flex gap-1'>
           {post.category && <Badge text={post.category} />}
           {post.dday && (
             <Badge
-              text={recruitmentClosed ? "모집 마감" : formatDeadline(post.dday)}
+              text={recruitmentClosed ? '모집 마감' : formatDeadline(post.dday)}
               bgColor='bg-white'
               textColor={recruitmentClosed ? 'text-red-500' : 'text-Logo-Mint'}
-              borderColor={recruitmentClosed ? 'border-red-500' : 'border-Logo-Mint'}
+              borderColor={
+                recruitmentClosed ? 'border-red-500' : 'border-Logo-Mint'
+              }
             />
           )}
         </div>
