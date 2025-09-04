@@ -1,5 +1,6 @@
 'use client';
 
+import { adminReviewIO, userReviewIO } from '@/hooks/axios/reviewAxios';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
@@ -14,8 +15,12 @@ type Variant = 'user' | 'admin';
 
 export default function ReviewForm({
   variant = 'user',
+  activityPostId,
+  userId,
 }: {
+  activityPostId: number;
   variant?: Variant;
+  userId?: number;
 }) {
   const router = useRouter();
   const formRef = useRef<HTMLFormElement | null>(null);
@@ -52,22 +57,65 @@ export default function ReviewForm({
     setPhoto(null);
   };
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
-
     // 네이티브 required 검증
     if (!form.reportValidity()) return;
-
     // TODO: 서버 전송(FormData) 필요 시 여기서 처리
-    // const data = new FormData(form);
 
     // variant에 따라 라우팅
+    // 봉사자 후기 남기기
     if (variant === 'admin') {
-      showToast('작성이 완료되었습니다.');
-      router.push(' /admin/review');
+      if (!userId) {
+        showToast('잘못된 접근입니다.');
+        return;
+      }
+      const result = await adminReviewIO(
+        activityPostId,
+        health,
+        diligence,
+        friendliness,
+        review,
+        userId
+      );
+
+      switch (result) {
+        case 'errReview':
+          showToast('후기 작성에 실패했습니다.');
+          return;
+        case 'err':
+          showToast('잘못된 요청입니다.');
+          return;
+        default:
+          showToast('작성이 완료되었습니다.');
+          break;
+      }
+
+      router.push('/admin/review');
+      // 일반 유저가 봉사활동 리뷰 남기기
     } else {
-      showToast('작성이 완료되었습니다.');
+      const result = await userReviewIO(
+        activityPostId,
+        userRating,
+        review,
+        photo || undefined
+      );
+
+      switch (result) {
+        case 'errPhoto':
+          showToast('사진 업로드에 실패했습니다.');
+          return;
+        case 'errReview':
+          showToast('후기 작성에 실패했습니다.');
+          return;
+        case 'err':
+          showToast('잘못된 요청입니다.');
+          return;
+        default:
+          showToast('작성이 완료되었습니다.');
+          break;
+      }
       router.push('/review');
     }
   };

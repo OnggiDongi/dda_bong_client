@@ -153,7 +153,7 @@ export default function SeniorSignInPage() {
               가입한 계정이 없으신가요?
             </Txt>
 
-            <Link href='/signUp' className='pb-1 pl-[14px]'>
+            <Link href='/signup' className='pb-1 pl-[14px]'>
               <Txt
                 weight='medium'
                 className='text-Icon-Detail align-middle text-xl underline underline-offset-2'

@@ -10,7 +10,7 @@ const CATEGORY_REVERSE_MAP: { [key: string]: string } = {
   CULTURE: '문화',
   ENVIRONMENT: '환경',
   PUBLIC: '행정',
-  GLOBAL: '농어촌',
+  RURALAREA: '농어촌',
 };
 
 type Props = {

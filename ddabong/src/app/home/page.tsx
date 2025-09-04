@@ -2,6 +2,7 @@
 
 import { useUpdateUserOnboarding } from '@/hooks/home/onboarding';
 import { useUserSummary } from '@/hooks/home/user';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import OnboardingModal from '@/components/atoms/OnboardingModal';
@@ -16,6 +17,7 @@ export default function HomePageContents() {
 
   const router = useRouter();
   const [open, setOpen] = useState(false);
+
   // 첫 렌더에 localStorage.firstLogin === 'true'이면 모달 오픈
   useEffect(() => {
     const firstLogin = localStorage.getItem('firstLogin');
@@ -25,10 +27,23 @@ export default function HomePageContents() {
   const { mutate } = useUpdateUserOnboarding();
 
   if (isLoading) {
-    return <p>로딩 중...</p>;
+    return (
+      <div className='flex min-h-screen items-center justify-center'>
+        <Image
+          src='/video/loading.gif'
+          alt='로딩 중'
+          width={130}
+          height={130}
+          unoptimized
+        />
+      </div>
+    );
   }
+
   if (error) {
-    return <p>오류가 발생했습니다.</p>;
+    return (
+      <p className='text-Logo-Pink mt-20 text-center'>오류가 발생했습니다.</p>
+    );
   }
 
   const username = user?.name ?? '시별돌';
