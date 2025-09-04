@@ -93,6 +93,7 @@ export default function RecruitWritePage() {
       activityTime: `${hh}:${mm}`,
       recruitmentEnd: deadline.toISOString(),
       location: place,
+      supports: Array.from(support),
       capacity: Number(capacity),
       image: photoUrl ?? undefined,
     };
