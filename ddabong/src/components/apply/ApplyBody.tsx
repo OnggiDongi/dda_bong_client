@@ -46,7 +46,9 @@ export default function ApplyBody({ post }: ApplyBodyProps) {
               text={recruitmentClosed ? '모집 마감' : formatDeadline(post.dday)}
               bgColor='bg-white'
               textColor={recruitmentClosed ? 'text-red-500' : 'text-Logo-Mint'}
-              borderColor={recruitmentClosed ? 'border-red-500' : 'border-Logo-Mint'}
+              borderColor={
+                recruitmentClosed ? 'border-red-500' : 'border-Logo-Mint'
+              }
             />
           )}
         </div>
