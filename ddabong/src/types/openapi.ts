@@ -269,6 +269,7 @@ export interface paths {
         delete?: never;
         options?: never;
         head?: never;
+        /** 유저는 자신의 이름, 전화번호, 생년월일, 프로필 사진, 선호지역/카테고리, 비밀번호를 수정할 수 있다. */
         patch: operations["updateUser"];
         trace?: never;
     };
@@ -504,6 +505,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** 기관은 자신의 봉사 모집글에 지원한 지원자 상세정보를 조회할 수 있다. */
         get: operations["getApplicantInfo"];
         put?: never;
         post?: never;
@@ -791,9 +793,13 @@ export interface components {
             imageUrl?: string;
         };
         UserUpdateRequestDTO: {
-            name: string;
-            phoneNumber: string;
-            password: string;
+            password?: string;
+            phoneNumber?: string;
+            birthDate?: string;
+            preferredRegion?: string;
+            preferredCategory?: string;
+            /** Format: binary */
+            profileImage?: string;
         };
         UserResponseDTO: {
             /** Format: int64 */
@@ -803,7 +809,6 @@ export interface components {
             phoneNumber?: string;
             /** Format: int32 */
             totalHour?: number;
-            /** Format: date */
             birthdate?: string;
             preferredRegion?: string;
             profileImage?: string;
@@ -886,6 +891,33 @@ export interface components {
             rate?: number;
             comment?: string;
         };
+        ApplicantListDTO: {
+            category?: string;
+            title?: string;
+            endAt?: string;
+            imageUrl?: string;
+            /** Format: int32 */
+            applicantNum?: number;
+            /** Format: int32 */
+            capacity?: number;
+            reviews?: components["schemas"]["ApplicantReviewResponseDTO"][];
+        };
+        ApplicantReviewResponseDTO: {
+            /** Format: int64 */
+            id?: number;
+            name?: string;
+            profileImage?: string;
+            /** Format: double */
+            rate?: number;
+            /** Format: double */
+            healthStatus?: number;
+            /** Format: double */
+            diligenceLevel?: number;
+            /** Format: double */
+            attitude?: number;
+            aiComment?: string;
+            status?: string;
+        };
         InstitutionSummaryResponseDTO: {
             name?: string;
         };
@@ -897,6 +929,23 @@ export interface components {
             hour?: number;
             /** Format: date-time */
             issuedAt?: string;
+        };
+        ApplicantDetailResponseDTO: {
+            userName?: string;
+            birthDate?: string;
+            phoneNumber?: string;
+            profileImage?: string;
+            preferredCategory?: string;
+            reviewSummary?: string;
+            /** Format: double */
+            totalGrade?: number;
+            /** Format: double */
+            healthStatus?: number;
+            /** Format: double */
+            diligenceLevel?: number;
+            /** Format: double */
+            attitude?: number;
+            userReviews?: components["schemas"]["UserReviewResponseDTO"][];
         };
         ActivityResponseDTO: {
             /** Format: int64 */
@@ -1559,19 +1608,28 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
-        requestBody: {
+        requestBody?: {
             content: {
-                "application/json": components["schemas"]["UserUpdateRequestDTO"];
+                "multipart/form-data": components["schemas"]["UserUpdateRequestDTO"];
             };
         };
         responses: {
-            /** @description OK */
+            /** @description 유저 정보 수정을 성공적으로 완료했습니다. */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
-                    "*/*": components["schemas"]["UserResponseDTO"];
+                    "application/json": components["schemas"]["UserResponseDTO"];
+                };
+            };
+            /** @description 해당하는 유저가 존재하지 않습니다. */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["NotFoundException"];
                 };
             };
         };
@@ -1800,7 +1858,9 @@ export interface operations {
     };
     getActivityPost_1: {
         parameters: {
-            query?: never;
+            query?: {
+                isRecruting?: boolean;
+            };
             header?: never;
             path?: never;
             cookie?: never;
@@ -1844,7 +1904,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": unknown;
+                    "application/json": components["schemas"]["ApplicantListDTO"];
                 };
             };
             /** @description 해당하는 기관 | 봉사 모집글이 존재하지 않습니다. */
@@ -1971,13 +2031,22 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description OK */
+            /** @description 해당 지원자의 정보를 조회했습니다. */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
-                    "*/*": Record<string, never>;
+                    "application/json": components["schemas"]["ApplicantDetailResponseDTO"];
+                };
+            };
+            /** @description 해당하는 기관 | 지원자가 존재하지 않습니다. */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["NotFoundException"];
                 };
             };
         };

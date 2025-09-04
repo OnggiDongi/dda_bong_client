@@ -14,9 +14,9 @@ export default function MyPage() {
   const grade = user?.grade ?? 'Silver';
   const email = user?.email ?? 'silver@naver.com';
   const profile = user?.profileImage;
-  const category = user?.preferredCategory ?? '환경';
-  const rawRegion = user?.preferredRegion ?? '서울특별시 마포구';
-  const region = rawRegion.trim().split(/\s+/).slice(-1)[0] || '마포';
+  const category = user?.preferredCategory ?? '카테고리';
+  const rawRegion = user?.preferredRegion ?? '지역';
+  const region = rawRegion.trim().split(/\s+/).slice(-1)[0] || '지역';
   const birth = user?.birthdate ?? '1970-09-08';
 
   if (isLoading) {

@@ -1,7 +1,11 @@
+// pages/.../MyEditPage.tsx
 'use client';
 
 import { useToast } from '@/contexts/toast/ToastContext';
+import { useUser } from '@/hooks/mypage/mypage';
+import { useUpdateUser } from '@/hooks/mypage/updateUser';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import Category from '@/components/admin/register/Category';
 import LocationSelect from '@/components/apply/LocationSelect';
@@ -11,36 +15,50 @@ import Txt from '@/components/atoms/Text';
 import TopBar from '@/components/atoms/TopBar';
 import DatePicker from '@/components/common/DatePicker';
 
+// pages/.../MyEditPage.tsx
+
 type Preview = { url: string; file: File };
 
 export default function MyEditPage() {
-  // 프로필 미리보기
+  const router = useRouter();
+  const { data: user, isLoading, error } = useUser();
+  const { showToast } = useToast();
+  const { mutate, isPending } = useUpdateUser();
+
   const [avatar, setAvatar] = useState<Preview | null>(null);
   const fileRef = useRef<HTMLInputElement | null>(null);
-  const { showToast } = useToast();
-  // 서버에서 받아온 기존 값이라고 가정
+
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
-  const [phone, setPhone] = useState('010-4113-0361');
-  const [region, setRegion] = useState<string | undefined>(undefined);
-  const [district, setDistrict] = useState<string | undefined>(undefined);
+  const [phone, setPhone] = useState('');
+  const [region, setRegion] = useState('');
+  const [district, setDistrict] = useState('');
+  const [category, setCategory] = useState('');
+  const [birth, setBirth] = useState<Date | null>(null);
 
-  const user = {
-    name: '시별돌',
-    email: 'sibd@naver.com',
-    birth: '1968.09.08',
-    grade: 'SILVER',
-    profile: '/icons/beeber.svg',
-    region: '파주시',
-    category: '농어촌',
-  };
+  useEffect(() => {
+    if (!user) return;
+    setPhone(user.phoneNumber ?? '');
+    setCategory(user.preferredCategory ?? '');
+
+    const raw = (user.preferredRegion ?? '').trim();
+    if (raw) {
+      const parts = raw.split(/\s+/);
+      setRegion(parts[0] ?? '');
+      setDistrict(parts.slice(1).join(' ') ?? '');
+    } else {
+      setRegion('');
+      setDistrict('');
+    }
+
+    if (user.birthdate) setBirth(new Date(user.birthdate));
+  }, [user]);
 
   useEffect(() => {
     return () => {
       if (avatar) URL.revokeObjectURL(avatar.url);
     };
   }, [avatar]);
-  const [joinDate, setJoinDate] = useState<Date>(new Date());
 
   const onChangeAvatar = (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0];
@@ -50,145 +68,216 @@ export default function MyEditPage() {
     e.currentTarget.value = '';
   };
 
+  const fmtBirth = (d: Date) => {
+    const y = d.getFullYear();
+    const m = `${d.getMonth() + 1}`.padStart(2, '0');
+    const day = `${d.getDate()}`.padStart(2, '0');
+    return `${y}.${m}.${day}`;
+  };
+
+  const same = (a?: string | null, b?: string | null) =>
+    (a ?? '').trim() === (b ?? '').trim();
+
+  const hasText = (s?: string | null) => !!s && s.trim().length > 0;
+
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!user) return;
 
-    // 둘 중 하나라도 채웠다면 일치해야 통과
     if ((password || password2) && password !== password2) {
-      alert('비밀번호가 일치하지 않습니다.');
       showToast('비밀번호가 일치하지 않습니다.');
       return;
     }
 
-    // TODO: 서버 전송 로직
-    alert('수정 완료!');
-    showToast('수정이 완료되었습니다.');
+    const fd = new FormData();
+    let changes = 0;
+
+    const prevPhone = user.phoneNumber ?? '';
+    const prevRegion = (user.preferredRegion ?? '').trim();
+    const prevCat = user.preferredCategory ?? '';
+    const prevBirthStr = user.birthdate
+      ? fmtBirth(new Date(user.birthdate))
+      : '';
+
+    // 다음 값
+    const nextRegion = `${region} ${district}`.trim();
+    const nextBirthStr = birth ? fmtBirth(birth) : '';
+
+    // 변경된 것만 append (빈 문자열은 절대 append하지 않음)
+    if (avatar?.file) {
+      fd.append('profileImage', avatar.file);
+      changes++;
+    }
+
+    if (hasText(password)) {
+      fd.append('password', password);
+      changes++;
+    }
+
+    if (hasText(phone) && !same(phone, prevPhone)) {
+      fd.append('phoneNumber', phone.trim());
+      changes++;
+    }
+
+    if (birth && nextBirthStr !== prevBirthStr) {
+      fd.append('birthDate', nextBirthStr);
+      changes++;
+    }
+
+    if (hasText(nextRegion) && !same(nextRegion, prevRegion)) {
+      fd.append('preferredRegion', nextRegion);
+      changes++;
+    }
+
+    if (hasText(category) && !same(category, prevCat)) {
+      fd.append('preferredCategory', category);
+      changes++;
+    }
+
+    // 변경사항 없어도 마이페이지로 이동 (요청)
+    if (changes === 0) {
+      showToast('변경된 내용이 없습니다.');
+      router.replace('/mypage');
+      return;
+    }
+
+    mutate(fd, {
+      onSuccess: () => {
+        showToast('내 정보가 수정되었습니다.');
+        router.replace('/mypage');
+      },
+      onError: () => {
+        showToast('수정에 실패했습니다. 잠시 후 다시 시도해주세요.');
+      },
+    });
   };
-  const [category, setCategory] = useState('');
 
   return (
     <main className='relative mx-auto flex min-h-screen w-full max-w-[430px] flex-col bg-white'>
-      <form onSubmit={onSubmit} className='pb-[120px]'>
-        {/* 제목 */}
-        <TopBar title='내 정보 수정' />
-        {/* 프로필 */}
-        <section className='mt-4 flex items-center justify-center'>
-          <div className='relative h-[120px] w-[120px]'>
-            <Image
-              src={avatar?.url ?? '/icons/ic_senior.svg'}
-              alt='프로필'
-              fill
-              sizes='120px'
-              className='rounded-full object-cover ring-1 ring-black/10'
-              priority
-            />
-            <button
-              type='button'
-              onClick={() => fileRef.current?.click()}
-              className='border-Box-Line absolute right-0 bottom-0 grid h-8 w-8 place-items-center rounded-full border bg-white'
-              aria-label='프로필 이미지 변경'
+      {isLoading ? (
+        <p>로딩 중...</p>
+      ) : error ? (
+        <p>오류가 발생했습니다.</p>
+      ) : (
+        <form onSubmit={onSubmit} className='pb-[120px]'>
+          <TopBar title='내 정보 수정' />
+
+          {/* 프로필 */}
+          <section className='mt-4 flex items-center justify-center'>
+            <div className='relative h-[120px] w-[120px]'>
+              <Image
+                src={
+                  avatar?.url ??
+                  user?.profileImage ??
+                  'https://ddabong-upload.s3.ap-northeast-2.amazonaws.com/uploads/7edb4d83-5813-4032-8292-e9f73c086474-(Frame 2087326976.png)'
+                }
+                alt='프로필'
+                fill
+                sizes='120px'
+                className='rounded-full object-cover ring-1 ring-black/10'
+                priority
+              />
+              <button
+                type='button'
+                onClick={() => fileRef.current?.click()}
+                className='border-Box-Line absolute right-0 bottom-0 grid h-8 w-8 place-items-center rounded-full border bg-white'
+                aria-label='프로필 이미지 변경'
+              >
+                <Image src='/icons/ic_edit.svg' alt='' width={16} height={16} />
+              </button>
+              <input
+                ref={fileRef}
+                type='file'
+                accept='image/*'
+                onChange={onChangeAvatar}
+                className='hidden'
+              />
+            </div>
+          </section>
+
+          {/* 입력 영역 */}
+          <section className='space-y-5 px-[26px] pt-6'>
+            <Field label='이름'>
+              <Input
+                type='text'
+                value={user?.name ?? ''}
+                disabled
+                maxLength={50}
+                className='bg-Page-Background text-Hana-Black h-[50px] w-full pl-5 text-[26px]'
+              />
+            </Field>
+
+            <Field label='비밀번호'>
+              <Input
+                type='password'
+                placeholder='새로운 비밀번호를 입력해주세요'
+                autoComplete='new-password'
+                maxLength={50}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className='h-[50px] w-full pl-5 text-2xl'
+              />
+              <div className='h-3' />
+              <Input
+                type='password'
+                placeholder='비밀번호를 확인해주세요'
+                value={password2}
+                onChange={(e) => setPassword2(e.target.value)}
+                className='h-[50px] w-full pl-5 text-2xl'
+              />
+            </Field>
+
+            <Field label='전화번호'>
+              <Input
+                type='tel'
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                className='h-[50px] w-full pl-5 text-2xl'
+              />
+            </Field>
+
+            <Field label='생년월일'>
+              <DatePicker
+                value={birth ?? undefined}
+                onChange={(d) => setBirth(d ?? null)}
+                disableFuture
+                placeholder='생년월일을 선택하세요'
+              />
+            </Field>
+
+            <Field label='관심 분야'>
+              <div className='[&_*]:text-2xl'>
+                <Category value={category} onValueChange={setCategory} />
+              </div>
+            </Field>
+
+            <Field label='봉사 선호 지역'>
+              <div className='[&_*]:text-2xl'>
+                <LocationSelect
+                  region={region}
+                  district={district}
+                  onRegionChange={setRegion}
+                  onDistrictChange={setDistrict}
+                />
+              </div>
+            </Field>
+          </section>
+
+          {/* 하단 버튼 */}
+          <div className='fixed bottom-0 left-0 w-full bg-white px-6 py-3 shadow-[0_0_5px_0_rgba(0,0,0,0.15)]'>
+            <Button
+              type='submit'
+              className='h-[45px] w-full'
+              disabled={isPending}
             >
-              <Image src='/icons/ic_edit.svg' alt='' width={16} height={16} />
-            </button>
-            <input
-              ref={fileRef}
-              type='file'
-              accept='image/*'
-              onChange={onChangeAvatar}
-              className='hidden'
-            />
+              {isPending ? '수정 중…' : '수정 완료'}
+            </Button>
           </div>
-        </section>
-
-        {/* 입력 영역 */}
-        <section className='space-y-5 px-[26px] pt-6'>
-          {/* 이름 (수정 불가) */}
-          <Field label='이름'>
-            <Input
-              type='name'
-              value={user.name}
-              disabled
-              maxLength={50}
-              className='bg-Page-Background text-Hana-Black placeholder:text-Icon-Detail h-[50px] w-full pl-5 font-[AppleSDGothicNeoM] text-[26px] placeholder:font-[AppleSDGothicNeoM] placeholder:text-[26px]'
-            />
-          </Field>
-
-          {/* 비밀번호 */}
-          <Field label='비밀번호'>
-            <Input
-              type='password'
-              placeholder='새로운 비밀번호를 입력해주세요'
-              autoComplete='new-password'
-              required
-              maxLength={50}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className='text-Hana-Black placeholder:text-Icon-Detail h-[50px] w-full pl-5 font-[AppleSDGothicNeoM] text-2xl placeholder:font-[AppleSDGothicNeoM] placeholder:text-2xl'
-            />
-            <div className='h-3' />
-            <Input
-              type='password'
-              placeholder='비밀번호를 확인해주세요'
-              value={password2}
-              onChange={(e) => setPassword2(e.target.value)}
-              className='text-Hana-Black placeholder:text-Icon-Detail h-[50px] w-full pl-5 font-[AppleSDGothicNeoM] text-2xl placeholder:font-[AppleSDGothicNeoM] placeholder:text-2xl'
-            />
-          </Field>
-
-          {/* 전화번호 */}
-          <Field label='전화번호'>
-            <Input
-              type='tel'
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              className='text-Hana-Black placeholder:text-Icon-Detail h-[50px] w-full pl-5 font-[AppleSDGothicNeoM] text-2xl placeholder:font-[AppleSDGothicNeoM] placeholder:text-2xl'
-            />
-          </Field>
-
-          {/* 생년월일 */}
-          <Field label='생년월일'>
-            <DatePicker
-              value={joinDate}
-              onChange={setJoinDate}
-              disableFuture
-              placeholder='생년월일을 선택하세요'
-            />
-          </Field>
-
-          {/* 관심 분야 */}
-          <Field label='관심 분야'>
-            <div className='[&_*]:text-2xl'>
-              <Category
-                value={category}
-                onValueChange={(value) => setCategory(value)}
-              />
-            </div>
-          </Field>
-
-          {/* 봉사 선호 지역 */}
-          <Field label='봉사 선호 지역'>
-            <div className='[&_*]:text-2xl'>
-              <LocationSelect
-                region={region}
-                district={district}
-                onRegionChange={setRegion}
-                onDistrictChange={setDistrict}
-              />
-            </div>
-          </Field>
-        </section>
-
-        <div className='fixed bottom-0 left-0 w-full bg-white px-6 py-3 shadow-[0_0_5px_0_rgba(0,0,0,0.15)]'>
-          <Button type='submit' form='edit-form' className='h-[45px] w-full'>
-            수정
-          </Button>
-        </div>
-      </form>
+        </form>
+      )}
     </main>
   );
 }
-
-/* ------- 작은 컴포넌트 ------- */
 
 function Field({
   label,
@@ -199,9 +288,7 @@ function Field({
 }) {
   return (
     <div>
-      <Txt weight='semibold' className='text-Hana-Black mb-2 block text-2xl'>
-        {label}
-      </Txt>
+      <Txt className='mb-2 block text-2xl'>{label}</Txt>
       {children}
     </div>
   );
