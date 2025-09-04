@@ -1,6 +1,7 @@
 'use client';
 
 import axios from 'axios';
+import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState, Suspense } from 'react';
 
@@ -44,14 +45,32 @@ function AuthSuccessContent() {
   };
 
   return (
-    <div className='mt-20 text-center text-lg'>로그인 처리 중입니다...</div>
+    <div className='flex min-h-screen items-center justify-center'>
+      <Image
+        src='/video/loading.gif'
+        alt='로딩 중'
+        width={130}
+        height={130}
+        unoptimized
+      />
+    </div>
   );
 }
 
 export default function AuthSuccessPage() {
   return (
     <Suspense
-      fallback={<div className='mt-20 text-center text-lg'>로딩 중...</div>}
+      fallback={
+        <div className='mt-20 flex flex-col items-center justify-center text-lg'>
+          <Image
+            src='/video/loading.gif'
+            alt='로딩 중'
+            width={130}
+            height={130}
+            unoptimized
+          />
+        </div>
+      }
     >
       <AuthSuccessContent />
     </Suspense>

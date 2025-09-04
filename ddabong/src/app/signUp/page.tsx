@@ -4,6 +4,7 @@ import { useToast } from '@/contexts/toast/ToastContext';
 import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useRef, useState } from 'react';
 import Button from '@/components/atoms/Button';
 import Input from '@/components/atoms/Input';
@@ -13,6 +14,7 @@ import DatePicker from '@/components/common/DatePicker';
 export default function SeniorSignUpPage() {
   const [joinDate, setJoinDate] = useState<Date>(new Date());
   const { showToast } = useToast();
+  const router = useRouter();
 
   const nameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
@@ -51,6 +53,8 @@ export default function SeniorSignUpPage() {
         showToast('이미 가입된 이메일 입니다');
         return;
       }
+      showToast('회원가입이 완료되었습니다.');
+      router.push('/signIn');
     } catch (err) {
       if (axios.isAxiosError(err)) {
         // 서버에서 내려준 응답.
@@ -214,7 +218,7 @@ export default function SeniorSignUpPage() {
               계정이 이미 있으신가요?
             </Txt>
 
-            <Link href='/signIn'>
+            <Link href='/signin'>
               <Txt
                 weight='medium'
                 className='text-Icon-Detail align-middle text-xl underline underline-offset-2'
