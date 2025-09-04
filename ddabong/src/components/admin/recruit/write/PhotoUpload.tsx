@@ -2,19 +2,34 @@
 
 import Image from 'next/image';
 import Txt from '@/components/atoms/Text';
+import { useEffect, useState } from 'react';
 
 type Props = {
-  value: string | null;
-  onChange: (url: string | null) => void;
+  value: File | null;
+  onChange: (file: File | null) => void;
 };
 
 export default function PhotoUpload({ value, onChange }: Props) {
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (value) {
+      const url = URL.createObjectURL(value);
+      setPreviewUrl(url);
+
+      return () => {
+        URL.revokeObjectURL(url);
+      };
+    } else {
+      setPreviewUrl(null);
+    }
+  }, [value]);
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    const previewUrl = URL.createObjectURL(file);
-    onChange(previewUrl);
+    onChange(file);
   };
 
   const handleRemove = () => {
@@ -50,14 +65,16 @@ export default function PhotoUpload({ value, onChange }: Props) {
         </>
       ) : (
         <div className='relative inline-block'>
-          <Image
-            src={value}
-            alt='업로드한 사진 미리보기'
-            width={150}
-            height={150}
-            unoptimized
-            className='border-Box-Line h-[150px] w-[150px] rounded-[10px] border object-cover'
-          />
+          {previewUrl && (
+            <Image
+              src={previewUrl}
+              alt='업로드한 사진 미리보기'
+              width={150}
+              height={150}
+              unoptimized
+              className='border-Box-Line h-[150px] w-[150px] rounded-[10px] border object-cover'
+            />
+          )}
           <button
             type='button'
             onClick={handleRemove}

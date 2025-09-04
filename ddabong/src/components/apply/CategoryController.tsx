@@ -3,13 +3,13 @@
 import CategoryButton from './CategoryButton';
 
 const CATEGORY_MAP = {
-  '생활': 'LIVING',
-  '교육': 'EDUCATION',
-  '보건': 'SAFETY',
-  '문화': 'CULTURE',
-  '환경': 'ENVIRONMENT',
-  '행정': 'PUBLIC',
-  '농어촌': 'GLOBAL',
+  생활: 'LIVING',
+  교육: 'EDUCATION',
+  보건: 'SAFETY',
+  문화: 'CULTURE',
+  환경: 'ENVIRONMENT',
+  행정: 'PUBLIC',
+  농어촌: 'RURALAREA',
 } as const;
 
 interface CategoryControllerProps {

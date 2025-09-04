@@ -1,6 +1,8 @@
 'use client';
 
 import { useToast } from '@/contexts/toast/ToastContext';
+import { useCreateActivityPostMutation } from '@/hooks/mutations/useCreateActivityPostMutation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import PhotoUpload from '@/components/admin/recruit/write/PhotoUpload';
 import RecruitForm from '@/components/admin/recruit/write/RecruitForm';
@@ -18,6 +20,10 @@ function startOfDay(d: Date) {
 }
 
 export default function RecruitWritePage() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const activityId = searchParams.get('id');
+
   const [title, setTitle] = useState('');
   const [place, setPlace] = useState('');
   const [volunDate, setVolunDate] = useState<Date | null>(null);
@@ -31,36 +37,24 @@ export default function RecruitWritePage() {
   const [capacity, setCapacity] = useState<number | ''>('');
   const [description, setDescription] = useState('');
   const [support, setSupport] = useState<Set<SupportKey>>(new Set());
-  const [photoUrl, setPhotoUrl] = useState<string | null>(null);
+  const [photoUrl, setPhotoUrl] = useState<File | null>(null);
   const { showToast } = useToast();
+
+  const { mutate, isPending } = useCreateActivityPostMutation();
+
   const isDeadlineValid =
     !!deadline && !!volunDate && startOfDay(deadline) < startOfDay(volunDate);
 
   const isTimeFilled =
     !!startTime.ampm && !!startTime.hour && !!startTime.minute;
 
-  // TODO: 추후에 서버 api 랑 연결
-  // 서버 업로드 요청
-  //   const formData = new FormData();
-  //   formData.append('file', file);
-
-  //   try {
-  //     const res = await fetch('/api/upload', {
-  //       method: 'POST',
-  //       body: formData,
-  //     });
-  //     if (!res.ok) throw new Error('업로드 실패');
-
-  //     const data = await res.json();
-  //     setPhotoUrl(data.url);
-  //   } catch (err) {
-  //     console.error(err);
-  //     alert('사진 업로드에 실패했습니다.');
-  //   }
-  // };
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!activityId) {
+      alert('잘못된 접근입니다.');
+      return;
+    }
 
     if (!volunDate) {
       alert('봉사 날짜를 선택해 주세요.');
@@ -91,21 +85,29 @@ export default function RecruitWritePage() {
     ).padStart(2, '0');
     const mm = startTime.minute;
 
-    const result = {
+    const body = {
       title,
-      place,
-      volunDate: volunDate.toISOString(),
-      deadline: deadline.toISOString(),
-      startTime: `${hh}:${mm}`,
-      totalHours: totalHours,
-      capacity: capacity,
-      description,
-      support: Array.from(support),
-      photoUrl,
+      content: description,
+      activityId: Number(activityId),
+      startAt: volunDate.toISOString(),
+      activityTime: `${hh}:${mm}`,
+      recruitmentEnd: deadline.toISOString(),
+      location: place,
+      supports: Array.from(support),
+      capacity: Number(capacity),
+      image: photoUrl ?? undefined,
     };
-    showToast('작성이 완료되었습니다.');
-    console.log('제출 데이터:', result);
-    alert('작성 완료꾸잉');
+
+    mutate(body, {
+      onSuccess: () => {
+        showToast('작성이 완료되었습니다.');
+        router.push('/admin/review');
+      },
+      onError: (error) => {
+        console.error(error);
+        showToast('작성에 실패하였습니다.');
+      },
+    });
   };
 
   return (
@@ -138,8 +140,13 @@ export default function RecruitWritePage() {
         <SupportOption value={support} onChange={setSupport} />
       </form>
       <div className='fixed bottom-0 left-0 w-full bg-white px-6 py-3 shadow-[0_0_5px_0_rgba(0,0,0,0.15)]'>
-        <Button type='submit' form='recruit-form' className='h-[45px] w-full'>
-          작성 완료
+        <Button
+          type='submit'
+          form='recruit-form'
+          className='h-[45px] w-full'
+          disabled={isPending}
+        >
+          {isPending ? '작성 중...' : '작성 완료'}
         </Button>
       </div>
     </>
