@@ -1,3 +1,4 @@
+import { ToastProvider } from '@/contexts/toast/ToastProvider';
 import type { Metadata } from 'next';
 import Providers from '../../Providers';
 import './globals.css';
@@ -17,7 +18,9 @@ export default function RootLayout({
     <html lang='ko'>
       <body className='flex h-screen items-center justify-center overflow-hidden antialiased'>
         <main className='bg-Page-Background h-full w-full overflow-y-auto shadow-[0_0_10px_rgba(0,0,0,0.3)] sm:max-w-sm [&::-webkit-scrollbar]:hidden'>
-          <Providers>{children}</Providers>
+          <Providers>
+            <ToastProvider>{children}</ToastProvider>
+          </Providers>
         </main>
       </body>
     </html>

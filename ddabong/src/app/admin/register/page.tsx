@@ -1,5 +1,6 @@
 'use client';
 
+import { useToast } from '@/contexts/toast/ToastContext';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Category from '@/components/admin/register/Category';
@@ -14,8 +15,9 @@ export default function RegisterPage() {
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('');
   const [detail, setDetail] = useState('');
-
+  const { showToast } = useToast();
   const handleRegister = () => {
+    showToast('봉사가 추가되었습니다.');
     console.log({ title, category, detail });
     router.push('/admin/home');
   };

@@ -1,5 +1,6 @@
 'use client';
 
+import { useToast } from '@/contexts/toast/ToastContext';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import Category from '@/components/admin/register/Category';
@@ -16,12 +17,13 @@ export default function MyEditPage() {
   // 프로필 미리보기
   const [avatar, setAvatar] = useState<Preview | null>(null);
   const fileRef = useRef<HTMLInputElement | null>(null);
-
+  const { showToast } = useToast();
   // 서버에서 받아온 기존 값이라고 가정
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
   const [phone, setPhone] = useState('010-4113-0361');
-
+  const [region, setRegion] = useState<string | undefined>(undefined);
+  const [district, setDistrict] = useState<string | undefined>(undefined);
 
   const user = {
     name: '시별돌',
@@ -54,11 +56,13 @@ export default function MyEditPage() {
     // 둘 중 하나라도 채웠다면 일치해야 통과
     if ((password || password2) && password !== password2) {
       alert('비밀번호가 일치하지 않습니다.');
+      showToast('비밀번호가 일치하지 않습니다.');
       return;
     }
 
     // TODO: 서버 전송 로직
     alert('수정 완료!');
+    showToast('수정이 완료되었습니다.');
   };
   const [category, setCategory] = useState('');
 
@@ -164,7 +168,12 @@ export default function MyEditPage() {
           {/* 봉사 선호 지역 */}
           <Field label='봉사 선호 지역'>
             <div className='[&_*]:text-2xl'>
-              <LocationSelect />
+              <LocationSelect
+                region={region}
+                district={district}
+                onRegionChange={setRegion}
+                onDistrictChange={setDistrict}
+              />
             </div>
           </Field>
         </section>

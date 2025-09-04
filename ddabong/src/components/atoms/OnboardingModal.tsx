@@ -1,5 +1,6 @@
 'use client';
 
+import { useToast } from '@/contexts/toast/ToastContext';
 import { useEffect, useRef, useState, type MouseEventHandler } from 'react';
 import Button from '@/components/atoms/Button';
 import Txt from '@/components/atoms/Text';
@@ -9,7 +10,7 @@ import LocationSelect from '../apply/LocationSelect';
 type OnboardingModalProps = {
   open: boolean;
   defaultRegion?: string;
-  defaultInterest?: string;
+  defaultCategory?: string;
   onClose: () => void;
   onSubmit: (payload: { region: string; interest: string }) => void;
 };
@@ -17,35 +18,24 @@ type OnboardingModalProps = {
 export default function OnboardingModal({
   open,
   defaultRegion = '',
-  defaultInterest = '',
+  defaultCategory = '',
   onClose,
   onSubmit,
 }: OnboardingModalProps) {
   const overlayRef = useRef<HTMLDivElement>(null);
-  const [region, setRegion] = useState(defaultRegion);
-  const [interest, setInterest] = useState(defaultInterest);
-
-  const canSubmit = region !== '' && interest !== '';
+  const [region, setRegion] = useState<string>(defaultRegion);
+  const [district, setDistrict] = useState<string>('');
+  const [category, setCategory] = useState<string>(defaultCategory);
+  const { showToast } = useToast();
 
   const onClickOverlay: MouseEventHandler<HTMLDivElement> = (e) => {
     if (e.target === overlayRef.current) onClose();
   };
+  const canSubmit = region !== '' && district !== '' && category !== '';
 
   useEffect(() => {
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-    };
-    const prevOverflow = document.body.style.overflow;
-    document.addEventListener('keydown', onKey);
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.removeEventListener('keydown', onKey);
-      document.body.style.overflow = prevOverflow;
-    };
   }, [open, onClose]);
-
-  const [category, setCategory] = useState('');
 
   if (!open) return null;
 
@@ -82,7 +72,12 @@ export default function OnboardingModal({
               봉사 선호 지역
             </Txt>
             <div className='[&_*]:text-2xl'>
-              <LocationSelect />
+              <LocationSelect
+                region={region}
+                district={district}
+                onRegionChange={setRegion}
+                onDistrictChange={setDistrict}
+              />
             </div>
           </div>
 
@@ -91,10 +86,7 @@ export default function OnboardingModal({
               관심 분야
             </Txt>
             <div className='[&_*]:text-2xl'>
-              <Category
-                value={category}
-                onValueChange={(value) => setCategory(value)}
-              />
+              <Category value={category} onValueChange={setCategory} />
             </div>
           </div>
         </div>
@@ -112,8 +104,12 @@ export default function OnboardingModal({
 
           <Button
             color='green'
+            disabled={!canSubmit}
             className='h-[45px] w-[155px] rounded-xl py-2.5 disabled:opacity-40'
-            onClick={() => onSubmit({ region, interest })}
+            onClick={() => {
+              onSubmit({ region: region + ' ' + district, interest: category });
+              showToast('선호 지역과 관심 분야가 저장되었습니다');
+            }}
           >
             완료
           </Button>

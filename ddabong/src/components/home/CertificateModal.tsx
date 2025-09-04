@@ -1,5 +1,6 @@
 'use client';
 
+import { useToast } from '@/contexts/toast/ToastContext';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import Txt from '@/components/atoms/Text';
@@ -25,18 +26,18 @@ export default function CertificateModal({
   date,
   totalHours,
 }: ModalProps) {
+  const { showToast } = useToast();
   if (!open) return null;
 
   const { bgColor, borderColor } = getCertificateStyle(totalHours);
-
   const handleShare = () => {
     //TODO: 공유 기능 구현
-    alert('공유하기!');
+    showToast('링크가 복사되었습니다.');
   };
 
   const handleSave = () => {
     //TODO: 이미지 저장 기능 구현
-    alert('이미지 저장!');
+    showToast('저장이 완료되었습니다.');
   };
 
   return (

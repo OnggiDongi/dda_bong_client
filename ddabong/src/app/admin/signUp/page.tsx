@@ -1,6 +1,9 @@
 'use client';
 
-import { useInstitutionSignUp, SignUpBody } from '@/types/useInstitutionSignUp';
+import {
+  useInstitutionSignUp,
+  SignUpBody,
+} from '@/hooks/mutations/useInstitutionSignUp';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -24,7 +27,7 @@ export default function AdminSignUpPage() {
 
     if (password !== secondPassword) {
       alert('비밀번호가 일치하지 않습니다.');
-      return; // 서버로 요청 보내지 않음
+      return; // 서버로 요청 보내지 않음.
     }
 
     signUp.mutate({

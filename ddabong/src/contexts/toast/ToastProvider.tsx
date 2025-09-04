@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import { useState, PropsWithChildren } from 'react';
 import { cn } from '@/lib/utils';
@@ -42,7 +44,7 @@ export function ToastProvider({
       {isVisible && (
         <div
           className={cn(
-            'fixed top-1/2 left-1/2 z-[1000] -translate-x-1/2 transform transition-all duration-150',
+            'fixed top-7/9 left-1/2 z-[1000] -translate-x-1/2 transform transition-all duration-150',
             position,
             isAnimating
               ? 'translate-y-0 opacity-100'

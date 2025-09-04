@@ -1,7 +1,9 @@
 'use client';
 
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useMemo, useState } from 'react';
+import { useUpdateUserOnboarding } from '@/hooks/home/onboarding';
+import { useUserSummary } from '@/hooks/home/user';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import OnboardingModal from '@/components/atoms/OnboardingModal';
 import ApplyBanner from '@/components/home/ApplyBanner';
 import CarouselBanner from '@/components/home/CarouselBanner';
@@ -9,46 +11,59 @@ import CertificatesSection from '@/components/home/CertificatesSection';
 import Header from '@/components/home/Header';
 import ProfileCard from '@/components/home/ProfileCard';
 
-export default function HomePage() {
+export default function HomePageContents() {
+  const { data: user, isLoading, error } = useUserSummary();
+
   const router = useRouter();
-  const searchParams = useSearchParams();
-
-  // /home?onboarding=1 이면 모달 오픈
-  const shouldOpenFromQuery = useMemo(
-    () => searchParams.get('onboarding') === '1',
-    [searchParams]
-  );
-
   const [open, setOpen] = useState(false);
-
+  // 첫 렌더에 localStorage.firstLogin === 'true'이면 모달 오픈
   useEffect(() => {
-    if (shouldOpenFromQuery) setOpen(true);
-  }, [shouldOpenFromQuery]);
+    const firstLogin = localStorage.getItem('firstLogin');
+    if (firstLogin === 'true') setOpen(true);
+  }, []);
+
+  const { mutate } = useUpdateUserOnboarding();
+
+  if (isLoading) {
+    return <p>로딩 중...</p>;
+  }
+  if (error) {
+    return <p>오류가 발생했습니다.</p>;
+  }
+
+  const username = user?.name ?? '시별돌';
+  const tier = user?.grade ?? 'Silver';
+  const totalHours = Number(user?.totalHour ?? 50);
 
   const handleClose = () => {
-    localStorage.setItem('seen_onboarding', '1');
+    // 모달 닫았으면 한 번만 뜨도록 false로 변경
+    localStorage.setItem('firstLogin', 'false');
     setOpen(false);
     router.replace('/home');
   };
 
-  const handleSubmit = async (v: { region: string; interest: string }) => {
-    try {
-      localStorage.setItem('seen_onboarding', '1');
-    } finally {
-      setOpen(false);
-      router.replace('/home');
-    }
+  const handleSubmit = (v: { region: string; interest: string }) => {
+    mutate(
+      { preferredRegion: v.region, preferredCategory: v.interest },
+      {
+        onSuccess: () => {
+          setOpen(false);
+          router.replace('/home');
+        },
+        onError: () => {
+          alert('설정 저장에 실패했습니다. 잠시 후 다시 시도해주세요.');
+        },
+      }
+    );
   };
 
   return (
     <main className='flex flex-col items-center gap-4 px-5 pt-5 pb-10'>
       <Header />
-      <ProfileCard username={'별돌이군'} tier={'Silver'} totalHours={72} />
+      <ProfileCard username={username} tier={tier} totalHours={totalHours} />
       <ApplyBanner />
       <CarouselBanner />
       <CertificatesSection />
-
-      {/* 온보딩 모달 */}
       <OnboardingModal
         open={open}
         onClose={handleClose}

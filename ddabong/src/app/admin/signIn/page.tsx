@@ -1,10 +1,50 @@
+'use client';
+
+import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import Button from '@/components/atoms/Button';
 import Input from '@/components/atoms/Input';
 import Txt from '@/components/atoms/Text';
 
 export default function AdminSignInPage() {
+  const [username, setUserName] = useState('');
+  const [password, setPassword] = useState('');
+  const baseUrl = 'http://localhost:8080';
+  const router = useRouter();
+
+  async function formLogin(e: React.FormEvent) {
+    e.preventDefault();
+    const body = new URLSearchParams();
+    body.append('username', username);
+    body.append('password', password);
+
+    try {
+      const { data } = await axios.post(
+        baseUrl + '/users/signin',
+        body.toString(),
+        {
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        }
+      );
+
+      console.log(data);
+
+      const { accessToken, refreshToken, name } = data ?? {};
+
+      localStorage.setItem('accessToken', accessToken ?? '');
+      localStorage.setItem('refreshToken', refreshToken ?? '');
+      localStorage.setItem('name', name ?? '');
+
+      router.push('/admin/home');
+    } catch (err) {
+      console.error('로그인 실패:', err);
+      alert('로그인에 실패했습니다. 이메일/비밀번호를 확인해 주세요.');
+    }
+  }
+
   return (
     <main className='flex flex-col items-center pt-25'>
       {/* 로고 */}
@@ -20,7 +60,7 @@ export default function AdminSignInPage() {
       {/* 폼 컨테이너 */}
       <div className='mt-[44px] w-[300px]'>
         <form className='flex flex-col'>
-          {/* 이메일 */}
+          {/* 이메일. */}
           <div>
             <label className='block'>
               <Txt weight='semibold' className='text-Hana-Black text-xl'>
@@ -33,6 +73,8 @@ export default function AdminSignInPage() {
               autoComplete='email'
               required
               maxLength={50}
+              value={username}
+              onChange={(e) => setUserName(e.target.value)}
               className='text-Hana-Black placeholder:text-Icon-Detail mt-[10px] mb-[25px] h-[50px] w-full pl-5 font-[AppleSDGothicNeoM] text-lg placeholder:font-[AppleSDGothicNeoM] placeholder:text-lg'
             />
           </div>
@@ -50,16 +92,21 @@ export default function AdminSignInPage() {
               autoComplete='current-password'
               required
               maxLength={50}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className='text-Hana-Black placeholder:text-Icon-Detail mt-[10px] mb-[50px] h-[50px] w-full pl-5 font-[AppleSDGothicNeoM] text-lg placeholder:font-[AppleSDGothicNeoM] placeholder:text-lg'
             />
           </div>
 
           {/* 로그인 버튼 */}
-          <Link href='/admin/home'>
-            <Button className='h-[45px] w-full font-[AppleSDGothicNeoSB] text-xl'>
-              로그인
-            </Button>
-          </Link>
+
+          <Button
+            className='h-[45px] w-full font-[AppleSDGothicNeoSB] text-xl'
+            onClick={formLogin}
+            type='submit'
+          >
+            로그인
+          </Button>
 
           {/* 회원가입으로 이동 */}
           <div className='flex items-center justify-center pt-[30px]'>

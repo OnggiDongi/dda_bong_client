@@ -290,14 +290,32 @@ export interface paths {
         patch: operations["getInstitutionInfo_1"];
         trace?: never;
     };
-    "/users/{id}": {
+    "/users": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        get: operations["getUserById"];
+        /** 유저의 이메일로 유저 정보(이름, 전화번호, 생년월일, 프로필 사진, 선호지역/카테고리 , 등급) 조회 */
+        get: operations["getUserByEmail"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/users/summary": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** 유저의 이메일로 유저 정보(이름, 등급, 누적 봉사시간) 조회 */
+        get: operations["getUserSummaryByEmail"];
         put?: never;
         post?: never;
         delete?: never;
@@ -414,6 +432,23 @@ export interface paths {
         };
         /** 기관의 정보를 확인할 수 있다. */
         get: operations["getInstitutionInfo_2"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/institutions/summary": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** 기관명을 이메일로 조회할 수 있다. */
+        get: operations["getInstitutionSummaryByEmail"];
         put?: never;
         post?: never;
         delete?: never;
@@ -665,22 +700,7 @@ export interface components {
         };
         UserOnboardingRequestDTO: {
             preferredRegion: string;
-            preferredCategory: ("LIVING" | "EDUCATION" | "SAFETY" | "CULTURE" | "ENVIRONMENT" | "PUBLIC" | "GLOBAL")[];
-        };
-        UserResponseDTO: {
-            /** Format: int64 */
-            id?: number;
-            name?: string;
-            email?: string;
-            phoneNumber?: string;
-            /** Format: int32 */
-            totalHour?: number;
-            /** Format: date */
-            birthdate?: string;
-            preferredRegion?: string;
-            profileImage?: string;
-            preferredCategory?: string[];
-            grade?: string;
+            preferredCategory: string;
         };
         ActivityPostRequestDTO: {
             title: string;
@@ -762,7 +782,7 @@ export interface components {
             title: string;
             content: string;
             /** @enum {string} */
-            category: "LIVING" | "EDUCATION" | "SAFETY" | "CULTURE" | "ENVIRONMENT" | "PUBLIC" | "GLOBAL";
+            category: "LIVING" | "EDUCATION" | "SAFETY" | "CULTURE" | "ENVIRONMENT" | "PUBLIC" | "RURALAREA";
         };
         ActivityReviewRequestDTO: {
             /** Format: int32 */
@@ -775,13 +795,28 @@ export interface components {
             phoneNumber: string;
             password: string;
         };
+        UserResponseDTO: {
+            /** Format: int64 */
+            id?: number;
+            name?: string;
+            email?: string;
+            phoneNumber?: string;
+            /** Format: int32 */
+            totalHour?: number;
+            /** Format: date */
+            birthdate?: string;
+            preferredRegion?: string;
+            profileImage?: string;
+            preferredCategory?: string;
+            grade?: string;
+        };
         ActivityUpdateDTO: {
             /** Format: int64 */
             id?: number;
             title?: string;
             content?: string;
             /** @enum {string} */
-            category?: "LIVING" | "EDUCATION" | "SAFETY" | "CULTURE" | "ENVIRONMENT" | "PUBLIC" | "GLOBAL";
+            category?: "LIVING" | "EDUCATION" | "SAFETY" | "CULTURE" | "ENVIRONMENT" | "PUBLIC" | "RURALAREA";
         };
         UserReviewResponseDTO: {
             /** Format: int64 */
@@ -804,6 +839,12 @@ export interface components {
             /** Format: date-time */
             createdAt?: string;
         };
+        UserSummaryResponseDTO: {
+            name?: string;
+            grade?: string;
+            /** Format: int32 */
+            totalHour?: number;
+        };
         ActivityPostResponseDTO: {
             /** Format: int64 */
             id?: number;
@@ -812,14 +853,46 @@ export interface components {
             location?: string;
             imageUrl?: string;
             /** @enum {string} */
-            category?: "LIVING" | "EDUCATION" | "SAFETY" | "CULTURE" | "ENVIRONMENT" | "PUBLIC" | "GLOBAL";
+            category?: "LIVING" | "EDUCATION" | "SAFETY" | "CULTURE" | "ENVIRONMENT" | "PUBLIC" | "RURALAREA";
             /** Format: int32 */
             applicantNum?: number;
             dday?: string;
         };
+        ActivityPostDetailResponseDTO: {
+            /** Format: int64 */
+            id?: number;
+            title?: string;
+            content?: string;
+            date?: string;
+            time?: string;
+            category?: string;
+            institutionName?: string;
+            institutionPhoneNumber?: string;
+            /** Format: int32 */
+            capacity?: number;
+            location?: string;
+            imageUrl?: string;
+            /** Format: double */
+            totalAvgScore?: number;
+            reviews?: components["schemas"]["ActivityReviewResponseDTO"][];
+            dday?: string;
+        };
+        ActivityReviewResponseDTO: {
+            /** Format: int64 */
+            id?: number;
+            userName?: string;
+            profileImage?: string;
+            /** Format: int32 */
+            rate?: number;
+            comment?: string;
+        };
+        InstitutionSummaryResponseDTO: {
+            name?: string;
+        };
         CertificationResponseDTO: {
             /** Format: int64 */
             id?: number;
+            username?: string;
             /** Format: int32 */
             hour?: number;
             /** Format: date-time */
@@ -831,7 +904,7 @@ export interface components {
             title?: string;
             content?: string;
             /** @enum {string} */
-            category?: "LIVING" | "EDUCATION" | "SAFETY" | "CULTURE" | "ENVIRONMENT" | "PUBLIC" | "GLOBAL";
+            category?: "LIVING" | "EDUCATION" | "SAFETY" | "CULTURE" | "ENVIRONMENT" | "PUBLIC" | "RURALAREA";
         };
         ActivityMyReviewResponseDTO: {
             /** Format: int64 */
@@ -962,7 +1035,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "*/*": components["schemas"]["UserResponseDTO"];
+                    "*/*": Record<string, never>;
                 };
             };
         };
@@ -1565,24 +1638,69 @@ export interface operations {
             };
         };
     };
-    getUserById: {
+    getUserByEmail: {
         parameters: {
             query?: never;
             header?: never;
-            path: {
-                id: number;
-            };
+            path?: never;
             cookie?: never;
         };
         requestBody?: never;
         responses: {
-            /** @description OK */
+            /** @description 유저 정보를 성공적으로 조회했습니다. */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
-                    "*/*": components["schemas"]["UserResponseDTO"];
+                    "application/json": components["schemas"]["UserResponseDTO"];
+                };
+            };
+            /** @description 해당하는 유저가 존재하지 않습니다. */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["NotFoundException"];
+                };
+            };
+        };
+    };
+    getUserSummaryByEmail: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 유저 정보 요약을 성공적으로 조회했습니다. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserSummaryResponseDTO"];
+                };
+            };
+            /** @description 잘못된 요청입니다. */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BadRequestException"];
+                };
+            };
+            /** @description 해당하는 유저가 존재하지 않습니다. */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["NotFoundException"];
                 };
             };
         };
@@ -1666,7 +1784,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": unknown;
+                    "application/json": components["schemas"]["ActivityPostDetailResponseDTO"];
                 };
             };
             /** @description 해당하는 봉사 모집글이 존재하지 않습니다. */
@@ -1758,6 +1876,35 @@ export interface operations {
                 };
                 content: {
                     "application/json": unknown;
+                };
+            };
+            /** @description 존재하지 않는 기관입니다. */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["NotFoundException"];
+                };
+            };
+        };
+    };
+    getInstitutionSummaryByEmail: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 기관명 조회를 성공했습니다. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["InstitutionSummaryResponseDTO"];
                 };
             };
             /** @description 존재하지 않는 기관입니다. */

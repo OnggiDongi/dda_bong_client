@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { useToast } from '../contexts/toast/ToastContext';
 import ReviewRating from './ReviewRating';
 import AiComment from './atoms/AiComment';
 import Badge from './atoms/Badge';
@@ -37,11 +38,13 @@ export default function ActivityReview({
   mode = 'evaluation',
   evaluateHref,
 }: Props) {
+
   const router = useRouter();
 
   // 승인/거절 모드에서만 사용
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState<'APPROVE' | 'REJECT' | null>(null);
+  const { showToast } = useToast();
 
   const openModal = (type: 'APPROVE' | 'REJECT') => {
     setModalType(type);
@@ -53,8 +56,12 @@ export default function ActivityReview({
   };
   const handleConfirm = () => {
     if (modalType === 'APPROVE') {
+      showToast('수락이 완료되었습니다.');
+      // 수락 처리
       console.log('수락!');
     } else {
+      showToast('거절이 완료되었습니다.');
+      // 거절 처리
       console.log('거절!');
     }
     closeModal();
