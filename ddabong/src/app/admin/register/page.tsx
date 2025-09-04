@@ -19,7 +19,7 @@ export default function RegisterPage() {
   const handleRegister = () => {
     showToast('봉사가 추가되었습니다.');
     console.log({ title, category, detail });
-    router.push('/admin/home');
+    router.push('/admin/recruit');
   };
 
   return (
