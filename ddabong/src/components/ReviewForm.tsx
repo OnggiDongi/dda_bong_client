@@ -1,6 +1,6 @@
 'use client';
 
-import { UseAxiosWithAuth } from '@/hooks/axios/useAxiosWithAuth';
+import { adminReviewIO, userReviewIO } from '@/hooks/axios/reviewAxios';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
@@ -16,9 +16,11 @@ type Variant = 'user' | 'admin';
 export default function ReviewForm({
   variant = 'user',
   activityPostId,
+  userId,
 }: {
+  activityPostId: number;
   variant?: Variant;
-  activityPostId: number | null;
+  userId?: number;
 }) {
   const router = useRouter();
   const formRef = useRef<HTMLFormElement | null>(null);
@@ -56,49 +58,65 @@ export default function ReviewForm({
   };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    try {
-      e.preventDefault();
-      const form = e.currentTarget;
+    e.preventDefault();
+    const form = e.currentTarget;
+    // 네이티브 required 검증
+    if (!form.reportValidity()) return;
+    // TODO: 서버 전송(FormData) 필요 시 여기서 처리
 
-      // 네이티브 required 검증
-      if (!form.reportValidity()) return;
-
-      // TODO: 서버 전송(FormData) 필요 시 여기서 처리
-      const axiosAuth = UseAxiosWithAuth();
-      const formData = new FormData();
-      let imageUrl: string | undefined;
-
-      if (photo) {
-        formData.append('file', photo.file);
-        const fileRes = await axiosAuth.post(`/upload`, formData);
-
-        if (fileRes.data?.error) {
-          showToast('사진 업로드에 실패했습니다.');
-          return;
-        }
-        imageUrl = fileRes.data;
-      }
-
-      const res = await axiosAuth.post(`/activity/${activityPostId}/review`, {
-        rate1: userRating,
-        content: review,
-        imageUrl,
-      });
-      if (res.data?.error) {
-        showToast('리뷰 작성에 실패하였습니다.');
+    // variant에 따라 라우팅
+    // 봉사자 후기 남기기
+    if (variant === 'admin') {
+      if (!userId) {
+        showToast('잘못된 접근입니다.');
         return;
       }
+      const result = await adminReviewIO(
+        activityPostId,
+        health,
+        diligence,
+        friendliness,
+        review,
+        userId
+      );
 
-      // variant에 따라 라우팅
-      if (variant === 'admin') {
-        showToast('작성이 완료되었습니다.');
-        router.push('/admin/review');
-      } else {
-        showToast('작성이 완료되었습니다.');
-        router.push('/review');
+      switch (result) {
+        case 'errReview':
+          showToast('후기 작성에 실패했습니다.');
+          return;
+        case 'err':
+          showToast('잘못된 요청입니다.');
+          return;
+        default:
+          showToast('작성이 완료되었습니다.');
+          break;
       }
-    } catch {
-      showToast('리뷰 작성에 실패하였습니다.');
+
+      router.push('/admin/review');
+      // 일반 유저가 봉사활동 리뷰 남기기
+    } else {
+      const result = await userReviewIO(
+        activityPostId,
+        userRating,
+        review,
+        photo || undefined
+      );
+
+      switch (result) {
+        case 'errPhoto':
+          showToast('사진 업로드에 실패했습니다.');
+          return;
+        case 'errReview':
+          showToast('후기 작성에 실패했습니다.');
+          return;
+        case 'err':
+          showToast('잘못된 요청입니다.');
+          return;
+        default:
+          showToast('작성이 완료되었습니다.');
+          break;
+      }
+      router.push('/review');
     }
   };
 
