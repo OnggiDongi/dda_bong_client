@@ -171,7 +171,7 @@ export default function AdminSignUpPage() {
             <Txt weight='medium' className='text-Icon-Detail text-base'>
               계정이 이미 있으신가요?
             </Txt>
-            <Link href='/signin/admin' className='pb-1 pl-[14px]'>
+            <Link href='/admin/signin' className='pb-1 pl-[14px]'>
               <Txt
                 weight='medium'
                 className='text-Icon-Detail align-middle text-base underline underline-offset-2'
