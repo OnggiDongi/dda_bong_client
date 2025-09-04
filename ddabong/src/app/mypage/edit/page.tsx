@@ -1,4 +1,3 @@
-// pages/.../MyEditPage.tsx
 'use client';
 
 import { useToast } from '@/contexts/toast/ToastContext';
@@ -7,6 +6,7 @@ import { useUpdateUser } from '@/hooks/mypage/updateUser';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
+import { isValidMobile } from '@/lib/phone';
 import Category from '@/components/admin/register/Category';
 import LocationSelect from '@/components/apply/LocationSelect';
 import Button from '@/components/atoms/Button';
@@ -14,8 +14,6 @@ import Input from '@/components/atoms/Input';
 import Txt from '@/components/atoms/Text';
 import TopBar from '@/components/atoms/TopBar';
 import DatePicker from '@/components/common/DatePicker';
-
-// pages/.../MyEditPage.tsx
 
 type Preview = { url: string; file: File };
 
@@ -36,6 +34,9 @@ export default function MyEditPage() {
   const [category, setCategory] = useState('');
   const [birth, setBirth] = useState<Date | null>(null);
 
+  const [phoneError, setPhoneError] = useState<string>('');
+
+  // 유저 정보 로딩 완료 시 폼 초기화
   useEffect(() => {
     if (!user) return;
     setPhone(user.phoneNumber ?? '');
@@ -54,6 +55,7 @@ export default function MyEditPage() {
     if (user.birthdate) setBirth(new Date(user.birthdate));
   }, [user]);
 
+  // 아바타 미리보기 URL 정리
   useEffect(() => {
     return () => {
       if (avatar) URL.revokeObjectURL(avatar.url);
@@ -68,6 +70,7 @@ export default function MyEditPage() {
     e.currentTarget.value = '';
   };
 
+  // yyyy.MM.dd 포맷
   const fmtBirth = (d: Date) => {
     const y = d.getFullYear();
     const m = `${d.getMonth() + 1}`.padStart(2, '0');
@@ -84,6 +87,15 @@ export default function MyEditPage() {
     e.preventDefault();
     if (!user) return;
 
+    if (hasText(phone) && !isValidMobile(phone.trim())) {
+      setPhoneError(
+        '휴대폰 번호 형식이 올바르지 않습니다. (예: 010-1234-5678)'
+      );
+      showToast('휴대폰 번호 형식이 올바르지 않습니다.');
+      return;
+    }
+
+    // 비밀번호 일치 검증
     if ((password || password2) && password !== password2) {
       showToast('비밀번호가 일치하지 않습니다.');
       return;
@@ -134,7 +146,7 @@ export default function MyEditPage() {
       changes++;
     }
 
-    // 변경사항 없어도 마이페이지로 이동 (요청)
+    // 변경사항 없어도 마이페이지로 이동
     if (changes === 0) {
       showToast('변경된 내용이 없습니다.');
       router.replace('/mypage');
@@ -231,9 +243,31 @@ export default function MyEditPage() {
               <Input
                 type='tel'
                 value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                onChange={(e) => {
+                  setPhone(e.target.value);
+                  if (phoneError) setPhoneError('');
+                }}
+                onBlur={() => {
+                  if (phone && !isValidMobile(phone.trim())) {
+                    setPhoneError(
+                      '휴대폰 번호 형식이 올바르지 않습니다. (예: 010-1234-5678)'
+                    );
+                  }
+                }}
+                // 브라우저 기본 검증도 같이 사용
+                inputMode='tel'
+                pattern='^(01[016789])-(\d{3,4})-(\d{4})$'
+                title='예: 010-1234-5678'
+                aria-invalid={!!phoneError}
+                aria-describedby={phoneError ? 'phone-error' : undefined}
+                placeholder='010-1234-5678'
                 className='h-[50px] w-full pl-5 text-2xl'
               />
+              {phoneError && (
+                <p id='phone-error' className='mt-1 text-sm text-red-500'>
+                  {phoneError}
+                </p>
+              )}
             </Field>
 
             <Field label='생년월일'>
@@ -268,7 +302,7 @@ export default function MyEditPage() {
             <Button
               type='submit'
               className='h-[45px] w-full'
-              disabled={isPending}
+              disabled={isPending || !!phoneError}
             >
               {isPending ? '수정 중…' : '수정 완료'}
             </Button>
