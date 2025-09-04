@@ -1,29 +1,26 @@
 'use client';
 
+import {
+  CertificationDTO,
+  useMyCertificates,
+} from '@/hooks/home/certifications';
+import { format } from 'date-fns';
 import { useState } from 'react';
 import Txt from '@/components/atoms/Text';
 import CertificateCard from './CertificateCard';
 import CertificateModal from './CertificateModal';
 
-const certificates: {
-  username: string;
-  date: string;
-  totalHours: number;
-}[] = [
-  { username: '시별돌', date: '2026.09.05', totalHours: 50 },
-  { username: '시별돌', date: '2026.09.08', totalHours: 100 },
-  { username: '시별돌', date: '2026.09.10', totalHours: 150 },
-  // { username: '시별돌', date: '2026.09.15', totalHours: 200 },
-];
+function fmt(date?: string) {
+  return date ? format(new Date(date), 'yyyy.MM.dd') : '';
+}
 
 export default function CertificatesSection() {
-  const [selected, setSelected] = useState<null | {
-    title: string;
-    date: string;
-    totalHours: number;
-  }>(null);
+  const [selected, setSelected] = useState<CertificationDTO | null>(null);
+
+  const { data: certificates = [] } = useMyCertificates();
 
   const isScrollable = certificates.length > 2;
+
   return (
     <section className='border-Background h-[280px] w-[350px] rounded-[20px] border bg-white'>
       <Txt
@@ -41,22 +38,16 @@ export default function CertificatesSection() {
               : 'flex justify-center gap-10'
           }
         >
-          {certificates.map((cert, idx) => (
+          {certificates.map((cert) => (
             <div
-              key={idx}
+              key={cert.id}
               className={isScrollable ? 'shrink-0 snap-start' : ''}
-              onClick={() =>
-                setSelected({
-                  title: cert.username,
-                  date: cert.date,
-                  totalHours: cert.totalHours,
-                })
-              }
+              onClick={() => setSelected(cert)}
             >
               <CertificateCard
-                userName={cert.username}
-                date={cert.date}
-                totalHours={cert.totalHours}
+                userName={cert.username ?? ''}
+                date={fmt(cert.issuedAt)}
+                totalHours={cert.hour ?? 0}
               />
             </div>
           ))}
@@ -72,9 +63,9 @@ export default function CertificatesSection() {
       <CertificateModal
         open={!!selected}
         onClose={() => setSelected(null)}
-        userName={selected?.title ?? ''}
-        date={selected?.date ?? ''}
-        totalHours={selected?.totalHours ?? 0}
+        userName={selected?.username ?? ''}
+        date={fmt(selected?.issuedAt)}
+        totalHours={selected?.hour ?? 0}
       />
     </section>
   );
