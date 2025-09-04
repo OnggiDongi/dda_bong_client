@@ -76,8 +76,9 @@ export default function MyEditPage() {
           <AvatarPicker
             avatar={avatar}
             fallback={
-              user.profileImage ??
-              'https://ddabong-upload.s3.ap-northeast-2.amazonaws.com/uploads/7edb4d83-5813-4032-8292-e9f73c086474-(Frame 2087326976.png)'
+              user.profileImage && user.profileImage !== 'DEFAULT_IMG'
+                ? user.profileImage
+                : 'https://ddabong-upload.s3.ap-northeast-2.amazonaws.com/uploads/7edb4d83-5813-4032-8292-e9f73c086474-(Frame 2087326976.png)'
             }
             onPick={(f: File) => f && onChangeAvatar(f)}
           />

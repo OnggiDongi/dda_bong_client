@@ -4,6 +4,8 @@ import Image from 'next/image';
 import { useRef } from 'react';
 import { Preview } from './useUserForm';
 
+export const DEFAULT_IMG = '/images/defaultSenior.png';
+
 export function AvatarPicker({
   avatar,
   fallback,
@@ -14,7 +16,10 @@ export function AvatarPicker({
   onPick: (file: File) => void;
 }) {
   const fileRef = useRef<HTMLInputElement | null>(null);
-  const src = avatar?.url ?? fallback;
+  const safeFallback =
+    fallback && fallback.trim().length > 0 ? fallback : DEFAULT_IMG;
+
+  const src = avatar?.url ?? safeFallback;
 
   return (
     <div className='relative h-[120px] w-[120px]'>

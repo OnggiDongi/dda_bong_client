@@ -111,7 +111,7 @@ export function useUserForm() {
       changes++;
     }
     if (birth && nextBirthStr !== prevBirthStr) {
-      fd.append('birthDate', nextBirthStr);
+      fd.append('birthdate', nextBirthStr);
       changes++;
     }
     if (hasText(nextRegion) && !same(nextRegion, prevRegion)) {
