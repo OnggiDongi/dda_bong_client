@@ -50,9 +50,7 @@ export default function VolunList({
   );
 
   const handleEvaluate = () => {
-    router.push(evaluateHref ?? `/admin/review/volunteer`);
-    // 추후 id 포함된 경로로 변경
-    // router.push(evaluateHref ?? `/admin/review/write/${id}`);
+    router.push(evaluateHref ?? `/admin/review/volunteer/${id}`);
   };
 
   const handleAllReviews = () => {
@@ -96,7 +94,6 @@ export default function VolunList({
           )}
         </div>
       </div>
-
       {mode === 'history' && (
         <div className='flex justify-center gap-3 pt-3 pl-18'>
           <Button

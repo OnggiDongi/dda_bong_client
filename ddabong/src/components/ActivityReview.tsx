@@ -24,6 +24,8 @@ type Props = {
   aiReview: string | null;
   mode?: Mode;
   evaluateHref?: string;
+  /* 현재 로그인한 평가자가 이 봉사자에 대해 이미 평가했는지 */
+  hasMyReview?: boolean; // default: false
 };
 
 export default function ActivityReview({
@@ -37,6 +39,7 @@ export default function ActivityReview({
   aiReview,
   mode = 'evaluation',
   evaluateHref,
+  hasMyReview = false,
 }: Props) {
 
   const router = useRouter();
@@ -69,18 +72,13 @@ export default function ActivityReview({
 
   // 평가 버튼 렌더링
   const renderEvaluateButton = () => {
-    const isReviewed =
-      totalRate !== null ||
-      diligenceLevel !== null ||
-      attitude !== null ||
-      healthStatus !== null;
+    const isReviewedByMe = hasMyReview ?? false; // 기본값 false
 
-    // 공통 클래스를 조건부로 조합
     const btnClasses =
       'h-auto w-auto' +
-      (isReviewed ? ' pointer-events-none cursor-default' : '');
+      (isReviewedByMe ? ' pointer-events-none cursor-default' : '');
 
-    const badgeClasses = 'px-4' + (isReviewed ? ' opacity-70' : '');
+    const badgeClasses = 'px-4' + (isReviewedByMe ? ' opacity-70' : '');
 
     return (
       <div className='flex flex-wrap gap-2'>
@@ -88,17 +86,17 @@ export default function ActivityReview({
           color='white'
           className={btnClasses}
           textClassName='leading-none flex items-center'
-          aria-disabled={isReviewed}
-          tabIndex={isReviewed ? -1 : 0} // 키보드 포커스 차단
+          aria-disabled={isReviewedByMe}
+          tabIndex={isReviewedByMe ? -1 : 0}
           onClick={() => {
-            if (!isReviewed && evaluateHref) router.push(evaluateHref);
+            if (!isReviewedByMe && evaluateHref) router.push(evaluateHref);
           }}
         >
           <Badge
-            text={isReviewed ? '평가완료' : '평가하기'}
-            bgColor={isReviewed ? 'bg-Box-Line' : 'bg-Logo-Pink'}
-            borderColor={isReviewed ? undefined : 'border-Logo-Pink'}
-            textClassName={isReviewed ? 'text-Hana-Black' : 'text-white'}
+            text={isReviewedByMe ? '평가완료' : '평가하기'}
+            bgColor={isReviewedByMe ? 'bg-Box-Line' : 'bg-Logo-Pink'}
+            borderColor={isReviewedByMe ? undefined : 'border-Logo-Pink'}
+            textClassName={isReviewedByMe ? 'text-Hana-Black' : 'text-white'}
             className={badgeClasses}
           />
         </Button>
