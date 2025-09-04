@@ -53,7 +53,7 @@ export default function SeniorSignUpPage() {
       }
     } catch (err) {
       if (axios.isAxiosError(err)) {
-        // 서버에서 내려준 응답
+        // 서버에서 내려준 응답.
         if (err.response) {
           // 검증 에러가 배열로 온 경우
           if (err.response.data.errors) {
