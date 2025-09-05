@@ -77,7 +77,7 @@ export default function SeniorReviewListPage() {
         const tmpApply: BaseItem[] = [];
         const tmpHistory: BaseItem[] = [];
 
-        (res.data as getItem[]).map((item) => {
+        (res.data as getItem[]).forEach((item) => {
           const reviewedBool = item.hasReview === true;
 
           // 날짜 비교: 동일 포맷이면 문자열 비교 가능
@@ -146,7 +146,6 @@ export default function SeniorReviewListPage() {
       showToast('봉사 취소에 실패했습니다.');
       return;
     }
-    console.log(res);
 
     showToast('취소가 완료되었습니다.');
     if (!cancelTarget) return;
