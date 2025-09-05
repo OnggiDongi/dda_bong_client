@@ -111,7 +111,7 @@ export function useUserForm() {
       changes++;
     }
     if (birth && nextBirthStr !== prevBirthStr) {
-      fd.append('birthdate', nextBirthStr);
+      fd.append('birthDate', nextBirthStr);
       changes++;
     }
     if (hasText(nextRegion) && !same(nextRegion, prevRegion)) {
@@ -128,7 +128,16 @@ export function useUserForm() {
       router.replace('/mypage');
       return;
     }
-
+    console.log('=== FormData (useUserForm.submit) ===');
+    for (const [key, value] of fd.entries()) {
+      if (value instanceof File) {
+        console.log(
+          `${key}: File { name=${value.name}, type=${value.type}, size=${value.size} }`
+        );
+      } else {
+        console.log(`${key}: ${value}`);
+      }
+    }
     mutate(fd, {
       onSuccess: () => {
         showToast('내 정보가 수정되었습니다.');
