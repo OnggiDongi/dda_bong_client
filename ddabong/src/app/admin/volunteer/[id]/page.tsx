@@ -34,6 +34,8 @@ export default function VolunteerListPage() {
             applicantsData.reviews.map((user) => (
               <ActivityReview
                 key={user.id}
+                id={user.id ?? 0}
+                activityPostId={postId}
                 userName={user.name ?? ''}
                 imageUrl={user.profileImage ?? ''}
                 totalRate={user.rate ?? null}
@@ -41,7 +43,7 @@ export default function VolunteerListPage() {
                 attitude={user.attitude ?? null}
                 healthStatus={user.healthStatus ?? null}
                 status={user.status ?? ''}
-                aiReview={user.aiComment ?? 'ai 넣어주시길바람'}
+                aiReview={user.aiComment ?? null}
               />
             ))
           ) : (

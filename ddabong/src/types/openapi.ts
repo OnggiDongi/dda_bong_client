@@ -854,6 +854,11 @@ export interface components {
             imageUrl?: string;
             /** @enum {string} */
             category?: "LIVING" | "EDUCATION" | "SAFETY" | "CULTURE" | "ENVIRONMENT" | "PUBLIC" | "RURALAREA";
+            /** @enum {string} */
+            status?: "PENDING" | "APPROVED" | "REJECTED";
+            hasReview?: boolean;
+            /** Format: int32 */
+            totalHour?: number;
             /** Format: int32 */
             applicantNum?: number;
             dday?: string;
@@ -905,6 +910,8 @@ export interface components {
         ApplicantReviewResponseDTO: {
             /** Format: int64 */
             id?: number;
+            /** Format: int64 */
+            userId?: number;
             name?: string;
             profileImage?: string;
             /** Format: double */
