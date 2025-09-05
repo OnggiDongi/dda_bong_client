@@ -46,11 +46,11 @@ export default function ActivityReview({
 
   const handleConfirm = () => {
     if (modalType === 'APPROVE') {
-      showToast('수락이 완료되었습니다.');
+      showToast('수락이 완료되었습니다.', 'success');
       // ✅ 수락 처리
       console.log('수락!');
     } else {
-      showToast('거절이 완료되었습니다.');
+      showToast('거절이 완료되었습니다.', 'success');
       // ✅ 거절 처리
       console.log('거절!');
     }

@@ -97,7 +97,7 @@ export default function SeniorReviewListPage() {
   };
 
   const handleConfirmCancel = () => {
-    showToast('취소가 완료되었습니다.');
+    showToast('취소가 완료되었습니다.', 'success');
     if (!cancelTarget) return;
     setApplyList((prev) => prev.filter((x) => x.id !== cancelTarget.id));
     setCancelTarget(null);

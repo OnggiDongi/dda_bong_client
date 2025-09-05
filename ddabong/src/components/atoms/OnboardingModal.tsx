@@ -108,7 +108,7 @@ export default function OnboardingModal({
             className='h-[45px] w-[155px] rounded-xl py-2.5 disabled:opacity-40'
             onClick={() => {
               onSubmit({ region: region + ' ' + district, interest: category });
-              showToast('선호 지역과 관심 분야가 저장되었습니다');
+              showToast('선호 지역과 관심 분야가 저장되었습니다', 'success');
             }}
           >
             완료

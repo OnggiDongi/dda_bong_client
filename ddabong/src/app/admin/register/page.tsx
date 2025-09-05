@@ -32,7 +32,7 @@ export default function RegisterPage() {
       },
       {
         onSuccess: () => {
-          showToast('등록에 성공하였습니다.');
+          showToast('등록에 성공하였습니다.', 'success');
           router.push('/admin/recruit');
         },
       }

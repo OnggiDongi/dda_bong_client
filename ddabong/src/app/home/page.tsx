@@ -1,5 +1,6 @@
 'use client';
 
+import { useToast } from '@/contexts/toast/ToastContext';
 import { useUpdateUserOnboarding } from '@/hooks/home/onboarding';
 import { useUserSummary } from '@/hooks/home/user';
 import Image from 'next/image';
@@ -17,6 +18,7 @@ export default function HomePageContents() {
 
   const router = useRouter();
   const [open, setOpen] = useState(false);
+  const { showToast } = useToast();
 
   // 첫 렌더에 localStorage.firstLogin === 'true'이면 모달 오픈
   useEffect(() => {
@@ -66,7 +68,10 @@ export default function HomePageContents() {
           router.replace('/home');
         },
         onError: () => {
-          alert('설정 저장에 실패했습니다. 잠시 후 다시 시도해주세요.');
+          showToast(
+            '설정 저장에 실패했습니다. 잠시 후 다시 시도해주세요.',
+            'error'
+          );
         },
       }
     );

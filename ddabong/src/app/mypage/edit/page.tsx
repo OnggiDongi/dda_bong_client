@@ -55,14 +55,12 @@ export default function MyEditPage() {
 
     // 둘 중 하나라도 채웠다면 일치해야 통과
     if ((password || password2) && password !== password2) {
-      alert('비밀번호가 일치하지 않습니다.');
-      showToast('비밀번호가 일치하지 않습니다.');
+      showToast('비밀번호가 일치하지 않습니다.', 'error');
       return;
     }
 
     // TODO: 서버 전송 로직
-    alert('수정 완료!');
-    showToast('수정이 완료되었습니다.');
+    showToast('수정이 완료되었습니다.', 'success');
   };
   const [category, setCategory] = useState('');
 
