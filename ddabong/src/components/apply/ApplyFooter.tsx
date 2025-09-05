@@ -89,7 +89,11 @@ export default function ApplyFooter({
         )}
 
         {recruitmentClosed ? (
-          <Txt className='text-2xl'>모집이 마감되었습니다.</Txt>
+          <div className='flex h-[70%] w-[85%] items-center justify-center rounded-lg bg-[#EBEDF1]'>
+            <Txt className='text-Modal-font text-xl'>
+              모집이 마감되었습니다.
+            </Txt>
+          </div>
         ) : (
           <Button
             className={`h-[45px] w-[145px] ${hasApplied ? 'bg-Modal-font' : 'bg-Logo-Mint'}`}
