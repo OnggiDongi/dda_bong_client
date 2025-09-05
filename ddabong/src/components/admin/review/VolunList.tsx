@@ -76,11 +76,24 @@ export default function VolunList({
       ? { label: '봉사 전체 리뷰', href: allReviewsHref ?? defaults.allReviews }
       : { label: '지원자 보기', href: applicantsHref ?? defaults.applicants };
 
-  const handlePrimary = () => router.push(primaryAction.href);
-  const handleSecondary = () => router.push(secondaryAction.href);
+  const handleNavigate = () => router.push(`/admin/recruit/${id}`);
+
+  const handleButtonClick = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    e.stopPropagation();
+    if (mode === 'apply') {
+      router.push(applicantsHref ?? defaults.applicants);
+    } else {
+      router.push(evaluateHref ?? defaults.evaluate);
+    }
+  };
 
   return (
-    <div className={cn('bg-white px-4 py-5', className)}>
+    <div
+      className={cn('bg-white px-4 py-5 cursor-pointer', className)}
+      onClick={handleNavigate}
+    >
       <div className='flex items-center gap-3'>
         <Image
           src={imageUrl}
@@ -101,7 +114,7 @@ export default function VolunList({
         <div
           className={cn(
             'ml-auto flex shrink-0 flex-col items-end gap-1',
-            mode === 'apply' ? 'pb-4' : 'pb-12'
+            'pb-4',
           )}
         >
           {mode === 'apply' ? (
@@ -121,18 +134,10 @@ export default function VolunList({
         <Button
           className='h-[25px] w-[120px]'
           color='pink'
-          onClick={handlePrimary}
+          onClick={handleButtonClick}
           textClassName='text-base'
         >
-          {primaryAction.label}
-        </Button>
-        <Button
-          className='h-[25px] w-[120px]'
-          color='pink'
-          onClick={handleSecondary}
-          textClassName='text-base'
-        >
-          {secondaryAction.label}
+          {mode === 'apply' ? '지원자 보기' : '봉사자 평가'}
         </Button>
       </div>
     </div>
