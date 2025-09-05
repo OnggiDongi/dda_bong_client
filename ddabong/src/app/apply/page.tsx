@@ -2,6 +2,7 @@
 
 import { components } from '@/types/openapi';
 import { useQuery } from '@tanstack/react-query';
+import Image from 'next/image';
 import { useState } from 'react';
 import { privateClient } from '@/lib/openapi-client';
 import CategoryController from '@/components/apply/CategoryController';
@@ -94,7 +95,15 @@ export default function ApplyPage() {
         />
         <section className='flex flex-col gap-4'>
           {isLoading ? (
-            <Txt className='text-center'>로딩 중...</Txt>
+            <div className='mt-40 flex items-center justify-center'>
+              <Image
+                src='/video/loading.gif'
+                alt='로딩 중'
+                width={130}
+                height={130}
+                unoptimized
+              />
+            </div>
           ) : isError ? (
             <Txt className='text-center text-red-500'>
               봉사활동 목록을 불러오는 데 실패했습니다. 로그인 정보를

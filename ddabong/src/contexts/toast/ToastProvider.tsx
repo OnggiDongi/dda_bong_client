@@ -52,7 +52,7 @@ export function ToastProvider({
           )}
         >
           {/* Toast UI */}
-          <div className='bg-Hana-Black flex min-w-fit items-center gap-3 rounded-[6px] px-5 py-2 shadow-[0px_0px_5px_0px_rgba(0,0,0,0.15)]'>
+          <div className='bg-Hana-Black bg-opacity-90 flex min-w-fit items-center gap-3 rounded-[25px] px-5 py-2 shadow-[0px_0px_5px_0px_rgba(0,0,0,0.15)]'>
             <Image
               src='/icons/ic_check.svg'
               alt='success'

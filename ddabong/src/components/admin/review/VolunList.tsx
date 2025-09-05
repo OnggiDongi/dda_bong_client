@@ -20,8 +20,14 @@ type Props = {
   applicantsNum?: number;
   rating?: number;
   className?: string;
+
+  // history 모드에서 사용 (기존)
   evaluateHref?: string;
   allReviewsHref?: string;
+
+  // apply 모드에서 사용할 새 링크
+  detailHref?: string; // 봉사 상세 보기
+  applicantsHref?: string; // 지원자 보기
 };
 
 export default function VolunList({
@@ -37,6 +43,8 @@ export default function VolunList({
   className,
   evaluateHref,
   allReviewsHref,
+  detailHref,
+  applicantsHref,
 }: Props) {
   const router = useRouter();
 
@@ -49,15 +57,27 @@ export default function VolunList({
     </div>
   );
 
-  const handleEvaluate = () => {
-    router.push(evaluateHref ?? `/admin/review/write`);
-    // 추후 id 포함된 경로로 변경
-    // router.push(evaluateHref ?? `/admin/review/write/${id}`);
+  // 기본 라우트 (주입 안되면 아래로 이동)
+  const defaults = {
+    evaluate: `/admin/review/${id}`, // /${userid} 덧붙여야됨 .. 예: 관리자 평가 작성/수정
+    allReviews: `/apply/${id}`, // 예: 봉사 전체 리뷰 보기
+    detail: `/admin/recruit/${id}`, // 예: 봉사 상세 페이지
+    applicants: `/admin/volunteer/${id}`, // 예: 지원자 목록
   };
 
-  const handleAllReviews = () => {
-    router.push(allReviewsHref ?? `/apply/${id}`);
-  };
+  // 모드에 따라 버튼 라벨/링크 결정
+  const primaryAction =
+    mode === 'history'
+      ? { label: '봉사자 평가', href: evaluateHref ?? defaults.evaluate }
+      : { label: '봉사 상세 보기', href: detailHref ?? defaults.detail };
+
+  const secondaryAction =
+    mode === 'history'
+      ? { label: '봉사 전체 리뷰', href: allReviewsHref ?? defaults.allReviews }
+      : { label: '지원자 보기', href: applicantsHref ?? defaults.applicants };
+
+  const handlePrimary = () => router.push(primaryAction.href);
+  const handleSecondary = () => router.push(secondaryAction.href);
 
   return (
     <div className={cn('bg-white px-4 py-5', className)}>
@@ -80,7 +100,7 @@ export default function VolunList({
 
         <div
           className={cn(
-            'ml-auto flex shrink-0 flex-col items-end gap-1 pb-4',
+            'ml-auto flex shrink-0 flex-col items-end gap-1',
             mode === 'apply' ? 'pb-4' : 'pb-12'
           )}
         >
@@ -97,26 +117,24 @@ export default function VolunList({
         </div>
       </div>
 
-      {mode === 'history' && (
-        <div className='flex justify-center gap-3 pt-3 pl-18'>
-          <Button
-            className='h-[25px] w-[120px]'
-            color='pink'
-            onClick={handleEvaluate}
-            textClassName='text-base'
-          >
-            봉사자 평가
-          </Button>
-          <Button
-            className='h-[25px] w-[120px]'
-            color='pink'
-            onClick={handleAllReviews}
-            textClassName='text-base'
-          >
-            봉사 전체 리뷰
-          </Button>
-        </div>
-      )}
+      <div className='flex justify-end gap-7 pt-3'>
+        <Button
+          className='h-[25px] w-[120px]'
+          color='pink'
+          onClick={handlePrimary}
+          textClassName='text-base'
+        >
+          {primaryAction.label}
+        </Button>
+        <Button
+          className='h-[25px] w-[120px]'
+          color='pink'
+          onClick={handleSecondary}
+          textClassName='text-base'
+        >
+          {secondaryAction.label}
+        </Button>
+      </div>
     </div>
   );
 }

@@ -1,9 +1,12 @@
+// 모집 봉사 이력
 'use client';
 
 import { useState } from 'react';
 import VolunList from '@/components/admin/review/VolunList';
 import TopBar from '@/components/atoms/TopBar';
 import TabButton from '@/components/review/TabButton';
+
+// 모집 봉사 이력
 
 type Tab = 'apply' | 'history';
 
