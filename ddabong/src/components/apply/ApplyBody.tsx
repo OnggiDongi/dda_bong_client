@@ -37,7 +37,6 @@ export default function ApplyBody({ post }: ApplyBodyProps) {
   const endHour = Number(startHour) + Number(post.time);
 
   const finalTime = `${startHour}:${startMinute} - ${endHour}:${startMinute}`;
-  console.log(finalTime);
 
   return (
     <section className='relative flex w-full flex-col'>

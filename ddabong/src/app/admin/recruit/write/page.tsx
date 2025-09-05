@@ -99,8 +99,6 @@ export default function RecruitWritePage() {
       image: photoUrl ?? undefined,
     };
 
-    console.log(typeof body.activityTime);
-
     mutate(body, {
       onSuccess: () => {
         showToast('작성이 완료되었습니다.');
