@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useGetMyActivityPosts } from '@/hooks/queries/useGetMyActivityPosts';
 import VolunList from '@/components/admin/review/VolunList';
 import TopBar from '@/components/atoms/TopBar';
@@ -29,6 +29,15 @@ export default function ReviewListPage() {
   const isError = isErrorRecruiting || isErrorPast;
 
   const listData = activeTab === 'apply' ? recruitingPosts : pastPosts;
+
+  useEffect(() => {
+    if (recruitingPosts && recruitingPosts.length > 0) {
+        console.log("First recruiting post data:", recruitingPosts[0]);
+    }
+    if (pastPosts && pastPosts.length > 0) {
+        console.log("First past post data:", pastPosts[0]);
+    }
+  }, [recruitingPosts, pastPosts]);
 
   if (isLoading) {
     return (
