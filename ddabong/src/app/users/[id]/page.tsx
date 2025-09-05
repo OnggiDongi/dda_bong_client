@@ -1,6 +1,7 @@
 'use client';
 
 import { useApplicantInfo } from '@/hooks/volunteer/applicants';
+import Image from 'next/image';
 import { use } from 'react';
 import UserInfo from '@/components/admin/volunteer/UserInfo';
 import UserReviewList from '@/components/admin/volunteer/UserReviewList';
@@ -17,7 +18,19 @@ export default function ApplicantsDetailPage({
 
   const { data, isLoading, error } = useApplicantInfo(idNumber);
 
-  if (isLoading) return <p>로딩 중...</p>;
+  if (isLoading) {
+    return (
+      <div className='flex min-h-screen items-center justify-center'>
+        <Image
+          src='/video/loading.gif'
+          alt='로딩 중'
+          width={130}
+          height={130}
+          unoptimized
+        />
+      </div>
+    );
+  }
   if (error) return <p>에러가 발생했습니다.</p>;
   if (!data) return <p>데이터가 없습니다.</p>;
 

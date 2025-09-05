@@ -6,6 +6,7 @@ import {
   useLikeActivityMutation,
 } from '@/hooks/mutations/useActivityMutations';
 import { useQuery } from '@tanstack/react-query';
+import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import ApplyBody from '@/components/apply/ApplyBody';
 import ApplyFooter from '@/components/apply/ApplyFooter';
@@ -62,8 +63,14 @@ export default function VolunteerDetailPage() {
     return (
       <main className='flex h-dvh flex-col bg-white'>
         <ApplyHeader />
-        <div className='flex flex-1 items-center justify-center'>
-          로딩 중...
+        <div className='flex min-h-screen items-center justify-center'>
+          <Image
+            src='/video/loading.gif'
+            alt='로딩 중'
+            width={130}
+            height={130}
+            unoptimized
+          />
         </div>
       </main>
     );

@@ -20,7 +20,17 @@ export default function MyPage() {
   const birth = user?.birthdate ?? '1970-09-08';
 
   if (isLoading) {
-    return <p>로딩 중...</p>;
+    return (
+      <div className='flex min-h-screen items-center justify-center'>
+        <Image
+          src='/video/loading.gif'
+          alt='로딩 중'
+          width={130}
+          height={130}
+          unoptimized
+        />
+      </div>
+    );
   }
   if (error) {
     return <p>오류가 발생했습니다.</p>;

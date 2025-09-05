@@ -41,6 +41,7 @@ export default function AdminSignInPage() {
       localStorage.setItem('name', name ?? '');
 
       router.push('/admin/home');
+      showToast('로그인에 성공했습니다.', 'success');
     } catch (err) {
       console.error('로그인 실패:', err);
       showToast(
