@@ -64,7 +64,7 @@ export default function ApplyFooter({
   return (
     <>
       <section
-        className={`relative flex h-[68px] items-center justify-center ${recruitmentClosed ? '' : 'gap-32'}`}
+        className={`relative flex h-[68px] items-center justify-center shadow-[0_0_5px_0_rgba(0,0,0,0.15)] ${recruitmentClosed ? '' : 'gap-32'}`}
       >
         {!recruitmentClosed && (
           <button

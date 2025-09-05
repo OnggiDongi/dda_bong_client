@@ -7,6 +7,7 @@ import TopBar from '@/components/atoms/TopBar';
 import TabButton from '@/components/review/TabButton';
 import Txt from '@/components/atoms/Text';
 
+
 type Tab = 'apply' | 'history';
 
 const CATEGORY_REVERSE_MAP: { [key: string]: string } = {
