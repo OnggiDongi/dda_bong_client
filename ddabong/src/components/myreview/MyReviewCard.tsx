@@ -10,7 +10,7 @@ interface MyReviewCardProps {
   category: string;
   title: string;
   date: string;
-  rating: number;
+  rating: number | string;
   imageUrl: string;
   content: string;
   onDelete: () => void;

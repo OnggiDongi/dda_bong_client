@@ -8,13 +8,15 @@ import Modal from '../atoms/modal';
 
 type ApplyFooterProps = {
   isApply: boolean;
-  postTitle: string;
-  dday: string;
+  postTitle?: string;
+  dday?: string;
   isLiked?: boolean;
   hasApplied?: boolean;
   isApplying?: boolean;
-  onLike: () => void;
-  onApply: () => void;
+  onLike?: () => void;
+  onApply?: () => void;
+  onDelete?: () => void;
+  onEdit?: () => void;
 };
 
 export default function ApplyFooter({
@@ -26,33 +28,48 @@ export default function ApplyFooter({
   isApplying = false,
   onLike,
   onApply,
+  onDelete,
+  onEdit,
 }: ApplyFooterProps) {
   const [isModalOpened, setModalOpened] = useState<boolean>(false);
 
   const openModal = () => setModalOpened(true);
   const closeModal = () => setModalOpened(false);
   const handleConfirmApply = () => {
-    onApply();
+    onApply?.();
     closeModal();
   };
+
+  if (!isApply) {
+    return (
+      <section className='relative flex h-[68px] items-center justify-center gap-4'>
+        <Button
+          className='h-[45px] w-[145px] bg-gray-400'
+          onClick={onEdit}
+        >
+          수정하기
+        </Button>
+        <Button
+          className='h-[45px] w-[145px] bg-red-500'
+          onClick={onDelete}
+        >
+          삭제하기
+        </Button>
+      </section>
+    );
+  }
 
   const isRecruitmentClosed = () => {
     if (dday === 'D-DAY' || dday === 'D-0') {
       return false;
     }
-    if (dday.startsWith('D-')) {
+    if (dday?.startsWith('D-')) {
       return false;
     }
     return true;
   };
 
   const recruitmentClosed = isRecruitmentClosed();
-
-  // This component is only for the user-facing apply page now.
-  // The admin-related logic (edit/delete) is removed for clarity.
-  if (!isApply) {
-    return null;
-  }
 
   const getButtonText = () => {
     if (recruitmentClosed) return '모집 마감';
@@ -64,7 +81,7 @@ export default function ApplyFooter({
   return (
     <>
       <section
-        className={`relative flex h-[68px] items-center justify-center ${recruitmentClosed ? '' : 'gap-32'}`}
+        className={`relative flex h-[68px] items-center justify-center shadow-[0_0_5px_0_rgba(0,0,0,0.15)] ${recruitmentClosed ? '' : 'gap-32'}`}
       >
         {!recruitmentClosed && (
           <button
@@ -106,7 +123,7 @@ export default function ApplyFooter({
       </section>
       {isModalOpened && (
         <Modal
-          title={postTitle}
+          title={postTitle || ''}
           description={'해당 봉사활동을 신청하시겠습니까?'}
           onCancel={closeModal}
           onConfirm={handleConfirmApply}

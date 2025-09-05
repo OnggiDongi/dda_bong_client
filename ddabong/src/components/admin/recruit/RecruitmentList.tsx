@@ -41,19 +41,14 @@ export default function RecruitmentList({
             }`}
             onClick={() => onSelectRecruitment(recruitment.id)}
           >
-            <div className='mb-2 flex items-center gap-2'>
+            <div className='mb-3 flex items-center gap-2'>
               <Badge
                 text={recruitment.category}
-                className='text-Hana-Black h-[25px] w-[60px] rounded-[15px] text-center text-base'
+                className='h-[25px] w-[60px] rounded-[15px] text-center text-base'
               />
-              <Txt
-                weight='semibold'
-                className='text-Hana-Black pl-[7px] text-lg'
-              >
-                {recruitment.title}
-              </Txt>
+              <Txt className='pb-0.5 pl-1 text-lg'>{recruitment.title}</Txt>
             </div>
-            <Txt weight='semibold' className='text-Icon-Detail text-base'>
+            <Txt className='text-Icon-Detail text-base'>
               {recruitment.content}
             </Txt>
           </div>
