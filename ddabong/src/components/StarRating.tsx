@@ -3,7 +3,7 @@
 import Image from 'next/image';
 
 type StarRatingProps = {
-  value: number;
+  value: number | (string & {});
   onChange?: (v: number) => void;
   max?: number;
   size?: number;
@@ -46,12 +46,12 @@ export default function StarRating({
           const THRESHOLD_4_ALMOST = 0.85;
 
           // 현재 별이 완전히 채워지는 경우
-          if (value >= starIndex + 1) {
+          if (typeof value === 'number' && value >= starIndex + 1) {
             return '/icons/ic_star_filled.svg';
           }
 
           // 소수점 값 계산
-          const fraction = value - starIndex;
+          const fraction = typeof value === 'number' ? value - starIndex : 0;
 
           // 소수점 구간에 따라 아이콘 결정 (가장 높은 값부터 체크)
           if (fraction >= THRESHOLD_4_ALMOST) {
