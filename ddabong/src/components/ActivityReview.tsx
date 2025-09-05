@@ -17,6 +17,7 @@ import Modal from './atoms/modal';
 
 type Props = {
   id: number;
+  userId: number;
   activityPostId: number;
   userName: string;
   imageUrl: string;
@@ -30,6 +31,7 @@ type Props = {
 
 export default function ActivityReview({
   id,
+  userId,
   activityPostId,
   userName,
   imageUrl,
@@ -76,7 +78,7 @@ export default function ActivityReview({
   };
 
   const handleNavigate = () => {
-    router.push(`/admin/volunteer/users/${id}`);
+    router.push(`/admin/volunteer/users/${userId}`);
   };
 
   return (
@@ -117,8 +119,8 @@ export default function ActivityReview({
                       text='거절'
                       bgColor='white'
                       borderColor='border-Logo-Pink'
-                      textClassName='text-Logo-Pink'
-                      className='px-4'
+                      textClassName='text-Logo-Pink text-base'
+                      className='w-[60px] px-4 py-0.5'
                     />
                   </Button>
                   <Button
@@ -134,8 +136,8 @@ export default function ActivityReview({
                       text='수락'
                       bgColor='white'
                       borderColor='border-Logo-Mint'
-                      textClassName='text-Logo-Mint'
-                      className='px-4'
+                      textClassName='text-Logo-Mint text-base'
+                      className='w-[60px] px-4 py-0.5'
                     />
                   </Button>
                 </div>

@@ -2,11 +2,20 @@
 
 // (특정 봉사) 지원자 목록
 import { useApplicants } from '@/hooks/queries/useGetApplicants';
+import { components } from '@/types/openapi';
 import { useParams } from 'next/navigation';
 import ActivityReview from '@/components/ActivityReview';
 import ActivityApplyInfo from '@/components/admin/volunteer/ActivityApplyInfo';
 import Txt from '@/components/atoms/Text';
 import TopBar from '@/components/atoms/TopBar';
+
+type ApplicantReviewResponseDTO =
+  components['schemas']['ApplicantReviewResponseDTO'];
+
+interface ApplicantReviewResponseDTOWithUserId
+  extends ApplicantReviewResponseDTO {
+  userId?: number;
+}
 
 export default function VolunteerListPage() {
   const params = useParams();
@@ -35,6 +44,9 @@ export default function VolunteerListPage() {
               <ActivityReview
                 key={user.id}
                 id={user.id ?? 0}
+                userId={
+                  (user as ApplicantReviewResponseDTOWithUserId).userId ?? 0
+                }
                 activityPostId={postId}
                 userName={user.name ?? ''}
                 imageUrl={user.profileImage ?? ''}
@@ -43,7 +55,7 @@ export default function VolunteerListPage() {
                 attitude={user.attitude ?? null}
                 healthStatus={user.healthStatus ?? null}
                 status={user.status ?? ''}
-                aiReview={user.aiComment ?? null}
+                aiReview={user.aiComment ?? '기연담당ai'}
               />
             ))
           ) : (
