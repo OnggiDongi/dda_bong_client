@@ -1,10 +1,15 @@
 'use client';
 
 import { useToast } from '@/contexts/toast/ToastContext';
-import { fmtDate } from '@/hooks/admin/home/fomat';
-import { useCreateActivityPostMutation } from '@/hooks/mutations/useCreateActivityPostMutation';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useState } from 'react';
+import { fetchDetailedActivityPost } from '@/hooks/admin/activity';
+import {
+  useUpdateActivityPostMutation,
+  type UpdateVariables,
+} from '@/hooks/mutations/useActivityMutations';
+import type { DetailedActivityPost } from '@/types/activity';
+import { useQuery } from '@tanstack/react-query';
+import { useParams, useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
 import PhotoUpload from '@/components/admin/recruit/write/PhotoUpload';
 import RecruitForm from '@/components/admin/recruit/write/RecruitForm';
 import RecruitHeader from '@/components/admin/recruit/write/RecruitHeader';
@@ -20,11 +25,13 @@ function startOfDay(d: Date) {
   return x;
 }
 
-export default function RecruitWritePage() {
+export default function RecruitEditPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const activityId = searchParams.get('id');
+  const params = useParams();
+  const id = params.id as string;
+  const activityPostId = Number(id);
 
+  const [activityId, setActvityId] = useState(0);
   const [title, setTitle] = useState('');
   const [place, setPlace] = useState('');
   const [volunDate, setVolunDate] = useState<Date | null>(null);
@@ -38,10 +45,52 @@ export default function RecruitWritePage() {
   const [capacity, setCapacity] = useState<number | ''>('');
   const [description, setDescription] = useState('');
   const [support, setSupport] = useState<Set<SupportKey>>(new Set());
-  const [photoUrl, setPhotoUrl] = useState<File | null>(null);
+  const [photoUrl, setPhotoUrl] = useState<File | string | null>(null);
   const { showToast } = useToast();
 
-  const { mutate, isPending } = useCreateActivityPostMutation();
+  const { data: post } = useQuery<DetailedActivityPost>({
+    queryKey: ['activityPost', activityPostId],
+    queryFn: () => fetchDetailedActivityPost(activityPostId),
+    enabled: !!activityPostId,
+  });
+
+  useEffect(() => {
+    if (post) {
+      setTitle(post.title || '');
+      setPlace(post.location || '');
+      setVolunDate(post.startDate ? new Date(post.startDate) : null);
+      setActvityId(post.activityId || 0);
+      setDeadline(
+        post.recruitmentEndDate ? new Date(post.recruitmentEndDate) : null
+      );
+      setTotalHours(Number(post.time));
+      setSupport(
+        new Set(
+          (post.supports ?? []).filter((item): item is SupportKey =>
+            ['bus', 'snack', 'plancard'].includes(item)
+          )
+        )
+      );
+
+      if (post.startDate) {
+        const timePart = post.startDate.split(' ')[1];
+
+        const [hour, minute] = timePart.split(':');
+
+        const hourNum = Number(hour);
+
+        setStartTime({
+          ampm: hourNum >= 12 ? 'PM' : 'AM',
+          hour: String(hourNum % 12 || 12),
+          minute: String(minute),
+        });
+      }
+      // totalHours is not available in DetailedActivityPost
+      setCapacity(post.capacity || '');
+      setDescription(post.content || '');
+      setPhotoUrl(post.imageUrl || null);
+    }
+  }, [post]);
 
   const isDeadlineValid =
     !!deadline && !!volunDate && startOfDay(deadline) < startOfDay(volunDate);
@@ -49,13 +98,13 @@ export default function RecruitWritePage() {
   const isTimeFilled =
     !!startTime.ampm && !!startTime.hour && !!startTime.minute;
 
+  const updateMutation = useUpdateActivityPostMutation();
+
+  const fmtDate = (d: Date) =>
+    `${d.getFullYear()}.${`${d.getMonth() + 1}`.padStart(2, '0')}.${`${d.getDate()}`.padStart(2, '0')}`;
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!activityId) {
-      alert('잘못된 접근입니다.');
-      return;
-    }
 
     if (!volunDate) {
       alert('봉사 날짜를 선택해 주세요.');
@@ -74,7 +123,6 @@ export default function RecruitWritePage() {
       return;
     }
 
-    // 시간 변환(12h -> 24h)
     const to24 = (ampm: 'AM' | 'PM', hourStr: string) => {
       const h = Number(hourStr);
       if (ampm === 'AM') return h === 12 ? 0 : h;
@@ -86,29 +134,30 @@ export default function RecruitWritePage() {
     ).padStart(2, '0');
     const mm = startTime.minute;
 
-    const body = {
+    const result: UpdateVariables = {
+      id: activityPostId,
       title,
-      content: description,
-      activityId: Number(activityId),
-      startAt: fmtDate(volunDate).concat(` ${hh}:${mm}`),
-      activityTime: totalHours ? Number(totalHours) : 0,
-      recruitmentEnd: deadline ? fmtDate(deadline) : fmtDate(new Date()),
       location: place,
-      supports: Array.from(support),
+      startAt: fmtDate(volunDate).concat(` ${hh}:${mm}`),
+      recruitmentEnd: deadline ? fmtDate(deadline) : fmtDate(new Date()),
+      activityTime: totalHours ? Number(totalHours) : 0,
       capacity: Number(capacity),
-      image: photoUrl ?? undefined,
+      content: description,
+      activityId: activityId,
+      supports: Array.from(support),
     };
 
-    console.log(typeof body.activityTime);
+    if (photoUrl instanceof File) {
+      result.image = photoUrl;
+    }
 
-    mutate(body, {
+    updateMutation.mutate(result, {
       onSuccess: () => {
-        showToast('작성이 완료되었습니다.');
-        router.push('/admin/review');
+        showToast('수정이 완료되었습니다.');
+        router.push(`/admin/recruit/${activityPostId}`);
       },
-      onError: (error) => {
-        console.error(error);
-        showToast('작성에 실패하였습니다.');
+      onError: () => {
+        showToast('수정에 실패했습니다.', 'error');
       },
     });
   };
@@ -143,13 +192,8 @@ export default function RecruitWritePage() {
         <SupportOption value={support} onChange={setSupport} />
       </form>
       <div className='fixed bottom-0 left-0 w-full bg-white px-6 py-3 shadow-[0_0_5px_0_rgba(0,0,0,0.15)]'>
-        <Button
-          type='submit'
-          form='recruit-form'
-          className='h-[45px] w-full'
-          disabled={isPending}
-        >
-          {isPending ? '작성 중...' : '작성 완료'}
+        <Button type='submit' form='recruit-form' className='h-[45px] w-full'>
+          수정 완료
         </Button>
       </div>
     </>
