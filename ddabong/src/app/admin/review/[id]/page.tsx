@@ -10,8 +10,6 @@ import TopBar from '@/components/atoms/TopBar';
 
 // 봉사자 목록
 
-// 봉사자 목록
-
 type Review = {
   id: number;
   userId: number;

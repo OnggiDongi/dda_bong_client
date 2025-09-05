@@ -3,13 +3,19 @@ import Badge from '@/components/atoms/Badge';
 import Txt from '@/components/atoms/Text';
 import Header from '@/components/atoms/TopBar';
 
-export default async function Page() {
+type Props = {
+  params: Promise<{ id: string; userId: string }>;
+};
+
+export default async function Page({ params }: Props) {
   const data = {
     category: '농어촌',
     title: '감자 농장에서 감자 캐기',
     date: '2025.09.01(월)',
     location: '강원도 안목해변',
   };
+
+  const { id, userId } = await params;
 
   return (
     <main className='flex min-h-screen flex-col'>
@@ -28,7 +34,11 @@ export default async function Page() {
         </Txt>
         <Txt className='text-Icon-Detail text-lg'>{data.location}</Txt>
       </section>
-      <ReviewForm variant='admin' />
+      <ReviewForm
+        activityPostId={Number(id)}
+        variant='admin'
+        userId={Number(userId)}
+      />
     </main>
   );
 }
