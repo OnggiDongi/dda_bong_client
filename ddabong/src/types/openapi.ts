@@ -324,23 +324,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/users/summary": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** 유저의 이메일로 유저 정보(이름, 등급, 누적 봉사시간) 조회 */
-        get: operations["getUserSummaryByEmail"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/users/login/kakao": {
         parameters: {
             query?: never;
@@ -726,7 +709,8 @@ export interface components {
             /** Format: int64 */
             activityId: number;
             startAt: string;
-            activityTime: string;
+            /** Format: int32 */
+            activityTime: number;
             recruitmentEnd: string;
             location: string;
             /** Format: int32 */
@@ -789,13 +773,6 @@ export interface components {
             email: string;
             password: string;
             phoneNumber: string;
-        };
-        RefreshTokenRequestDTO: {
-            email?: string;
-            refreshToken?: string;
-        };
-        AccessTokenResponseDTO: {
-            accessToken?: string;
         };
         ActivityRequestDTO: {
             title: string;
@@ -880,10 +857,14 @@ export interface components {
         ActivityPostDetailResponseDTO: {
             /** Format: int64 */
             id?: number;
+            /** Format: int64 */
+            activityId?: number;
             title?: string;
             content?: string;
-            date?: string;
-            time?: string;
+            startDate?: string;
+            recruitmentEndDate?: string;
+            /** Format: int32 */
+            time?: number;
             category?: string;
             institutionName?: string;
             institutionPhoneNumber?: string;
@@ -894,6 +875,7 @@ export interface components {
             /** Format: double */
             totalAvgScore?: number;
             reviews?: components["schemas"]["ActivityReviewResponseDTO"][];
+            supports?: string[];
             dday?: string;
         };
         ActivityReviewResponseDTO: {
@@ -1400,11 +1382,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["RefreshTokenRequestDTO"];
-            };
-        };
+        requestBody?: never;
         responses: {
             /** @description OK */
             200: {
@@ -1412,7 +1390,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "*/*": components["schemas"]["AccessTokenResponseDTO"];
+                    "*/*": Record<string, never>;
                 };
             };
         };
@@ -1717,44 +1695,6 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["UserResponseDTO"];
-                };
-            };
-            /** @description 해당하는 유저가 존재하지 않습니다. */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["NotFoundException"];
-                };
-            };
-        };
-    };
-    getUserSummaryByEmail: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description 유저 정보 요약을 성공적으로 조회했습니다. */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["UserSummaryResponseDTO"];
-                };
-            };
-            /** @description 잘못된 요청입니다. */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["BadRequestException"];
                 };
             };
             /** @description 해당하는 유저가 존재하지 않습니다. */

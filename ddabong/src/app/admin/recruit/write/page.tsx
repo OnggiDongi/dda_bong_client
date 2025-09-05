@@ -1,6 +1,7 @@
 'use client';
 
 import { useToast } from '@/contexts/toast/ToastContext';
+import { fmtDate } from '@/hooks/admin/home/fomat';
 import { useCreateActivityPostMutation } from '@/hooks/mutations/useCreateActivityPostMutation';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
@@ -89,14 +90,16 @@ export default function RecruitWritePage() {
       title,
       content: description,
       activityId: Number(activityId),
-      startAt: volunDate.toISOString(),
-      activityTime: `${hh}:${mm}`,
-      recruitmentEnd: deadline.toISOString(),
+      startAt: fmtDate(volunDate).concat(` ${hh}:${mm}`),
+      activityTime: totalHours ? Number(totalHours) : 0,
+      recruitmentEnd: deadline ? fmtDate(deadline) : fmtDate(new Date()),
       location: place,
       supports: Array.from(support),
       capacity: Number(capacity),
       image: photoUrl ?? undefined,
     };
+
+    console.log(typeof body.activityTime);
 
     mutate(body, {
       onSuccess: () => {

@@ -1,11 +1,15 @@
 'use client';
 
 import { useToast } from '@/contexts/toast/ToastContext';
-import { useState, useEffect } from 'react';
+import { fetchDetailedActivityPost } from '@/hooks/admin/activity';
+import {
+  useUpdateActivityPostMutation,
+  type UpdateVariables,
+} from '@/hooks/mutations/useActivityMutations';
+import type { DetailedActivityPost } from '@/types/activity';
 import { useQuery } from '@tanstack/react-query';
 import { useParams, useRouter } from 'next/navigation';
-import { fetchDetailedActivityPost } from '@/hooks/admin/activity';
-import { useUpdateActivityPostMutation, type UpdateVariables } from '@/hooks/mutations/useActivityMutations';
+import { useState, useEffect } from 'react';
 import PhotoUpload from '@/components/admin/recruit/write/PhotoUpload';
 import RecruitForm from '@/components/admin/recruit/write/RecruitForm';
 import RecruitHeader from '@/components/admin/recruit/write/RecruitHeader';
@@ -14,7 +18,6 @@ import SupportOption, {
 } from '@/components/admin/recruit/write/SupportOption';
 import type { TimeValue } from '@/components/admin/recruit/write/TimePicker';
 import Button from '@/components/atoms/Button';
-import type { DetailedActivityPost } from '@/types/activity';
 
 function startOfDay(d: Date) {
   const x = new Date(d);
@@ -28,6 +31,7 @@ export default function RecruitEditPage() {
   const id = params.id as string;
   const activityPostId = Number(id);
 
+  const [activityId, setActvityId] = useState(0);
   const [title, setTitle] = useState('');
   const [place, setPlace] = useState('');
   const [volunDate, setVolunDate] = useState<Date | null>(null);
@@ -54,16 +58,31 @@ export default function RecruitEditPage() {
     if (post) {
       setTitle(post.title || '');
       setPlace(post.location || '');
-      setVolunDate(post.date ? new Date(post.date) : null);
-      // deadline is not available in DetailedActivityPost
-      // setDeadline(post.deadline ? new Date(post.deadline) : null);
-      if (post.time) {
-        const [hour, minute] = post.time.split(':');
+      setVolunDate(post.startDate ? new Date(post.startDate) : null);
+      setActvityId(post.activityId || 0);
+      setDeadline(
+        post.recruitmentEndDate ? new Date(post.recruitmentEndDate) : null
+      );
+      setTotalHours(Number(post.time));
+      setSupport(
+        new Set(
+          (post.supports ?? []).filter((item): item is SupportKey =>
+            ['bus', 'snack', 'plancard'].includes(item)
+          )
+        )
+      );
+
+      if (post.startDate) {
+        const timePart = post.startDate.split(' ')[1];
+
+        const [hour, minute] = timePart.split(':');
+
         const hourNum = Number(hour);
+
         setStartTime({
           ampm: hourNum >= 12 ? 'PM' : 'AM',
           hour: String(hourNum % 12 || 12),
-          minute,
+          minute: String(minute),
         });
       }
       // totalHours is not available in DetailedActivityPost
@@ -80,6 +99,9 @@ export default function RecruitEditPage() {
     !!startTime.ampm && !!startTime.hour && !!startTime.minute;
 
   const updateMutation = useUpdateActivityPostMutation();
+
+  const fmtDate = (d: Date) =>
+    `${d.getFullYear()}.${`${d.getMonth() + 1}`.padStart(2, '0')}.${`${d.getDate()}`.padStart(2, '0')}`;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -116,12 +138,12 @@ export default function RecruitEditPage() {
       id: activityPostId,
       title,
       location: place,
-      startAt: volunDate.toISOString(),
-      recruitmentEnd: deadline ? deadline.toISOString() : new Date().toISOString(),
-      activityTime: `${hh}:${mm}`,
+      startAt: fmtDate(volunDate).concat(` ${hh}:${mm}`),
+      recruitmentEnd: deadline ? fmtDate(deadline) : fmtDate(new Date()),
+      activityTime: totalHours ? Number(totalHours) : 0,
       capacity: Number(capacity),
       content: description,
-      activityId: activityPostId,
+      activityId: activityId,
       supports: Array.from(support),
     };
 
@@ -136,7 +158,7 @@ export default function RecruitEditPage() {
       },
       onError: () => {
         showToast('수정에 실패했습니다.', 'error');
-      }
+      },
     });
   };
 
