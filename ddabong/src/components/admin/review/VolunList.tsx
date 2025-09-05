@@ -59,7 +59,7 @@ export default function VolunList({
 
   // 기본 라우트 (주입 안되면 아래로 이동)
   const defaults = {
-    evaluate: `/admin/review/${id}`, // 예: 관리자 평가 작성/수정
+    evaluate: `/admin/review/${id}`, // /${userid} 덧붙여야됨 .. 예: 관리자 평가 작성/수정
     allReviews: `/apply/${id}`, // 예: 봉사 전체 리뷰 보기
     detail: `/admin/recruit/${id}`, // 예: 봉사 상세 페이지
     applicants: `/admin/volunteer/${id}`, // 예: 지원자 목록
