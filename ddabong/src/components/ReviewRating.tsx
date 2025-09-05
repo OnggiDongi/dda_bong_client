@@ -53,22 +53,22 @@ export default function ReviewRating({
         )}
       </div>
       {toggle && showDetail ? (
-        <div className='flex items-center gap-3 pt-2 pb-2.5'>
+        <div className='flex items-center gap-3 pt-1 pb-3'>
           {[
             { label: '성실도', value: diligenceLevel },
             { label: '친화력', value: attitude },
             { label: '건강 상태', value: healthStatus },
           ].map(({ label, value }) =>
             value !== null ? (
-              <div className='flex items-center gap-1' key={label}>
+              <div className='flex items-center gap-0.5' key={label}>
                 <Txt weight='medium' className='text-Modal-font text-sm'>
                   {label}
                 </Txt>
                 <Image
                   src='/icons/ic_star_filled.svg'
                   alt='별'
-                  width={18}
-                  height={18}
+                  width={13}
+                  height={13}
                 />
                 <Txt className='text-Modal-font'>{value.toFixed(1)}</Txt>
               </div>

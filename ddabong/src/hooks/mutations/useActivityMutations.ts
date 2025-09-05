@@ -2,6 +2,28 @@ import { useToast } from '@/contexts/toast/ToastContext';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { privateClient as client } from '@/lib/openapi-client';
 import { DetailedActivityPost } from '@/app/apply/[id]/page';
+import { components } from '@/types/openapi';
+
+type ActivityRequestDTO = components['schemas']['ActivityRequestDTO'];
+
+export const useCreateActivityMutation = () => {
+  const queryClient = useQueryClient();
+  const { showToast } = useToast();
+
+  return useMutation({
+    mutationFn: (body: ActivityRequestDTO) =>
+      client.POST('/activity', {
+        body,
+      }),
+    onSuccess: () => {
+      showToast('봉사가 추가되었습니다.', 'success');
+      queryClient.invalidateQueries({ queryKey: ['/activity'] });
+    },
+    onError: (err: Error) => {
+      showToast(err.message || '봉사 추가에 실패했습니다.', 'error');
+    },
+  });
+};
 
 export const useLikeActivityMutation = (
   postId: number,
