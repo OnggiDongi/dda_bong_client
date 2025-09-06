@@ -53,7 +53,7 @@ export default function VolunteerCard({
           height={120}
           className='h-[120px] w-[120px] rounded-xl object-cover'
         />
-        <div className='flex flex-col justify-between pl-1'>
+        <div className='flex flex-col justify-between'>
           <div className='flex gap-1'>
             <Badge text={koreanCategory} />
             <Badge

@@ -1,60 +1,64 @@
-// 모집 봉사 이력
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useGetMyActivityPosts } from '@/hooks/queries/useGetMyActivityPosts';
 import VolunList from '@/components/admin/review/VolunList';
 import TopBar from '@/components/atoms/TopBar';
 import TabButton from '@/components/review/TabButton';
+import Txt from '@/components/atoms/Text';
 
-// 모집 봉사 이력
 
 type Tab = 'apply' | 'history';
+
+const CATEGORY_REVERSE_MAP: { [key: string]: string } = {
+  LIVING: '생활',
+  EDUCATION: '교육',
+  SAFETY: '보건',
+  CULTURE: '문화',
+  ENVIRONMENT: '환경',
+  PUBLIC: '행정',
+  RURALAREA: '농어촌',
+};
 
 export default function ReviewListPage() {
   const [activeTab, setActiveTab] = useState<Tab>('apply');
 
-  const recruiting = [
-    {
-      id: 101,
-      title: '미녀들이랑 노는 봉사',
-      date: '2025.09.01',
-      category: '농어촌',
-      imageUrl: '/images/test1.png',
-      recruitNum: 10,
-      applicantsNum: 8,
-      rating: 3.0,
-    },
-    {
-      id: 102,
-      title: '어르신 말벗 봉사',
-      date: '2025.09.10',
-      category: '행정',
-      imageUrl: '/images/test2.png',
-      recruitNum: 6,
-      applicantsNum: 4,
-    },
-  ];
+  const { data: recruitingPosts, isLoading: isLoadingRecruiting, isError: isErrorRecruiting, error: errorRecruiting } = useGetMyActivityPosts(true);
+  const { data: pastPosts, isLoading: isLoadingPast, isError: isErrorPast, error: errorPast } = useGetMyActivityPosts(false);
 
-  const history = [
-    {
-      id: 1,
-      title: '미녀들이랑 노는 봉사',
-      date: '2025.09.01',
-      category: '농어촌',
-      imageUrl: '/images/test1.png',
-      rating: 5.0,
-    },
-    {
-      id: 2,
-      title: '자만언니 깨우기 봉사',
-      date: '2025.09.08',
-      category: '농어촌',
-      imageUrl: '/images/test3.png',
-      rating: 4.0,
-    },
-  ];
+  const isLoading = isLoadingRecruiting || isLoadingPast;
+  const isError = isErrorRecruiting || isErrorPast;
 
-  const list = activeTab === 'apply' ? recruiting : history;
+  const listData = activeTab === 'apply' ? recruitingPosts : pastPosts;
+
+  useEffect(() => {
+    if (recruitingPosts && recruitingPosts.length > 0) {
+        console.log("First recruiting post data:", recruitingPosts[0]);
+    }
+    if (pastPosts && pastPosts.length > 0) {
+        console.log("First past post data:", pastPosts[0]);
+    }
+  }, [recruitingPosts, pastPosts]);
+
+  if (isLoading) {
+    return (
+        <main className='flex flex-col items-center gap-5'>
+            <TopBar title='모집 봉사 이력' />
+            <div className="flex-1 flex items-center justify-center"><Txt>Loading...</Txt></div>
+        </main>
+    );
+  }
+
+  if (isError) {
+    console.error('Error fetching recruiting posts:', errorRecruiting);
+    console.error('Error fetching past posts:', errorPast);
+    return (
+        <main className='flex flex-col items-center gap-5'>
+            <TopBar title='모집 봉사 이력' />
+            <div className="flex-1 flex items-center justify-center"><Txt>Error fetching data</Txt></div>
+        </main>
+    );
+  }
 
   return (
     <main className='flex flex-col items-center gap-5'>
@@ -67,26 +71,26 @@ export default function ReviewListPage() {
       />
 
       <section className='w-full space-y-0.5'>
-        {list.map((item) => (
-          <VolunList
-            key={item.id}
-            mode={activeTab}
-            id={item.id}
-            title={item.title}
-            date={item.date}
-            category={item.category}
-            imageUrl={item.imageUrl}
-            recruitNum={
-              activeTab === 'apply' && 'recruitNum' in item
-                ? item.recruitNum
-                : undefined
-            }
-            applicantsNum={
-              'applicantsNum' in item ? item.applicantsNum : undefined
-            }
-            rating={'rating' in item ? item.rating : undefined}
-          />
-        ))}
+        {listData && listData.length > 0 ? (
+          listData.map((item) => (
+            <VolunList
+              key={item.id}
+              mode={activeTab}
+              id={item.id}
+              title={item.title}
+              date={item.endAt}
+              category={CATEGORY_REVERSE_MAP[item.category as string] || item.category || ''}
+              imageUrl={item.imageUrl}
+              recruitNum={item.capacity}
+              applicantsNum={item.applicantNum}
+              rating={item.totalAvgScore}
+            />
+          ))
+        ) : (
+          <div className="text-center py-20">
+            <Txt>{activeTab === 'apply' ? '모집중인 공고가 없습니다.' : '지난 내역이 없습니다.'}</Txt>
+          </div>
+        )}
       </section>
     </main>
   );

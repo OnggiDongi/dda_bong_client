@@ -33,14 +33,14 @@ export default function Badge({
   rounded = 'rounded-3xl',
   weight = 'semibold',
   className,
-  textClassName,
+  textClassName = 'text-[17px]',
 }: BadgeProps) {
   const hasBorder = Boolean(borderColor);
 
   return (
     <span
       className={cn(
-        'inline-flex h-[25px] items-center justify-center px-3',
+        'inline-flex h-[30px] items-center justify-center px-3 pb-0.5',
         bgColor,
         rounded,
         hasBorder && 'border-[0.5px]',
@@ -50,12 +50,7 @@ export default function Badge({
     >
       <Txt
         weight={weight}
-        className={cn(
-          'text-base',
-          'whitespace-nowrap',
-          textColor,
-          textClassName
-        )}
+        className={cn('whitespace-nowrap', textColor, textClassName)}
       >
         {text}
       </Txt>

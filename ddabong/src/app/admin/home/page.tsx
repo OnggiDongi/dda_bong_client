@@ -2,7 +2,6 @@
 
 import { useInstitutionSummary } from '@/hooks/admin/home/adminprofile';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
 import AdminProfile from '@/components/admin/home/AdminProfile';
 import ManageVolunteer from '@/components/admin/home/ManageVolunteer';
 import RecruitVolunteer from '@/components/admin/home/RecruitVolunteer';

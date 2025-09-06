@@ -9,7 +9,7 @@ import { privateClient } from '@/lib/openapi-client';
 import EmptyRecruitment from '@/components/admin/recruit/EmptyRecruitment';
 import RecruitmentList from '@/components/admin/recruit/RecruitmentList';
 import BottomButton from '@/components/atoms/BottomButton';
-import TopBar from '../../../components/admin/recruit/TopBar';
+import TopBar from '@/components/atoms/TopBar';
 
 const CATEGORY_REVERSE_MAP: { [key: string]: string } = {
   LIVING: '생활',
@@ -85,7 +85,7 @@ export default function RecruitPage() {
 
   return (
     <div className='relative flex h-screen w-full flex-col'>
-      <TopBar />
+      <TopBar bgColor='bg-page-background' />
       <div className='bg-page-gradient flex-1 overflow-y-auto px-4 pb-24'>
         {hasRecruitment ? (
           <RecruitmentList
