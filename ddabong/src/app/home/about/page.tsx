@@ -10,8 +10,9 @@ export default function AboutPage() {
   const router = useRouter();
 
   return (
-    <main className='bg-1Q-Green flex flex-col items-center pb-10'>
-      <TopBar title='' />
+    <main className='flex flex-col'>
+      {/* 뒤로가기 위치 맞추려고 공백 글자 추가함 */}
+      <TopBar title='⠀' />
       <section className='flex w-[402px] flex-col items-center bg-white pb-8'>
         <Image src='/icons/ic_logo.svg' alt='따봉' width={120} height={60} />
         <Txt weight='bold' className='mt-2 text-center text-xl'>
