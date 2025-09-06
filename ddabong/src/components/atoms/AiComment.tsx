@@ -18,7 +18,7 @@ type Props = {
 
 export default function AiComment({
   text,
-  rounded = 'rounded-full',
+  rounded = 'rounded-xl',
   className,
   textClassName,
 }: Props) {
@@ -26,19 +26,26 @@ export default function AiComment({
     <div
       className={cn(
         // 내용 길이에 맞게 (chip) + 부모 콘텐츠 영역을 넘지 않도록
-        'bg-1Q-Mint-Line inline-flex w-auto max-w-full items-center justify-center',
-        'min-w-0 gap-1.5 px-5 py-1.5', // 줄바꿈 허용(min-w-0)
+        'bg-1Q-Mint-Line inline-flex w-auto max-w-[90%] flex-col justify-center',
+        'min-w-0 gap-1.5 px-5 py-2.5', // 줄바꿈 허용(min-w-0)
         rounded,
         className
       )}
     >
-      <Image
-        src='/icons/ic_gemini.svg'
-        alt='gemini'
-        width={16}
-        height={15}
-        className='shrink-0'
-      />
+      <div className='flex gap-2'>
+        <Image
+          src='/icons/ic_gemini.svg'
+          alt='gemini'
+          width={16}
+          height={15}
+          className='shrink-0'
+        />
+
+        <Txt weight='extrabold' className='text-Logo-Mint'>
+          AI 리뷰 요약
+        </Txt>
+      </div>
+      <div className='h-[0.5px] w-full bg-[var(--code-theme11)]'></div>
       <Txt
         className={cn(
           'text-Logo-Mint pl-1 break-words whitespace-normal',

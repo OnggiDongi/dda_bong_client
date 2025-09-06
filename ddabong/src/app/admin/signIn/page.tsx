@@ -1,5 +1,6 @@
 'use client';
 
+import { useToast } from '@/contexts/toast/ToastContext';
 import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -14,6 +15,7 @@ export default function AdminSignInPage() {
   const [password, setPassword] = useState('');
   const baseUrl = 'http://localhost:8080';
   const router = useRouter();
+  const { showToast } = useToast();
 
   async function formLogin(e: React.FormEvent) {
     e.preventDefault();
@@ -39,9 +41,13 @@ export default function AdminSignInPage() {
       localStorage.setItem('name', name ?? '');
 
       router.push('/admin/home');
+      showToast('로그인에 성공했습니다.', 'success');
     } catch (err) {
       console.error('로그인 실패:', err);
-      alert('로그인에 실패했습니다. 이메일/비밀번호를 확인해 주세요.');
+      showToast(
+        '로그인에 실패했습니다. 이메일/비밀번호를 확인해 주세요.',
+        'error'
+      );
     }
   }
 

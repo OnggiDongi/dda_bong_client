@@ -63,10 +63,11 @@ export default function SeniorSignInPage() {
         queryKey: ['userSummary'],
         queryFn: fetchUserSummary,
       });
-      showToast('로그인되었습니다.');
+      showToast('로그인되었습니다.', 'success');
       router.push('/home');
     } catch (err) {
       console.error('로그인 실패:', err);
+      showToast('로그인에 실패하였습니다.', 'error');
       localStorage.setItem('loginStatus', 'false');
       window.location.reload();
     }
