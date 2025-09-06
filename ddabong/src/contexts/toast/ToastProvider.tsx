@@ -10,6 +10,9 @@ type Props = {
   className?: string;
 };
 
+// toast 타입 정의
+type ToastType = 'success' | 'error';
+
 /**
  * ToastProvider는 ToastContext를 제공하는 컴포넌트
  */
@@ -21,21 +24,37 @@ export function ToastProvider({
   const [message, setMessage] = useState('');
   const [position, setPosition] = useState(className);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [type, setType] = useState<ToastType>('success');
 
-  const showToast = (msg: string, customPosition?: string) => {
+  const showToast = (
+    msg: string,
+    toastType: ToastType = 'success',
+    customPosition?: string
+  ) => {
     setMessage(msg);
+    setType(toastType);
     if (customPosition) setPosition(customPosition);
 
     setIsAnimating(true);
     setIsVisible(true);
 
-    // 애니메이션 → 잠깐 보였다가 사라지도록
     setTimeout(() => {
       setIsAnimating(false);
       setTimeout(() => {
         setIsVisible(false);
       }, 150);
     }, 2000);
+  };
+
+  // 아이콘 경로 매핑
+  const getIconSrc = () => {
+    switch (type) {
+      case 'error':
+        return '/icons/ic_error.svg';
+      case 'success':
+      default:
+        return '/icons/ic_check.svg';
+    }
   };
 
   return (
@@ -54,8 +73,8 @@ export function ToastProvider({
           {/* Toast UI */}
           <div className='bg-Hana-Black bg-opacity-90 flex min-w-fit items-center gap-3 rounded-[25px] px-5 py-2 shadow-[0px_0px_5px_0px_rgba(0,0,0,0.15)]'>
             <Image
-              src='/icons/ic_check.svg'
-              alt='success'
+              src={getIconSrc()}
+              alt={type}
               width={22}
               height={22}
               className='flex-shrink-0'
