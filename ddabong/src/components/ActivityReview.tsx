@@ -78,7 +78,7 @@ export default function ActivityReview({
   };
 
   const handleNavigate = () => {
-    router.push(`/admin/volunteer/users/${userId}`);
+    router.push(`/app/users/${userId}`);
   };
 
   return (
