@@ -1,10 +1,12 @@
-import { components } from '@/types/openapi';
+import type { components } from '@/types/openapi';
 import { privateClient as client } from '@/lib/openapi-client';
-import { DetailedActivityPost } from '@/app/apply/[id]/page';
+import type { DetailedActivityPost } from '@/types/activity';
 
 type ActivityPostListItem = components['schemas']['ActivityPostResponseDTO'];
 
-export const fetchDetailedActivityPost = async (postId: number) => {
+export const fetchDetailedActivityPost = async (
+  postId: number,
+): Promise<DetailedActivityPost & { isLiked: boolean; isApplied: boolean }> => {
   // Fetch post details, liked list, and application history concurrently
   const [postRes, likedRes, historyRes] = await Promise.all([
     client.GET('/posts/{activityPostId}', {
@@ -14,9 +16,9 @@ export const fetchDetailedActivityPost = async (postId: number) => {
     client.GET('/users/history'),
   ]);
 
-  if (postRes.error) throw postRes.error;
+  if (postRes.error || !postRes.data) throw postRes.error || new Error('Post not found');
 
-  const postData = postRes.data as DetailedActivityPost;
+  const postData = postRes.data;
 
   // Check if the current post is in the liked list
   const isLiked =

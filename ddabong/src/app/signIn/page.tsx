@@ -7,7 +7,7 @@ import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from '@/components/atoms/Button';
 import Input from '@/components/atoms/Input';
 import Txt from '@/components/atoms/Text';
@@ -21,6 +21,16 @@ export default function SeniorSignInPage() {
 
   const router = useRouter();
   const { showToast } = useToast();
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const loginStatus = localStorage.getItem('loginStatus');
+
+      if (loginStatus == 'false') {
+        showToast('아이디와 비밀번호가 올바르지 않습니다.');
+      }
+    }
+  }, []);
 
   async function formLogin(e: React.FormEvent) {
     e.preventDefault();
@@ -46,6 +56,7 @@ export default function SeniorSignInPage() {
       localStorage.setItem('name', name ?? '');
       localStorage.setItem('role', role ?? '');
       localStorage.setItem('firstLogin', firstLogin ?? '');
+      localStorage.removeItem('loginStatus');
 
       // 홈에서 쓸 데이터 미리 받아 캐시에 넣기
       qc.prefetchQuery({
@@ -56,8 +67,8 @@ export default function SeniorSignInPage() {
       router.push('/home');
     } catch (err) {
       console.error('로그인 실패:', err);
-      showToast('로그인에 실패하였습니다.');
-      alert('로그인에 실패했습니다. 이메일/비밀번호를 확인해 주세요.');
+      localStorage.setItem('loginStatus', 'false');
+      window.location.reload();
     }
   }
 
