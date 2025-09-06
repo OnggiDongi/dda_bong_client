@@ -1,5 +1,6 @@
 'use client';
 
+import { useToast } from '@/contexts/toast/ToastContext';
 import {
   useInstitutionSignUp,
   SignUpBody,
@@ -21,12 +22,13 @@ export default function AdminSignUpPage() {
   const [password, setPassword] = useState('');
   const [secondPassword, setSecondPassword] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const { showToast } = useToast();
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (password !== secondPassword) {
-      alert('비밀번호가 일치하지 않습니다.');
+      showToast('비밀번호가 일치하지 않습니다.', 'error');
       return; // 서버로 요청 보내지 않음.
     }
 

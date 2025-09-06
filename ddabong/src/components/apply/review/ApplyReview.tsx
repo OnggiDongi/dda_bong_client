@@ -37,7 +37,7 @@ export default function ApplyReview({
           />
         </div>
         {/* <AiComment text={aiCommentText} /> */}
-        <AiComment text='바다가 참 예뻐서 건강해지는 기분' />
+        <AiComment text='바다가 참 예뻐서 건강해지는 기분인데용용 요요요요용ㅇ 바다시원하고푸르고물고기있고좋아요이이이이이이이\이이합니다' />
       </div>
       <div>
         {reviews && reviews.length > 0 ? (

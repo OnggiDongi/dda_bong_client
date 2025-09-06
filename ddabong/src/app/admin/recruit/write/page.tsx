@@ -53,24 +53,24 @@ export default function RecruitWritePage() {
     e.preventDefault();
 
     if (!activityId) {
-      alert('잘못된 접근입니다.');
+      showToast('잘못된 접근입니다.', 'error');
       return;
     }
 
     if (!volunDate) {
-      alert('봉사 날짜를 선택해 주세요.');
+      showToast('봉사 날짜를 선택해 주세요.', 'error');
       return;
     }
     if (!deadline) {
-      alert('모집 마감일을 선택해 주세요.');
+      showToast('모집 마감일을 선택해 주세요.', 'error');
       return;
     }
     if (!isDeadlineValid) {
-      alert('모집 마감일은 봉사 날짜보다 앞서야 해요.');
+      showToast('모집 마감일은 봉사 날짜보다 앞서야 해요.', 'error');
       return;
     }
     if (!isTimeFilled) {
-      alert('시작 시간(오전/오후, 시, 분)을 모두 선택해 주세요.');
+      showToast('시작 시간(오전/오후, 시, 분)을 모두 선택해 주세요.', 'error');
       return;
     }
 
@@ -103,12 +103,12 @@ export default function RecruitWritePage() {
 
     mutate(body, {
       onSuccess: () => {
-        showToast('작성이 완료되었습니다.');
+        showToast('작성이 완료되었습니다.', 'success');
         router.push('/admin/review');
       },
       onError: (error) => {
         console.error(error);
-        showToast('작성에 실패하였습니다.');
+        showToast('작성에 실패하였습니다.', 'error');
       },
     });
   };
