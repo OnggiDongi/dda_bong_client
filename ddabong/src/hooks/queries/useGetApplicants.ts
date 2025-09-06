@@ -45,5 +45,6 @@ export function useApplicants(activityPostId: number) {
     queryKey: ['getApplicants', activityPostId],
     queryFn: () => getApplicants(activityPostId),
     enabled: !!activityPostId,
+    refetchOnWindowFocus: false,
   });
 }
