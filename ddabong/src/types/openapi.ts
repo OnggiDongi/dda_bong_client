@@ -373,6 +373,29 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/user/summary/{userId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 사용자 리뷰 요약 얻기
+         * @description 주어진 userId의 전체 UserReview들을 모아서 청크 요약 → 메타 요약 후 최종 요약을 반환합니다.
+         *     - 리뷰가 없으면 안내 메시지를 반환합니다.
+         *     - 내부적으로 GeminiService.summarize()를 사용합니다.
+         *
+         */
+        get: operations["getSummary"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/posts/{activityPostId}": {
         parameters: {
             query?: never;
@@ -526,6 +549,29 @@ export interface paths {
         put?: never;
         post?: never;
         delete: operations["deleteActivity"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/activity/summary/{activityId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 봉사 리뷰 요약 얻기
+         * @description 주어진 activityId의 전체 봉사 리뷰들을 모아서 요약 후 최종 요약을 반환합니다.
+         *     - 리뷰가 없으면 안내 메시지를 반환합니다.
+         *     - 내부적으로 GeminiService.summarize()를 사용합니다.
+         *
+         */
+        get: operations["getSummary_1"];
+        put?: never;
+        post?: never;
+        delete?: never;
         options?: never;
         head?: never;
         patch?: never;
@@ -863,6 +909,11 @@ export interface components {
             applicantNum?: number;
             dday?: string;
         };
+        UserReviewSummaryResponseDTO: {
+            /** Format: int64 */
+            userId?: number;
+            summary?: string;
+        };
         ActivityPostDetailResponseDTO: {
             /** Format: int64 */
             id?: number;
@@ -883,6 +934,7 @@ export interface components {
             imageUrl?: string;
             /** Format: double */
             totalAvgScore?: number;
+            aiComment?: string;
             reviews?: components["schemas"]["ActivityReviewResponseDTO"][];
             supports?: string[];
             dday?: string;
@@ -895,6 +947,28 @@ export interface components {
             /** Format: int32 */
             rate?: number;
             comment?: string;
+        };
+        MyActivityPostResponseDTO: {
+            /** Format: int64 */
+            id?: number;
+            title?: string;
+            endAt?: string;
+            location?: string;
+            imageUrl?: string;
+            /** @enum {string} */
+            category?: "LIVING" | "EDUCATION" | "SAFETY" | "CULTURE" | "ENVIRONMENT" | "PUBLIC" | "RURALAREA";
+            /** @enum {string} */
+            status?: "PENDING" | "APPROVED" | "REJECTED";
+            hasReview?: boolean;
+            /** Format: int32 */
+            totalHour?: number;
+            /** Format: int32 */
+            applicantNum?: number;
+            /** Format: double */
+            totalAvgScore?: number;
+            /** Format: int32 */
+            capacity?: number;
+            dday?: string;
         };
         ApplicantListDTO: {
             category?: string;
@@ -974,6 +1048,11 @@ export interface components {
             activityTitle?: string;
             createdAt?: string;
             category?: string;
+        };
+        ActivityReviewSummaryResponseDTO: {
+            /** Format: int64 */
+            activityId?: number;
+            summary?: string;
         };
     };
     responses: never;
@@ -1828,6 +1907,32 @@ export interface operations {
             };
         };
     };
+    getSummary: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description 요약할 대상 사용자 ID
+                 * @example 1
+                 */
+                userId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["UserReviewSummaryResponseDTO"];
+                };
+            };
+        };
+    };
     getActivityPost: {
         parameters: {
             query?: never;
@@ -1876,7 +1981,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": unknown;
+                    "application/json": components["schemas"]["MyActivityPostResponseDTO"];
                 };
             };
             /** @description 해당하는 기관이 존재하지 않습니다. */
@@ -2094,6 +2199,32 @@ export interface operations {
                 };
                 content: {
                     "*/*": Record<string, never>;
+                };
+            };
+        };
+    };
+    getSummary_1: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description 요약할 대상 봉사 ID
+                 * @example 1
+                 */
+                activityId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ActivityReviewSummaryResponseDTO"];
                 };
             };
         };
