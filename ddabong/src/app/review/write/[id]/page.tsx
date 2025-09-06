@@ -67,7 +67,7 @@ export default function SeniorReviewWritePage() {
         setData(result);
         // setActivityId(data.id);
       } catch {
-        showToast('봉사정보를 불러오지 못했습니다.');
+        showToast('봉사정보를 불러오지 못했습니다.', 'error');
       }
     })();
   }, [id, showToast]);

@@ -32,7 +32,7 @@ export default function SeniorSignUpPage() {
     const phone = phoneRef.current?.value || '';
 
     if (password !== confirmPassword) {
-      showToast('비밀번호가 일치하지 않습니다.');
+      showToast('비밀번호가 일치하지 않습니다.', 'error');
       return;
     }
 
@@ -50,10 +50,10 @@ export default function SeniorSignUpPage() {
       );
 
       if (res.data.errorCode === 301) {
-        showToast('이미 가입된 이메일 입니다');
+        showToast('이미 가입된 이메일 입니다', 'error');
         return;
       }
-      showToast('회원가입이 완료되었습니다.');
+      showToast('회원가입이 완료되었습니다.', 'success');
       router.push('/signIn');
     } catch (err) {
       if (axios.isAxiosError(err)) {
@@ -65,10 +65,10 @@ export default function SeniorSignUpPage() {
             showToast(err.response.data.errors[0].defaultMessage);
           }
         } else {
-          showToast('회원가입 실패');
+          showToast('회원가입 실패', 'error');
         }
       } else {
-        showToast('회원가입 실패');
+        showToast('회원가입 실패', 'error');
       }
     }
   };

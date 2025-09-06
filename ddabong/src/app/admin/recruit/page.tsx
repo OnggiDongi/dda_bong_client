@@ -2,6 +2,7 @@
 
 import type { components } from '@/types/openapi';
 import { useQuery } from '@tanstack/react-query';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { privateClient } from '@/lib/openapi-client';
@@ -65,7 +66,17 @@ export default function RecruitPage() {
   console.log('formattedRecruitments:', formattedRecruitments);
 
   if (isLoading) {
-    return <div>Loading...</div>; // Or a proper skeleton loader
+    return (
+      <div className='flex min-h-screen items-center justify-center'>
+        <Image
+          src='/video/loading.gif'
+          alt='로딩 중'
+          width={130}
+          height={130}
+          unoptimized
+        />
+      </div>
+    ); // Or a proper skeleton loader
   }
 
   if (isError) {

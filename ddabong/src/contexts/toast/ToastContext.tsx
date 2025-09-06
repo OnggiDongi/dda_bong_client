@@ -1,7 +1,13 @@
 import { createContext, useContext } from 'react';
 
+type ToastType = 'success' | 'error';
+
 type ToastContextType = {
-  showToast: (message: string, position?: string) => void;
+  showToast: (
+    message: string,
+    toastType?: ToastType,
+    position?: string
+  ) => void;
 };
 
 /**
@@ -12,7 +18,7 @@ export const ToastContext = createContext<ToastContextType>({
 });
 
 /**
- *  ToastContext할 부분에 useToast를 사용해야함
+ * ToastContext 할 부분에 useToast를 사용해야함
  */
 export const useToast = () => {
   const context = useContext(ToastContext);
