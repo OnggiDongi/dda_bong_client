@@ -68,7 +68,7 @@ export default function ReviewForm({
     // 봉사자 후기 남기기
     if (variant === 'admin') {
       if (!userId) {
-        showToast('잘못된 접근입니다.');
+        showToast('잘못된 접근입니다.', 'error');
         return;
       }
       const result = await adminReviewIO(
@@ -82,13 +82,13 @@ export default function ReviewForm({
 
       switch (result) {
         case 'errReview':
-          showToast('후기 작성에 실패했습니다.');
+          showToast('후기 작성에 실패했습니다.', 'error');
           return;
         case 'err':
-          showToast('잘못된 요청입니다.');
+          showToast('잘못된 요청입니다.', 'error');
           return;
         default:
-          showToast('작성이 완료되었습니다.');
+          showToast('작성이 완료되었습니다.', 'success');
           break;
       }
 
@@ -104,16 +104,16 @@ export default function ReviewForm({
 
       switch (result) {
         case 'errPhoto':
-          showToast('사진 업로드에 실패했습니다.');
+          showToast('사진 업로드에 실패했습니다.', 'error');
           return;
         case 'errReview':
-          showToast('후기 작성에 실패했습니다.');
+          showToast('후기 작성에 실패했습니다.', 'error');
           return;
         case 'err':
-          showToast('잘못된 요청입니다.');
+          showToast('잘못된 요청입니다.', 'error');
           return;
         default:
-          showToast('작성이 완료되었습니다.');
+          showToast('작성이 완료되었습니다.', 'success');
           break;
       }
       router.push('/review');

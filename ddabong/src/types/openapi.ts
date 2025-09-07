@@ -948,6 +948,28 @@ export interface components {
             rate?: number;
             comment?: string;
         };
+        MyActivityPostResponseDTO: {
+            /** Format: int64 */
+            id?: number;
+            title?: string;
+            endAt?: string;
+            location?: string;
+            imageUrl?: string;
+            /** @enum {string} */
+            category?: "LIVING" | "EDUCATION" | "SAFETY" | "CULTURE" | "ENVIRONMENT" | "PUBLIC" | "RURALAREA";
+            /** @enum {string} */
+            status?: "PENDING" | "APPROVED" | "REJECTED";
+            hasReview?: boolean;
+            /** Format: int32 */
+            totalHour?: number;
+            /** Format: int32 */
+            applicantNum?: number;
+            /** Format: double */
+            totalAvgScore?: number;
+            /** Format: int32 */
+            capacity?: number;
+            dday?: string;
+        };
         ApplicantListDTO: {
             category?: string;
             title?: string;
@@ -1959,7 +1981,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": unknown;
+                    "application/json": components["schemas"]["MyActivityPostResponseDTO"];
                 };
             };
             /** @description 해당하는 기관이 존재하지 않습니다. */
