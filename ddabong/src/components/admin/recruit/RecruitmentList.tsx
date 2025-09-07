@@ -25,10 +25,20 @@ export default function RecruitmentList({
 }: RecruitmentListProps) {
   return (
     <>
-      <div className='mt-[54px] mb-[52px] flex justify-center'>
-        <Txt weight='semibold' className='text-Hana-Black text-lg'>
-          원하는 봉사를 선택 후 모집 글을 작성하세요.
+      <div className='mt-[15px] flex justify-center'>
+        <Txt weight='semibold' className='text-Logo-Mint text-lg'>
+          원하는 봉사 선택 후 모집 글을 작성하세요!
         </Txt>
+      </div>
+      <div className='flex flex-col items-center py-[22px]'>
+        <Link href='/admin/register' passHref>
+          <Button
+            className='bg-1Q-Mint-Line border-Logo-Mint/45 h-[42px] w-[350px] rounded-[20px] border'
+            textClassName='text-Logo-Mint text-lg'
+          >
+            추가하기
+          </Button>
+        </Link>
       </div>
       <div className='flex flex-col items-center space-y-[15px]'>
         {recruitments.map((recruitment) => (
@@ -53,16 +63,6 @@ export default function RecruitmentList({
             </Txt>
           </div>
         ))}
-      </div>
-      <div className='mt-4 flex flex-col items-center'>
-        <Link href='/admin/register' passHref>
-          <Button
-            className='h-[42px] w-[350px] rounded-[20px] bg-white'
-            textClassName='text-Hana-Black text-lg'
-          >
-            추가하기
-          </Button>
-        </Link>
       </div>
     </>
   );
