@@ -42,17 +42,15 @@ export default function ApplyFooter({
 
   if (!isApply) {
     return (
-      <section className='relative flex h-[68px] items-center justify-center gap-4'>
+      <section className='relative flex h-[68px] items-center justify-center gap-4 shadow-[0_0_5px_0_rgba(0,0,0,0.15)]'>
         <Button
-          className='h-[45px] w-[145px] bg-gray-400'
+          textClassName='text-Modal-font'
+          className='bg-Background h-[45px] w-[145px]'
           onClick={onEdit}
         >
           수정하기
         </Button>
-        <Button
-          className='h-[45px] w-[145px] bg-red-500'
-          onClick={onDelete}
-        >
+        <Button className='bg-Logo-Pink h-[45px] w-[145px]' onClick={onDelete}>
           삭제하기
         </Button>
       </section>
