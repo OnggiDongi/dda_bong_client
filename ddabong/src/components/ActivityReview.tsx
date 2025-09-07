@@ -1,6 +1,11 @@
 'use client';
 
+import {
+  useApproveApplicant,
+  useRejectApplicant,
+} from '@/hooks/mutations/useHandleApplicant';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useToast } from '../contexts/toast/ToastContext';
 import ReviewRating from './ReviewRating';
@@ -11,6 +16,9 @@ import Txt from './atoms/Text';
 import Modal from './atoms/modal';
 
 type Props = {
+  id: number;
+  userId: number;
+  activityPostId: number;
   userName: string;
   imageUrl: string;
   status: string;
@@ -22,6 +30,9 @@ type Props = {
 };
 
 export default function ActivityReview({
+  id,
+  userId,
+  activityPostId,
   userName,
   imageUrl,
   status,
@@ -31,9 +42,14 @@ export default function ActivityReview({
   attitude,
   aiReview,
 }: Props) {
-  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 추가
-  const [modalType, setModalType] = useState<'APPROVE' | 'REJECT' | null>(null); // 어떤 버튼 눌렀는지
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalType, setModalType] = useState<'APPROVE' | 'REJECT' | null>(null);
   const { showToast } = useToast();
+  const router = useRouter();
+
+  const approveMutation = useApproveApplicant(activityPostId);
+  const rejectMutation = useRejectApplicant(activityPostId);
+
   const openModal = (type: 'APPROVE' | 'REJECT') => {
     setModalType(type);
     setIsModalOpen(true);
@@ -46,19 +62,35 @@ export default function ActivityReview({
 
   const handleConfirm = () => {
     if (modalType === 'APPROVE') {
-      showToast('수락이 완료되었습니다.', 'success');
-      // ✅ 수락 처리
-      console.log('수락!');
+      approveMutation.mutate(id, {
+        onSuccess: () => {
+          showToast('수락이 완료되었습니다.', 'success');
+          // ✅ 수락 처리
+          console.log('수락!');
+        },
+      });
     } else {
-      showToast('거절이 완료되었습니다.', 'success');
-      // ✅ 거절 처리
-      console.log('거절!');
+      rejectMutation.mutate(id, {
+        onSuccess: () => {
+          showToast('거절이 완료되었습니다.', 'success');
+          // ✅ 거절 처리
+          console.log('거절!');
+        },
+      });
     }
     closeModal();
   };
+
+  const handleNavigate = () => {
+    router.push(`/app/users/${userId}`);
+  };
+
   return (
     <>
-      <div className='mt-1 flex flex-col items-center bg-white'>
+      <div
+        className='mt-1 flex cursor-pointer flex-col items-center bg-white'
+        onClick={handleNavigate}
+      >
         {/* w-full 로 폭 고정 + padding 적용이 보이도록 */}
         <div className='mt-5 mb-2 flex w-full px-6'>
           <Image
@@ -82,28 +114,34 @@ export default function ActivityReview({
                     color='white'
                     className='h-auto w-auto'
                     textClassName='leading-none flex items-center'
-                    onClick={() => openModal('REJECT')}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      openModal('REJECT');
+                    }}
                   >
                     <Badge
                       text='거절'
                       bgColor='white'
                       borderColor='border-Logo-Pink'
-                      textClassName='text-Logo-Pink'
-                      className='px-4'
+                      textClassName='text-Logo-Pink text-base'
+                      className='w-[60px] px-4 py-0.5'
                     />
                   </Button>
                   <Button
                     color='white'
                     className='h-auto w-auto'
                     textClassName='leading-none flex items-center'
-                    onClick={() => openModal('APPROVE')}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      openModal('APPROVE');
+                    }}
                   >
                     <Badge
                       text='수락'
                       bgColor='white'
                       borderColor='border-Logo-Mint'
-                      textClassName='text-Logo-Mint'
-                      className='px-4'
+                      textClassName='text-Logo-Mint text-base'
+                      className='w-[60px] px-4 py-0.5'
                     />
                   </Button>
                 </div>

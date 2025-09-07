@@ -21,7 +21,7 @@ export default function ReviewRating({
   const showDetail = totalRate !== null;
 
   return (
-    <div className='min-h-[52px]'>
+    <div className='min-h-[52px]' onClick={(e) => e.stopPropagation()}>
       <div className='flex items-center'>
         <Image
           src='/icons/ic_ddabong.svg'
