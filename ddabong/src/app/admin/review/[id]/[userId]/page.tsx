@@ -6,12 +6,13 @@ import ReviewForm from '@/components/ReviewForm';
 import Badge from '@/components/atoms/Badge';
 import Txt from '@/components/atoms/Text';
 import Header from '@/components/atoms/TopBar';
+import { useParams } from 'next/navigation';
 
-type Props = {
-  params: { id: string; userId: string };
-};
+export default function Page() {
+  const params = useParams();
+  const id = Array.isArray(params.id) ? params.id[0] : params.id;
+  const userId = Array.isArray(params.userId) ? params.userId[0] : params.userId;
 
-export default function Page({ params: { id, userId } }: Props) {
   const {
     data: activityPost,
     isLoading: isLoadingPost,
