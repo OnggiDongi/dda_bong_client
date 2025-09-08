@@ -13,7 +13,7 @@ jobs:
       - name: Install Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: setup node pnpm
         uses: pnpm/action-setup@v4
@@ -38,6 +38,12 @@ jobs:
       - name: Build with Next.js
         working-directory: ddabong
         run: pnpm build
+
+      - name: Display custom environment variable
+        env:
+          MY_VARIABLE: "My Value" # 또는 secrets.MY_SECRET 등
+        run: |
+          echo "My variable is: ${{ env.ENV }}"
 
       - name: cp modules not include standalone
         working-directory: ddabong
