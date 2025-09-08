@@ -1,6 +1,7 @@
 'use client';
 
 import { useGetMyActivityPosts } from '@/hooks/queries/useGetMyActivityPosts';
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import VolunList from '@/components/admin/review/VolunList';
 import Txt from '@/components/atoms/Text';
@@ -53,8 +54,14 @@ export default function ReviewListPage() {
     return (
       <main className='flex flex-col items-center gap-5'>
         <TopBar title='모집 봉사 이력' />
-        <div className='flex flex-1 items-center justify-center'>
-          <Txt>Loading...</Txt>
+        <div className='flex min-h-screen items-center justify-center'>
+          <Image
+            src='/video/loading.gif'
+            alt='로딩 중'
+            width={130}
+            height={130}
+            unoptimized
+          />
         </div>
       </main>
     );
