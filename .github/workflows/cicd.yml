@@ -37,7 +37,7 @@ jobs:
 	run: |
     	  pnpm install
     	  pnpm add styled-jsx
-   	  pnpm add @swc/helpers
+	  pnpm add @swc/helpers
     	  pnpm add @next/env
 
       - name: cp modules not include standalone
