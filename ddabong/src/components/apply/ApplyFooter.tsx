@@ -42,15 +42,19 @@ export default function ApplyFooter({
 
   if (!isApply) {
     return (
-      <section className='relative flex h-[68px] items-center justify-center gap-10'>
+      <section className='relative flex h-[68px] items-center justify-center gap-10 shadow-[0_0_5px_0_rgba(0,0,0,0.15)]'>
         {dday != '모집 마감' ? (
-          <Button className='h-[45px] w-[145px] bg-gray-400' onClick={onEdit}>
+          <Button
+            textClassName='text-Modal-font'
+            className='bg-Background h-[45px] w-[145px]'
+            onClick={onEdit}
+          >
             수정하기
           </Button>
         ) : (
           <div className='h-[45px] w-[145px]'></div>
         )}
-        <Button className='h-[45px] w-[145px] bg-red-500' onClick={onDelete}>
+        <Button className='bg-Logo-Pink h-[45px] w-[145px]' onClick={onDelete}>
           삭제하기
         </Button>
       </section>
