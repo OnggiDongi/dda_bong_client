@@ -26,7 +26,7 @@ function AuthSuccessContent() {
     try {
       console.log(token);
       const response = await axios.get(
-        'http://localhost:8080/users/login/kakao',
+        `${process.env.NEXT_PUBLIC_API_URL}/users/login/kakao`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

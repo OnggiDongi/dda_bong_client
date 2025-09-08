@@ -38,7 +38,7 @@ export default function SeniorSignUpPage() {
 
     try {
       const res = await axios.post(
-        'http://localhost:8080/users/signup',
+        `${process.env.NEXT_PUBLIC_API_URL}/users/signup`,
         {
           name,
           birthDate: joinDate.toISOString().split('T')[0], // yyyy-MM-dd
