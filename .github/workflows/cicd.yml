@@ -31,14 +31,13 @@ jobs:
         working-directory: ddabong
         run: |
           pnpm install
-
-      - name: Build with Next.js
-        working-directory: ddabong
-        run: |
-          pnpm install
           pnpm add styled-jsx
           pnpm add @swc/helpers
           pnpm add @next/env
+
+      - name: Build with Next.js
+        working-directory: ddabong
+        run: pnpm build
 
       - name: cp modules not include standalone
         working-directory: ddabong
@@ -49,7 +48,7 @@ jobs:
           cp -r ./node_modules/styled-jsx/* .next/standalone/node_modules/styled-jsx/
           cp -r ./node_modules/@swc/helpers/* .next/standalone/node_modules/@swc/helpers/
           cp -r ./node_modules/@next/env/* .next/standalone/node_modules/@next/env/
-          cp -r ddabong/.next/static .next/standalone/.next/
+          cp -r .next/static .next/standalone/.next/
 
       - name: zip next
         working-directory: ddabong
