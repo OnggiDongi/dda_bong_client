@@ -29,6 +29,15 @@ export default function ApplyBody({ post }: ApplyBodyProps) {
 
   const recruitmentClosed = isRecruitmentClosed(post.dday);
 
+  const startDate = post.startDate?.split(' ')[0];
+  const startTime = post.startDate?.split(' ')[1];
+  const startHour = startTime?.split(':')[0];
+  const startMinute = startTime?.split(':')[1];
+
+  const endHour = Number(startHour) + Number(post.time);
+
+  const finalTime = `${startHour}:${startMinute} - ${endHour}:${startMinute}`;
+
   return (
     <section className='relative flex w-full flex-col'>
       {post.imageUrl && (
@@ -59,7 +68,10 @@ export default function ApplyBody({ post }: ApplyBodyProps) {
           <ApplyGridBox
             iconSrc='/icons/ic_home.svg'
             iconAlt='home icon'
-            lines={[post.institutionName || '', post.institutionPhoneNumber || '']}
+            lines={[
+              post.institutionName || '',
+              post.institutionPhoneNumber || '',
+            ]}
           />
           <ApplyGridBox
             iconSrc='/icons/ic_location.svg'
@@ -74,7 +86,7 @@ export default function ApplyBody({ post }: ApplyBodyProps) {
           <ApplyGridBox
             iconSrc='/icons/ic_date.svg'
             iconAlt='date icon'
-            lines={[post.date || '', post.time || '']}
+            lines={[startDate || '', finalTime || '']}
           />
         </div>
         <div className='my-5 h-[1px] w-full bg-gray-200'></div>

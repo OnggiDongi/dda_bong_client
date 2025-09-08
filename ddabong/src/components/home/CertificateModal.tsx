@@ -46,19 +46,6 @@ export default function CertificateModal({
       onClick={onClose}
     >
       <div onClick={(e) => e.stopPropagation()}>
-        <button
-          onClick={onClose}
-          aria-label='닫기'
-          className='absolute top-8 right-8'
-        >
-          <Image
-            src='/icons/ic_close_white.svg'
-            alt='닫기'
-            width={20}
-            height={20}
-          />
-        </button>
-
         <div
           className={cn(
             bgColor,
@@ -66,6 +53,18 @@ export default function CertificateModal({
             'relative flex h-[450px] w-[300px] flex-col items-center rounded-2xl border-2 px-7 pt-8 text-center'
           )}
         >
+          <button
+            onClick={onClose}
+            aria-label='닫기'
+            className='absolute -top-45 -right-6 rounded-full p-1 hover:opacity-90'
+          >
+            <Image
+              src='/icons/ic_close_white.svg'
+              alt='닫기'
+              width={20}
+              height={20}
+            />
+          </button>
           <Image
             src={HANA_SRC}
             alt='하나은행 로고'

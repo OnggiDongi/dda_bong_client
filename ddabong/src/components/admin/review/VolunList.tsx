@@ -79,7 +79,7 @@ export default function VolunList({
   const handleNavigate = () => router.push(`/admin/recruit/${id}`);
 
   const handleButtonClick = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.stopPropagation();
     if (mode === 'apply') {
@@ -91,10 +91,13 @@ export default function VolunList({
 
   return (
     <div
-      className={cn('bg-white px-4 py-5 cursor-pointer', className)}
+      className={cn(
+        'cursor-pointer overflow-hidden bg-white px-4 py-5',
+        className
+      )}
       onClick={handleNavigate}
     >
-      <div className='flex items-center gap-3'>
+      <div className='flex items-start gap-3'>
         <Image
           src={imageUrl}
           alt={title}
@@ -102,35 +105,49 @@ export default function VolunList({
           height={76}
           className='h-[76px] w-[76px] shrink-0 rounded-xl object-cover'
         />
-
-        <div className='flex flex-col'>
-          <div>
+        <div className='flex min-w-0 flex-1 flex-col'>
+          <div className='mb-0.5'>
             <Badge text={category} />
           </div>
           <Txt className='truncate text-lg'>{title}</Txt>
           <Txt className='text-Icon-Detail text-base'>{date}</Txt>
         </div>
 
-        <div
-          className={cn(
-            'ml-auto flex shrink-0 flex-col items-end gap-1',
-            'pb-4',
-          )}
-        >
+        <div className='ml-3 flex w-[105px] flex-none flex-col items-end gap-1 pb-4'>
           {mode === 'apply' ? (
             <>
               <Txt className='text-base'>
                 지원 인원 {applicantsNum}/{recruitNum}
               </Txt>
-              {star}
+              <div className='flex items-center gap-1'>
+                <Image
+                  src='/icons/ic_ddabong.svg'
+                  alt='평점'
+                  width={16}
+                  height={16}
+                />
+                <Txt className='text-base'>
+                  {rating !== undefined ? rating.toFixed(1) : '-'}
+                </Txt>
+              </div>
             </>
           ) : (
-            star
+            <div className='flex items-center gap-1'>
+              <Image
+                src='/icons/ic_ddabong.svg'
+                alt='평점'
+                width={16}
+                height={16}
+              />
+              <Txt className='text-base'>
+                {rating !== undefined ? rating.toFixed(1) : '-'}
+              </Txt>
+            </div>
           )}
         </div>
       </div>
 
-      <div className='flex justify-end gap-7 pt-3'>
+      <div className='mt-3 flex justify-end gap-7'>
         <Button
           className='h-[25px] w-[120px]'
           color='pink'

@@ -56,7 +56,7 @@ export default function SupportOption({ value, onChange }: Props) {
   };
 
   return (
-    <section className='pt-5 pb-20'>
+    <section className='pt-5'>
       <Txt className='text-xl'>하나은행이 함께 준비해 드릴게요!</Txt>
       <br />
       <Txt className='text-Modal-font pt-1 text-xs'>※ 중복선택 가능</Txt>
@@ -83,8 +83,10 @@ export default function SupportOption({ value, onChange }: Props) {
       </div>
 
       <details className='mt-4'>
-        <summary className='text-Modal-font inline-flex cursor-pointer items-center gap-1'>
-          지원 카테고리 설명
+        <summary className='inline-flex cursor-pointer list-none items-center gap-1'>
+          <span className='text-Modal-font font-semibold'>
+            지원 카테고리 설명
+          </span>
           <Image
             src='/icons/ic_detail.svg'
             alt='자세히보기'

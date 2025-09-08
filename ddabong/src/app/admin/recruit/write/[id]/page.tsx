@@ -53,6 +53,9 @@ export default function RecruitEditPage() {
     queryFn: () => fetchDetailedActivityPost(activityPostId),
     enabled: !!activityPostId,
   });
+  useEffect(() => {
+    console.log('[RecruitEditPage] startTime set to:', startTime);
+  }, [startTime]);
 
   useEffect(() => {
     if (post) {
@@ -74,15 +77,26 @@ export default function RecruitEditPage() {
 
       if (post.startDate) {
         const timePart = post.startDate.split(' ')[1];
-
         const [hour, minute] = timePart.split(':');
-
         const hourNum = Number(hour);
+        const minuteNum = String(minute).padStart(2, '0');
 
-        setStartTime({
+        const newTime = {
           ampm: hourNum >= 12 ? 'PM' : 'AM',
           hour: String(hourNum % 12 || 12),
-          minute: String(minute),
+          minute: minuteNum,
+        };
+
+        setStartTime((prev) => {
+          // minute 값이 이미 동일하면 불필요한 리렌더 방지
+          if (
+            prev.ampm === newTime.ampm &&
+            prev.hour === newTime.hour &&
+            prev.minute === newTime.minute
+          ) {
+            return prev;
+          }
+          return newTime;
         });
       }
       // totalHours is not available in DetailedActivityPost
@@ -162,6 +176,9 @@ export default function RecruitEditPage() {
     });
   };
 
+  const isStartTimeReady =
+    !!startTime.ampm && !!startTime.hour && !!startTime.minute;
+
   return (
     <>
       <form
@@ -170,31 +187,39 @@ export default function RecruitEditPage() {
         onSubmit={handleSubmit}
       >
         <RecruitHeader />
-        <RecruitForm
-          title={title}
-          place={place}
-          volunDate={volunDate}
-          deadline={deadline}
-          startTime={startTime}
-          totalHours={totalHours}
-          capacity={capacity}
-          description={description}
-          onChangeTitle={setTitle}
-          onChangePlace={setPlace}
-          onChangeVolunDate={setVolunDate}
-          onChangeDeadline={setDeadline}
-          onChangeStartTime={setStartTime}
-          onChangeTotalHours={setTotalHours}
-          onChangeCapacity={setCapacity}
-          onChangeDescription={setDescription}
-        />
-        <PhotoUpload value={photoUrl} onChange={setPhotoUrl} />
-        <SupportOption value={support} onChange={setSupport} />
+        {isStartTimeReady && (
+          <RecruitForm
+            title={title}
+            place={place}
+            volunDate={volunDate}
+            deadline={deadline}
+            startTime={startTime}
+            totalHours={totalHours}
+            capacity={capacity}
+            description={description}
+            onChangeTitle={setTitle}
+            onChangePlace={setPlace}
+            onChangeVolunDate={setVolunDate}
+            onChangeDeadline={setDeadline}
+            onChangeStartTime={setStartTime}
+            onChangeTotalHours={setTotalHours}
+            onChangeCapacity={setCapacity}
+            onChangeDescription={setDescription}
+          />
+        )}
+        {/* <PhotoUpload value={photoUrl} onChange={setPhotoUrl} />
+        <SupportOption value={support} onChange={setSupport} /> */}
       </form>
-      <div className='fixed bottom-0 left-0 w-full bg-white px-6 py-3 shadow-[0_0_5px_0_rgba(0,0,0,0.15)]'>
-        <Button type='submit' form='recruit-form' className='h-[45px] w-full'>
-          수정 완료
-        </Button>
+      <div className='sticky right-0 bottom-0 left-0 mx-auto w-full max-w-[430px] bg-transparent'>
+        <div className='border-t border-black/5 bg-white px-6 pt-3 pb-[calc(env(safe-area-inset-bottom)+10px)] shadow-[0px_0px_5px_0px_rgba(0,0,0,0.15)]'>
+          <Button
+            type='submit'
+            form='recruit-form'
+            className='h-[45px] w-full rounded-2xl'
+          >
+            수정 완료
+          </Button>
+        </div>
       </div>
     </>
   );

@@ -156,7 +156,7 @@ export default function SeniorReviewListPage() {
 
   return (
     <main className='bg-page-gradient flex flex-col items-center gap-4 pb-10'>
-      <TopBar title='봉사 후기 작성' bgColor='bg-page-background' />
+      <TopBar title='나의 봉사 활동' bgColor='bg-page-background' />
 
       <TabButton activeTab={activeTab} onChange={setActiveTab} />
 

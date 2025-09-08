@@ -3,6 +3,7 @@
 import { AvatarPicker } from '@/utils/mypage/AvatarPicker';
 import { isValidMobile } from '@/utils/mypage/phone';
 import { useUserForm } from '@/utils/mypage/useUserForm';
+import Image from 'next/image';
 import Category from '@/components/admin/register/Category';
 import LocationSelect from '@/components/apply/LocationSelect';
 import Button from '@/components/atoms/Button';
@@ -54,7 +55,17 @@ export default function MyEditPage() {
   } = useUserForm();
 
   if (isLoading)
-    return <main className='mx-auto max-w-[430px] p-6'>로딩 중…</main>;
+    return (
+      <div className='flex min-h-screen items-center justify-center'>
+        <Image
+          src='/video/loading.gif'
+          alt='로딩 중'
+          width={130}
+          height={130}
+          unoptimized
+        />
+      </div>
+    );
   if (error || !user)
     return (
       <main className='mx-auto max-w-[430px] p-6'>오류가 발생했습니다.</main>
@@ -67,7 +78,6 @@ export default function MyEditPage() {
           e.preventDefault();
           submit();
         }}
-        className='pb-[120px]'
       >
         <TopBar title='내 정보 수정' />
 
@@ -85,7 +95,7 @@ export default function MyEditPage() {
         </section>
 
         {/* 입력 영역 */}
-        <section className='space-y-5 px-[26px] pt-6'>
+        <section className='space-y-5 px-[26px] pt-6 pb-5'>
           <Field label='이름'>
             <Input
               type='text'
@@ -174,14 +184,16 @@ export default function MyEditPage() {
         </section>
 
         {/* 하단 버튼 */}
-        <div className='fixed bottom-0 left-0 w-full bg-white px-6 py-3 shadow-[0_0_5px_0_rgba(0,0,0,0.15)]'>
-          <Button
-            type='submit'
-            className='h-[45px] w-full'
-            disabled={isPending || !!phoneError}
-          >
-            {isPending ? '수정 중…' : '수정 완료'}
-          </Button>
+        <div className='sticky right-0 bottom-0 left-0 mx-auto w-full max-w-[430px] bg-transparent'>
+          <div className='border-t border-black/5 bg-white px-6 pt-3 pb-[calc(env(safe-area-inset-bottom)+10px)] shadow-[0px_0px_5px_0px_rgba(0,0,0,0.15)]'>
+            <Button
+              type='submit'
+              className='h-[45px] w-full rounded-2xl'
+              disabled={isPending || !!phoneError}
+            >
+              {isPending ? '수정 중…' : '수정 완료'}
+            </Button>
+          </div>
         </div>
       </form>
     </main>

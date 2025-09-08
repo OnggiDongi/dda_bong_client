@@ -47,9 +47,9 @@ export default function ReviewListCard({
   cta,
   className,
 }: Props) {
-  const link: string | undefined =
-    href ?? (mode === 'apply' ? `/apply/${id}` : undefined);
-
+  // const link: string | undefined =
+  //   href ?? (mode === 'apply' ? `/apply/${id}` : undefined);
+  const link: string | undefined = href ?? `/apply/${id}`;
   const approveBadge =
     mode === 'apply' && approve
       ? {
