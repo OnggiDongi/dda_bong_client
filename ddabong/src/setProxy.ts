@@ -5,7 +5,7 @@ export default function setupProxy(app: Express) {
   app.use(
     '/',
     createProxyMiddleware({
-      target: `http://${process.env.NEXT_PUBLIC_API_URL}`,
+      target: 'http://localhost:8080',
       changeOrigin: true,
     })
   );

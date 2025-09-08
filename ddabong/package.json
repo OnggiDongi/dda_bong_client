@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "gen:openapi:local": "openapi-typescript https://ddabong.topician.com/v3/api-docs -o src/types/openapi.ts",
+    "gen:openapi:local": "openapi-typescript http://localhost:8080/v3/api-docs -o src/types/openapi.ts",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
@@ -54,5 +54,5 @@
     "tw-animate-css": "^1.3.7",
     "typescript": "^5"
   },
-  "proxy": "//https://ddabong.topician.com"
+  "proxy": "http://localhost:8080"
 }
