@@ -3,6 +3,7 @@
 import { AvatarPicker } from '@/utils/mypage/AvatarPicker';
 import { isValidMobile } from '@/utils/mypage/phone';
 import { useUserForm } from '@/utils/mypage/useUserForm';
+import Image from 'next/image';
 import Category from '@/components/admin/register/Category';
 import LocationSelect from '@/components/apply/LocationSelect';
 import Button from '@/components/atoms/Button';
@@ -54,7 +55,17 @@ export default function MyEditPage() {
   } = useUserForm();
 
   if (isLoading)
-    return <main className='mx-auto max-w-[430px] p-6'>로딩 중…</main>;
+    return (
+      <div className='flex min-h-screen items-center justify-center'>
+        <Image
+          src='/video/loading.gif'
+          alt='로딩 중'
+          width={130}
+          height={130}
+          unoptimized
+        />
+      </div>
+    );
   if (error || !user)
     return (
       <main className='mx-auto max-w-[430px] p-6'>오류가 발생했습니다.</main>

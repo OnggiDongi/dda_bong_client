@@ -4,6 +4,7 @@ import { fetchDetailedActivityPost } from '@/hooks/admin/activity';
 import { useDeleteActivityMutation } from '@/hooks/mutations/useActivityMutations';
 import type { DetailedActivityPost } from '@/types/activity';
 import { useQuery } from '@tanstack/react-query';
+import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
 import ApplyBody from '@/components/apply/ApplyBody';
 import ApplyFooter from '@/components/apply/ApplyFooter';
@@ -39,7 +40,17 @@ export default function RecruitDetail() {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className='flex min-h-screen items-center justify-center'>
+        <Image
+          src='/video/loading.gif'
+          alt='로딩 중'
+          width={130}
+          height={130}
+          unoptimized
+        />
+      </div>
+    );
   }
 
   if (error || !post) {
