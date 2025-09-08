@@ -1,7 +1,7 @@
 name: Next CI/CD
 on:
   push:
-    branches: [ develop ]
+    branches: [develop]
 
 jobs:
   build:
@@ -34,20 +34,20 @@ jobs:
 
       - name: Build with Next.js
         working-directory: ddabong
-	run: |
-    	  pnpm install
-    	  pnpm add styled-jsx
-	  pnpm add @swc/helpers
-    	  pnpm add @next/env
+        run: |
+          pnpm install
+          pnpm add styled-jsx
+          pnpm add @swc/helpers
+          pnpm add @next/env
 
       - name: cp modules not include standalone
         working-directory: ddabong
         run: |
-          mkdir -p .next/standalone/node_modules/@next/env
-	  mkdir -p .next/standalone/node_modules/styled-jsx
+          mkdir -p .next/standalone/node_modules/styled-jsx
           mkdir -p .next/standalone/node_modules/@swc/helpers
+          mkdir -p .next/standalone/node_modules/@next/env
           cp -r ./node_modules/styled-jsx/* .next/standalone/node_modules/styled-jsx/
-	  cp -r ./node_modules/@swc/helpers/* .next/standalone/node_modules/@swc/helpers/
+          cp -r ./node_modules/@swc/helpers/* .next/standalone/node_modules/@swc/helpers/
           cp -r ./node_modules/@next/env/* .next/standalone/node_modules/@next/env/
           cp -r .next/static .next/standalone/.next/
 
