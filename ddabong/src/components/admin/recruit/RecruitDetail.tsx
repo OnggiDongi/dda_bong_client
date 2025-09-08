@@ -30,7 +30,7 @@ export default function RecruitDetail() {
   const handleDelete = () => {
     deleteMutation.mutate(activityPostId, {
       onSuccess: () => {
-        router.push('/admin/recruit');
+        router.push('/admin/home');
       },
     });
   };

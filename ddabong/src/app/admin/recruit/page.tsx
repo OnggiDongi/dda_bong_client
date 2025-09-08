@@ -85,7 +85,7 @@ export default function RecruitPage() {
 
   return (
     <div className='relative flex h-screen w-full flex-col'>
-      <TopBar bgColor='bg-page-background' />
+      <TopBar bgColor='bg-page-background' title='봉사 모아보기' />
       <div className='bg-page-gradient flex-1 overflow-y-auto px-4 pb-24'>
         {hasRecruitment ? (
           <RecruitmentList
