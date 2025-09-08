@@ -1,0 +1,72 @@
+name: Nect CI/CD
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: setup node pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: make .env file
+        working-directory: next/my-app
+        run: |
+          cat > .env <<'EOF'
+          ${{ secrets.ENV }}
+          EOF
+
+      - name: Install dependencies
+        working-directory: next/my-app
+        run: |
+          pnpm install
+          pnpm prisma generate
+
+      - name: Build with Next.js
+        working-directory: next/my-app
+        run: pnpm build
+
+      - name: cp modules not include standalone
+        run: |
+          mkdir -p .next/standalone/node_modules/styled-jsx
+          mkdir -p .next/standalone/node_modules/@swc/helpers
+          mkdir -p .next/standalone/node_modules/@next/env
+          cp -r ./node_modules/styled-jsx/* .next/standalone/node_modules/styled-jsx/
+          cp -r ./node_modules/@swc/helpers/* .next/standalone/node_modules/@swc/helpers/
+          cp -r ./node_modules/@next/env/* .next/standalone/node_modules/@next/env/
+          cp -r .next/static .next/standalone/.next/
+
+      - name: zip next
+        working-directory: next/my-app
+        run: zip -rq next.zip public .next/standalone
+
+      - name: setup ssh
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 400 ~/.ssh/id_rsa
+          ssh-keyscan ${{ secrets.WAS }} >> ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+
+      - name: scp next to was
+        run: |
+          scp next/my-app/next.zip ec2-user@${{ secrets.WAS }}:/home/ec2-user/workspace/
+
+      - name: restart next
+        run: |
+          ssh ec2-user@${{ secrets.WAS }} '
+            cd /home/ec2-user/workspace
+            rm -rf my-app
+            unzip -q next.zip -d my-app
+          '

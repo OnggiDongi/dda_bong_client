@@ -1,4 +1,5 @@
-import { Review } from '@/app/apply/[id]/page';
+// import { Review } from '@/app/apply/[id]/page';
+import { Review } from '@/types/activity';
 import StarRating from '../../StarRating';
 import AiComment from '../../atoms/AiComment';
 import Txt from '../../atoms/Text';
@@ -44,10 +45,10 @@ export default function ApplyReview({
           reviews.map((review) => (
             <ReviewBox
               key={review.id}
-              userName={review.userName}
+              userName={review.userName ?? ''}
               imageUrl={review.profileImage || DEFAULT_PROFILE_IMAGE}
-              rate={review.rate}
-              content={review.comment}
+              rate={review.rate ?? 0}
+              content={review.comment ?? ''}
             />
           ))
         ) : (

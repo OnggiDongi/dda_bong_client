@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import Input from '@/components/atoms/Input';
 import Txt from '@/components/atoms/Text';
 import DatePicker from '@/components/common/DatePicker';
@@ -44,6 +45,10 @@ export default function RecruitForm({
   onChangeCapacity,
   onChangeDescription,
 }: Props) {
+  useEffect(() => {
+    console.log('[RecruitForm] startTime prop:', startTime);
+  }, [startTime]);
+
   return (
     <div className='flex flex-col gap-4'>
       <div>

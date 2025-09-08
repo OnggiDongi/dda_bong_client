@@ -56,6 +56,7 @@ export default function RecruitDetail() {
         isApply={false}
         onDelete={handleDelete}
         onEdit={handleEdit}
+        dday={post.dday}
       />
     </>
   );

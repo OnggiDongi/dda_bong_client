@@ -10,15 +10,15 @@ export default function AboutPage() {
   const router = useRouter();
 
   return (
-    <main className='bg-1Q-Green flex flex-col items-center pb-10'>
-      <TopBar title='' />
+    <main className='flex flex-col'>
+      {/* 뒤로가기 위치 맞추려고 공백 글자 추가함 */}
+      <TopBar title='⠀' />
       <section className='flex w-[402px] flex-col items-center bg-white pb-8'>
         <Image src='/icons/ic_logo.svg' alt='따봉' width={120} height={60} />
         <Txt weight='bold' className='mt-2 text-center text-xl'>
           당신의 따봉 하나, 세상에 온기 하나
         </Txt>
       </section>
-
       <section>
         <Image
           src='/images/about.svg'
@@ -27,7 +27,6 @@ export default function AboutPage() {
           height={421}
         />
       </section>
-
       <section className='bg-1Q-Green flex w-[402px] flex-col items-center'>
         <div className='flex items-center gap-2 pt-8'>
           <Image src='/icons/ic_bus.svg' alt='버스' width={80} height={80} />

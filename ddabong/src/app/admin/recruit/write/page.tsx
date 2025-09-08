@@ -3,7 +3,7 @@
 import { useToast } from '@/contexts/toast/ToastContext';
 import { fmtDate } from '@/hooks/admin/home/fomat';
 import { useCreateActivityPostMutation } from '@/hooks/mutations/useCreateActivityPostMutation';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import PhotoUpload from '@/components/admin/recruit/write/PhotoUpload';
 import RecruitForm from '@/components/admin/recruit/write/RecruitForm';
@@ -22,8 +22,9 @@ function startOfDay(d: Date) {
 
 export default function RecruitWritePage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const activityId = searchParams.get('id');
+  const params = useParams();
+  const id = params.id as string;
+  const activityId = Number(id);
 
   const [title, setTitle] = useState('');
   const [place, setPlace] = useState('');
@@ -99,8 +100,6 @@ export default function RecruitWritePage() {
       image: photoUrl ?? undefined,
     };
 
-    console.log(typeof body.activityTime);
-
     mutate(body, {
       onSuccess: () => {
         showToast('작성이 완료되었습니다.', 'success');
@@ -117,7 +116,7 @@ export default function RecruitWritePage() {
     <>
       <form
         id='recruit-form'
-        className='bg-page-gradient flex flex-col gap-4 px-6 py-5'
+        className='bg-page-gradient flex flex-col gap-4 px-6 py-5 pb-28'
         onSubmit={handleSubmit}
       >
         <RecruitHeader />
@@ -142,15 +141,17 @@ export default function RecruitWritePage() {
         <PhotoUpload value={photoUrl} onChange={setPhotoUrl} />
         <SupportOption value={support} onChange={setSupport} />
       </form>
-      <div className='fixed bottom-0 left-0 w-full bg-white px-6 py-3 shadow-[0_0_5px_0_rgba(0,0,0,0.15)]'>
-        <Button
-          type='submit'
-          form='recruit-form'
-          className='h-[45px] w-full'
-          disabled={isPending}
-        >
-          {isPending ? '작성 중...' : '작성 완료'}
-        </Button>
+      <div className='sticky right-0 bottom-0 left-0 mx-auto w-full max-w-[430px] bg-transparent'>
+        <div className='border-t border-black/5 bg-white px-6 pt-3 pb-[calc(env(safe-area-inset-bottom)+10px)] shadow-[0px_0px_5px_0px_rgba(0,0,0,0.15)]'>
+          <Button
+            type='submit'
+            form='recruit-form'
+            className='h-[45px] w-full rounded-2xl'
+            disabled={isPending}
+          >
+            {isPending ? '작성 중...' : '작성 완료'}
+          </Button>
+        </div>
       </div>
     </>
   );
