@@ -26,7 +26,7 @@ export default function UserReviewStarRating({
           <Txt weight='extrabold' className='px-3.5'>
             {totalRate.toFixed(1)}
           </Txt>
-          <StarRating value={4} readOnly={true} size={20} />
+          <StarRating value={totalRate} readOnly={true} size={20} />
         </div>
 
         {/* 성실도 / 친화력 / 건강 상태 */}

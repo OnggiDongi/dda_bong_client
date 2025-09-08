@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import AiComment from '@/components/atoms/AiComment';
 import Badge from '@/components/atoms/Badge';
 import Txt from '@/components/atoms/Text';
 
@@ -9,7 +8,6 @@ type Props = {
   phoneNumber: string;
   profileImage: string;
   preferredCategory: string;
-  aiReview: string;
 };
 export default function UserInfo({
   userName,
@@ -17,11 +15,10 @@ export default function UserInfo({
   phoneNumber,
   profileImage,
   preferredCategory,
-  aiReview,
 }: Props) {
   return (
     <>
-      <div className='mt-1 flex flex-col items-center bg-white px-8 py-8'>
+      <div className='mt-1 flex flex-col items-center bg-white px-8 pt-8'>
         <div className='flex w-full gap-4 overflow-hidden pb-8'>
           <Image
             src={profileImage}
@@ -40,12 +37,6 @@ export default function UserInfo({
             <Txt className='text-Modal-font'>{birthDate}</Txt>
             <Txt className='text-Modal-font'>{phoneNumber}</Txt>
           </div>
-        </div>
-        <div className='flex items-center'>
-          <Txt weight='medium' className='text-Logo-Mint pr-2.5'>
-            AI 요약
-          </Txt>
-          <AiComment text={aiReview} textClassName='text-sm' />
         </div>
       </div>
     </>
