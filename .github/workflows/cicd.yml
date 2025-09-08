@@ -21,20 +21,17 @@ jobs:
           version: 9
 
       - name: make .env file
-        working-directory: next/my-app
         run: |
           cat > .env <<'EOF'
           ${{ secrets.ENV }}
           EOF
 
       - name: Install dependencies
-        working-directory: next/my-app
         run: |
           pnpm install
           pnpm prisma generate
 
       - name: Build with Next.js
-        working-directory: next/my-app
         run: pnpm build
 
       - name: cp modules not include standalone
@@ -48,7 +45,6 @@ jobs:
           cp -r .next/static .next/standalone/.next/
 
       - name: zip next
-        working-directory: next/my-app
         run: zip -rq next.zip public .next/standalone
 
       - name: setup ssh
