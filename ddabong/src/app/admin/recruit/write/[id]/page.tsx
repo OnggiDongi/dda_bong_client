@@ -210,10 +210,16 @@ export default function RecruitEditPage() {
         {/* <PhotoUpload value={photoUrl} onChange={setPhotoUrl} />
         <SupportOption value={support} onChange={setSupport} /> */}
       </form>
-      <div className='fixed bottom-0 left-0 w-full bg-white px-6 py-3 shadow-[0_0_5px_0_rgba(0,0,0,0.15)]'>
-        <Button type='submit' form='recruit-form' className='h-[45px] w-full'>
-          수정 완료
-        </Button>
+      <div className='sticky right-0 bottom-0 left-0 mx-auto w-full max-w-[430px] bg-transparent'>
+        <div className='border-t border-black/5 bg-white px-6 pt-3 pb-[calc(env(safe-area-inset-bottom)+10px)] shadow-[0px_0px_5px_0px_rgba(0,0,0,0.15)]'>
+          <Button
+            type='submit'
+            form='recruit-form'
+            className='h-[45px] w-full rounded-2xl'
+          >
+            수정 완료
+          </Button>
+        </div>
       </div>
     </>
   );
