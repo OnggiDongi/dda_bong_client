@@ -5,6 +5,7 @@ import {
   useApplyActivityMutation,
   useLikeActivityMutation,
 } from '@/hooks/mutations/useActivityMutations';
+import type { DetailedActivityPost } from '@/types/activity';
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
@@ -12,7 +13,6 @@ import ApplyBody from '@/components/apply/ApplyBody';
 import ApplyFooter from '@/components/apply/ApplyFooter';
 import ApplyHeader from '@/components/apply/ApplyHeader';
 import ApplyReview from '@/components/apply/review/ApplyReview';
-import type { DetailedActivityPost } from '@/types/activity';
 
 export default function VolunteerDetailPage() {
   const params = useParams();
@@ -24,7 +24,9 @@ export default function VolunteerDetailPage() {
     data: post,
     isLoading,
     error,
-  } = useQuery<DetailedActivityPost & { isLiked?: boolean; isApplied?: boolean }>({
+  } = useQuery<
+    DetailedActivityPost & { isLiked?: boolean; isApplied?: boolean }
+  >({
     queryKey,
     queryFn: () => fetchDetailedActivityPost(postId),
     enabled: !!id,
@@ -74,6 +76,7 @@ export default function VolunteerDetailPage() {
         <ApplyBody post={post} />
         <ApplyReview
           reviews={post.reviews || []}
+          aiComment={post.aiComment ?? ''}
           totalAvgScore={post.totalAvgScore || 0}
         />
       </div>

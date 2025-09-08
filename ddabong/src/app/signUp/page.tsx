@@ -54,7 +54,7 @@ export default function SeniorSignUpPage() {
         return;
       }
       showToast('회원가입이 완료되었습니다.', 'success');
-      router.push('/signIn');
+      router.push('/signin');
     } catch (err) {
       if (axios.isAxiosError(err)) {
         // 서버에서 내려준 응답.

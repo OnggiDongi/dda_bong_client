@@ -36,9 +36,11 @@ export function useUserForm() {
   // init from user
   useEffect(() => {
     if (!user) return;
+
     setPhone(user.phoneNumber ?? '');
     setCategory(user.preferredCategory ?? '');
     const raw = (user.preferredRegion ?? '').trim();
+
     if (raw) {
       const parts = raw.split(/\s+/);
       setRegion(parts[0] ?? '');
