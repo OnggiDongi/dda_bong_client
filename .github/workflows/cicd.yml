@@ -70,7 +70,6 @@ jobs:
         run: |
           ssh ec2-user@${{ secrets.WAS }} '
             cd /home/ec2-user/workspace
-            rm -rf my-app
-            unzip -q next.zip -d my-app
-            pm2 reload my-next-app
+            rm -rf ddabong
+            unzip -q next.zip -d ddabong
           '
