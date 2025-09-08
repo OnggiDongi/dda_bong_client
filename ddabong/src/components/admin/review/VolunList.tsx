@@ -28,6 +28,7 @@ type Props = {
   // apply 모드에서 사용할 새 링크
   detailHref?: string; // 봉사 상세 보기
   applicantsHref?: string; // 지원자 보기
+  applicantNum?: number; // 지원자 수
 };
 
 export default function VolunList({
@@ -44,9 +45,10 @@ export default function VolunList({
   allReviewsHref,
   detailHref,
   applicantsHref,
+  applicantNum,
 }: Props) {
   const router = useRouter();
-  const pendingApplicantsNum = usePendingApplicantsCount(id);
+  // const pendingApplicantsNum = usePendingApplicantsCount(id);
 
   const star = (
     <div className='flex items-center gap-1'>
@@ -116,9 +118,7 @@ export default function VolunList({
         <div className='ml-3 flex w-[105px] flex-none flex-col items-end gap-1 pb-4'>
           {mode === 'apply' ? (
             <>
-              <Txt className='text-base'>
-                승인 대기: {pendingApplicantsNum}명
-              </Txt>
+              <Txt className='text-base'>승인 대기: {applicantNum}명</Txt>
               <div className='flex items-center gap-1'>
                 <Image
                   src='/icons/ic_ddabong.svg'
