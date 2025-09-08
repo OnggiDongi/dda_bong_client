@@ -34,7 +34,11 @@ jobs:
 
       - name: Build with Next.js
         working-directory: ddabong
-        run: pnpm build
+	run: |
+    	  pnpm install
+    	  pnpm add styled-jsx
+   	  pnpm add @swc/helpers
+    	  pnpm add @next/env
 
       - name: cp modules not include standalone
         working-directory: ddabong
