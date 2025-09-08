@@ -14,7 +14,6 @@ export default async function Page({ params }: Props) {
     date: '2025.09.01(월)',
     location: '강원도 안목해변',
   };
-  const name = localStorage.getItem('name');
 
   const { id, userId } = await params;
 
@@ -23,7 +22,7 @@ export default async function Page({ params }: Props) {
       <Header title='봉사자 평가' />
       <section className='bg-white px-[26px] py-[15px]'>
         <div className='border-Box-Line w-full border-b pb-2'>
-          <Txt className='text-[22px]'>{name}</Txt>
+          <Txt className='text-[22px]'>별돌이님</Txt>
         </div>
         <div className='flex items-center justify-between pt-[11px] pb-[7px]'>
           <Txt className='text-xl'>{data.title}</Txt>
