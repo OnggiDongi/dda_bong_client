@@ -41,9 +41,9 @@ jobs:
 
       - name: Display custom environment variable
         env:
-          MY_VARIABLE: "My Value" # 또는 secrets.MY_SECRET 등
+          NEXT_PUBLIC_API_URL: "My Value" # 또는 secrets.MY_SECRET 등
         run: |
-          echo "My variable is: ${{ env.ENV }}"
+          echo "My variable is: ${{ env.NEXT_PUBLIC_API_URL }}"
 
       - name: cp modules not include standalone
         working-directory: ddabong
