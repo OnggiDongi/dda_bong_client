@@ -117,7 +117,7 @@ export default function RecruitWritePage() {
     <>
       <form
         id='recruit-form'
-        className='bg-page-gradient flex flex-col gap-4 px-6 py-5'
+        className='bg-page-gradient flex flex-col gap-4 px-6 py-5 pb-28'
         onSubmit={handleSubmit}
       >
         <RecruitHeader />
@@ -142,15 +142,17 @@ export default function RecruitWritePage() {
         <PhotoUpload value={photoUrl} onChange={setPhotoUrl} />
         <SupportOption value={support} onChange={setSupport} />
       </form>
-      <div className='fixed bottom-0 left-0 w-full bg-white px-6 py-3 shadow-[0_0_5px_0_rgba(0,0,0,0.15)]'>
-        <Button
-          type='submit'
-          form='recruit-form'
-          className='h-[45px] w-full'
-          disabled={isPending}
-        >
-          {isPending ? '작성 중...' : '작성 완료'}
-        </Button>
+      <div className='sticky right-0 bottom-0 left-0 mx-auto w-full max-w-[430px] bg-transparent'>
+        <div className='border-t border-black/5 bg-white px-6 pt-3 pb-[calc(env(safe-area-inset-bottom)+10px)] shadow-[0px_0px_5px_0px_rgba(0,0,0,0.15)]'>
+          <Button
+            type='submit'
+            form='recruit-form'
+            className='h-[45px] w-full rounded-2xl'
+            disabled={isPending}
+          >
+            {isPending ? '작성 중...' : '작성 완료'}
+          </Button>
+        </div>
       </div>
     </>
   );

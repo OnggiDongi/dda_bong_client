@@ -42,8 +42,8 @@ export default function WishCard({
           height={120}
           className='h-[120px] w-[120px] rounded-xl object-cover'
         />
-        <div className='flex w-[190px] flex-col justify-between pl-1'>
-          <div className='flex items-center justify-between'>
+        <div className='flex min-w-0 flex-1 flex-col justify-between pl-1'>
+          <div className='flex items-center justify-between gap-2'>
             <Badge text={category} />
             <button onClick={handleWishClick}>
               <Image
