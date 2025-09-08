@@ -1,7 +1,7 @@
-name: Nect CI/CD
+name: Next CI/CD
 on:
   push:
-    branches: [ master ]
+    branches: [ develop ]
 
 jobs:
   build:
