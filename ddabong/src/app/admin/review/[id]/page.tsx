@@ -1,11 +1,10 @@
-// 봉사자 목록
 'use client';
 
 import { useGetVolunteerReviewList } from '@/hooks/queries/useGetVolunteerReviewList';
+import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import ActivityApplyInfo from '@/components/admin/review/[id]/ActivityInfo';
 import VolunteerReview from '@/components/admin/volunteer/VolunteerReview';
-import Txt from '@/components/atoms/Text';
 import TopBar from '@/components/atoms/TopBar';
 
 // 봉사자 목록
@@ -57,10 +56,14 @@ export default function RecruitVolunteerListPage() {
             />
           ))
         ) : (
-          <div className='mt-1 flex min-h-[64vh] flex-col items-center justify-center bg-white'>
-            <Txt weight='medium' className='text-Modal-font'>
-              글이 없습니다.
-            </Txt>
+          <div className='flex min-h-screen items-center justify-center'>
+            <Image
+              src='/video/loading.gif'
+              alt='로딩 중'
+              width={130}
+              height={130}
+              unoptimized
+            />
           </div>
         )}
       </div>
