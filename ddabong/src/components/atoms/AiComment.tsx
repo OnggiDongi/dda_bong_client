@@ -26,7 +26,7 @@ export default function AiComment({
     <div
       className={cn(
         // 내용 길이에 맞게 (chip) + 부모 콘텐츠 영역을 넘지 않도록
-        'bg-1Q-Mint-Line inline-flex w-auto max-w-[90%] flex-col justify-center',
+        'bg-1Q-Mint-Line inline-flex w-auto flex-col justify-center',
         'min-w-0 gap-1.5 px-5 py-2.5', // 줄바꿈 허용(min-w-0)
         rounded,
         className

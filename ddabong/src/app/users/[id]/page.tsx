@@ -7,6 +7,7 @@ import UserInfo from '@/components/admin/volunteer/UserInfo';
 import UserReviewList from '@/components/admin/volunteer/UserReviewList';
 import UserReviewStarRating from '@/components/admin/volunteer/UserReviewStarRating';
 import TopBar from '@/components/atoms/TopBar';
+import AiReview from '@/components/users/AiReview';
 
 export default function ApplicantsDetailPage({
   params,
@@ -60,8 +61,8 @@ export default function ApplicantsDetailPage({
           'https://ddabong-upload.s3.ap-northeast-2.amazonaws.com/uploads/초수비.jpg'
         }
         preferredCategory={data.preferredCategory ?? '농어촌'}
-        aiReview={'피그마를 잘해요. 마라샹궈를 좋아해요'} // TODO : AI 연결하기
       />
+      <AiReview text={data.reviewSummary ?? '아직 AI 리뷰가 없어요!'} />
       <UserReviewStarRating
         totalRate={data.totalGrade ?? 4.0}
         diligenceLevel={data.diligenceLevel ?? 4.0}
