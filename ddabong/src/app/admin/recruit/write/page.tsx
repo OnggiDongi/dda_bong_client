@@ -3,7 +3,7 @@
 import { useToast } from '@/contexts/toast/ToastContext';
 import { fmtDate } from '@/hooks/admin/home/fomat';
 import { useCreateActivityPostMutation } from '@/hooks/mutations/useCreateActivityPostMutation';
-import { useParams, useRouter, useSearchParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import PhotoUpload from '@/components/admin/recruit/write/PhotoUpload';
 import RecruitForm from '@/components/admin/recruit/write/RecruitForm';

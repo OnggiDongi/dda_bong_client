@@ -3,10 +3,10 @@
 // (특정 봉사) 지원자 목록
 import { useApplicants } from '@/hooks/queries/useGetApplicants';
 import { components } from '@/types/openapi';
+import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import ActivityReview from '@/components/ActivityReview';
 import ActivityApplyInfo from '@/components/admin/volunteer/ActivityApplyInfo';
-import Txt from '@/components/atoms/Text';
 import TopBar from '@/components/atoms/TopBar';
 
 type ApplicantReviewResponseDTO =
@@ -59,10 +59,14 @@ export default function VolunteerListPage() {
               />
             ))
           ) : (
-            <div className='mt-1 flex min-h-[64vh] flex-col items-center justify-center bg-white'>
-              <Txt weight='medium' className='text-Modal-font'>
-                글이 없습니다.
-              </Txt>
+            <div className='flex min-h-screen items-center justify-center'>
+              <Image
+                src='/video/loading.gif'
+                alt='로딩 중'
+                width={130}
+                height={130}
+                unoptimized
+              />
             </div>
           )}
         </div>
