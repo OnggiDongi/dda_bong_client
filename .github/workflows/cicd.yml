@@ -29,7 +29,6 @@ jobs:
       - name: Install dependencies
         run: |
           pnpm install
-          pnpm prisma generate
 
       - name: Build with Next.js
         run: pnpm build
