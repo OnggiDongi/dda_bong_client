@@ -21,19 +21,23 @@ jobs:
           version: 9
 
       - name: make .env file
-        run: |
+        working-directory: ddabong
+	run: |
           cat > .env <<'EOF'
           ${{ secrets.ENV }}
           EOF
 
-      - name: Install dependencies
+      - name: Install dependenciesa
+	working-directory: ddabong
         run: |
           pnpm install
 
       - name: Build with Next.js
+	working-directory: ddabong
         run: pnpm build
 
       - name: cp modules not include standalone
+	working-directory: ddabong
         run: |
           mkdir -p .next/standalone/node_modules/styled-jsx
           mkdir -p .next/standalone/node_modules/@swc/helpers
@@ -44,6 +48,7 @@ jobs:
           cp -r .next/static .next/standalone/.next/
 
       - name: zip next
+	working-directory: ddabong
         run: zip -rq next.zip public .next/standalone
 
       - name: setup ssh
