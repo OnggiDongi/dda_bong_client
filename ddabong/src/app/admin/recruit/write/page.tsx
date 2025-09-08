@@ -3,7 +3,7 @@
 import { useToast } from '@/contexts/toast/ToastContext';
 import { fmtDate } from '@/hooks/admin/home/fomat';
 import { useCreateActivityPostMutation } from '@/hooks/mutations/useCreateActivityPostMutation';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import PhotoUpload from '@/components/admin/recruit/write/PhotoUpload';
 import RecruitForm from '@/components/admin/recruit/write/RecruitForm';
@@ -22,8 +22,9 @@ function startOfDay(d: Date) {
 
 export default function RecruitWritePage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const activityId = searchParams.get('id');
+  const params = useParams();
+  const id = params.id as string;
+  const activityId = Number(id);
 
   const [title, setTitle] = useState('');
   const [place, setPlace] = useState('');
