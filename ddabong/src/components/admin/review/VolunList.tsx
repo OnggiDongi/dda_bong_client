@@ -1,5 +1,6 @@
 'use client';
 
+import { usePendingApplicantsCount } from '@/hooks/queries/usePendingApplicantsCount';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
@@ -17,7 +18,6 @@ type Props = {
   category: string;
   imageUrl: string;
   recruitNum?: number;
-  applicantsNum?: number;
   rating?: number;
   className?: string;
 
@@ -38,7 +38,6 @@ export default function VolunList({
   category,
   imageUrl,
   recruitNum,
-  applicantsNum,
   rating,
   className,
   evaluateHref,
@@ -47,6 +46,7 @@ export default function VolunList({
   applicantsHref,
 }: Props) {
   const router = useRouter();
+  const pendingApplicantsNum = usePendingApplicantsCount(id);
 
   const star = (
     <div className='flex items-center gap-1'>
@@ -117,7 +117,7 @@ export default function VolunList({
           {mode === 'apply' ? (
             <>
               <Txt className='text-base'>
-                지원 인원 {applicantsNum}/{recruitNum}
+                승인 대기: {pendingApplicantsNum}명
               </Txt>
               <div className='flex items-center gap-1'>
                 <Image
