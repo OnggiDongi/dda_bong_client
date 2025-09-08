@@ -38,7 +38,7 @@ export default function SeniorSignUpPage() {
 
     try {
       const res = await axios.post(
-        'http://localhost:8080/users/signup',
+        `${process.env.NEXT_PUBLIC_API_URL}/users/signup`,
         {
           name,
           birthDate: joinDate.toISOString().split('T')[0], // yyyy-MM-dd
@@ -54,7 +54,7 @@ export default function SeniorSignUpPage() {
         return;
       }
       showToast('회원가입이 완료되었습니다.', 'success');
-      router.push('/signIn');
+      router.push('/signin');
     } catch (err) {
       if (axios.isAxiosError(err)) {
         // 서버에서 내려준 응답.

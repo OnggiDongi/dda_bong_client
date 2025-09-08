@@ -3,8 +3,8 @@
 import { useToast } from '@/contexts/toast/ToastContext';
 import { fmtDate } from '@/hooks/admin/home/fomat';
 import { useCreateActivityPostMutation } from '@/hooks/mutations/useCreateActivityPostMutation';
-import { useParams, useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { Suspense, useState } from 'react';
 import PhotoUpload from '@/components/admin/recruit/write/PhotoUpload';
 import RecruitForm from '@/components/admin/recruit/write/RecruitForm';
 import RecruitHeader from '@/components/admin/recruit/write/RecruitHeader';
@@ -20,11 +20,21 @@ function startOfDay(d: Date) {
   return x;
 }
 
+/** Suspense 경계만 담당하는 얇은 래퍼 */
 export default function RecruitWritePage() {
-  const router = useRouter();
-  const params = useParams();
-  const id = params.id as string;
+  return (
+    <Suspense fallback={null /* 필요하면 로더 컴포넌트 넣기 */}>
+      <RecruitWritePageInner />
+    </Suspense>
+  );
+}
+
+/** 실제 로직은 여기로 이동 */
+function RecruitWritePageInner() {
+  const searchParams = useSearchParams();
+  const id = searchParams.get('id');
   const activityId = Number(id);
+  const router = useRouter();
 
   const [title, setTitle] = useState('');
   const [place, setPlace] = useState('');

@@ -4,6 +4,7 @@ import { AvatarPicker } from '@/utils/mypage/AvatarPicker';
 import { isValidMobile } from '@/utils/mypage/phone';
 import { useUserForm } from '@/utils/mypage/useUserForm';
 import Image from 'next/image';
+import { useEffect } from 'react';
 import Category from '@/components/admin/register/Category';
 import LocationSelect from '@/components/apply/LocationSelect';
 import Button from '@/components/atoms/Button';
@@ -53,6 +54,12 @@ export default function MyEditPage() {
     isPending,
     submit,
   } = useUserForm();
+
+  useEffect(() => {
+    if (category) setCategory(category);
+    if (region) setRegion(region);
+    if (district) setDistrict(district);
+  }, [region, district, category]);
 
   if (isLoading)
     return (

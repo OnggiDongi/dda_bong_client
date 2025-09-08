@@ -57,7 +57,7 @@ export default function VolunteerListPage() {
             category={applicantsData.category ?? ''}
             imageUrl={applicantsData.imageUrl ?? ''}
             recruitNum={applicantsData.capacity ?? 0}
-            applicantsNum={applicantsData.applicantNum ?? 0}
+            applicants={applicantsData.reviews ?? []}
           />
         )}
         <div>

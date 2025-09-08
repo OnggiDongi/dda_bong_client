@@ -106,7 +106,6 @@ export default function ReviewListPage() {
               }
               imageUrl={item.imageUrl ?? ''}
               recruitNum={item.capacity ?? 0}
-              applicantsNum={item.applicantNum}
               rating={item.totalAvgScore ?? 0}
             />
           ))

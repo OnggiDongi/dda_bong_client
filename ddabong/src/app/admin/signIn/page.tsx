@@ -13,7 +13,7 @@ import Txt from '@/components/atoms/Text';
 export default function AdminSignInPage() {
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
-  const baseUrl = 'http://localhost:8080';
+  const baseUrl = `${process.env.NEXT_PUBLIC_API_URL}:8080`;
   const router = useRouter();
   const { showToast } = useToast();
 
