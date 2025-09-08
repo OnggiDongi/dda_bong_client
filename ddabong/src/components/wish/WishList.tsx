@@ -1,10 +1,11 @@
 'use client';
 
+import { components } from '@/types/openapi';
+import { CATEGORY_MAP } from '@/utils/map/categoryMap';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { privateClient } from '@/lib/openapi-client';
 import WishCard from '@/components/wish/WishCard';
 import Txt from '../atoms/Text';
-import { privateClient } from '@/lib/openapi-client';
-import { components } from '@/types/openapi';
 
 type WishItem = components['schemas']['ActivityPostResponseDTO'];
 
@@ -45,12 +46,14 @@ export default function WishList() {
       await queryClient.cancelQueries({ queryKey: ['wishlist'] });
 
       // 이전 데이터 스냅샷
-      const previousWishlist = queryClient.getQueryData<WishItem[]>(['wishlist']);
+      const previousWishlist = queryClient.getQueryData<WishItem[]>([
+        'wishlist',
+      ]);
 
       // 낙관적 업데이트
       queryClient.setQueryData<WishItem[]>(
         ['wishlist'],
-        (old) => old?.filter((item) => item.id !== id) ?? [],
+        (old) => old?.filter((item) => item.id !== id) ?? []
       );
 
       // 컨텍스트에 이전 데이터 반환
@@ -91,7 +94,7 @@ export default function WishList() {
           key={item.id}
           id={item.id!}
           imageUrl={item.imageUrl!}
-          category={item.category!}
+          category={CATEGORY_MAP[item.category!]}
           title={item.title!}
           endAt={item.endAt!}
           location={item.location!}

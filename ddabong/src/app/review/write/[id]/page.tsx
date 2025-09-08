@@ -56,11 +56,14 @@ export default function SeniorReviewWritePage() {
         );
 
         const data = res.data;
+        if (data?.error) {
+          showToast('봉사정보를 불러오지 못했습니다.');
+        }
         const result: Data = {
           userName: (localStorage.getItem('name') || '알 수 없음') + '님',
           category: data.category ?? '',
           title: data.title ?? '',
-          date: data.date ?? '',
+          date: data.startDate ?? '',
           location: data.location ?? '',
         };
 
