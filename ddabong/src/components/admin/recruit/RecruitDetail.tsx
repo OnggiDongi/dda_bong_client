@@ -1,12 +1,12 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
-import { useParams, useRouter } from 'next/navigation';
 import { fetchDetailedActivityPost } from '@/hooks/admin/activity';
 import { useDeleteActivityMutation } from '@/hooks/mutations/useActivityMutations';
+import type { DetailedActivityPost } from '@/types/activity';
+import { useQuery } from '@tanstack/react-query';
+import { useParams, useRouter } from 'next/navigation';
 import ApplyBody from '@/components/apply/ApplyBody';
 import ApplyFooter from '@/components/apply/ApplyFooter';
-import type { DetailedActivityPost } from '@/types/activity';
 
 export default function RecruitDetail() {
   const router = useRouter();
@@ -14,7 +14,11 @@ export default function RecruitDetail() {
   const id = params.id as string;
   const activityPostId = Number(id);
 
-  const { data: post, isLoading, error } = useQuery<DetailedActivityPost>({
+  const {
+    data: post,
+    isLoading,
+    error,
+  } = useQuery<DetailedActivityPost>({
     queryKey: ['activityPost', activityPostId],
     queryFn: () => fetchDetailedActivityPost(activityPostId),
     enabled: !!activityPostId,
@@ -52,6 +56,7 @@ export default function RecruitDetail() {
         isApply={false}
         onDelete={handleDelete}
         onEdit={handleEdit}
+        dday={post.dday}
       />
     </>
   );
