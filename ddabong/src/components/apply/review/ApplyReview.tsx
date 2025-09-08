@@ -7,6 +7,7 @@ import ReviewBox from './ReviewBox';
 
 type ApplyReviewProps = {
   reviews: Review[];
+  aiComment: string;
   totalAvgScore: number;
 };
 
@@ -15,6 +16,7 @@ const DEFAULT_PROFILE_IMAGE =
 
 export default function ApplyReview({
   reviews,
+  aiComment,
   totalAvgScore,
 }: ApplyReviewProps) {
   // AI Comment can be a future feature
@@ -38,7 +40,7 @@ export default function ApplyReview({
           />
         </div>
         {/* <AiComment text={aiCommentText} /> */}
-        <AiComment text='바다가 참 예뻐서 건강해지는 기분인데용용 요요요요용ㅇ 바다시원하고푸르고물고기있고좋아요이이이이이이이\이이합니다' />
+        <AiComment text={aiComment || ''} />
       </div>
       <div>
         {reviews && reviews.length > 0 ? (
