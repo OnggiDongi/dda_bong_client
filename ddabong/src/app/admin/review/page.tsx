@@ -1,5 +1,6 @@
 'use client';
 
+import { useApplicantCountMap } from '@/hooks/admin/useApplicantCountMap';
 import { useGetMyActivityPosts } from '@/hooks/queries/useGetMyActivityPosts';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
@@ -40,6 +41,9 @@ export default function ReviewListPage() {
   const isError = isErrorRecruiting || isErrorPast;
 
   const listData = activeTab === 'apply' ? recruitingPosts : pastPosts;
+
+  const activityIds = listData?.map((item) => item.id ?? 0) ?? [];
+  const applicantCountMap = useApplicantCountMap(activityIds);
 
   useEffect(() => {
     if (recruitingPosts && recruitingPosts.length > 0) {
@@ -107,7 +111,11 @@ export default function ReviewListPage() {
               imageUrl={item.imageUrl ?? ''}
               recruitNum={item.capacity ?? 0}
               rating={item.totalAvgScore ?? 0}
-              applicantNum={item.applicantNum ?? 0}
+              // applicantNum={item.applicantNum ?? 0}
+              applicantNum={
+                // applicantCountMap에서 실시간 값이 있으면 그것을, 아니면 기본값
+                applicantCountMap[item.id ?? 0] ?? item.applicantNum ?? 0
+              }
             />
           ))
         ) : (

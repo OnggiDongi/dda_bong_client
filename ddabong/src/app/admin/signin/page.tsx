@@ -34,8 +34,9 @@ export default function AdminSignInPage() {
 
       console.log(data);
 
-      const { accessToken, refreshToken, name } = data ?? {};
+      const { accessToken, refreshToken, name, id } = data ?? {};
 
+      localStorage.setItem('id', id ?? '');
       localStorage.setItem('accessToken', accessToken ?? '');
       localStorage.setItem('refreshToken', refreshToken ?? '');
       localStorage.setItem('name', name ?? '');

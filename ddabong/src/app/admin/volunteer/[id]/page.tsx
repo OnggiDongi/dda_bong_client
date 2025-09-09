@@ -1,10 +1,12 @@
 'use client';
 
 // (특정 봉사) 지원자 목록
+import { useApplicantRemoval } from '@/hooks/admin/useApplicantRemoval';
 import { useApplicants } from '@/hooks/queries/useGetApplicants';
 import { components } from '@/types/openapi';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
+import { useCallback, useEffect, useState } from 'react';
 import ActivityReview from '@/components/ActivityReview';
 import ActivityApplyInfo from '@/components/admin/volunteer/ActivityApplyInfo';
 import Txt from '@/components/atoms/Text';
@@ -13,13 +15,31 @@ import TopBar from '@/components/atoms/TopBar';
 type ApplicantReviewResponseDTO =
   components['schemas']['ApplicantReviewResponseDTO'];
 
-interface ApplicantReviewResponseDTOWithUserId
-  extends ApplicantReviewResponseDTO {
-  userId?: number;
-}
+// interface ApplicantReviewResponseDTOWithUserId
+//   extends ApplicantReviewResponseDTO {
+//   userId?: number;
+// }
 
 function VolunteerListContent({ postId }: { postId: number }) {
   const { data: applicantsData, isLoading, isFetching } = useApplicants(postId);
+
+  const [applicants, setApplicants] = useState<ApplicantReviewResponseDTO[]>(
+    []
+  );
+
+  useEffect(() => {
+    if (applicantsData?.reviews) {
+      setApplicants(applicantsData.reviews);
+    }
+  }, [applicantsData]);
+
+  const handleApplicantRemoval = useCallback((removedUserId: number) => {
+    setApplicants((prev) =>
+      prev.filter((user) => user.userId !== removedUserId)
+    );
+  }, []);
+
+  useApplicantRemoval(postId, handleApplicantRemoval);
 
   if (isLoading || isFetching) {
     return (
@@ -75,14 +95,12 @@ function VolunteerListContent({ postId }: { postId: number }) {
           applicants={applicantsData.reviews ?? []}
         />
         <div>
-          {applicantsData.reviews && applicantsData.reviews.length != 0 ? (
-            applicantsData.reviews.map((user) => (
+          {applicants.length !== 0 ? (
+            applicants.map((user) => (
               <ActivityReview
                 key={user.id}
                 id={user.id ?? 0}
-                userId={
-                  (user as ApplicantReviewResponseDTOWithUserId).userId ?? 0
-                }
+                userId={(user as ApplicantReviewResponseDTO).userId ?? 0}
                 activityPostId={postId}
                 userName={user.name ?? ''}
                 imageUrl={user.profileImage ?? ''}
