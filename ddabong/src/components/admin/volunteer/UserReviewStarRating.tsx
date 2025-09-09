@@ -33,7 +33,7 @@ export default function UserReviewStarRating({
         <div className='flex items-center gap-3'>
           {/* 성실도 */}
           <div className='flex items-center gap-1'>
-            <Txt weight='medium' className='text-Modal-font'>
+            <Txt weight='medium' className='text-Modal-font text-sm'>
               성실도
             </Txt>
             <Image
@@ -49,7 +49,7 @@ export default function UserReviewStarRating({
 
           {/* 친화력 */}
           <div className='flex items-center gap-1'>
-            <Txt weight='medium' className='text-Modal-font'>
+            <Txt weight='medium' className='text-Modal-font text-sm'>
               친화력
             </Txt>
             <Image
@@ -63,7 +63,7 @@ export default function UserReviewStarRating({
 
           {/* 건강 상태 */}
           <div className='flex items-center gap-1'>
-            <Txt weight='medium' className='text-Modal-font'>
+            <Txt weight='medium' className='text-Modal-font text-sm'>
               건강 상태
             </Txt>
             <Image

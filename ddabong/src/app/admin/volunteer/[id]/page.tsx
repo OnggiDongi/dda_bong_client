@@ -53,15 +53,15 @@ function VolunteerListContent({ postId }: { postId: number }) {
     );
   }
 
-  if (isError) {
-    return (
-      <div className='flex min-h-screen items-center justify-center'>
-        <Txt className='text-Modal-font text-lg'>
-          데이터를 불러오지 못했습니다.
-        </Txt>
-      </div>
-    );
-  }
+  // if (isError) {
+  //   return (
+  //     <div className='flex min-h-screen items-center justify-center'>
+  //       <Txt className='text-Modal-font text-lg'>
+  //         데이터를 불러오지 못했습니다.
+  //       </Txt>
+  //     </div>
+  //   );
+  // }
   return (
     <>
       <div className='flex flex-col'>
