@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
 import ApplyBody from '@/components/apply/ApplyBody';
 import ApplyFooter from '@/components/apply/ApplyFooter';
+import ApplyReview from '@/components/apply/review/ApplyReview';
 
 export default function RecruitDetail() {
   const router = useRouter();
@@ -62,6 +63,11 @@ export default function RecruitDetail() {
     <>
       <div className='flex-1 overflow-y-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'>
         <ApplyBody post={post} />
+        <ApplyReview
+          reviews={post.reviews || []}
+          aiComment={post.aiComment ?? ''}
+          totalAvgScore={post.totalAvgScore || 0}
+        />
       </div>
       <ApplyFooter
         isApply={false}

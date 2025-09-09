@@ -1,5 +1,5 @@
 import { ApplicantList } from '@/types/review';
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { privateClient } from '@/lib/openapi-client';
 
 export const getVolunteerReviewList = async (boardId: number) => {
@@ -23,7 +23,7 @@ export const getVolunteerReviewList = async (boardId: number) => {
 };
 
 export const useGetVolunteerReviewList = (boardId: number) => {
-  return useSuspenseQuery({
+  return useQuery({
     queryKey: ['volunteerReviewList', boardId],
     queryFn: () => getVolunteerReviewList(boardId),
     select: (data) => ({
@@ -41,7 +41,7 @@ export const useGetVolunteerReviewList = (boardId: number) => {
         diligenceLevel: review.diligenceLevel,
         attitude: review.attitude,
         healthStatus: review.healthStatus,
-        hasMyReview: review.status !== 'PENDING',
+        hasMyReview: review.hasReview,
         aiReview: review.aiComment,
       })),
     }),

@@ -9,6 +9,7 @@ export type ApplicantReview = {
   attitude: number;
   aiComment: string;
   status: string;
+  hasReview: boolean;
 };
 
 export type ApplicantList = {

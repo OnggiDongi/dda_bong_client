@@ -1,6 +1,7 @@
 'use client';
 
 import { adminReviewIO, userReviewIO } from '@/hooks/axios/reviewAxios';
+import { useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
@@ -25,6 +26,7 @@ export default function ReviewForm({
   const router = useRouter();
   const formRef = useRef<HTMLFormElement | null>(null);
   const { showToast } = useToast();
+  const queryClient = useQueryClient();
 
   // 공통: 후기 텍스트
   const [review, setReview] = useState('');
@@ -89,10 +91,13 @@ export default function ReviewForm({
           return;
         default:
           showToast('작성이 완료되었습니다.', 'success');
+          await queryClient.invalidateQueries({
+            queryKey: ['volunteerReviewList', activityPostId],
+          });
           break;
       }
 
-      router.push('/admin/review');
+      router.push(`/admin/review/${activityPostId}`);
       // 일반 유저가 봉사활동 리뷰 남기기
     } else {
       const result = await userReviewIO(
@@ -116,7 +121,7 @@ export default function ReviewForm({
           showToast('작성이 완료되었습니다.', 'success');
           break;
       }
-      router.push('/review');
+      router.push('/mypage');
     }
   };
 

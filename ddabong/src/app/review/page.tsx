@@ -106,7 +106,7 @@ export default function SeniorReviewListPage() {
                     ? '승인 반려'
                     : '승인 완료',
             });
-          } else {
+          } else if (item.status === 'APPROVED') {
             // 히스토리 목록
             tmpHistory.push({
               ...base,
