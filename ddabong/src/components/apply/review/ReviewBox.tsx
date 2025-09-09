@@ -39,14 +39,16 @@ export default function ReviewBox({
     <>
       <div className='border-Box-Line relative flex flex-col justify-center border-b bg-white py-3'>
         <div className='flex'>
-          <Image
-            src={imageUrl}
-            alt='user_profile_url'
-            width={48}
-            height={48}
-            className='h-[48px] w-[48px] rounded-3xl object-cover'
-          />
-          <div className='flex-col pl-3'>
+          <div className='relative h-[48px] w-[48px] flex-none overflow-hidden rounded-full'>
+            <Image
+              src={imageUrl}
+              alt='user_profile_url'
+              width={48}
+              height={48}
+              className='h-[48px] w-[48px] rounded-full object-cover'
+            />
+          </div>
+          <div className='flex flex-col pl-3'>
             <Txt className='text-lg'>{userName}</Txt>
             <div className='mb-1 flex'>
               <Image

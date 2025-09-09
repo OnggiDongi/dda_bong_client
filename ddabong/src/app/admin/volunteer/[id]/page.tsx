@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import ActivityReview from '@/components/ActivityReview';
 import ActivityApplyInfo from '@/components/admin/volunteer/ActivityApplyInfo';
+import Txt from '@/components/atoms/Text';
 import TopBar from '@/components/atoms/TopBar';
 
 type ApplicantReviewResponseDTO =
@@ -38,6 +39,29 @@ function VolunteerListContent({ postId }: { postId: number }) {
     return <div>데이터를 불러오지 못했습니다.</div>;
   }
 
+  if (isLoading) {
+    return (
+      <div className='flex min-h-screen items-center justify-center'>
+        <Image
+          src='/video/loading.gif'
+          alt='로딩 중'
+          width={130}
+          height={130}
+          unoptimized
+        />
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className='flex min-h-screen items-center justify-center'>
+        <Txt className='text-Modal-font text-lg'>
+          데이터를 불러오지 못했습니다.
+        </Txt>
+      </div>
+    );
+  }
   return (
     <>
       <div className='flex flex-col'>
@@ -72,13 +96,8 @@ function VolunteerListContent({ postId }: { postId: number }) {
             ))
           ) : (
             <div className='flex min-h-screen items-center justify-center'>
-              <Image
-                src='/video/loading.gif'
-                alt='로딩 중'
-                width={130}
-                height={130}
-                unoptimized
-              />
+              <Txt />
+              지원자가 없습니다.
             </div>
           )}
         </div>

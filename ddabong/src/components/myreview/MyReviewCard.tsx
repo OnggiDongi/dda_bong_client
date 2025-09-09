@@ -11,7 +11,7 @@ interface MyReviewCardProps {
   title: string;
   date: string;
   rating: number | string;
-  imageUrl: string;
+  imageUrl?: string;
   content: string;
   onDelete: () => void;
 }
@@ -42,7 +42,9 @@ const MyReviewCard = ({
         </div>
 
         <div className='relative h-[125px] w-[125px] shrink-0 overflow-hidden rounded-xl'>
-          <Image src={imageUrl} alt={title} fill className='object-cover' />
+          {imageUrl && (
+            <Image src={imageUrl} alt={title} fill className='object-cover' />
+          )}
         </div>
       </div>
 
