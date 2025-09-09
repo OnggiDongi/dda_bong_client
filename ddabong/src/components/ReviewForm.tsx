@@ -1,6 +1,7 @@
 'use client';
 
 import { adminReviewIO, userReviewIO } from '@/hooks/axios/reviewAxios';
+import { useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
@@ -9,7 +10,6 @@ import StarRating from '@/components/StarRating';
 import Txt from '@/components/atoms/Text';
 import { useToast } from '../contexts/toast/ToastContext';
 import Button from './atoms/Button';
-import { useQueryClient } from '@tanstack/react-query';
 
 type Preview = { url: string; file: File };
 type Variant = 'user' | 'admin';
@@ -121,7 +121,7 @@ export default function ReviewForm({
           showToast('작성이 완료되었습니다.', 'success');
           break;
       }
-      router.push('/review');
+      router.push('/mypage');
     }
   };
 

@@ -25,7 +25,7 @@ export default function UserInfo({
             alt='user_profile_image'
             width={86}
             height={86}
-            className='rounded-full border border-gray-200 object-cover'
+            className='h-[86px] w-[86px] rounded-full border border-gray-200 object-cover'
           />
           <div className='flex flex-1 flex-col justify-center'>
             <div className='flex w-full justify-between'>
