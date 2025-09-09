@@ -59,7 +59,7 @@ export const useGetMyActivityPosts = (isRecruiting: boolean) => {
   } = useQuery<PostSummary[], Error>({
     queryKey: ['myActivityPostList', isRecruiting],
     queryFn: () => getActivityPostList(isRecruiting),
-    staleTime: 1000 * 60 * 5,
+    // staleTime: 1000 * 60 * 5,
   });
 
   return {

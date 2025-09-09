@@ -36,7 +36,6 @@ export default function AdminSignUpPage() {
       name,
       email,
       password,
-      secondPassword,
       phoneNumber,
     } as SignUpBody); // 먼저 any로 맞춰보고, openapi.ts의 정확한 키로 교체
 
