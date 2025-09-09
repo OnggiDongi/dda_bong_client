@@ -78,6 +78,6 @@ jobs:
             cd /home/ec2-user/workspace
             rm -rf ddabong
             unzip -q next.zip -d ddabong
-            mv -r ddabong/pubiic ddabong/.next/standalone/
+            cp -r ddabong/public ddabong/.next/standalone/
             pm2 reload ddabong
           '
