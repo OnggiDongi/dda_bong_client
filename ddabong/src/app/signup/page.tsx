@@ -56,8 +56,11 @@ export default function SeniorSignUpPage() {
       showToast('회원가입이 완료되었습니다.', 'success');
       router.push('/signin');
     } catch (err) {
-      showToast('회원가입 실패', 'error');
       if (axios.isAxiosError(err)) {
+        if (err.response?.status === 409) {
+          showToast('이미 존재하는 이메일입니다', 'error');
+          return;
+        }
         // 서버에서 내려준 응답.
         if (err.response) {
           // 검증 에러가 배열로 온 경우
