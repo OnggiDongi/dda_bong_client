@@ -207,8 +207,8 @@ export default function RecruitEditPage() {
             onChangeDescription={setDescription}
           />
         )}
-        {/* <PhotoUpload value={photoUrl} onChange={setPhotoUrl} />
-        <SupportOption value={support} onChange={setSupport} /> */}
+        <PhotoUpload value={photoUrl} onChange={setPhotoUrl} />
+        <SupportOption value={support} onChange={setSupport} />
       </form>
       <div className='sticky right-0 bottom-0 left-0 mx-auto w-full max-w-[430px] bg-transparent'>
         <div className='border-t border-black/5 bg-white px-6 pt-3 pb-[calc(env(safe-area-inset-bottom)+10px)] shadow-[0px_0px_5px_0px_rgba(0,0,0,0.15)]'>

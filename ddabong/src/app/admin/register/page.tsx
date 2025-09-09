@@ -64,7 +64,7 @@ export default function RegisterPage() {
           onClick={handleRegister}
           disabled={createActivity.isPending}
         >
-          등록 완료
+          등록 하기
         </Button>
       </div>
     </div>
