@@ -8,6 +8,7 @@ export function UseAxiosWithAuth() {
     baseURL: process.env.NEXT_PUBLIC_API_URL,
     headers: {
       Authorization: token ? `Bearer ${token}` : '',
+      'ngrok-skip-browser-warning': 'true',
     },
   });
 }

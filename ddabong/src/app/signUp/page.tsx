@@ -22,7 +22,7 @@ export default function SeniorSignUpPage() {
   const confirmPasswordRef = useRef<HTMLInputElement>(null);
   const phoneRef = useRef<HTMLInputElement>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const name = nameRef.current?.value || '';
@@ -56,6 +56,8 @@ export default function SeniorSignUpPage() {
       showToast('회원가입이 완료되었습니다.', 'success');
       router.push('/signin');
     } catch (err) {
+      showToast('회원가입 실패', 'error');
+      console.log(err);
       if (axios.isAxiosError(err)) {
         // 서버에서 내려준 응답.
         if (err.response) {
@@ -87,7 +89,7 @@ export default function SeniorSignUpPage() {
 
       {/* 폼 컨테이너 */}
       <div className='w-[300px]'>
-        <form className='flex flex-col gap-2'>
+        <form className='flex flex-col gap-2' onSubmit={onSubmit}>
           {/* 이름 */}
           <div>
             <label className='block'>
@@ -204,7 +206,7 @@ export default function SeniorSignUpPage() {
           {/* 회원가입 버튼 */}
           <Button
             type='submit'
-            onClick={handleSubmit}
+            // onClick={handleSubmit}
             className='mt-[30px] h-[50px] w-full'
             textWeight='semibold'
             textClassName='text-[26px]'
