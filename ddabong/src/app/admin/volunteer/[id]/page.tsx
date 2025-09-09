@@ -17,29 +17,41 @@ interface ApplicantReviewResponseDTOWithUserId
   userId?: number;
 }
 
-export default function VolunteerListPage() {
-  const params = useParams();
-  const postId = Number(params.id);
-  const { data: applicantsData } = useApplicants(postId);
+function VolunteerListContent({ postId }: { postId: number }) {
+  const { data: applicantsData, isLoading, isFetching } = useApplicants(postId);
+
+  if (isLoading || isFetching) {
+    return (
+      <div className='flex min-h-screen items-center justify-center'>
+        <Image
+          src='/video/loading.gif'
+          alt='로딩 중'
+          width={130}
+          height={130}
+          unoptimized
+        />
+      </div>
+    );
+  }
+
+  if (!applicantsData) {
+    return <div>데이터를 불러오지 못했습니다.</div>;
+  }
 
   return (
     <>
       <div className='flex flex-col'>
         <TopBar title='지원자 목록'></TopBar>
-        {applicantsData && (
-          <ActivityApplyInfo
-            title={applicantsData.title ?? ''}
-            endDate={applicantsData.endAt ?? ''}
-            category={applicantsData.category ?? ''}
-            imageUrl={applicantsData.imageUrl ?? ''}
-            recruitNum={applicantsData.capacity ?? 0}
-            applicants={applicantsData.reviews ?? []}
-          />
-        )}
+        <ActivityApplyInfo
+          title={applicantsData.title ?? ''}
+          endDate={applicantsData.endAt ?? ''}
+          category={applicantsData.category ?? ''}
+          imageUrl={applicantsData.imageUrl ?? ''}
+          recruitNum={applicantsData.capacity ?? 0}
+          applicants={applicantsData.reviews ?? []}
+        />
         <div>
-          {applicantsData &&
-          applicantsData.reviews &&
-          applicantsData.reviews.length != 0 ? (
+          {applicantsData.reviews && applicantsData.reviews.length != 0 ? (
             applicantsData.reviews.map((user) => (
               <ActivityReview
                 key={user.id}
@@ -73,4 +85,25 @@ export default function VolunteerListPage() {
       </div>
     </>
   );
+}
+
+export default function VolunteerListPage() {
+  const params = useParams();
+  const postId = params.id ? Number(params.id) : null;
+
+  if (postId === null) {
+    return (
+      <div className='flex min-h-screen items-center justify-center'>
+        <Image
+          src='/video/loading.gif'
+          alt='로딩 중'
+          width={130}
+          height={130}
+          unoptimized
+        />
+      </div>
+    );
+  }
+
+  return <VolunteerListContent postId={postId} />;
 }

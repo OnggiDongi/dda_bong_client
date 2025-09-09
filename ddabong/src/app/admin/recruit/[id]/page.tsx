@@ -1,5 +1,5 @@
-import ApplyHeader from '@/components/apply/ApplyHeader';
 import RecruitDetail from '@/components/admin/recruit/RecruitDetail';
+import ApplyHeader from '@/components/apply/ApplyHeader';
 
 export default function RecruitDetailPage() {
   return (

@@ -998,6 +998,7 @@ export interface components {
             attitude?: number;
             aiComment?: string;
             status?: string;
+            hasReview?: boolean;
         };
         InstitutionSummaryResponseDTO: {
             name?: string;
@@ -1008,7 +1009,6 @@ export interface components {
             username?: string;
             /** Format: int32 */
             hour?: number;
-            /** Format: date-time */
             issuedAt?: string;
         };
         ApplicantDetailResponseDTO: {
