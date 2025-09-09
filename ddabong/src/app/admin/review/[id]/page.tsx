@@ -9,12 +9,25 @@ import TopBar from '@/components/atoms/TopBar';
 
 // 봉사자 목록
 
-export default function RecruitVolunteerListPage() {
-  const { id: boardId } = useParams();
-  const { data: reviewData } = useGetVolunteerReviewList(Number(boardId));
+function VolunteerListContent({ boardId }: { boardId: number }) {
+  const { data: reviewData, isLoading, isFetching } = useGetVolunteerReviewList(boardId);
+
+  if (isLoading || isFetching) {
+    return (
+      <div className='flex min-h-screen items-center justify-center'>
+        <Image
+          src='/video/loading.gif'
+          alt='로딩 중'
+          width={130}
+          height={130}
+          unoptimized
+        />
+      </div>
+    );
+  }
 
   if (!reviewData) {
-    return <div>Loading...</div>;
+    return <div>데이터를 불러오지 못했습니다.</div>;
   }
 
   const {
@@ -69,4 +82,25 @@ export default function RecruitVolunteerListPage() {
       </div>
     </div>
   );
+}
+
+export default function RecruitVolunteerListPage() {
+  const params = useParams();
+  const boardId = params.id ? Number(params.id) : null;
+
+  if (boardId === null) {
+    return (
+      <div className='flex min-h-screen items-center justify-center'>
+        <Image
+          src='/video/loading.gif'
+          alt='로딩 중'
+          width={130}
+          height={130}
+          unoptimized
+        />
+      </div>
+    );
+  }
+
+  return <VolunteerListContent boardId={boardId} />;
 }
