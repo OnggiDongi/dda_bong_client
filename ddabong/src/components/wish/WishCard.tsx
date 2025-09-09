@@ -58,7 +58,7 @@ export default function WishCard({
               />
             </button>
           </div>
-          <Txt className='w-[190px] truncate text-lg'>{title}</Txt>
+          <Txt className='w-[160px] truncate text-lg'>{title}</Txt>
           <Txt className='text-Icon-Detail -mt-1 text-base'>{endAt}</Txt>
           <Txt className='text-Icon-Detail -mt-2 truncate text-base'>
             {location}
