@@ -41,7 +41,7 @@ export const useGetVolunteerReviewList = (boardId: number) => {
         diligenceLevel: review.diligenceLevel,
         attitude: review.attitude,
         healthStatus: review.healthStatus,
-        hasMyReview: review.status !== 'PENDING',
+        hasMyReview: review.hasReview,
         aiReview: review.aiComment,
       })),
     }),
