@@ -48,14 +48,9 @@ export function useInstitutionSignUp() {
             throw new Error('이미 존재하는 기관입니다.');
           }
         }
-        if (error.errorCode === 302) {
-          return 'conflict';
-        } else {
-          return 'fail';
-        }
 
         // 그 외 에러
-        // throw new Error(error.message ?? '회원가입에 실패했습니다.');
+        throw new Error(error.message ?? '회원가입에 실패했습니다.');
       }
 
       // data는 스펙상 unknown

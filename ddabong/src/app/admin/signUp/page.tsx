@@ -24,7 +24,7 @@ export default function AdminSignUpPage() {
   const [phoneNumber, setPhoneNumber] = useState('');
   const { showToast } = useToast();
 
-  const onSubmit = async (e: React.FormEvent) => {
+  const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (password !== secondPassword) {
@@ -32,22 +32,14 @@ export default function AdminSignUpPage() {
       return; // 서버로 요청 보내지 않음.
     }
 
-    const result = await signUp.mutateAsync({
+    signUp.mutate({
       name,
       email,
       password,
+      secondPassword,
       phoneNumber,
     } as SignUpBody); // 먼저 any로 맞춰보고, openapi.ts의 정확한 키로 교체
 
-    if (result === 'conflict') {
-      showToast('이미 존재하는 이메일입니다', 'error');
-      return;
-    }
-    if (result === 'fail') {
-      showToast('회원가입에 실패했습니다. 다시 시도해주세요.', 'error');
-      return;
-    }
-    showToast('회원가입이 완료되었습니다!', 'success');
     router.push('/admin/signin');
   };
 

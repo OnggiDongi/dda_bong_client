@@ -13,7 +13,6 @@ const authMiddleware: Middleware = {
       const token = localStorage.getItem('accessToken');
       if (token) {
         request.headers.set('Authorization', `Bearer ${token}`);
-        request.headers.set('ngrok-skip-browser-warning', 'true');
       }
     }
     return request;
