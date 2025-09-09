@@ -3,6 +3,7 @@
 import { components } from '@/types/openapi';
 import { CATEGORY_MAP } from '@/utils/map/categoryMap';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import Image from 'next/image';
 import { privateClient } from '@/lib/openapi-client';
 import WishCard from '@/components/wish/WishCard';
 import Txt from '../atoms/Text';
@@ -75,7 +76,13 @@ export default function WishList() {
   if (isLoading) {
     return (
       <div className='flex h-[calc(100vh-120px)] flex-col items-center justify-center text-center'>
-        <Txt className='text-2xl'>찜한 봉사활동을 불러오는 중...</Txt>
+        <Image
+          src='/video/loading.gif'
+          alt='로딩 중'
+          width={130}
+          height={130}
+          unoptimized
+        />
       </div>
     );
   }
