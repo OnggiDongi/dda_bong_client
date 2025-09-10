@@ -19,8 +19,8 @@ export default function ApplyReview({
   aiComment,
   totalAvgScore,
 }: ApplyReviewProps) {
-  // AI Comment can be a future feature
-  // const aiCommentText = "바다가 참 예뻐서 건강해지는 기분";
+
+
 
   return (
     <section className='flex w-full flex-col px-4'>
@@ -39,7 +39,6 @@ export default function ApplyReview({
             readOnly
           />
         </div>
-        {/* <AiComment text={aiCommentText} /> */}
         <AiComment text={aiComment || ''} />
       </div>
       <div>

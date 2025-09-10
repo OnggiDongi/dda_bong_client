@@ -1,7 +1,9 @@
 'use client';
 
 import { useToast } from '@/contexts/toast/ToastContext';
+import { toPng } from 'html-to-image';
 import Image from 'next/image';
+import { useRef } from 'react';
 import { cn } from '@/lib/utils';
 import Txt from '@/components/atoms/Text';
 import Button from '../atoms/Button';
@@ -27,17 +29,53 @@ export default function CertificateModal({
   totalHours,
 }: ModalProps) {
   const { showToast } = useToast();
+  const cardRef = useRef<HTMLDivElement>(null);
+
   if (!open) return null;
 
   const { bgColor, borderColor } = getCertificateStyle(totalHours);
-  const handleShare = () => {
-    //TODO: 공유 기능 구현
-    showToast('링크가 복사되었습니다.', 'success');
+
+  const handleSave = async () => {
+    const node = cardRef.current;
+    if (!node) return;
+
+    try {
+      const dataUrl = await toPng(node, { cacheBust: true });
+      const link = document.createElement('a');
+      link.download = 'certificate.png';
+      link.href = dataUrl;
+      link.click();
+      showToast('저장이 완료되었습니다.', 'success');
+    } catch {
+      showToast('저장에 실패했습니다.', 'error');
+    }
   };
 
-  const handleSave = () => {
-    //TODO: 이미지 저장 기능 구현
-    showToast('저장이 완료되었습니다.', 'success');
+  const handleShare = async () => {
+    const node = cardRef.current;
+    if (!node) return;
+
+    try {
+      const dataUrl = await toPng(node, { cacheBust: true });
+      const res = await fetch(dataUrl);
+      const blob = await res.blob();
+
+      const file = new File([blob], 'certificate.png', { type: 'image/png' });
+      const canShareFiles =
+        typeof navigator.share === 'function' &&
+        'canShare' in navigator &&
+        (
+          navigator as { canShare?: (data: { files: File[] }) => boolean }
+        ).canShare?.({ files: [file] });
+
+      if (canShareFiles) {
+        await navigator.share({ files: [file], title: '봉사 인증서' });
+        showToast('선택한 앱에서 공유를 완료하세요.', 'success');
+        return;
+      }
+    } catch {
+      showToast('이미지 공유/복사에 실패했습니다.', 'error');
+    }
   };
 
   return (
@@ -47,6 +85,7 @@ export default function CertificateModal({
     >
       <div onClick={(e) => e.stopPropagation()}>
         <div
+          ref={cardRef}
           className={cn(
             bgColor,
             borderColor,

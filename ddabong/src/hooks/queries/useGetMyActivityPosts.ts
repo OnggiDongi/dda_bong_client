@@ -1,6 +1,5 @@
 import type { components } from '@/types/openapi';
-import { useQuery, useQueries } from '@tanstack/react-query';
-import { useMemo } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { privateClient } from '@/lib/openapi-client';
 
 export interface MyActivityPost {
@@ -15,7 +14,6 @@ export interface MyActivityPost {
 }
 
 type PostSummary = components['schemas']['MyActivityPostResponseDTO'];
-type PostDetail = components['schemas']['ActivityPostDetailResponseDTO'];
 
 const getActivityPostList = async (
   isRecruiting: boolean
@@ -59,7 +57,6 @@ export const useGetMyActivityPosts = (isRecruiting: boolean) => {
   } = useQuery<PostSummary[], Error>({
     queryKey: ['myActivityPostList', isRecruiting],
     queryFn: () => getActivityPostList(isRecruiting),
-    // staleTime: 1000 * 60 * 5,
   });
 
   return {
@@ -68,46 +65,4 @@ export const useGetMyActivityPosts = (isRecruiting: boolean) => {
     isError: isListError,
     error: listError,
   };
-
-  // const detailQueries = useQueries({
-  //   queries: (postList || []).map((post) => ({
-  //     queryKey: ['activityPostDetail', post.id],
-  //     queryFn: () => getActivityPostDetail(post.id!),
-  //     staleTime: 1000 * 60 * 5,
-  //     enabled: !!postList,
-  //   })),
-  // });
-
-  // const combinedData = useMemo(() => {
-  //   if (!postList) return [];
-
-  //   return postList.map((summaryPost) => {
-  //     const detailData = detailQueries.find(
-  //       (q) => q.data?.id === summaryPost.id
-  //     )?.data;
-  //     return {
-  //       id: summaryPost.id!,
-  //       title: summaryPost.title!,
-  //       imageUrl: summaryPost.imageUrl!,
-  //       category: summaryPost.category!,
-  //       endAt: summaryPost.endAt!,
-  //       applicantNum: summaryPost.applicantNum!,
-  //       capacity: detailData?.capacity,
-  //       totalAvgScore: detailData?.totalAvgScore,
-  //     } as MyActivityPost;
-  //   });
-  // }, [postList, detailQueries]);
-
-  // const isDetailLoading = detailQueries.some((q) => q.isLoading);
-  // const isDetailError = detailQueries.some((q) => q.isError);
-  // const detailErrors = detailQueries
-  //   .filter((q) => q.isError)
-  //   .map((q) => q.error);
-
-  // return {
-  //   data: combinedData,
-  //   isLoading: isListLoading || isDetailLoading,
-  //   isError: isListError || isDetailError,
-  //   error: listError || detailErrors[0],
-  // };
 };
