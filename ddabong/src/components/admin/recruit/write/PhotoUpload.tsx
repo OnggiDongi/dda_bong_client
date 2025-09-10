@@ -23,7 +23,6 @@ export default function PhotoUpload({ value, onChange }: Props) {
       return;
     }
 
-    // value is a File
     const url = URL.createObjectURL(value);
     setPreviewUrl(url);
 

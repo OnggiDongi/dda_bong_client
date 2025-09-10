@@ -1,8 +1,8 @@
 import { useToast } from '@/contexts/toast/ToastContext';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { privateClient as client } from '@/lib/openapi-client';
 import type { DetailedActivityPost } from '@/types/activity';
 import type { components } from '@/types/openapi';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { privateClient as client } from '@/lib/openapi-client';
 
 type ActivityRequestDTO = components['schemas']['ActivityRequestDTO'];
 
@@ -32,7 +32,10 @@ export const useLikeActivityMutation = (
   const queryClient = useQueryClient();
   const { showToast } = useToast();
 
-  type QueryData = DetailedActivityPost & { isLiked?: boolean; isApplied?: boolean };
+  type QueryData = DetailedActivityPost & {
+    isLiked?: boolean;
+    isApplied?: boolean;
+  };
 
   return useMutation({
     mutationFn: () =>
@@ -66,7 +69,6 @@ export const useLikeActivityMutation = (
   });
 };
 
-// Custom hook for the apply mutation
 export const useApplyActivityMutation = (
   postId: number,
   queryKey: (string | number)[]
@@ -81,7 +83,8 @@ export const useApplyActivityMutation = (
       }),
     onSuccess: () => {
       queryClient.setQueryData<
-        (DetailedActivityPost & { isLiked?: boolean; isApplied?: boolean }) | undefined
+        | (DetailedActivityPost & { isLiked?: boolean; isApplied?: boolean })
+        | undefined
       >(queryKey, (oldData) =>
         oldData ? { ...oldData, isApplied: true } : undefined
       );
@@ -112,18 +115,21 @@ export const useDeleteActivityMutation = () => {
     },
     onError: (err: Error) => {
       console.error('Delete failed:', err);
-      showToast(err.message || '삭제에 실패했습니다. 자세한 내용은 콘솔을 확인해주세요.', 'error');
+      showToast(
+        err.message ||
+          '삭제에 실패했습니다. 자세한 내용은 콘솔을 확인해주세요.',
+        'error'
+      );
     },
   });
 };
 
-// Define a specific type for the mutation variables to avoid 'any'
 export type UpdateVariables = { id: number } & Omit<
   components['schemas']['ActivityPostRequestDTO'],
   'image'
 > & {
-  image?: File;
-};
+    image?: File;
+  };
 
 export const useUpdateActivityPostMutation = () => {
   const queryClient = useQueryClient();
@@ -134,7 +140,6 @@ export const useUpdateActivityPostMutation = () => {
       const { id, ...data } = variables;
       const formData = new FormData();
 
-      // Safely iterate over the data and append to FormData
       for (const key in data) {
         if (Object.prototype.hasOwnProperty.call(data, key)) {
           const value = data[key as keyof typeof data];
@@ -142,17 +147,13 @@ export const useUpdateActivityPostMutation = () => {
           if (value instanceof File) {
             formData.append(key, value);
           } else if (Array.isArray(value)) {
-            // Handle array fields like 'supports' by appending '[]' to the key
-            value.forEach(item => formData.append(`${key}[]`, String(item)));
+            value.forEach((item) => formData.append(`${key}[]`, String(item)));
           } else if (value != null) {
             formData.append(key, String(value));
           }
         }
       }
 
-      // The openapi-fetch client's static types expect a plain object matching the schema.
-      // However, to correctly send multipart/form-data, we must pass a FormData object as the body.
-      // This requires a type assertion to bridge the static type and the runtime requirement.
       return client.PATCH('/posts/{id}', {
         params: { path: { id } },
         body: formData as unknown as components['schemas']['ActivityPostRequestDTO'],
@@ -160,7 +161,9 @@ export const useUpdateActivityPostMutation = () => {
     },
     onSuccess: (data, variables) => {
       showToast('게시물이 수정되었습니다.', 'success');
-      queryClient.invalidateQueries({ queryKey: ['activityPost', variables.id] });
+      queryClient.invalidateQueries({
+        queryKey: ['activityPost', variables.id],
+      });
     },
     onError: (err: Error) => {
       showToast(err.message || '수정에 실패했습니다.', 'error');

@@ -65,7 +65,7 @@ export default function ActivityReview({
       approveMutation.mutate(id, {
         onSuccess: () => {
           showToast('수락이 완료되었습니다.', 'success');
-          // ✅ 수락 처리
+
           console.log('수락!');
         },
       });
@@ -73,7 +73,7 @@ export default function ActivityReview({
       rejectMutation.mutate(id, {
         onSuccess: () => {
           showToast('거절이 완료되었습니다.', 'success');
-          // ✅ 거절 처리
+
           console.log('거절!');
         },
       });

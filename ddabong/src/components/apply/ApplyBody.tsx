@@ -13,11 +13,11 @@ export default function ApplyBody({ post }: ApplyBodyProps) {
       const daysLeft = dday.substring(2);
       return `마감 ${daysLeft}일 남음`;
     }
-    return dday; // Fallback to original string if format is unexpected
+    return dday;
   };
 
   const isRecruitmentClosed = (dday?: string) => {
-    if (!dday) return true; // If dday is not provided, assume it's closed
+    if (!dday) return true;
     if (dday === 'D-DAY' || dday === 'D-0') {
       return false;
     }

@@ -37,7 +37,6 @@ const createActivityPost = async (
     throw new Error(JSON.stringify(error));
   }
 
-  // Handle "soft errors" from the backend
   if (data && typeof data === 'object' && 'errorMessage' in data) {
     const backendError = data as unknown as BackendError;
     if (backendError.errorMessage) {

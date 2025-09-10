@@ -28,21 +28,18 @@ const fetchActivities = async (region?: string, categories?: string) => {
   });
 
   if (error) {
-    // The error now includes the response body, so we can inspect it
     const errorBody = error as CustomError;
     if (errorBody?.error === 'ERROR_ACCESS_TOKEN') {
-      // Specific handling for auth error if needed, e.g., redirect to login
       console.error('Authentication error: Please log in.');
     }
     throw new Error('Failed to fetch activities');
   }
 
-  // Handle different possible response structures robustly
   if (!data) return [];
   if (Array.isArray(data)) return data as Activity[];
 
   console.warn('Unexpected API response structure:', data);
-  return []; // Return empty array if structure is unknown
+  return [];
 };
 
 export default function ApplyPage() {
@@ -74,7 +71,7 @@ export default function ApplyPage() {
   } = useQuery<Activity[]>({
     queryKey: ['activities', searchRegion, categories],
     queryFn: () => fetchActivities(searchRegion, categories),
-    // Keep previous data while refetching for a smoother UX
+
     placeholderData: (previousData) => previousData,
   });
 
