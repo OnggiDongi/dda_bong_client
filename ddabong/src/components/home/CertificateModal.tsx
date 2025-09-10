@@ -70,32 +70,9 @@ export default function CertificateModal({
 
       if (canShareFiles) {
         await navigator.share({ files: [file], title: '봉사 인증서' });
-        showToast('공유가 완료되었습니다.', 'success');
+        showToast('선택한 앱에서 공유를 완료하세요.', 'success');
         return;
       }
-
-      const canWriteClipboard =
-        window.isSecureContext &&
-        navigator.clipboard &&
-        typeof navigator.clipboard.write === 'function';
-
-      const ClipboardItemCtor = (
-        window as { ClipboardItem?: typeof ClipboardItem }
-      ).ClipboardItem;
-
-      if (canWriteClipboard && typeof ClipboardItemCtor === 'function') {
-        await navigator.clipboard.write([
-          new ClipboardItemCtor({ 'image/png': blob }),
-        ]);
-        showToast('인증서가 클립보드에 복사되었습니다.', 'success');
-        return;
-      }
-
-      const link = document.createElement('a');
-      link.download = 'certificate.png';
-      link.href = dataUrl;
-      link.click();
-      showToast('클립보드를 지원하지 않는 환경입니다. 이미지를 저장했습니다.');
     } catch {
       showToast('이미지 공유/복사에 실패했습니다.', 'error');
     }
