@@ -57,29 +57,16 @@ export default function CertificateModal({
       return;
     }
     try {
-      const blob = await toPng(cardRef.current!, { cacheBust: true });
-      const file = new File([blob], 'certificate.png', { type: 'image/png' });
-
-      if (navigator.share && navigator.canShare({ files: [file] })) {
-        await navigator.share({
-          files: [file],
-          title: '인증서 공유',
-          text: `${userName}님의 ${totalHours}시간 봉사 인증서`,
-        });
-        showToast('공유가 완료되었습니다.', 'success');
-      } else {
-        await navigator.clipboard.write([
-          new ClipboardItem({
-            'image/png': new Promise(async (resolve) => {
-              const blob = await toPng(cardRef.current!, { cacheBust: true });
-              resolve(new Blob([blob], { type: 'image/png' }));
-            }),
-          }),
-        ]);
-        showToast('인증서가 클립보드에 복사되었습니다.', 'success');
-      }
+      const dataUrl = await toPng(cardRef.current!, { cacheBust: true });
+      const blob = await (await fetch(dataUrl)).blob();
+      await navigator.clipboard.write([
+        new ClipboardItem({
+          'image/png': blob,
+        }),
+      ]);
+      showToast('인증서가 클립보드에 복사되었습니다.', 'success');
     } catch {
-      showToast('공유에 실패했습니다.', 'error');
+      showToast('이미지 복사에 실패했습니다.', 'error');
     }
   };
 
