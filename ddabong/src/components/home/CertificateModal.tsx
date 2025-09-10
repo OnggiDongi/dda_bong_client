@@ -1,13 +1,13 @@
 'use client';
 
 import { useToast } from '@/contexts/toast/ToastContext';
+import { toPng } from 'html-to-image';
 import Image from 'next/image';
+import { useRef } from 'react';
 import { cn } from '@/lib/utils';
 import Txt from '@/components/atoms/Text';
 import Button from '../atoms/Button';
 import { getCertificateStyle } from './CertificateCard';
-import { toPng } from 'html-to-image';
-import { useRef } from 'react';
 
 const ICON_SRC = '/icons/ic_logoStar.svg';
 const HANA_SRC = '/icons/ic_hanabank.svg';
@@ -41,13 +41,13 @@ export default function CertificateModal({
     }
 
     try {
-      const dataUrl = await toPng(cardRef.current, { cacheBust: true });
+      const dataUrl = await toPng(cardRef.current!, { cacheBust: true });
       const link = document.createElement('a');
       link.download = 'certificate.png';
       link.href = dataUrl;
       link.click();
       showToast('저장이 완료되었습니다.', 'success');
-    } catch (err) {
+    } catch {
       showToast('저장에 실패했습니다.', 'error');
     }
   };
@@ -57,7 +57,7 @@ export default function CertificateModal({
       return;
     }
     try {
-      const blob = await toPng(cardRef.current, { cacheBust: true });
+      const blob = await toPng(cardRef.current!, { cacheBust: true });
       const file = new File([blob], 'certificate.png', { type: 'image/png' });
 
       if (navigator.share && navigator.canShare({ files: [file] })) {
@@ -68,18 +68,17 @@ export default function CertificateModal({
         });
         showToast('공유가 완료되었습니다.', 'success');
       } else {
-        // For browsers that don't support web share api
         await navigator.clipboard.write([
           new ClipboardItem({
             'image/png': new Promise(async (resolve) => {
-              const blob = await toPng(cardRef.current, { cacheBust: true });
+              const blob = await toPng(cardRef.current!, { cacheBust: true });
               resolve(new Blob([blob], { type: 'image/png' }));
             }),
           }),
         ]);
         showToast('인증서가 클립보드에 복사되었습니다.', 'success');
       }
-    } catch (error) {
+    } catch {
       showToast('공유에 실패했습니다.', 'error');
     }
   };
