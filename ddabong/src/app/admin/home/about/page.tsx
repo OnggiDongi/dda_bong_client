@@ -27,7 +27,7 @@ export default function AboutPage() {
           height={421}
         />
       </section>
-      <section className='bg-1Q-Green flex w-[402px] flex-col items-center'>
+      <section className='bg-1Q-Green flex w-[402px] flex-col items-center pb-10'>
         <div className='flex items-center gap-2 pt-8'>
           <Image src='/icons/ic_bus.svg' alt='버스' width={80} height={80} />
           <Image src='/icons/ic_snacks.svg' alt='다과' width={80} height={80} />
