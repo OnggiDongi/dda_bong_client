@@ -2,6 +2,7 @@
 
 import { useToast } from '@/contexts/toast/ToastContext';
 import { UseAxiosWithAuth } from '@/hooks/axios/useAxiosWithAuth';
+import { useApplyStatus } from '@/hooks/review/useApplyStatus';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import TopBar from '@/components/atoms/TopBar';
@@ -153,6 +154,27 @@ export default function SeniorReviewListPage() {
     setApplyList((prev) => prev.filter((x) => x.id !== cancelTarget.id));
     setCancelTarget(null);
   };
+
+  useApplyStatus(
+    applyList.map((item) => item.id),
+    (activityPostId, newStatus) => {
+      setApplyList((prev) =>
+        prev.map((item) =>
+          Number(item.id) === activityPostId
+            ? {
+                ...item,
+                approve:
+                  newStatus === 'REJECTED'
+                    ? '승인 반려'
+                    : newStatus === 'APPROVED'
+                      ? '승인 완료'
+                      : '승인 대기',
+              }
+            : item
+        )
+      );
+    }
+  );
 
   return (
     <main className='bg-page-gradient flex flex-col items-center gap-4 pb-10'>

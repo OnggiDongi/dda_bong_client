@@ -49,8 +49,10 @@ export default function SeniorSignInPage() {
 
       console.log(data);
 
-      const { accessToken, refreshToken, name, firstLogin, role } = data ?? {};
+      const { accessToken, refreshToken, name, firstLogin, role, id } =
+        data ?? {};
 
+      localStorage.setItem('id', id ?? '');
       localStorage.setItem('accessToken', accessToken ?? '');
       localStorage.setItem('refreshToken', refreshToken ?? '');
       localStorage.setItem('name', name ?? '');

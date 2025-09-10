@@ -1,8 +1,8 @@
 'use client';
 
 import Image from 'next/image';
-import Txt from '@/components/atoms/Text';
 import { useEffect, useState } from 'react';
+import Txt from '@/components/atoms/Text';
 
 type Props = {
   value: File | string | null;
