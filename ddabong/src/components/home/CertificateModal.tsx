@@ -60,7 +60,6 @@ export default function CertificateModal({
       const res = await fetch(dataUrl);
       const blob = await res.blob();
 
-      // 1) 파일 공유(Web Share API Level 2) 먼저 시도
       const file = new File([blob], 'certificate.png', { type: 'image/png' });
       const canShareFiles =
         typeof navigator.share === 'function' &&
@@ -71,34 +70,9 @@ export default function CertificateModal({
 
       if (canShareFiles) {
         await navigator.share({ files: [file], title: '봉사 인증서' });
-        showToast('공유가 완료되었습니다.', 'success');
+        showToast('선택한 앱에서 공유를 완료하세요.', 'success');
         return;
       }
-
-      // 2) Clipboard API 기능 탐지 + HTTPS 보안 컨텍스트 확인
-      const canWriteClipboard =
-        window.isSecureContext &&
-        navigator.clipboard &&
-        typeof navigator.clipboard.write === 'function';
-
-      // 일부 브라우저에선 ClipboardItem 생성자가 window에만 존재
-      const ClipboardItemCtor = (
-        window as { ClipboardItem?: typeof ClipboardItem }
-      ).ClipboardItem;
-
-      if (canWriteClipboard && typeof ClipboardItemCtor === 'function') {
-        await navigator.clipboard.write([
-          new ClipboardItemCtor({ 'image/png': blob }),
-        ]);
-        showToast('인증서가 클립보드에 복사되었습니다.', 'success');
-        return;
-      }
-
-      const link = document.createElement('a');
-      link.download = 'certificate.png';
-      link.href = dataUrl;
-      link.click();
-      showToast('클립보드를 지원하지 않는 환경입니다. 이미지를 저장했습니다.');
     } catch {
       showToast('이미지 공유/복사에 실패했습니다.', 'error');
     }
