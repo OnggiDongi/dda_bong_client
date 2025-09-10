@@ -59,7 +59,7 @@ export default function MyEditPage() {
     if (category) setCategory(category);
     if (region) setRegion(region);
     if (district) setDistrict(district);
-  }, [region, district, category]);
+  }, [region, district, category, setCategory, setRegion, setDistrict]);
 
   if (isLoading)
     return (

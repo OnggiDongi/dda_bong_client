@@ -68,7 +68,9 @@ export default function SeniorReviewListPage() {
           showToast('유저정보를 불러오지 못했습니다.');
           return;
         }
-        resUser.data?.totalHour && setTotalHour(resUser.data.totalHour);
+        if (resUser.data?.totalHour) {
+          setTotalHour(resUser.data.totalHour);
+        }
 
         const todayStr = new Date()
           .toISOString()
@@ -122,7 +124,7 @@ export default function SeniorReviewListPage() {
         showToast('봉사정보를 불러오지 못했습니다.');
       }
     })();
-  }, []);
+  }, [axiosAuth, showToast]);
 
   const [cancelTarget, setCancelTarget] = useState<{
     id: string;

@@ -1,4 +1,5 @@
 import type { DetailedActivityPost } from '@/types/activity';
+import Image from 'next/image';
 import Badge from '../atoms/Badge';
 import Txt from '../atoms/Text';
 import ApplyGridBox from './ApplyGridBox';
@@ -13,11 +14,11 @@ export default function ApplyBody({ post }: ApplyBodyProps) {
       const daysLeft = dday.substring(2);
       return `마감 ${daysLeft}일 남음`;
     }
-    return dday; // Fallback to original string if format is unexpected
+    return dday;
   };
 
   const isRecruitmentClosed = (dday?: string) => {
-    if (!dday) return true; // If dday is not provided, assume it's closed
+    if (!dday) return true;
     if (dday === 'D-DAY' || dday === 'D-0') {
       return false;
     }
@@ -41,11 +42,16 @@ export default function ApplyBody({ post }: ApplyBodyProps) {
   return (
     <section className='relative flex w-full flex-col'>
       {post.imageUrl && (
-        <img
+        <Image
           className='h-[334px] w-full object-cover'
           src={post.imageUrl}
           alt={post.title || 'Activity Image'}
         />
+        // <img
+        //   className='h-[334px] w-full object-cover'
+        //   src={post.imageUrl}
+        //   alt={post.title || 'Activity Image'}
+        // />
       )}
       <div className='px-4'>
         <div className='mt-[21px] mb-[10px] flex gap-1'>

@@ -49,5 +49,5 @@ export function useApplyStatus(
     return () => {
       client.deactivate();
     };
-  }, [activityPostIds.join(','), onStatusChange]);
+  }, [activityPostIds, onStatusChange]);
 }

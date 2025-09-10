@@ -15,7 +15,6 @@ export default function ActivityApplyInfo({
   endDate,
   category,
   imageUrl,
-  recruitNum,
   applicantsNum,
 }: Props) {
   return (

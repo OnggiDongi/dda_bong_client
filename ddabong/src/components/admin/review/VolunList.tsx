@@ -1,6 +1,5 @@
 'use client';
 
-import { usePendingApplicantsCount } from '@/hooks/queries/usePendingApplicantsCount';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
@@ -20,15 +19,11 @@ type Props = {
   recruitNum?: number;
   rating?: number;
   className?: string;
-
-  // history 모드에서 사용 (기존)
   evaluateHref?: string;
   allReviewsHref?: string;
-
-  // apply 모드에서 사용할 새 링크
-  detailHref?: string; // 봉사 상세 보기
-  applicantsHref?: string; // 지원자 보기
-  applicantNum?: number; // 지원자 수
+  detailHref?: string;
+  applicantsHref?: string;
+  applicantNum?: number;
 };
 
 export default function VolunList({
@@ -38,45 +33,20 @@ export default function VolunList({
   date,
   category,
   imageUrl,
-  recruitNum,
   rating,
   className,
   evaluateHref,
-  allReviewsHref,
-  detailHref,
   applicantsHref,
   applicantNum,
 }: Props) {
   const router = useRouter();
-  // const pendingApplicantsNum = usePendingApplicantsCount(id);
 
-  const star = (
-    <div className='flex items-center gap-1'>
-      <Image src='/icons/ic_ddabong.svg' alt='평점' width={16} height={16} />
-      <Txt className='text-base'>
-        {rating !== undefined ? rating.toFixed(1) : '-'}
-      </Txt>
-    </div>
-  );
-
-  // 기본 라우트 (주입 안되면 아래로 이동)
   const defaults = {
-    evaluate: `/admin/review/${id}`, // /${userid} 덧붙여야됨 .. 예: 관리자 평가 작성/수정
-    allReviews: `/apply/${id}`, // 예: 봉사 전체 리뷰 보기
-    detail: `/admin/recruit/${id}`, // 예: 봉사 상세 페이지
-    applicants: `/admin/volunteer/${id}`, // 예: 지원자 목록
+    evaluate: `/admin/review/${id}`,
+    allReviews: `/apply/${id}`,
+    detail: `/admin/recruit/${id}`,
+    applicants: `/admin/volunteer/${id}`,
   };
-
-  // 모드에 따라 버튼 라벨/링크 결정
-  const primaryAction =
-    mode === 'history'
-      ? { label: '봉사자 평가', href: evaluateHref ?? defaults.evaluate }
-      : { label: '봉사 상세 보기', href: detailHref ?? defaults.detail };
-
-  const secondaryAction =
-    mode === 'history'
-      ? { label: '봉사 전체 리뷰', href: allReviewsHref ?? defaults.allReviews }
-      : { label: '지원자 보기', href: applicantsHref ?? defaults.applicants };
 
   const handleNavigate = () => router.push(`/admin/recruit/${id}`);
 

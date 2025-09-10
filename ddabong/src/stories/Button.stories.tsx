@@ -9,13 +9,6 @@ const COLOR_OPTIONS = [
   'white',
   'purple',
 ] as const;
-const BORDER_COLOR_OPTIONS = [
-  'pink',
-  'mint',
-  'mint2',
-  'purple',
-  'green',
-] as const;
 const TEXT_WEIGHT_OPTIONS = [
   'thin',
   'light',
