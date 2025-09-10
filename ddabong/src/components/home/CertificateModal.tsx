@@ -60,7 +60,6 @@ export default function CertificateModal({
       const res = await fetch(dataUrl);
       const blob = await res.blob();
 
-      // 1) 파일 공유(Web Share API Level 2) 먼저 시도
       const file = new File([blob], 'certificate.png', { type: 'image/png' });
       const canShareFiles =
         typeof navigator.share === 'function' &&
@@ -75,13 +74,11 @@ export default function CertificateModal({
         return;
       }
 
-      // 2) Clipboard API 기능 탐지 + HTTPS 보안 컨텍스트 확인
       const canWriteClipboard =
         window.isSecureContext &&
         navigator.clipboard &&
         typeof navigator.clipboard.write === 'function';
 
-      // 일부 브라우저에선 ClipboardItem 생성자가 window에만 존재
       const ClipboardItemCtor = (
         window as { ClipboardItem?: typeof ClipboardItem }
       ).ClipboardItem;
