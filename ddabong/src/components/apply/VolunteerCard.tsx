@@ -28,7 +28,7 @@ const formatDeadline = (dday: string) => {
     const daysLeft = dday.substring(2);
     return `마감 ${daysLeft}일 남음`;
   }
-  return dday; // Fallback to original string if format is unexpected
+  return dday;
 };
 
 export default function VolunteerCard({
