@@ -320,8 +320,8 @@ export default function ReviewForm({
           </div>
         )}
       </section>
-
-      <div className='fixed bottom-0 left-0 w-full bg-white px-6 py-3 shadow-[0_0_5px_0_rgba(0,0,0,0.15)]'>
+      {/* <div className='sticky right-0 bottom-0 left-0 mx-auto w-full max-w-[430px] bg-transparent'> */}
+      <div className='fixed right-0 bottom-0 left-0 mx-auto w-full max-w-[380px] bg-white px-6 py-3 shadow-[0_0_5px_0_rgba(0,0,0,0.15)]'>
         <Button type='submit' form='review-form' className='h-[45px] w-full'>
           작성 완료
         </Button>
