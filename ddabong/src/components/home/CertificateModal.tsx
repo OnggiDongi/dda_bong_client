@@ -36,12 +36,11 @@ export default function CertificateModal({
   const { bgColor, borderColor } = getCertificateStyle(totalHours);
 
   const handleSave = async () => {
-    if (cardRef.current === null) {
-      return;
-    }
+    const node = cardRef.current;
+    if (!node) return;
 
     try {
-      const dataUrl = await toPng(cardRef.current!, { cacheBust: true });
+      const dataUrl = await toPng(node, { cacheBust: true });
       const link = document.createElement('a');
       link.download = 'certificate.png';
       link.href = dataUrl;
@@ -53,20 +52,55 @@ export default function CertificateModal({
   };
 
   const handleShare = async () => {
-    if (cardRef.current === null) {
-      return;
-    }
+    const node = cardRef.current;
+    if (!node) return;
+
     try {
-      const dataUrl = await toPng(cardRef.current!, { cacheBust: true });
-      const blob = await (await fetch(dataUrl)).blob();
-      await navigator.clipboard.write([
-        new ClipboardItem({
-          'image/png': blob,
-        }),
-      ]);
-      showToast('인증서가 클립보드에 복사되었습니다.', 'success');
+      const dataUrl = await toPng(node, { cacheBust: true });
+      const res = await fetch(dataUrl);
+      const blob = await res.blob();
+
+      // 1) 파일 공유(Web Share API Level 2) 먼저 시도
+      const file = new File([blob], 'certificate.png', { type: 'image/png' });
+      const canShareFiles =
+        typeof navigator.share === 'function' &&
+        'canShare' in navigator &&
+        (
+          navigator as { canShare?: (data: { files: File[] }) => boolean }
+        ).canShare?.({ files: [file] });
+
+      if (canShareFiles) {
+        await navigator.share({ files: [file], title: '봉사 인증서' });
+        showToast('공유가 완료되었습니다.', 'success');
+        return;
+      }
+
+      // 2) Clipboard API 기능 탐지 + HTTPS 보안 컨텍스트 확인
+      const canWriteClipboard =
+        window.isSecureContext &&
+        navigator.clipboard &&
+        typeof navigator.clipboard.write === 'function';
+
+      // 일부 브라우저에선 ClipboardItem 생성자가 window에만 존재
+      const ClipboardItemCtor = (
+        window as { ClipboardItem?: typeof ClipboardItem }
+      ).ClipboardItem;
+
+      if (canWriteClipboard && typeof ClipboardItemCtor === 'function') {
+        await navigator.clipboard.write([
+          new ClipboardItemCtor({ 'image/png': blob }),
+        ]);
+        showToast('인증서가 클립보드에 복사되었습니다.', 'success');
+        return;
+      }
+
+      const link = document.createElement('a');
+      link.download = 'certificate.png';
+      link.href = dataUrl;
+      link.click();
+      showToast('클립보드를 지원하지 않는 환경입니다. 이미지를 저장했습니다.');
     } catch {
-      showToast('이미지 복사에 실패했습니다.', 'error');
+      showToast('이미지 공유/복사에 실패했습니다.', 'error');
     }
   };
 
