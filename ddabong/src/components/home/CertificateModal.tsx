@@ -6,6 +6,8 @@ import { cn } from '@/lib/utils';
 import Txt from '@/components/atoms/Text';
 import Button from '../atoms/Button';
 import { getCertificateStyle } from './CertificateCard';
+import { toPng } from 'html-to-image';
+import { useRef } from 'react';
 
 const ICON_SRC = '/icons/ic_logoStar.svg';
 const HANA_SRC = '/icons/ic_hanabank.svg';
@@ -27,17 +29,59 @@ export default function CertificateModal({
   totalHours,
 }: ModalProps) {
   const { showToast } = useToast();
+  const cardRef = useRef<HTMLDivElement>(null);
+
   if (!open) return null;
 
   const { bgColor, borderColor } = getCertificateStyle(totalHours);
-  const handleShare = () => {
-    //TODO: 공유 기능 구현
-    showToast('링크가 복사되었습니다.', 'success');
+
+  const handleSave = async () => {
+    if (cardRef.current === null) {
+      return;
+    }
+
+    try {
+      const dataUrl = await toPng(cardRef.current, { cacheBust: true });
+      const link = document.createElement('a');
+      link.download = 'certificate.png';
+      link.href = dataUrl;
+      link.click();
+      showToast('저장이 완료되었습니다.', 'success');
+    } catch (err) {
+      showToast('저장에 실패했습니다.', 'error');
+    }
   };
 
-  const handleSave = () => {
-    //TODO: 이미지 저장 기능 구현
-    showToast('저장이 완료되었습니다.', 'success');
+  const handleShare = async () => {
+    if (cardRef.current === null) {
+      return;
+    }
+    try {
+      const blob = await toPng(cardRef.current, { cacheBust: true });
+      const file = new File([blob], 'certificate.png', { type: 'image/png' });
+
+      if (navigator.share && navigator.canShare({ files: [file] })) {
+        await navigator.share({
+          files: [file],
+          title: '인증서 공유',
+          text: `${userName}님의 ${totalHours}시간 봉사 인증서`,
+        });
+        showToast('공유가 완료되었습니다.', 'success');
+      } else {
+        // For browsers that don't support web share api
+        await navigator.clipboard.write([
+          new ClipboardItem({
+            'image/png': new Promise(async (resolve) => {
+              const blob = await toPng(cardRef.current, { cacheBust: true });
+              resolve(new Blob([blob], { type: 'image/png' }));
+            }),
+          }),
+        ]);
+        showToast('인증서가 클립보드에 복사되었습니다.', 'success');
+      }
+    } catch (error) {
+      showToast('공유에 실패했습니다.', 'error');
+    }
   };
 
   return (
@@ -47,6 +91,7 @@ export default function CertificateModal({
     >
       <div onClick={(e) => e.stopPropagation()}>
         <div
+          ref={cardRef}
           className={cn(
             bgColor,
             borderColor,
