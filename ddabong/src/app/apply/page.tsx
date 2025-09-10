@@ -76,7 +76,7 @@ export default function ApplyPage() {
   });
 
   return (
-    <main className='bg-page-gradient'>
+    <main className='bg-page-gradient pt-5'>
       <TopBar title='' bgColor='bg-page-background' />
       <div className='flex flex-col gap-5 px-4'>
         <VolunteerHeader />
